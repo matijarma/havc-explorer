@@ -490,11 +490,14 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
 /* ─── Virtualized list ────────────────────────────────────────────── */
 .list-wrap {
   flex: 1; min-height: 0;
+  display: flex;
+  flex-direction: column;
   position: relative;
   overflow: hidden;
 }
 .list {
-  position: absolute; inset: 0;
+  flex: 1; min-height: 0;
+  position: relative;
   overflow-y: auto; overflow-x: hidden;
 }
 .list-spacer { position: relative; }
@@ -559,7 +562,7 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
 .group {
   position: absolute; left: 0; right: 0;
   display: grid;
-  grid-template-columns: 56px minmax(180px, 2.5fr) 110px 110px 100px;
+  grid-template-columns: 56px minmax(180px, 2.5fr) 110px 110px 100px 100px;
   align-items: center;
   padding: 0 24px;
   border-bottom: 1px solid var(--rule);
@@ -574,6 +577,10 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
 .group .col.subtotal {
   font-family: 'JetBrains Mono', monospace; font-size: 13px;
   text-align: right; color: var(--paper);
+}
+.group .col.avg {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  text-align: right; color: var(--paper-dim);
 }
 .group .col.count {
   font-family: 'JetBrains Mono', monospace; font-size: 10px;
@@ -1056,6 +1063,101 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
 }
 
 /* ─── Responsive ──────────────────────────────────────────────────── */
+/* ─── Sortable column-header row above the virtualized list ───────── */
+.list-header-wrap {
+  border-bottom: 1px solid var(--rule);
+  background: var(--ink);
+  flex-shrink: 0;
+}
+.list-header {
+  display: grid;
+  align-items: center;
+  height: 36px;
+  padding: 0 24px;
+}
+.list-header.row-grid {
+  grid-template-columns: 56px minmax(180px, 2.5fr) minmax(140px, 1.5fr) 70px 110px;
+}
+.list-header.group-grid {
+  grid-template-columns: 56px minmax(180px, 2.5fr) 110px 110px 100px 100px;
+}
+.list-header .col {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: default;
+  min-width: 0;
+}
+.list-header .col.amount,
+.list-header .col.subtotal,
+.list-header .col.avg,
+.list-header .col.count,
+.list-header .col.year {
+  justify-content: flex-end;
+  text-align: right;
+}
+.list-header button.col {
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+.list-header button.col:hover { color: var(--paper); }
+.list-header button.col:focus-visible {
+  outline: 1px solid var(--rule);
+  outline-offset: 2px;
+}
+.list-header button.col.is-active { color: var(--red); }
+.list-header .header-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.list-header .sort-arrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0;
+  width: 10px;
+  display: inline-block;
+  text-align: center;
+}
+
+/* ─── Year pills (single-select year filter row) ──────────────────── */
+.year-pills {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px;
+  border-bottom: 1px solid var(--rule);
+  flex-shrink: 0;
+}
+.year-pills-kicker {
+  flex-shrink: 0;
+}
+.year-pills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+.year-pill {
+  padding: 4px 10px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.year-pill.year-pill-all {
+  font-weight: 700;
+}
+.year-pill.active {
+  background: var(--red);
+  color: var(--paper);
+  border-color: var(--red);
+}
+.year-pill.active:hover { border-color: var(--red); }
+
 @media (max-width: 900px) {
   .workspace { grid-template-columns: 1fr; }
   .filter-rail {
@@ -1064,7 +1166,11 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
     max-height: 40vh;
   }
   .row { grid-template-columns: 40px 1.5fr 1fr 60px 90px; padding: 0 14px; }
-  .group { grid-template-columns: 40px 1.5fr 90px 80px 80px; padding: 0 14px; }
+  .group { grid-template-columns: 40px 1.5fr 80px 80px 70px 70px; padding: 0 14px; }
+  .list-header { padding: 0 14px; }
+  .list-header.row-grid { grid-template-columns: 40px 1.5fr 1fr 60px 90px; }
+  .list-header.group-grid { grid-template-columns: 40px 1.5fr 80px 80px 70px 70px; }
+  .year-pills { padding: 8px 14px; gap: 8px; flex-wrap: wrap; }
   .detail, .project-profile { padding: 14px 18px 20px; }
   .pf-hero { grid-template-columns: 1fr; }
   .pf-actions { grid-column: 1; grid-row: auto; }
