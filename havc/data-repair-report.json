@@ -1,0 +1,221 @@
+{
+  "records": 989,
+  "local_pdf_files": 999,
+  "hash_entries": 997,
+  "ambiguous_hashes": 3,
+  "stats": {
+    "local_by_hash": 989,
+    "source_url_set": 838,
+    "filename_updated": 59,
+    "filename_decoded_updated": 296
+  },
+  "url_match_mode": {
+    "exact": 730,
+    "fold": 105,
+    "lower": 3
+  },
+  "missing_local_count": 0,
+  "missing_url_count": 151,
+  "missing_url_sample": [
+    {
+      "idx": 18,
+      "filename": "ODLUKA%20AV%20VIJECA_6%20autobus_27112020.pdf"
+    },
+    {
+      "idx": 19,
+      "filename": "Hrvatski%20filmovi%20Animafesta%202021_OBJAVA%20ZA%20MEDIJE.pdf"
+    },
+    {
+      "idx": 26,
+      "filename": "odluka%20av%20vijeca_05092014_debitantski_igrani.pdf"
+    },
+    {
+      "idx": 30,
+      "filename": "ODLUKA%20AV%20VIJECA_naknada%20za%20umjetnicke%20savjetnike%20_komplementarne%20djelatnosti_14102020_Anita.pdf"
+    },
+    {
+      "idx": 31,
+      "filename": "30_AV_proizvodnja_%E2%80%93%20kratkometra%C5%BEni%20igrani%20film-%201.%20ROK%20-%2007.%20travnja%202020..pdf"
+    },
+    {
+      "idx": 50,
+      "filename": "Obrazlozenja%20%C5%BEirija%2020.%20Liburnia%20Film%20Festivala.docx.pdf"
+    },
+    {
+      "idx": 52,
+      "filename": "ODLUKA%20AV%20VIJECA_17092014-suradnja%20s%20Eurochannel(1).pdf"
+    },
+    {
+      "idx": 61,
+      "filename": "odluka%20vijeca_razvoj%20proj%202504.pdf"
+    },
+    {
+      "idx": 62,
+      "filename": "Dodatak%201-kvalifikacijski%20test.pdf"
+    },
+    {
+      "idx": 73,
+      "filename": "FESTIVALI_I%20KAT_DUGI_2014_web.pdf"
+    },
+    {
+      "idx": 75,
+      "filename": "odluka%20vijeca_razv%20scen%20anim.pdf"
+    },
+    {
+      "idx": 87,
+      "filename": "Obavijest%20o%20ishodu%20natjecajnog%20postupka%202022.pdf"
+    },
+    {
+      "idx": 90,
+      "filename": "Pravilnik%20o%20poticanju%20ulaganja%20u%20proizvodnju%20audiovizualnih%20djela%20(NN%2086_12).pdf"
+    },
+    {
+      "idx": 93,
+      "filename": "Zakon%20o%20izmjenama%20i%20dopunama%20Zakona%20o%20audiovizualnim%20djelatnostima_23102024.pdf"
+    },
+    {
+      "idx": 96,
+      "filename": "ODLUKA%20AV%20VIJECA_Oscar_04022021_ad.pdf"
+    },
+    {
+      "idx": 99,
+      "filename": "ODLUKA%20AV%20VIJECA_10072014_molba_Trigon.pdf"
+    },
+    {
+      "idx": 101,
+      "filename": "ODLUKA%20AV%20VIJECA_06032015_molba_Menorah.pdf"
+    },
+    {
+      "idx": 105,
+      "filename": "odluka_dugi_dok_26092014.pdf"
+    },
+    {
+      "idx": 107,
+      "filename": "nagrada_zlatni_oktavijan_za2023.pdf"
+    },
+    {
+      "idx": 115,
+      "filename": "Natjec%CC%8Caj%20za%20radno%20mjesto%20-vis%CC%8Ci%20struc%CC%8Cni%20savjetnik%20Filming-za%20slanje.pdf"
+    },
+    {
+      "idx": 133,
+      "filename": "Talents%20Sarajevo%2028thSFF%20selekcija.pdf"
+    },
+    {
+      "idx": 137,
+      "filename": "2013 Razvoj scenarija TV pojedina_na djela.pdf"
+    },
+    {
+      "idx": 140,
+      "filename": "Sudjelovanje%20u%20savjetovanju%20o%20Nacrtu%20pravilnika%202023%20-%20Ante%20Bibic.pdf"
+    },
+    {
+      "idx": 148,
+      "filename": "25.%20sjednica%20javni%20pozivi%202023-%20sredstva%20%20.pdf"
+    },
+    {
+      "idx": 150,
+      "filename": "ODLUKA%20AV%20VIJECA_22122015_molba_%C5%BDiva.pdf"
+    },
+    {
+      "idx": 155,
+      "filename": "Odluka%20AV_Sporazum%20_HFS_25102021_dr.pdf"
+    },
+    {
+      "idx": 156,
+      "filename": "Pravilnik_o_kategorizaciji_AV_djela_.pdf"
+    },
+    {
+      "idx": 159,
+      "filename": "tekst%20za%20objavu_savjetovanje%202018%20final.pdf"
+    },
+    {
+      "idx": 161,
+      "filename": "RE-ACT_projekti_2021.pdf"
+    },
+    {
+      "idx": 166,
+      "filename": "Revija%20UMAS%202023%20-%20Filmovi%20%28002%29.pdf"
+    },
+    {
+      "idx": 184,
+      "filename": "odluka%20vijeca_razv%20scen%202504.pdf"
+    },
+    {
+      "idx": 186,
+      "filename": "NATJECAJ_za_ravnatelja_Hrvatski%20audiovizualni%20centar_2023.pdf"
+    },
+    {
+      "idx": 208,
+      "filename": "Poticanje_koprodukcija_s_manjinskim_udjelom_rok_19_07_2013.pdf"
+    },
+    {
+      "idx": 216,
+      "filename": "30_%20AV_-%20Ostavi%20vrata%20otvorena_15072020_DR.pdf"
+    },
+    {
+      "idx": 220,
+      "filename": "preba_eno u razvoj projekta dugi igrani .pdf"
+    },
+    {
+      "idx": 221,
+      "filename": "BFM_Albascript%20PLUS-2017.pdf"
+    },
+    {
+      "idx": 231,
+      "filename": "Plan%20regulacije%20prometa.pdf"
+    },
+    {
+      "idx": 249,
+      "filename": "OBVEZNICI-1.pdf"
+    },
+    {
+      "idx": 250,
+      "filename": "najava_FILMSKE%20MUTACIJE%20festival%20nevidljivog%20filma%20XV%20hr.pdf"
+    },
+    {
+      "idx": 255,
+      "filename": "ODLUKA%20AV%20VIJECA_01122014_molba_Sarenac.pdf"
+    },
+    {
+      "idx": 258,
+      "filename": "Program%20drzavne%20potpore_HAVC_2015.pdf"
+    },
+    {
+      "idx": 284,
+      "filename": "Pravilnik%20za%20provedbu%20nacionalnog%20programa.pdf"
+    },
+    {
+      "idx": 288,
+      "filename": "Odluka%20AV_pojedinacno%20glasanje%20o%20listi_RP%20dugi%20igrani%20film_14122020_ad.pdf"
+    },
+    {
+      "idx": 289,
+      "filename": "Odluka%20AV_-%20Sjene%20u%20mraku_09092020_DR.pdf"
+    },
+    {
+      "idx": 290,
+      "filename": "web%20kratki%20animirani%20obrazloz%CC%8Cenje%20proizvodnja.pdf"
+    },
+    {
+      "idx": 297,
+      "filename": "ODLUKA%20AV%20VIJECA_umjetn.%20savj.%20dugometrazni_06032015.pdf"
+    },
+    {
+      "idx": 304,
+      "filename": "Odluka%20AV%20Vije%C4%87e%20aneks%20Inflacija.pdf"
+    },
+    {
+      "idx": 308,
+      "filename": "PLAN%20NABAVE%202020..pdf"
+    },
+    {
+      "idx": 321,
+      "filename": "21122023-Godi%C5%A1nji%20plan%20provedbe%20Nacionalnog%20programa%20za%202024.%20godinu%20-%20usvojeno.pdf"
+    },
+    {
+      "idx": 324,
+      "filename": "Obavijest%20o%20ishodu%20natjecajnog%20postupka_filming_2023.pdf"
+    }
+  ]
+}
