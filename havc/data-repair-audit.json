@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-17T19:44:01Z",
-  "input_path": "D:\\scratch\\havc\\dash\\havc\\data.backup.20260517T194252Z.json",
+  "generated_at": "2026-05-17T20:03:36Z",
+  "input_path": "D:\\scratch\\havc\\dash\\havc\\data.backup.20260517T200251Z.json",
   "backup_path": null,
   "pre_metrics": {
     "results_docs": 542,
@@ -19,22 +19,24 @@
     "title_mojibake_rows": 0
   },
   "pre_category_distribution": {
-    "Dugometražni": 95,
-    "Dugometr. · koprod.": 20,
-    "Kratkometražni": 31,
-    "Dokumentarni": 54,
-    "Dok. · koprod.": 0,
-    "Kratki dok.": 26,
-    "Animirani": 27,
-    "Eksperimentalni": 44,
-    "TV": 39,
-    "Serija": 2,
-    "Ostalo": 10050
+    "Dugometražni igrani film": 880,
+    "Dugometražni igrani film · koprod.": 151,
+    "Kratkometražni igrani film": 202,
+    "Kratkometražni igrani film · koprod.": 0,
+    "Dokumentarni": 660,
+    "Dok. · koprod.": 5,
+    "Kratki dok.": 113,
+    "Animirani": 474,
+    "Eksperimentalni": 157,
+    "TV": 481,
+    "Serija": 4,
+    "Ostalo": 7261
   },
   "post_category_distribution": {
-    "Dugometražni": 880,
-    "Dugometr. · koprod.": 151,
-    "Kratkometražni": 202,
+    "Dugometražni igrani film": 880,
+    "Dugometražni igrani film · koprod.": 151,
+    "Kratkometražni igrani film": 202,
+    "Kratkometražni igrani film · koprod.": 0,
     "Dokumentarni": 660,
     "Dok. · koprod.": 5,
     "Kratki dok.": 113,
@@ -46,28 +48,21 @@
   },
   "docs_total": 989,
   "docs_results_total": 542,
-  "docs_changed": 390,
+  "docs_changed": 211,
   "docs_doc_type_changed": 0,
   "docs_program_changed": 0,
   "rows_total": 10388,
-  "rows_changed": 3192,
+  "rows_changed": 1233,
   "rows_amount_fixed": 0,
   "rows_currency_fixed": 0,
   "rows_artifact_nulled": 0,
   "rows_title_fixed": 0,
   "rows_applicant_backfilled": 0,
-  "rows_category_fixed": 3192,
+  "rows_category_fixed": 1233,
   "rows_category_target_unresolved": 433,
   "rows_flagged_review": 0,
   "rows_category_rule_counts": {
-    "category_from_section_label": 1377,
-    "category_from_inline_header_context": 574,
-    "category_from_existing_row_value": 338,
-    "category_from_doc_single_signal": 707,
-    "category_from_unique_extras_signal": 53,
-    "category_from_extras_kategorija_filma": 78,
-    "category_non_target_default_ostalo": 64,
-    "category_default_ostalo": 1
+    "category_from_existing_row_value": 1233
   },
   "rows_category_unresolved_by_source": {
     "Jp_za_distribuciju_3_rok.pdf": 1,
@@ -133,16 +128,6 @@
       "changes": []
     },
     {
-      "source": "RSC_2025_2rok_10IX2025_DUG_DOK_WEB.pdf",
-      "sha256": "05f66b422975f7b7b3e0548b43c7607831f2f508cd4d206dd208761ee6efc2d1",
-      "changes": []
-    },
-    {
-      "source": "RSC_2022_1rok_14III2022_DUG_DOK_WEB.pdf",
-      "sha256": "07251a74da64df6b7a370f732b441353c2c2d179ec5e538d19b0b63ffc06b635",
-      "changes": []
-    },
-    {
       "source": "Manjinske 2025 - 2. rok.pdf",
       "sha256": "073417f222036b02e62a3b950bd95bd008670212bded791548e2979d531c8c6f",
       "changes": []
@@ -150,21 +135,6 @@
     {
       "source": "rezultati av manjinske 2024. - 3. rok.pdf",
       "sha256": "076131cb1e602d877a26f5bce7e542ce2e392f8f3c1b92b7a70c8ece670de1fb",
-      "changes": []
-    },
-    {
-      "source": "web%20eksperimentalni%20film%202%20rok%202023.pdf",
-      "sha256": "0776061ba9bdb6aa2ae448cf990582f9403106afe86ffde5a17c12336099294a",
-      "changes": []
-    },
-    {
-      "source": "RSC_2018_1rok_DOK_WEB.pdf",
-      "sha256": "07aeada931bda0517e6ccb051837f52168e3652fbb28d8d7e91e7572d447bc32",
-      "changes": []
-    },
-    {
-      "source": "Razvoj%20projekta%20-%20animirani%20film%20(6.11.).pdf",
-      "sha256": "081eaf1a65615ff7dbd5894ca2a958da25c9abf5cf5f2012709c8d59ae4bf3ae",
       "changes": []
     },
     {
@@ -193,18 +163,8 @@
       "changes": []
     },
     {
-      "source": "RPRSERTV_2021_2rok_9IX2021_WEB.pdf",
-      "sha256": "0ab60abd5975c7cd7a64cf7d45a869dc272593fc2dfdcee68709e42a68a3ac39",
-      "changes": []
-    },
-    {
       "source": "RPR_2020_2rok_14IX2020_WEB_DUG_IGR.pdf",
       "sha256": "0ab80e1d442b2faf1ba68cc62a01152068a05b205d8f65e6515387dd808c9bb4",
-      "changes": []
-    },
-    {
-      "source": "JP%20razvoj%20projekata%20ANIMIRANI%201rok_2015.pdf",
-      "sha256": "0b5c75e794b0a19db0832ed191608c1e5e3323a9f5c2d6ca4547d93a181c74a4",
       "changes": []
     },
     {
@@ -243,33 +203,13 @@
       "changes": []
     },
     {
-      "source": "web%20PROIZVODNJA%20DUGI%20DOKUMENTARNI_1_ROK_2022.pdf",
-      "sha256": "0e7b9099b0e001bd9d9b46c6d880266fe28178345614c6898498e579edd658d6",
-      "changes": []
-    },
-    {
-      "source": "RPR_WEB_2016_2rok_ANIM_11072016.pdf",
-      "sha256": "0f149315003daa42c01e5e840052815cdaa77b3d6d4f8887c7494e310b10fb0d",
-      "changes": []
-    },
-    {
       "source": "web%20rezultati%20av%20RSC_2024_1rok_13III2024_DUG_IGR.pdf",
       "sha256": "10b9866641b13519a271da89e7c642ae2a20aa75dc8b5f25c131a45c23786852",
       "changes": []
     },
     {
-      "source": "RPR_2020_2rok_14IX2020_WEB_DUG_DOK.pdf",
-      "sha256": "137173bebb3f4ea9e8444ac01823ab2ccd7980000bd488e87a22e6235a6c3b8d",
-      "changes": []
-    },
-    {
       "source": "RPR_2019__1rok_19VI2019_WEB_DUG_IGR.pdf",
       "sha256": "149666272832be0ed12b6309c242927af3922cd7bc600b3beb34b93873850c43",
-      "changes": []
-    },
-    {
-      "source": "2014 Proizvodnja AV djela ANIM_ rok 28 03 2014_1_.pdf",
-      "sha256": "14f05313978ca5ca629eb8b916b63b5043bd67770174002384902860e4b67868",
       "changes": []
     },
     {
@@ -288,21 +228,6 @@
       "changes": []
     },
     {
-      "source": "RPR_2020_2rok_14IX2020_WEB_ANIMIRANI.pdf",
-      "sha256": "16cdc7e433b9d132336bd189e3dc07db23cd422481e62787058730d47d31a457",
-      "changes": []
-    },
-    {
-      "source": "RSCSERTV_2021_2rok_9IX2021_WEB.pdf",
-      "sha256": "17ee5b47977ae61108bcc0635176cdc2d93d7a3563ab9386a9aa25bb4b74afef",
-      "changes": []
-    },
-    {
-      "source": "2013%20Me%C4%91unarodna%20suradnja,%2025%2008%202013.pdf",
-      "sha256": "1aade2ecab4cf60adceef5fbc64ef7226710c737e90ecbf401468a15a0d5439c",
-      "changes": []
-    },
-    {
       "source": "rezultati mikroproracunski 2021.pdf",
       "sha256": "1b0001c142df5b41d1f5d65321055cf166cc89e13490886f6afcbbc154243f18",
       "changes": []
@@ -318,43 +243,13 @@
       "changes": []
     },
     {
-      "source": "2012 Proizvodnja.pdf",
-      "sha256": "1d21dc8e47c66659bd236a304fc97715410bd7ba9ec410daf6b38b5a3e191081",
-      "changes": []
-    },
-    {
-      "source": "RPR_2017_1_rok_10IV2017_WEB_ANIMIRANI.pdf",
-      "sha256": "1d6018b2ac0270c079cf27c1bb412d5a55abec5075937908e1280db1fadf0d0d",
-      "changes": []
-    },
-    {
-      "source": "JP_razvoj_scenarija_WEB_ANIMIRANI_2014_3.rok.pdf",
-      "sha256": "1e12c3606c308856a4b8fa38a349c383ea8c5437a29d0d418158241b5dd2cd6b",
-      "changes": []
-    },
-    {
       "source": "RSC_2023_1rok_14III2023_DUG_IGR_WEB.pdf",
       "sha256": "1f003de761450f65a8e6fbab3db04303adb4ed901c27792d38851ed9b9a34abb",
       "changes": []
     },
     {
-      "source": "rezultati ANIMIRANI 1 rok 2018.pdf",
-      "sha256": "1f277ba1b6fc4a1b5b0eb7f6da827fa5fe1d1a3f9c9de9d8cef1be5a0af827bf",
-      "changes": []
-    },
-    {
       "source": "RPR_WEB_DUG_IGR_2016_3rok_17102016.pdf",
       "sha256": "1fa8041b6fe69a3f32bbcda49de0e97aac6895f4150098db1511ea2b172e269f",
-      "changes": []
-    },
-    {
-      "source": "RSC_2022_2rok_14IX2022_WEB_DUG_DOK.pdf",
-      "sha256": "20382844de8fb6ab14d14a518564031cb766a4cac7d0f789e3b280da9083ed26",
-      "changes": []
-    },
-    {
-      "source": "RPR_2023_2rok_29IX2023_ANIMIRANI_WEB.pdf",
-      "sha256": "2062301cd6f4163d1fcbeccdaa741c05f2adf1f18a3f5b9cf079c35df9410eb6",
       "changes": []
     },
     {
@@ -368,23 +263,8 @@
       "changes": []
     },
     {
-      "source": "2013 Razvoj scenarija TV pojedina_na djela.pdf",
-      "sha256": "230571541e54b73bef8fa8ca26fc03762d913ab81cac788b4c85e5b9f4fbf8f4",
-      "changes": []
-    },
-    {
       "source": "RPR_2024_1rok_13III2024_DUG_IGR_WEB.pdf",
       "sha256": "237dc95fcdf2051afbcea639288fd00d35d3bbfe9113c88be513c66f4d85ff65",
-      "changes": []
-    },
-    {
-      "source": "web AV JP PR FILM u 2024. - 2. rok - EKSPERIMENTALNI.pdf",
-      "sha256": "24bc26ee04b9d7a4464fcdc01c26c2b56472be65874e4ead3231349321671379",
-      "changes": []
-    },
-    {
-      "source": "RPR_WEB_ANIMIRANI_2016_3rok_17102016.pdf",
-      "sha256": "24de31ca76bcd575ff1ac2d4f12df2a104161c9e32aa448b5c0c0246b79d00bd",
       "changes": []
     },
     {
@@ -395,11 +275,6 @@
     {
       "source": "rezultati%20manjinske%201%20rok%202020.pdf",
       "sha256": "25512d929338a66d6d843d8eff96a34ea14a7219d35ae1fb0f3a5352d76f79b2",
-      "changes": []
-    },
-    {
-      "source": "RPRTV SER_WEB.pdf",
-      "sha256": "27194daaad0bb670cc07242f01f416697ed71cf6d0b89f1f604e89f4179ccf63",
       "changes": []
     },
     {
@@ -433,11 +308,6 @@
       "changes": []
     },
     {
-      "source": "RPR_2018_3rok_11X2018_ANIMIRANI_WEB.pdf",
-      "sha256": "2c56f709c43481a7352761a94cc1980189a890717497e8ae247a24640f27ea9f",
-      "changes": []
-    },
-    {
       "source": "2011 Razvoj scenarija AV djela.pdf",
       "sha256": "2e1a7e9a018c40ac758cc49ca8e5bbf4681211febc03c0aec491be7de98144e2",
       "changes": []
@@ -445,11 +315,6 @@
     {
       "source": "kratki%20igrani_eksperimentalni_rezultati%20AV_PROIZVODNJA%202%20ROK%202022.pdf",
       "sha256": "2e9d9def4706294f7d6d3891a5967b5875f398767413564c2b0eaf285eae5d37",
-      "changes": []
-    },
-    {
-      "source": "RPR_2017_WEB_ANIMIRANI_2rok_10VII2017_novo.pdf",
-      "sha256": "2ece29a444f5b83f56b7e4011da815b97f93c58cea31f20657167fbf1c8c222a",
       "changes": []
     },
     {
@@ -463,23 +328,8 @@
       "changes": []
     },
     {
-      "source": "RSC_2025_1rok_12III2025_ANIMIRANI_WEB.pdf",
-      "sha256": "30e498c54b8d29b5113194f8c2e8949df844d151c6e013d2048f74120f89201c",
-      "changes": []
-    },
-    {
       "source": "2009%20Proizvodnja.pdf",
       "sha256": "3112d6ff9f85dd831b83f629bae2af92e778fb4ef1072fc76dec35c506373fc0",
-      "changes": []
-    },
-    {
-      "source": "RSC_2015_3rok_DUG_DOK.pdf",
-      "sha256": "31494c7b7d46ee94cc5df2e02a6abde3ac28bfafc29627172d795501d0ec0773",
-      "changes": []
-    },
-    {
-      "source": "JP razvoj projekata_dugi_dokumentarni_2rok 2015.pdf",
-      "sha256": "31671305c32f579a443d96641678adc9bb24815511a6468e540d86a6b86a62e5",
       "changes": []
     },
     {
@@ -503,11 +353,6 @@
       "changes": []
     },
     {
-      "source": "JP_razvoj_scenarija_DUG_DOK_3.rok_2014.pdf",
-      "sha256": "3408dd3c0c483e75380148d5ccbf8ffdad700f69e740d2c1a5926c47d7bebfd5",
-      "changes": []
-    },
-    {
       "source": "RSC_2018_2rok_DUG_IGR_WEB.pdf",
       "sha256": "34c53daf5d09dddff81ede9e33265d62b1dd44c827c7d73b92b04d7e8b71a04e",
       "changes": []
@@ -528,18 +373,8 @@
       "changes": []
     },
     {
-      "source": "2013 Razvoj scenarija AV djela DOKU TRAVANJ.pdf",
-      "sha256": "35d8b5bded58e1e072cf02fdd4988cb9eb534b69a87cd1ba47f01368c4cccee2",
-      "changes": []
-    },
-    {
       "source": "web AV Manjinske u 2024. - 4. rok.pdf",
       "sha256": "35f4cf5a2da14c48acd9138027d2d9d65560012737643f55fbfdc9ecfe228829",
-      "changes": []
-    },
-    {
-      "source": "rezultati EKSPERIMENTALNI 1 rok 2018.pdf",
-      "sha256": "3623bbba70075febc4f7a95a2c7783d0190b6071e5a3aea20b936de837615064",
       "changes": []
     },
     {
@@ -548,38 +383,13 @@
       "changes": []
     },
     {
-      "source": "final_RPR TV SERIJSKA 2015.pdf",
-      "sha256": "3631797f7f6a254d5aa9385c9d18806ecba63eab53e2f2d51a76c0251d6fa8e5",
-      "changes": []
-    },
-    {
-      "source": "RSC_2021_1rok_11III2021_WEB_ANIMIRANI_1_.pdf",
-      "sha256": "36528af89a930f13d90ee1780e1a691733f0bdb5acb11e71eb3ce1362705181a",
-      "changes": []
-    },
-    {
       "source": "preba_eno u razvoj projekta dugi igrani .pdf",
       "sha256": "36c0aba52ed0dfaa60a6c93c1b98bf1cd776c25fec5973f8ad9372b33cb6beca",
       "changes": []
     },
     {
-      "source": "RPR_WEB_2016_2rok_DUG_DOK_11072016.pdf",
-      "sha256": "375bf22e31624c17866be1aa5a37932cea8e6ad978b2540b00cecf9ecd5bc625",
-      "changes": []
-    },
-    {
-      "source": "razvoj scenarija pojedinacna tv djela 2014.pdf",
-      "sha256": "377bb6c5d0128b5857e30878087d8255f3c64899956bf32256686708831ca577",
-      "changes": []
-    },
-    {
       "source": "REZULTATI%20%20JP%20manjinske%202022-1.%20rok.pdf",
       "sha256": "37b30b9899d5738f465711e35d1bfa903a753798b6565ad86ef4b5bc8b5672a6",
-      "changes": []
-    },
-    {
-      "source": "RPRSERTV_2021_1rok_10III2021_WEB.pdf",
-      "sha256": "38c9d1ecba0eb521f4d462cfbcdbed375925d8c58d9899bf3ef9e1a47ba5feea",
       "changes": []
     },
     {
@@ -618,11 +428,6 @@
       "changes": []
     },
     {
-      "source": "RSC_2025_1rok_12III2025_DUG_DOK_WEB.pdf",
-      "sha256": "3c6a7da12281d968e69c85bb4bf907fea48d75e33e8693fc92a336be124375fe",
-      "changes": []
-    },
-    {
       "source": "PROIZVODNJA%202025-1.%20ROK-eksperimentalni%20i%20kratki%20igrani.pdf",
       "sha256": "3c88fd1f1988e9df02649e237413f1e1560bc032cf6d547724cbe1f096c9b90a",
       "changes": []
@@ -633,18 +438,8 @@
       "changes": []
     },
     {
-      "source": "RSCTV_2025_2rok_9IX2025_WEB.pdf",
-      "sha256": "3d0786f6c42df490b9105ed7a50fd339a05600f9db991b0dc214b88f7aa994b5",
-      "changes": []
-    },
-    {
       "source": "REZULTATI PROIZVODNJA- 2. ROK 2023.pdf",
       "sha256": "3d0e2d9596c408567e133a078758d057421093e16a927143ca92e5f65a6d5f93",
-      "changes": []
-    },
-    {
-      "source": "JP razvoj projekata WEB 2014. - 2. rok DUG DOK_02.pdf",
-      "sha256": "3e2fb89637694df19a971e2da4a63fc53c824db9aa9d11c1657bbac56a4eabce",
       "changes": []
     },
     {
@@ -683,31 +478,6 @@
       "changes": []
     },
     {
-      "source": "RPRTV_2020_1rok_2IV2020_WEB.pdf",
-      "sha256": "4d7fde494302e783f81822941102609ae476bd6efcf187e713829d8c0f42e376",
-      "changes": []
-    },
-    {
-      "source": "razvoj scenarija animirani 2. rok 2014..pdf",
-      "sha256": "4dd8d96c6761b8af82ca06107d46e9a99b9a100b52338a9a49840e38692feb35",
-      "changes": []
-    },
-    {
-      "source": "RPR_2018_1rok_DOK_WEB.pdf",
-      "sha256": "4e11490313bf0d3c3cb5c768c44f0b3d3f7d7901c40e1635c6b5fdfe08e3ee3e",
-      "changes": []
-    },
-    {
-      "source": "RPRTV_SER_WEB_2016_18012017.pdf",
-      "sha256": "4f4bf88705443adf1a862477dc79e646da1b804e3397ed8668f08c70c74b4339",
-      "changes": []
-    },
-    {
-      "source": "RSC_2018_3rok_11X2018_ANIMIRANI_WEB.pdf",
-      "sha256": "4f79679bbc3bd8c9532f1f494e2288c8be41354920e2432224f147075c7c356a",
-      "changes": []
-    },
-    {
       "source": "SPECRPR_2025_11IX2025_DUG_IGR_WEB.pdf",
       "sha256": "4f878719d67f56c4eada68e632f1148a428d535177415eacce2e1369b8b3c127",
       "changes": []
@@ -728,33 +498,8 @@
       "changes": []
     },
     {
-      "source": "web AV JP PR FILM u 2024. - 2. rok - DUGI I KRATKI DOKUMENTARNI .pdf",
-      "sha256": "54a487f5411f3ca5227e1cf98d265a6332aafff0e5ac44fac3246d3f0e086098",
-      "changes": []
-    },
-    {
-      "source": "1 rok 2017 animirani i eksperimentalni.pdf",
-      "sha256": "5599dc5962440572b332a4a68c37bb392f87ea66799ecb19d9b0f92cfc5dc9f6",
-      "changes": []
-    },
-    {
-      "source": "RSC_2024_1rok_13III2024_ANIMIRANI_WEB.pdf",
-      "sha256": "566872984f2a7b11b5657c5d6b8e70e7d3a5d58aff0c2c70e09f6f4aa98fd40c",
-      "changes": []
-    },
-    {
-      "source": "2013 Razvoj scenarij AV djela LIPANJ.pdf",
-      "sha256": "584689976c743985d3442a587af3f497237e7e8c0714d4885727c2523a8a0ad2",
-      "changes": []
-    },
-    {
       "source": "web rezultati RSC_2023_2rok_29IX2023_DUG_IGR.pdf",
       "sha256": "587c29b334ba90e739169f3b7b6fad2fbe4238aa5f87fdaf62cbbfd3bd38b798",
-      "changes": []
-    },
-    {
-      "source": "web RPR_2023_2rok_DUG_DOK.pdf",
-      "sha256": "58db4b438953d0a4944c279042040ff7a6b02a666246f9d7c2d1da99ccbfb0f2",
       "changes": []
     },
     {
@@ -765,11 +510,6 @@
     {
       "source": "Proizvodnja%20-%20rezultati%20-%20sve%20kategorije%20(rok%204.11.).pdf",
       "sha256": "5be070e132e7cd1316c17f959b048d874efe47dc522db636780bfe80e862f00f",
-      "changes": []
-    },
-    {
-      "source": "RSC_2020_1rok_6IV2020_WEB_DUG_DOK.pdf",
-      "sha256": "5cd11aa1528ef8d9700b73f851abe4f32852a8c291178f42ab04a50481858fd9",
       "changes": []
     },
     {
@@ -793,33 +533,8 @@
       "changes": []
     },
     {
-      "source": "web%20obrazlozenje%20proizvodnja%20kratki%20dokumentarni%202%20rok%202021.pdf",
-      "sha256": "5fea8cd37ae2119d19aad73a114a4c360497c06bf105c2a41bc28aba3b16985a",
-      "changes": []
-    },
-    {
       "source": "RPR_2015_3rok_DUG_IGR.pdf",
       "sha256": "6112877f7ba5d0bf07ad32223435767ace3141d344aff62e8924ae1d4b99cd7c",
-      "changes": []
-    },
-    {
-      "source": "SPECRSC_2025_11IX2025_ANIMIRANI_WEB.pdf",
-      "sha256": "614c69e57aaf87c671847782a8002c042feb12038fe6a2d411af96497b3ee274",
-      "changes": []
-    },
-    {
-      "source": "RSC_2018_1rok_IGR_WEB.pdf",
-      "sha256": "6197dfb58f72bc580812fb72a10023444cda283b7b50ed18e97318e40c843da1",
-      "changes": []
-    },
-    {
-      "source": "JP razvoj projekata_dugi_dokumentarni_1rok 2015.pdf",
-      "sha256": "64143b6b79885eec05dc9e75f180171156b4077b88b5daf6856aad7cbad5a054",
-      "changes": []
-    },
-    {
-      "source": "Razvoj scenarija - animirani film _6.11._.pdf",
-      "sha256": "6599dd382cec9d0481d5c4f614dc9827a139703b36466986f7119aaa4d0f1c1b",
       "changes": []
     },
     {
@@ -833,16 +548,6 @@
       "changes": []
     },
     {
-      "source": "SPECRPR_2025_11IX2025_ANIMIRANI_WEB.pdf",
-      "sha256": "6cd12a31e69076fe3efee5c30160e350b3122e02cc090b752c1c1c1712b30f6b",
-      "changes": []
-    },
-    {
-      "source": "razv scenarija serijska TV djela2014.pdf",
-      "sha256": "6d7eb2c4515fab44506bb8de82e6c7748981117755a42af3b62545417fd5100e",
-      "changes": []
-    },
-    {
       "source": "2013%20Koprodukcije,%2001%2002%202013.pdf",
       "sha256": "6dbeca329fcd5d4e2b8876ce4b784ce225daa382937879e7127b69e0617ad09f",
       "changes": []
@@ -853,23 +558,8 @@
       "changes": []
     },
     {
-      "source": "web AV JP PR FILM u 2024. - 2. rok - ANIMIRANI.pdf",
-      "sha256": "70451ae332888a14a20ff3a6452e8e2cbf9e7a50c9d0dd0e97801c5e4baf3d38",
-      "changes": []
-    },
-    {
       "source": "WEB%20REZULTATI%20%20Manjinske%202024.%20-%201.%20rok.pdf",
       "sha256": "704b22a7ffd939c2fdf521d435875539ab02e08c611907aaac60e580c02bae85",
-      "changes": []
-    },
-    {
-      "source": "rezultati eksperimentalni filmovi 2. rok 2025.pdf",
-      "sha256": "705de51931d80a693c2d3595e566f7085119fbe8285c1baec0f20d9f56713f38",
-      "changes": []
-    },
-    {
-      "source": "RPRSERTV_2022_WEB_2rok_12IX2022.pdf",
-      "sha256": "71a340ca6ae5b25bdcda04248d895ee59678efe85c1663b5f91e02cb92124ab5",
       "changes": []
     },
     {
@@ -883,23 +573,8 @@
       "changes": []
     },
     {
-      "source": "RPR_2025_2rok_10IX2025_ANIMIRANI_WEB.pdf",
-      "sha256": "73fee3c905712ef209e57ef31c3083ab95ec5401262305762a8d2ec706019807",
-      "changes": []
-    },
-    {
-      "source": "RPRTV_2025_2rok_9IX2025_WEB.pdf",
-      "sha256": "74bf49420f25085b07c0166f3d180a1a5db35485a7158cc16bbc763100ebbb62",
-      "changes": []
-    },
-    {
       "source": "30_%20AV_-%20Po%C4%8Dinje%20bitka_15072020_DR.pdf",
       "sha256": "74dfe2be529f0bc7cd5acfcd42e27058c10e17f5ab29dd2072d75d77624f832c",
-      "changes": []
-    },
-    {
-      "source": "RPR_2024_1rok_13III2024_DUG_DOK_WEB.pdf",
-      "sha256": "75917dafe1b1252cd3cb76c4da6dcd6a4e8497720f024eeb87a8d3b61248d2ac",
       "changes": []
     },
     {
@@ -928,23 +603,8 @@
       "changes": []
     },
     {
-      "source": "RSC_2023_1rok_14III2023_DUG_DOK_WEB_1_.pdf",
-      "sha256": "781d4391c9fca358383db3e28c1495c66eb8ab3b82ca691c60fa8e09f0d6c4ff",
-      "changes": []
-    },
-    {
-      "source": "RPR_2022_1rok_14III2022_ANIMIRANI_WEB.pdf",
-      "sha256": "78d79a4b5fc09e7a946a96c63609410bf13c73ec0f24383f3806bdcf4653b2de",
-      "changes": []
-    },
-    {
       "source": "REZULTATI koprodukcije 2018 2 rok.pdf",
       "sha256": "79672909f90f2f7379766e4523477b885f3c1d2fdeef590345acb8b9b64deb8a",
-      "changes": []
-    },
-    {
-      "source": "RPR_2rok_11IX2024_DUG_DOK_WEB.pdf",
-      "sha256": "799271c886c4d2503e7ad2fdc7fbd2542ef4f04c7ba866221a11e634b0e2da37",
       "changes": []
     },
     {
@@ -963,28 +623,13 @@
       "changes": []
     },
     {
-      "source": "JP razvoj scenarija_dugi_dokumentarni_2rok 2015.pdf",
-      "sha256": "7a5b2483b6a4b2d5ea39314a94125ab1f0accfd62e69217aa91b60317fe53c27",
-      "changes": []
-    },
-    {
       "source": "RPR_2021_1rok_11III2021_WEB_DUG_IGR.pdf",
       "sha256": "7b0d1f029c3173b090b88ce1552042a4a133ff5f56c37e353c316923d3e343aa",
       "changes": []
     },
     {
-      "source": "Razvoj projekta - dokumentarni film _6.11._.pdf",
-      "sha256": "7b9c661ae9bf98156efde0f5fec739de534dd0bfaaf0762b59609b5bcf67a83d",
-      "changes": []
-    },
-    {
       "source": "RPR_2020_1rok_6IV2020_WEB_DUG_IGR.pdf",
       "sha256": "7be5f62de8c8b9ea81b9fd6fc3d142891d334b0c2a7abe49f15a8bb29bb643c3",
-      "changes": []
-    },
-    {
-      "source": "RSCTV__2025_1rok_11III2025_WEB.pdf",
-      "sha256": "7c70d1c4142f294cbf370bb2c07577fd978b9aca6d7d09fd5551e29733183b33",
       "changes": []
     },
     {
@@ -1003,11 +648,6 @@
       "changes": []
     },
     {
-      "source": "AV 2 ROK DOKUMENTARNI -Rezultati.pdf",
-      "sha256": "7e6b995702149fe02e03aa741cfdfc6f666705793795e5b9d681e8800d04c3e4",
-      "changes": []
-    },
-    {
       "source": "Rezultati manjinske koprodukcije 2017. -2. rok.pdf",
       "sha256": "7e7eff170c37e168f82b0cac80804dbf044203a16c6802fdf78a51b5d2c9ec4c",
       "changes": []
@@ -1020,26 +660,6 @@
     {
       "source": "JP_distribucija_2023_2_rok_rezultati.pdf",
       "sha256": "800b73a7c987ea092e11e0b4c925b52185a0152847841f626bafb0324d7f7f47",
-      "changes": []
-    },
-    {
-      "source": "RPRSERTV_2023_2rok_12IX2023_WEB.pdf",
-      "sha256": "802ce2634cec384dc5872c38bf37769c138d81783a3e4d6ae197fa3408911abd",
-      "changes": []
-    },
-    {
-      "source": "eksperimentalni 27032015.pdf",
-      "sha256": "82997dbbc1c2bde8e53d23e9e6f6ebc80deb9ad98772065245d9d24a4bd6aa22",
-      "changes": []
-    },
-    {
-      "source": "final_RSC TV SERIJSKA 2015.pdf",
-      "sha256": "82b95b135a4dd93d5753587aff75c23f7544f5c7a12fab113daad73b942423ad",
-      "changes": []
-    },
-    {
-      "source": "RPR_2021_1rok_11III2021_WEB_ANIMIRANI_1_.pdf",
-      "sha256": "82d4b9d485fb95d1261ebc926b9c68e6c88e2cef0ebd614145efcde2147f3a71",
       "changes": []
     },
     {
@@ -1063,11 +683,6 @@
       "changes": []
     },
     {
-      "source": "RSC_2018_2rok_DUG_DOK_WEB.pdf",
-      "sha256": "857c0ffd316ade3a51f1f06465eb9fc87fca266fbb12e79079a4be50e1c80b20",
-      "changes": []
-    },
-    {
       "source": "2013 Proizvodnja_ IGRANI_ 1. rok.pdf",
       "sha256": "858fcc895dec5c1ac45551f835f60cde6ad43b1111391da522c9c04bd0022c5a",
       "changes": []
@@ -1078,43 +693,8 @@
       "changes": []
     },
     {
-      "source": "WEB%20Obrazlozenje_RPR_DOKUMENTARNI_1rok_14III2022.pdf",
-      "sha256": "85ce7764efc874983eba87910b65f3bcf9387c7556d627275f4d1e5963ac0cf0",
-      "changes": []
-    },
-    {
-      "source": "RSC_2015_3rok_ANIMIRANI.pdf",
-      "sha256": "85da05c1ceb32e82fc0b4a8c092dac9463b896324a82f888ba9a107c06d6f086",
-      "changes": []
-    },
-    {
-      "source": "2013 Razvoj scenarija TV serijska djela.pdf",
-      "sha256": "85efeda5bcb48502c8c00ad93a5d899c930f57b171b05e8688ec60c4261239e5",
-      "changes": []
-    },
-    {
       "source": "web AV JP PR FILM u 2024. - 2. rok - KRATKI IGRANI.pdf",
       "sha256": "868593354c21cf9e53a24128f212a3b55751b05af5855c2cd7fefaf4e57899b2",
-      "changes": []
-    },
-    {
-      "source": "rezultati%20proizvodnja%20dokumentarni%20filmovi%202.rok%202025.pdf",
-      "sha256": "86d75e0bd2e05c2b8ce9c49deeb5df698d9457eea0937e1fe2f9ccc8d9f8c67e",
-      "changes": []
-    },
-    {
-      "source": "RPR_2025_1rok_12III2025_ANIMIRANI_WEB.pdf",
-      "sha256": "86f32198142a5a05e940fc739decb391de0c034f333a8688a42c66d0c8fcc6af",
-      "changes": []
-    },
-    {
-      "source": "RSC_2017_1_rok_10IV2017_WEB_DUG_DOK.pdf",
-      "sha256": "883f72ee60feada53b495917989540bbbedfac89e102e4033fe4de673a879cc5",
-      "changes": []
-    },
-    {
-      "source": "2024-Media Matching za objavu.pdf",
-      "sha256": "886a1d8d6f06e7a3152ae2f7fa332c8ccf75df6d1b489c176fa25c8916c5fecb",
       "changes": []
     },
     {
@@ -1123,23 +703,8 @@
       "changes": []
     },
     {
-      "source": "RPR_2018_3rok_11X2018_DUG_DOK_WEB.pdf",
-      "sha256": "89b080b41f7f7ff64b97b66892b6aba4d5167cb023ceb9c2cb6c6220e5bd3fb4",
-      "changes": []
-    },
-    {
       "source": "RPR_2018_2rok_DUG_IGR_WEB.pdf",
       "sha256": "8a4fd6716df5da0677648b89040055ad4dab28c9c798648311e09c3b5b2f6610",
-      "changes": []
-    },
-    {
-      "source": "rezultati JP PR FILM 2024-1. rok - ANIMIRANI.pdf",
-      "sha256": "8b035ba1c447a43dfb387252469619e64cc13223dac542b30f369f1e0ee8aa78",
-      "changes": []
-    },
-    {
-      "source": "RPRTVSER_2024_1ROK_12III2024_WEB.pdf",
-      "sha256": "8bd6c8978b46b33c9f8328c6ffb5e095707ef217cdc771db7b8d400ec1c024bf",
       "changes": []
     },
     {
@@ -1148,18 +713,8 @@
       "changes": []
     },
     {
-      "source": "RPR_WEB_DUG_DOK_2016_3rok_17102016.pdf",
-      "sha256": "8c593db2a84e5f406cad3888a55b5c04883ea53159f65a614193e9e31836f174",
-      "changes": []
-    },
-    {
       "source": "14032024-MEDIA%20MATCHING%202ROK-rezultati%20za%20objavu.pdf",
       "sha256": "8c9b8218766c8f2d81564a9361bd3b911173e9460fc5157b03e7d158817a7b1b",
-      "changes": []
-    },
-    {
-      "source": "Razvoj%20scenarija%20-%20dokumentarni%20film%20(6.11.).pdf",
-      "sha256": "8d4d4df9fe5951c62fb6c26d3635537fcc50655cbe9b19da32f2ea6c99c0f418",
       "changes": []
     },
     {
@@ -1198,11 +753,6 @@
       "changes": []
     },
     {
-      "source": "WEB%202023%20_3%20KD%20sazetak%20KRATKI%20DOKU.pdf",
-      "sha256": "913ec8a65016d5fed1609c5f577c3175273ddf383d92c51d0c261e415e845df9",
-      "changes": []
-    },
-    {
       "source": "REZULTATI AV 1 ROK 2018 OSIM ANIMIRANOG I EXP.pdf",
       "sha256": "9194fd40488c238ab474b6824811b1b32ea0e07abfb9c8c93bf7f8027985f505",
       "changes": []
@@ -1210,16 +760,6 @@
     {
       "source": "RSC_2015_3rok_DUG_IGR.pdf",
       "sha256": "9213e9b516d6c6fbe4bb8e16349a19f0fe6e476776cb486e4fa69960d08e687d",
-      "changes": []
-    },
-    {
-      "source": "RPR_2023_1rok_14III2023_DOKUMENTARNI_WEB.pdf",
-      "sha256": "92d07892547eb8cbd3357d740d54a8b7cfbba6dc5692ba724c1a941fdeb3c9ca",
-      "changes": []
-    },
-    {
-      "source": "2014 Razvoj scenarija DOKUMENTARNI_ rok 25 04 2014.pdf",
-      "sha256": "945dc173d2b11072a4aa73d785c62af30ce42a2cbeb49b3e3d82057ed450101c",
       "changes": []
     },
     {
@@ -1248,11 +788,6 @@
       "changes": []
     },
     {
-      "source": "RSC_WEB_DUG_DOK_2016_1rok_18042016.pdf",
-      "sha256": "961a2fdac3f25cc8d2c9148f2c216764909ccc2011db06f17698755f3c7493c4",
-      "changes": []
-    },
-    {
       "source": "web MK 1 ROK 2021 rezultati.pdf",
       "sha256": "980366dd60724f25eefae343e0309f1816d6299eddc432b1b6407f1119cbad95",
       "changes": []
@@ -1263,18 +798,8 @@
       "changes": []
     },
     {
-      "source": "RSC_2020_2rok_14IX2020_WEB_DUG_DOK.pdf",
-      "sha256": "9af26875b17b59aa3c236863a594fbccde3c4f2d34a9b75daa45344824683b90",
-      "changes": []
-    },
-    {
       "source": "2012 Koprodukcije_ 01 02 2012.pdf",
       "sha256": "9baf9b553f5869796702b74258d0107462057f2d75be5e0ba99489975502fead",
-      "changes": []
-    },
-    {
-      "source": "RPR_2023_1rok_14III2023_ANIMIRANI_WEB.pdf",
-      "sha256": "9bec22f8b1693487d35b3f275358dc9367272e36b380fb79e64195cbf93224f0",
       "changes": []
     },
     {
@@ -1288,23 +813,8 @@
       "changes": []
     },
     {
-      "source": "RSC_2017_3rok_10X2017_WEB_ANIMIRANI.pdf",
-      "sha256": "9e235191bfea29e000f72e9989a250115a0a688a557b830e7adb97aca3601fc4",
-      "changes": []
-    },
-    {
-      "source": "Rezultati - animirani filmovi - AV 2016. 1. rok.pdf",
-      "sha256": "9e5a52b4d6c1c5ba5f9c7d20bd633333805055765b3a3ef08e03b14e3b474ed0",
-      "changes": []
-    },
-    {
       "source": "REZULTATI MANJINSKE 2 ROK 2021.pdf",
       "sha256": "9f37f7ce10df18a3b2c082c02954cececd556c37a3cf0509c71c368a21e904ff",
-      "changes": []
-    },
-    {
-      "source": "RSC_2022_2rok_14IX2022_WEB_ANIMIRANI.pdf",
-      "sha256": "9f54c622a4fdba9cff1a84ffc48b493bb93014a8e3ba915e88de3636c103b818",
       "changes": []
     },
     {
@@ -1348,18 +858,8 @@
       "changes": []
     },
     {
-      "source": "preba_eno u razvoj projekta dokumentarni .pdf",
-      "sha256": "a4f2903079028cf8b7aaf0579c4f24a25f5c92055d80e8034ea2a6831ba768e4",
-      "changes": []
-    },
-    {
       "source": "Razvoj scenarija - igrani film _6.11._.pdf",
       "sha256": "a6d8a03dc6e6d2560de52cc299df963c8b9f229a66a31c8cc8408b87d167ecea",
-      "changes": []
-    },
-    {
-      "source": "RPR_2022_1rok_14III2022_DUG_DOK_WEB.pdf",
-      "sha256": "a6e0b162a72cd613b8b10ad74579525f997460b1e59c8346931cef4b5f3fd675",
       "changes": []
     },
     {
@@ -1373,16 +873,6 @@
       "changes": []
     },
     {
-      "source": "RSCTV_2017_SER_WEB.pdf",
-      "sha256": "a7e88f018832323165694a52e6779cc3a22390a357548f042643f305ed154095",
-      "changes": []
-    },
-    {
-      "source": "RSC_2023_1rok_14III2023_ANIMIRANI_WEB.pdf",
-      "sha256": "a8cb406a08bcd91233b7f89a2f256b5fd400c10a5cd1c7000694b69279f6ef82",
-      "changes": []
-    },
-    {
       "source": "eksp-dugi-igrani-rezultati.pdf",
       "sha256": "a92a213c967fbca20e6f46c4a497af76a07cbafa162f9160d72e971339fc73ab",
       "changes": []
@@ -1390,11 +880,6 @@
     {
       "source": "JP_razvoj_scenarija_DUG_IGR_WEB_2014_03 DUG IGR.pdf",
       "sha256": "a9e4c6b4c6176c6e30e3fd9d8cce7c9e17b9fa6852812829a0cd811845d4ce5e",
-      "changes": []
-    },
-    {
-      "source": "RPR_2017_WEB_DUG_DOK_2rok_10VII2017_novo.pdf",
-      "sha256": "aa852006f5eda2b0218d7e51f86e5cfaadffed08f5d05333590a409c9fbd22ea",
       "changes": []
     },
     {
@@ -1413,23 +898,8 @@
       "changes": []
     },
     {
-      "source": "RSC_2022_1rok_14III2022_ANIMIRANI_WEB.pdf",
-      "sha256": "acf67d11d1dd2138a2c5a7a62ed47164813c4cbc73cd4ba01dca7512cd52e1cd",
-      "changes": []
-    },
-    {
       "source": "REZULTATI%20MIKROPRORACUNSKI%202020.pdf",
       "sha256": "aefc1120d9805c60569e5ab375c3ce04d2906f8efdb577b133d3772167a73528",
-      "changes": []
-    },
-    {
-      "source": "2010 Razvoj scenarija i projekata TV djela.pdf",
-      "sha256": "af15d88d82a8141ec843fb74661d4cf49906442aa76c8034320cbf2eea134f76",
-      "changes": []
-    },
-    {
-      "source": "RPR_2019__1rok_19VI2019_WEB_ANIMIRANI.pdf",
-      "sha256": "afe1674893500f6b999325a64dd2014bd2a7f78170c39bf8eabd98da9e4ce364",
       "changes": []
     },
     {
@@ -1440,11 +910,6 @@
     {
       "source": "RPR_2021_2rok_14092021_DUG_IGR_WEB.pdf",
       "sha256": "b0c010a811c4d4fa71cf3c099025f69422dd35103cdc8b376e96ff97564cfab9",
-      "changes": []
-    },
-    {
-      "source": "RSC_WEB_2016_2rok_DUG_DOK_11072016.pdf",
-      "sha256": "b134241837b6f3b119991cfb2a705844619b6f5869430ae6fa3d0c507f7e8401",
       "changes": []
     },
     {
@@ -1463,23 +928,8 @@
       "changes": []
     },
     {
-      "source": "RSC_2rok_11IX2024_ANIMIRANI_WEB.pdf",
-      "sha256": "b4c32fac00e8197a68ee5582913200cbfcabd82b0d986f9d141c5382c5536690",
-      "changes": []
-    },
-    {
       "source": "2013 Razvoj projekata AV djela LISTOPAD.pdf",
       "sha256": "b4e4dffe288746a1c8956d9079c95a013f60178c1c81310e5a7e8490b0b14519",
-      "changes": []
-    },
-    {
-      "source": "rezultati%20JP%20PR%20FILM%202024-1.%20rok%20-%20DOKUMENTARNI.pdf",
-      "sha256": "b72f7d189493da4ff7c18fe1fe478a98525967d3588474e4323cfd6e07fe4eba",
-      "changes": []
-    },
-    {
-      "source": "REZULTATI DOKU ANIM rok 27032015.pdf",
-      "sha256": "b766a881c40ebfd4aca07747e2db069b888a2b3b04bff6e68c4911e8ab5e9b75",
       "changes": []
     },
     {
@@ -1488,43 +938,8 @@
       "changes": []
     },
     {
-      "source": "2012%20Me%C4%91unarodna%20suradnja,%2015%2011%202012.pdf",
-      "sha256": "b807562a5204e544057a5587bb29b5598cfde775a3b87a17f469294e7e51dacd",
-      "changes": []
-    },
-    {
       "source": "2012 Razvoj scenarija AV djela.pdf",
       "sha256": "b81283bf387c11c462083f3ca46f724623cdc984759fb1c51700c2ecf4f1f773",
-      "changes": []
-    },
-    {
-      "source": "Rezultati eksperimentalni -1. rok 2016.pdf",
-      "sha256": "b82bf0c364089eb863c90e359590fe2798466e9d446996f2ece7b47ba80ad3ea",
-      "changes": []
-    },
-    {
-      "source": "RSCSERTV_2024_2rok_10IX2022_WEB.pdf",
-      "sha256": "ba055e52e37f23284f71cab4a91450bd404c4c5078fffff140cb6327b74ce26e",
-      "changes": []
-    },
-    {
-      "source": "2011%20Me%C4%91unarodna%20suradnja,%2015%2008%202011.pdf",
-      "sha256": "baa248c41921c78bac62474194d8243adaf24671efbb1beb15ba539df63f73f9",
-      "changes": []
-    },
-    {
-      "source": "RPR_2025_1rok_12III2025_DUG_DOK_WEB.pdf",
-      "sha256": "bacaf3b4ce1921bb84d8e466f05951d318304566ef610211ae0facb866a86638",
-      "changes": []
-    },
-    {
-      "source": "RPRTV_2022_1rok_10III2022_WEB.pdf",
-      "sha256": "bb4e0aaf7fd427fe8bd9afddeaa98e0304ec875af740738272ce21784760b3bf",
-      "changes": []
-    },
-    {
-      "source": "JP_razvoj_projekata__DUG_DOK_2014_3.rok.pdf",
-      "sha256": "bbe221e18e61f19de9c8927f05a8b29e3da0e89fa04bacdfb19a60be9a64ea3c",
       "changes": []
     },
     {
@@ -1538,23 +953,8 @@
       "changes": []
     },
     {
-      "source": "JP%202020_4%20ROK_15_12_web%20recenzija.pdf",
-      "sha256": "bc3f5cd6b990de92335e2ea04e0e9ecc61bab48b14b15d0814662faabc0c79cd",
-      "changes": []
-    },
-    {
-      "source": "RPR_2018_2rok_12VII2018_DUG_DOK_WEB.pdf",
-      "sha256": "bc7a77d4ec9811b66010403aa7c861b6c06ba1a49c5eeb645775aff737fc51b1",
-      "changes": []
-    },
-    {
       "source": "RPR_2023_1rok_14III2023_IGRANI_WEB.pdf",
       "sha256": "bc7eeaa6666a5a167c144c07b4f4cc3ccb9c5898d07195aa432d1e6c5db9875f",
-      "changes": []
-    },
-    {
-      "source": "RPR_2018_2rok_ANIMIRANI_WEB.pdf",
-      "sha256": "bd53e704923c556912770db8815aa5910aa8471f417f7f13c1daf7603a2751ab",
       "changes": []
     },
     {
@@ -1565,21 +965,6 @@
     {
       "source": "web%20rezultati%20RPR_2023_2rok_DUG_IGR.pdf",
       "sha256": "bdf96c3da2d18f7830d54e2040528a9653a919f349a47ebdaeeaa75e82441591",
-      "changes": []
-    },
-    {
-      "source": "RPR_2021_2rok_14092021__DUG_DOK_WEB.pdf",
-      "sha256": "be3a4bd4de59fb4fb84898a65c7d5e6019898fea072284eb51f70fabe8d364fd",
-      "changes": []
-    },
-    {
-      "source": "RSC_WEB_ANIMIRANI_2016_1rok_18042016.pdf",
-      "sha256": "be6196a65d376824b292ba5e03c76aa0370580afb0fdd743ea0cacebf5badf4e",
-      "changes": []
-    },
-    {
-      "source": "RSC_2017_WEB_DUG_DOK_2rok_10VII2017.pdf",
-      "sha256": "bed353672ab47aec55b44d71823584dcf79e3540970bba2f2c3807a9870b87ff",
       "changes": []
     },
     {
@@ -1598,68 +983,13 @@
       "changes": []
     },
     {
-      "source": "2013 Proizvodnja_ 2. rok.pdf",
-      "sha256": "c0b3cf68d62072f7a8c3b71700b7b790d52678e279f238fa3e27fb195cbfc818",
-      "changes": []
-    },
-    {
-      "source": "RSC_WEB_DUG_DOK_2016_3rok_17102016.pdf",
-      "sha256": "c1691bcfa153fe77a61821c1b586148a1395c40193aebc10344ab49ea41f5ba7",
-      "changes": []
-    },
-    {
-      "source": "RPR_2020_1rok_6IV2020_WEB_DUG_DOK.pdf",
-      "sha256": "c314f7ef345d325683d3c1c5a05d59dca001bc9fc025b6a10c892ffbcd72ea56",
-      "changes": []
-    },
-    {
       "source": "JP_distribucija_2025_3_rok_WEB.pdf",
       "sha256": "c3d8fb667af55f817628db50c246e28246201c08106c8a3e36276b520142e85f",
       "changes": []
     },
     {
-      "source": "RSCTV_2022_1rok_10III2022_WEB.pdf",
-      "sha256": "c3f52e4b2805b3562bd43a1d9b24f897ceac96631f3ec271b4f712322fb3646a",
-      "changes": []
-    },
-    {
-      "source": "JP za kinodistribuciju_predlozeno_1rok2021_za_web.pdf",
-      "sha256": "c44d25d4ba2e06c83aadf543c0ec79dcebe6d9455b64dae3372bee94a5f283f4",
-      "changes": []
-    },
-    {
       "source": "RSC_2021_2rok_14092021_DUG_IGR_WEB.pdf",
       "sha256": "c48c05a1a09674103f516f889b5f0a1a4768ab1a46ef94577aac0e84c5e55a96",
-      "changes": []
-    },
-    {
-      "source": "RSC_2018_3rok_11X2018_DUG_DOK_WEB.pdf",
-      "sha256": "c49985d6f9467c845935867fdea047d1736f4533a474fea0b52c997e7e8d8dee",
-      "changes": []
-    },
-    {
-      "source": "2013%20Koprodukcije,%2018%2010%202013.pdf",
-      "sha256": "c4be12e8fac6a6d8a97efe1fb4667cf4c1b625da8302abcb14cbc89ab6d87cb2",
-      "changes": []
-    },
-    {
-      "source": "RPRSERTV_2023_1rok_9III2023_WEB.pdf",
-      "sha256": "c86ffcf56b9271cf5cca88db6340ee6dffb06dd941437ed09a32f3bf97c3a92b",
-      "changes": []
-    },
-    {
-      "source": "web%20PROIZVODNJA%20KRATKI%20DOKUMENTARNI_1_ROK_2022.pdf",
-      "sha256": "c8d369372c9e2ac69d491794a3e85005f21c03bb24a6dee668411aa8777f7d6e",
-      "changes": []
-    },
-    {
-      "source": "30_AV_RS_RP_%20dugometra%C5%BEnih%20dokumentarnih%20filmova,%201.%20rok%20-%2006.%20travnja%202020.%20g..pdf",
-      "sha256": "ca0319ca319d355d9971547f6e9c524ad6bb32eb7ddc03ec82514b02808038e5",
-      "changes": []
-    },
-    {
-      "source": "2013 Proizvodnja_ DOKU_ ANIM_ EKSP_ 1. rok.pdf",
-      "sha256": "ca1dc7e5b7736e3d8f2cdb2062992c0905a565cd10dae51b359b7c9a53b5dd99",
       "changes": []
     },
     {
@@ -1673,11 +1003,6 @@
       "changes": []
     },
     {
-      "source": "RSC_2021_1rok_11III2021_WEB_DUG_DOK.pdf",
-      "sha256": "cb19f7eaa63987dd21ae7f7dc43f0344f258c6fe1e861cf55eaeb6e07f0a12be",
-      "changes": []
-    },
-    {
       "source": "JP_distribucija_2025_1_rok_web.pdf",
       "sha256": "cb5eed0c9d6223e8246925c45b6507e7a6f20c726fa6b61ed9ee5f04b0ee2d04",
       "changes": []
@@ -1688,33 +1013,8 @@
       "changes": []
     },
     {
-      "source": "RPR_2022_2rok_14IX2022_WEB_DUG_DOK.pdf",
-      "sha256": "ce279c3e23c12df90e7006657cb216eb9c7d28edd36d54a488dd1a61ca7d71e5",
-      "changes": []
-    },
-    {
-      "source": "2008 Proizvodnja_ KR IGR_ DOKU_ ALT_ ANIM.pdf",
-      "sha256": "ce369d8672a9666d2386b40b8db2033dce763dcc1ddc57eefd2cb54b016f45b1",
-      "changes": []
-    },
-    {
-      "source": "animirani film .pdf",
-      "sha256": "ce4622d92f7d5a1773f38feb2d89cbf3db15bfd8269bc7dfbe5f38fc6205171e",
-      "changes": []
-    },
-    {
       "source": "2014-proizvodnja-dugi-igr-rok-28-03.pdf",
       "sha256": "cebc650928951260784e037df3012324f94de718ffb61d9f3db47128d9f21a02",
-      "changes": []
-    },
-    {
-      "source": "JP%20razvoj%20projekata_animirani_2rok%202015.pdf",
-      "sha256": "cf1cd9908786fc4654f9b88378cefc7c34216d9adb123b8879a67739c748060e",
-      "changes": []
-    },
-    {
-      "source": "RPR_2019__1rok_19VI2019_WEB_DUG_DOK.pdf",
-      "sha256": "cf31f7f08ac85f25e469e1c6e8c484b06022e850640a22bc67ff89fd39a8ed1d",
       "changes": []
     },
     {
@@ -1733,33 +1033,8 @@
       "changes": []
     },
     {
-      "source": "RSC_2020_1rok_6IV2020_WEB_ANIMIRANI.pdf",
-      "sha256": "d37b504ba83e08f66c7dd5c1363f21c42f40fa7d30f3851cf46134e19b2d2765",
-      "changes": []
-    },
-    {
-      "source": "2014 Razvoj projekata DOKUMENTARNI_ rok 25 04 2014.pdf",
-      "sha256": "d3a9b5159b13bbe09929330ed35b31f16abb43106a24d6cde8d4b265e52bf690",
-      "changes": []
-    },
-    {
-      "source": "RPRTV_2017_SER_WEB.pdf",
-      "sha256": "d3c7d15c17587e95ca031373bd977e33d6d7eb7eb1e057e4df00b96f9dc0ef98",
-      "changes": []
-    },
-    {
       "source": "Rezultati - 3. rok manjinske koprodukcije 2015.pdf",
       "sha256": "d48d63626360149e3c61e277a87a391b26ed0e7e4f5565e27788d6b6aa821166",
-      "changes": []
-    },
-    {
-      "source": "web rezultati RSC_2023_2rok_29IX2023_DUG_DOK.pdf",
-      "sha256": "d4d3041500b59e45cedcb8a52f5b4766886beb2f69eb66955e12af8a6cd0e8c2",
-      "changes": []
-    },
-    {
-      "source": "RSCTV_SER_WEB_2016_18012017.pdf",
-      "sha256": "d4ec85f06b4646fe415d88b490004baf607a97945dfd6a0d8d471cc4605a9218",
       "changes": []
     },
     {
@@ -1773,28 +1048,8 @@
       "changes": []
     },
     {
-      "source": "2013 Razvoj projekata TV pojedina_na djela.pdf",
-      "sha256": "d64df827aaefcfc7c03af0110724443d2e2b32b665dbc8d5f4cc6f42c280eab7",
-      "changes": []
-    },
-    {
       "source": "2011%20Koprodukcije,%2020%2006%202011.pdf",
       "sha256": "d6edaf80924ba3b2e41140a7271ffc2cd1e4377f73987617cb751c867c707968",
-      "changes": []
-    },
-    {
-      "source": "RSC_2019__1rok_19VI2019_WEB_DUG_DOK.pdf",
-      "sha256": "d74ec1ea284a0dcfc8599756f7e61d5b88d8fd8171869b0f4ae9c8642c95fdac",
-      "changes": []
-    },
-    {
-      "source": "final_RPR TV POJEDINACNA 2015.pdf",
-      "sha256": "d75be3779ac846985edbe7a065787afd4ab4f17d688e0673c7c31ff1bbd3688e",
-      "changes": []
-    },
-    {
-      "source": "rezultati JP PR FILM 2024-1. rok - EKSPERIMENTALNI copy.pdf",
-      "sha256": "d84267b227ba60ece7ffc1a24a95c55232410b5cf07fcec0731d26590ee768bd",
       "changes": []
     },
     {
@@ -1803,28 +1058,8 @@
       "changes": []
     },
     {
-      "source": "RSC_2rok_11IX2024_DUG_DOK_WEB.pdf",
-      "sha256": "d85eb80daba8387f5e8fd825e185c7518029aaa7cf7c7db30cff3ca465f906cb",
-      "changes": []
-    },
-    {
-      "source": "RPR_2rok_11IX2024_ANIMIRANI_WEB.pdf",
-      "sha256": "d8f7d1cfbe2331e00c742f54e7492fbda04247f07343656b2957d8b726eaa629",
-      "changes": []
-    },
-    {
       "source": "2012 Razvoj projekata AV djela.pdf",
       "sha256": "daafdf86406cb1882fb08e1cd7acc67837684835e88b299ee4f074c0996e2f93",
-      "changes": []
-    },
-    {
-      "source": "RSCTVSER_2024_1ROK_12III2024_WEB.pdf",
-      "sha256": "dc054a0be9c4a33916202a56c63d4f9079cc2520cc47c0752cac779ffe676760",
-      "changes": []
-    },
-    {
-      "source": "RPRSERTV_2024_2rok_10IX2024_WEB.pdf",
-      "sha256": "dc6a1ea70c6abb643a22168e1a40af5e484033d7672549dfc7fb001c3f776d1f",
       "changes": []
     },
     {
@@ -1833,33 +1068,8 @@
       "changes": []
     },
     {
-      "source": "ODOBRENI%20KOMPL%201%20ROK%202022.xls.pdf",
-      "sha256": "de1cc257804de1b62d02acb3db022d67085969df0d3806a4ca8975514b748089",
-      "changes": []
-    },
-    {
-      "source": "RSCSERTV_2022_WEB_2rok_12IX2022.pdf",
-      "sha256": "de3b27ba7be6523cc16bcb7a2e4b88c85d706c91c14c89d3ab607a70f14c4278",
-      "changes": []
-    },
-    {
-      "source": "RPR_WEB_DUG_DOK_2016_1rok_18042016.pdf",
-      "sha256": "de7033d91b7c98b23e463a2fa7e237d727af48fa068fe4a39b6cd0ac4680204a",
-      "changes": []
-    },
-    {
       "source": "kratki igrani 27032015.pdf",
       "sha256": "dfabda590e2b75cc1609ee0fc639730922c2c57d936837f77cf99a6874c0e732",
-      "changes": []
-    },
-    {
-      "source": "RSC_2023_2rok_29IX2023_ANIMIRANI_WEB.pdf",
-      "sha256": "dfd46272faafd1dfecffabd44cf5ee9cc08d9d58623022cbc3153eec8f05b70a",
-      "changes": []
-    },
-    {
-      "source": "RPR_2017_1_rok_10IV2017_WEB_DUG_DOK.pdf",
-      "sha256": "e08cc148d94961af4909ede6962436b24ca95a6d4ece9852c0d6be9544a056da",
       "changes": []
     },
     {
@@ -1878,16 +1088,6 @@
       "changes": []
     },
     {
-      "source": "rezultati%20animirani%20filmovi%20PROIZVODNJA%202.%20rok%202025..pdf",
-      "sha256": "e37d32f0d9203e57b9f968eab834e60902f18a60f53bfa87cb2f860a69f02518",
-      "changes": []
-    },
-    {
-      "source": "RPR_2025_2rok_10IX2025_DUG_DOK_WEB.pdf",
-      "sha256": "e4fb162eb093400c5596e71e631973cbcef688c8ab46d886a6563170cb2b0cc7",
-      "changes": []
-    },
-    {
       "source": "RPR_2017_1_rok_10IV2017_WEB_DUG_IGR.pdf",
       "sha256": "e60554153924bcedaa78318fa1ba78c40fe07e2abd9131b01736680eecf6e01c",
       "changes": []
@@ -1898,48 +1098,13 @@
       "changes": []
     },
     {
-      "source": "RPR_2015_3rok_DUG_DOK.pdf",
-      "sha256": "e78903d479777b6b312e2c953350fecc5b6d7fa960663b7ae77b6057323cbf1c",
-      "changes": []
-    },
-    {
       "source": "2013%20Razvoj%20scenarija%20AV%20djela%20IGRANI%20TRAVANJ.pdf",
       "sha256": "e78d0b065e404c1b13035b79bc8c243f1ff7aeda17ac265ad17fdd8c3cde3cb7",
       "changes": []
     },
     {
-      "source": "RSC_2018_2rok_ANIMIRANI_WEB.pdf",
-      "sha256": "e918d7aa22e251c42417d8c27859c48eac3d1c382cccc32950eb576003e3bff1",
-      "changes": []
-    },
-    {
       "source": "REZULTATI sve osim animiranog.pdf",
       "sha256": "e9a7f444df6e4330a0ef9d2782c560c4b4d74430faa9b23e2f5f1eaca62694bb",
-      "changes": []
-    },
-    {
-      "source": "RSCSERTV_2023_2rok_12IX2023_WEB.pdf",
-      "sha256": "e9df347557dd4a8498afa87f6733246323f889e659b5ad6add68b24d1e3d039b",
-      "changes": []
-    },
-    {
-      "source": "razvoj scenarija ANIMIRANI_2015_2rok.pdf",
-      "sha256": "ea3b2e1e03078911034e33dfef378e635c5295eb227e79901b6f8bd58c779155",
-      "changes": []
-    },
-    {
-      "source": "razvoj scenarija dug dok 2. rok 2014..pdf",
-      "sha256": "ed24d279e95939799caa8ffabc6b9f88263d757b8b80c7bfdac3ff916b12b19a",
-      "changes": []
-    },
-    {
-      "source": "Rezultati_dokumentarni_rok20062016.pdf",
-      "sha256": "ee6074d068f3836d0c7a8917b113ba20cebfdadace28fd63303ba6d6b655ece0",
-      "changes": []
-    },
-    {
-      "source": "RSC_2017_WEB_ANIMIRANI_2rok_10VII2017.pdf",
-      "sha256": "ee60a3179245acca55f7d84bf204b09bbc770fe63915b24c62ff7d3e3f598442",
       "changes": []
     },
     {
@@ -1950,11 +1115,6 @@
     {
       "source": "JP_distribucija_2_rok2022_za%20objavu.pdf",
       "sha256": "ef9ab5670fb8bf4ad6ebe795b02a4fc3d9f8fe501b7959fcaa97bd3d96a4b80b",
-      "changes": []
-    },
-    {
-      "source": "RSC_2019_1rok_19VI2019_WEB_ANIMIRANI.pdf",
-      "sha256": "efd19cd29513876caab72a5a57f361bc32964dad229f61a0684e19b877a6289b",
       "changes": []
     },
     {
@@ -1978,11 +1138,6 @@
       "changes": []
     },
     {
-      "source": "RSC_2025_2rok_10IX2025_ANIMIRANI_WEB.pdf",
-      "sha256": "f4c98cf4b584db9ab053a3d796777e733232fa33d50b1630770b95156a0df962",
-      "changes": []
-    },
-    {
       "source": "2014-razvoj-projekata-dugi-igr-rok-25-04.pdf",
       "sha256": "f73aa4fb358ae4cfff1b4e8ae656094286582cf0d5dfc1462f35350ccc4a2a73",
       "changes": []
@@ -1993,43 +1148,8 @@
       "changes": []
     },
     {
-      "source": "RSC_2017_1_rok_10IV2017_WEB_ANIMIRANI.pdf",
-      "sha256": "f7dd06209380395800026654f13a9f6423d7c2a504d243acdc6834f845b1d170",
-      "changes": []
-    },
-    {
-      "source": "SPECRSC_2024_ANIMIRANI_WEB_01.pdf",
-      "sha256": "f9cb8c9ef079dea7826f72bdb1538ccf4c98ea78ddee8dc5a66603efbf3efb85",
-      "changes": []
-    },
-    {
-      "source": "razvoj projekata ser Tv djela 2014.pdf",
-      "sha256": "fa0f1e2b19fb413e2821e18e42a8c261d9d0a8c3d2c4602a7b84ade883b89066",
-      "changes": []
-    },
-    {
-      "source": "JP razvoj scenarija_dugi_dokumentarni_1rok 2015.pdf",
-      "sha256": "faa1e43eff72d51cfba7182d8c2598c5ee51b4e25d9face7f776529a024cdf51",
-      "changes": []
-    },
-    {
-      "source": "RSC_2021_2rok_14092021__DUG_DOK_WEB.pdf",
-      "sha256": "fb6e6c2c105e249486ead8a685a0b9f1d1c30536e48d37a73fe0ddd8a3262d1f",
-      "changes": []
-    },
-    {
       "source": "Razvoj_projekata_FF.pdf",
       "sha256": "fc220495c7fe735eef5427129ecd08f78b2d49c41a7976f393f04275538327fb",
-      "changes": []
-    },
-    {
-      "source": "RPR_2021_1rok_11III2021_WEB_DUG_DOK.pdf",
-      "sha256": "fd07e030fa16982f44b4acb54b3de6aa515579c4565b4a295515acc2f7a6df2e",
-      "changes": []
-    },
-    {
-      "source": "RSC_2024_1rok_13III2024_DUG_DOK_WEB.pdf",
-      "sha256": "fd34768924cfe8b592cf97c8b6876d26dc70ac6423caad4e8a2693375b88eada",
       "changes": []
     },
     {
@@ -2040,26 +1160,6 @@
     {
       "source": "REZULTATI dugi igrani 1.rok 2015.pdf",
       "sha256": "fe972ac341a27b04c030eb55a70746b361f32ba75176ece0c6c9d27515b38bd2",
-      "changes": []
-    },
-    {
-      "source": "RSC_WEB_2016_2rok_ANIM_11072016.pdf",
-      "sha256": "fe999b807afba357fbdbad9f58494e5a0254b728e5221ab61d3b8e3ca3d5aa27",
-      "changes": []
-    },
-    {
-      "source": "RPRTV_2025_1rok_11III2025_WEB.pdf",
-      "sha256": "ff0371f44d9958a25148d76b0eb66d55cdecd4cee4722bda1dcd48675b227c90",
-      "changes": []
-    },
-    {
-      "source": "RSC_WEB_ANIMIRANI_2016_3rok_17102016.pdf",
-      "sha256": "fff4ff7441d0cf79ee14ba463f405afaaf8620a94e46710e23248fb35b5b18af",
-      "changes": []
-    },
-    {
-      "source": "RPR_2024_1rok_13III2024_ANIMIRANI_WEB.pdf",
-      "sha256": "fff60d762a22f8f4dccf9cc7f7e7328eddd48e015d8b6a96fab27d6a83da0d34",
       "changes": []
     }
   ],
