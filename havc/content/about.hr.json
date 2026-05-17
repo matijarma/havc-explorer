@@ -1,0 +1,48 @@
+{
+  "hero": {
+    "kicker": "O autoru",
+    "headline": "Ja sam Matija Radeljak. Vodim Aning Film. Ovaj registar je jedna od stvari koje radim.",
+    "subhead": "Producent · autor · graditelj · Zagreb"
+  },
+  "why_this": {
+    "title": "Zašto ovo postoji",
+    "paragraphs": [
+      "Hrvatski sam filmski producent. Šesnaest godina nalazim se s prijaviteljske strane stola pred HAVC-om — Hrvatskim audiovizualnim centrom — i kao i svaki producent u ovoj zemlji proveo sam neobično velik dio svog profesionalnog vremena u njihovim objavljenim PDF-ovima, pokušavajući se sjetiti tko je što dobio po kojem programu i u kojem roku.",
+      "HAVC svoje odluke objavljuje uredno i otvoreno, ali trag je rasut po tisuću zasebnih dokumenata. Ne postoji jedno mjesto na kojem se može preletjeti cijeli 16-godišnji luk, postaviti mu poštena pitanja i provjeriti odgovore u izvoru. Napravio sam ovo da bih ga ja — i svaki kolega koji se ikad zapitao isto — imao.",
+      "Sve što vidite izvedeno je iz HAVC-ovih vlastitih objavljenih dokumenata. Tamo gdje broj djeluje sumnjivo, registar vam omogućuje otvaranje izvornog PDF-a i provjeru. Ovo ne želi zamijeniti HAVC-ov zapis. Želi ga učiniti prohodnim."
+    ]
+  },
+  "who_i_am": {
+    "title": "Tko sam",
+    "paragraphs": [
+      "Na scenu sam stupio sa sedam godina i dvanaest godina glumio prije nego što sam prešao na film. Ispisao sam se s informatičkog studija kad je postalo očito da je film posao, a ne hobi. Informatički dio nikad nije sasvim otišao — svaki alat na ovoj stranici je nešto što sam sam napisao.",
+      "Prošao sam tri europska programa koja za producenta moje generacije najviše znače: Maia Workshops, EAVE Producers Workshop i TorinoFilmLab. Koproducirao sam Breathing into Marble, koji je 2018. igrao East of the West u Karlovim Varima. Raspon ostalog rada ide od Allianzove prodajne konferencije iz 2010. (200.000 EUR, producirao i režirao), preko kratkih filmova na Cannes Short Film Corner, do transmedijalnih kampanja poput Glowbrain i Croatia goes cross-media.",
+      "Napisao sam i vodim Dogmu 23, manifest i filmsku galeriju u Zagrebu koja brani tezu da film zaslužuje da bude izložen s pažnjom kakvu dobiva slika. Izgradio sam i održavam filmincroatia.com, custom GPT Filming in Croatia i alat za storyboard. Aning Film mentorira filmaše, vodi radionice za djecu i besplatno zastupa europske autore bez agenta."
+    ]
+  },
+  "what_aning_is": {
+    "title": "Što je Aning Film",
+    "paragraphs": [
+      "Aning Film je studio, ne tvrtka. Jednoautorska praksa koja snima filmove, gradi alate, vodi platforme — i, povremeno, objavi i jednu ovakvu bazu podataka.",
+      "Sve što je potpisano s Aning Film potpisao sam ja. Kada je rad uistinu zajednički — koprodukcija, redateljski projekt, suautor — ti su suradnici imenovani izravno. Kraljevsko mi nije glas ove kuće."
+    ]
+  },
+  "links": [
+    {
+      "label": "aningfilm.hr",
+      "href": "https://aningfilm.hr",
+      "note": "Studio — usluge, projekti, kontakt"
+    },
+    {
+      "label": "filmincroatia.com",
+      "href": "https://filmincroatia.com",
+      "note": "Kalkulator financiranja, GPT i storyboard alat za međunarodne produkcije koje snimaju u Hrvatskoj"
+    },
+    {
+      "label": "dogma23.org",
+      "href": "https://dogma23.org",
+      "note": "Manifest, galerija i teza o distribuciji preko smart contracta"
+    }
+  ],
+  "signature": "— Matija Radeljak · Zagreb · svibanj 2026."
+}
