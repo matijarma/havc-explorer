@@ -169,10 +169,10 @@
     'prog.other':                  { en: 'Other',                  hr: 'Ostalo' },
 
     // Categories
-    'cat.feature':              { en: 'Feature',               hr: 'Dugometražni' },
-    'cat.feature-coprod':       { en: 'Feature · co-prod.',    hr: 'Dugometr. · koprod.' },
-    'cat.short':                { en: 'Short',                 hr: 'Kratkometražni' },
-    'cat.short-coprod':         { en: 'Short · co-prod.',      hr: 'Kratko · koprod.' },
+    'cat.feature':              { en: 'Feature',               hr: 'Dugometražni igrani film' },
+    'cat.feature-coprod':       { en: 'Feature · co-prod.',    hr: 'Dugometražni igrani film · koprod.' },
+    'cat.short':                { en: 'Short',                 hr: 'Kratkometražni igrani film' },
+    'cat.short-coprod':         { en: 'Short · co-prod.',      hr: 'Kratkometražni igrani film · koprod.' },
     'cat.doc-feature':          { en: 'Documentary',           hr: 'Dokumentarni' },
     'cat.doc-feature-coprod':   { en: 'Doc. · co-prod.',       hr: 'Dok. · koprod.' },
     'cat.doc-short':            { en: 'Doc. short',            hr: 'Kratki dok.' },
@@ -361,7 +361,7 @@
 
     if (/^\s*\d{4}\b/.test(folded)) return 'admin-cost';
 
-    const hasCoprod = folded.includes('koprodukcij') || folded.includes('manjinsk');
+    const hasCoprod = folded.includes('koprodukcij') || folded.includes('manjinsk') || folded.includes('koprod');
     let kind = null;
 
     if (folded.includes('videoigr') || folded.includes('video igr')) kind = 'videogame';
@@ -369,8 +369,14 @@
     else if (folded.includes('eksperimentaln')) kind = 'experimental';
     else if (folded.includes('serij')) kind = 'series';
     else if (folded.includes('televizijsk') || /\btv\b/.test(folded)) kind = 'tv';
-    else if (folded.includes('dokumentarn')) kind = 'doc';
-    else if (folded.includes('igran')) kind = 'fiction';
+    else if (folded.includes('dokumentarn') || /\bdok\b/.test(folded)) kind = 'doc';
+    else if (
+      folded.includes('igran') ||
+      folded.includes('dugometr') ||
+      folded.includes('kratkometr') ||
+      /\bdugi\b/.test(folded) ||
+      /\bkratki\b/.test(folded)
+    ) kind = 'fiction';
     else return 'other';
 
     if (kind === 'videogame' || kind === 'animation' || kind === 'experimental' || kind === 'series' || kind === 'tv') {

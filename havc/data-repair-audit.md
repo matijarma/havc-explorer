@@ -1,24 +1,24 @@
 # dash/havc/data.json Repair Audit
 
-- Generated: 2026-05-17T19:44:01Z
-- Input: `D:\scratch\havc\dash\havc\data.backup.20260517T194252Z.json`
+- Generated: 2026-05-17T20:03:36Z
+- Input: `D:\scratch\havc\dash\havc\data.backup.20260517T200251Z.json`
 - Backup: n/a (dry run)
 
 ## Summary
 
 - Docs total: 989
 - Results-table docs processed: 542
-- Docs changed: 390
+- Docs changed: 211
 - Doc `doc_type` changes: 0
 - Doc `program_type` changes: 0
 - Rows seen in results tables: 10388
-- Rows changed: 3192
+- Rows changed: 1233
 - Amount fixes: 0
 - Currency fixes: 0
 - Artifact rows nulled: 0
 - Project titles fixed from shifted columns: 0
 - Applicant backfills from original titles: 0
-- Category fixes: 3192
+- Category fixes: 1233
 - Category unresolved rows (target programs): 433
 - Rows flagged `needs_review`: 0
 
@@ -31,28 +31,22 @@
 
 ## Category Distribution (Before -> After)
 
-- `Dugometražni`: 95 -> 880
-- `Dugometr. · koprod.`: 20 -> 151
-- `Kratkometražni`: 31 -> 202
-- `Dokumentarni`: 54 -> 660
-- `Dok. · koprod.`: 0 -> 5
-- `Kratki dok.`: 26 -> 113
-- `Animirani`: 27 -> 474
-- `Eksperimentalni`: 44 -> 157
-- `TV`: 39 -> 481
-- `Serija`: 2 -> 4
-- `Ostalo`: 10050 -> 7261
+- `Dugometražni igrani film`: 880 -> 880
+- `Dugometražni igrani film · koprod.`: 151 -> 151
+- `Kratkometražni igrani film`: 202 -> 202
+- `Kratkometražni igrani film · koprod.`: 0 -> 0
+- `Dokumentarni`: 660 -> 660
+- `Dok. · koprod.`: 5 -> 5
+- `Kratki dok.`: 113 -> 113
+- `Animirani`: 474 -> 474
+- `Eksperimentalni`: 157 -> 157
+- `TV`: 481 -> 481
+- `Serija`: 4 -> 4
+- `Ostalo`: 7261 -> 7261
 
 ## Category Rules Applied
 
-- `category_from_section_label`: 1377
-- `category_from_doc_single_signal`: 707
-- `category_from_inline_header_context`: 574
-- `category_from_existing_row_value`: 338
-- `category_from_extras_kategorija_filma`: 78
-- `category_non_target_default_ostalo`: 64
-- `category_from_unique_extras_signal`: 53
-- `category_default_ostalo`: 1
+- `category_from_existing_row_value`: 1233
 
 ## Category Unresolved by Source
 
