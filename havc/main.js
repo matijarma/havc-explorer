@@ -35,6 +35,9 @@
 
     'about.links_title': { en: 'Elsewhere', hr: 'Drugdje' },
 
+    'years.all':   { en: 'All years', hr: 'Sve godine' },
+    'years.label': { en: 'Year',      hr: 'Godina' },
+
     'process.input':     { en: 'Input',   hr: 'Ulaz' },
     'process.process':   { en: 'Process', hr: 'Proces' },
     'process.output':    { en: 'Output',  hr: 'Izlaz' },
@@ -102,6 +105,10 @@
     'col.recipient': { en: 'Recipient',   hr: 'Korisnik' },
     'col.year':      { en: 'Year',        hr: 'Godina' },
     'col.amount':    { en: 'Amount',      hr: 'Iznos' },
+    'col.avg':       { en: 'Avg',         hr: 'Prosjek' },
+    'col.decisions': { en: 'Decisions',   hr: 'Odluke' },
+    'col.total':     { en: 'Total',       hr: 'Ukupno' },
+    'col.name':      { en: 'Name',        hr: 'Naziv' },
     'col.director':  { en: 'Director',    hr: 'Redatelj/ica' },
     'col.producer':  { en: 'Producer',    hr: 'Producent' },
     'col.applicant': { en: 'Applicant',   hr: 'Nositelj' },
@@ -840,9 +847,11 @@
       roks: new Set(),
       normalize: true,
       q: '',
+      selectedYear: null,
     },
     scopes: [],            // {kind, value, label?}
     groupBy: 'projects',
+    sort: { key: 'title', dir: 'asc' },
     expandedKey: null,     // normTitle of the expanded project (works in projects/decisions)
     expandedRoundIds: new Set(), // `${doc}:${n}` per expanded "why" inside a profile
     expandedMentions: false,
@@ -853,6 +862,19 @@
     pdfPreview: null, // { title, source_url }
     view: 'dashboard', // 'dashboard' | 'about' | 'process'
   };
+
+  const DEFAULT_SORT_BY_PIVOT = {
+    projects:  { key: 'title', dir: 'asc' },
+    decisions: { key: 'title', dir: 'asc' },
+    producer:  { key: 'name',  dir: 'asc' },
+    director:  { key: 'name',  dir: 'asc' },
+    applicant: { key: 'name',  dir: 'asc' },
+    program:   { key: 'name',  dir: 'asc' },
+    cat:       { key: 'name',  dir: 'asc' },
+  };
+  function defaultSortFor(groupBy) {
+    return DEFAULT_SORT_BY_PIVOT[groupBy] || { key: 'title', dir: 'asc' };
+  }
 
   const subs = new Map();
   function on(keys, fn) {
@@ -873,16 +895,43 @@
 
   function setFilters(patch) {
     state.filters = { ...state.filters, ...patch };
+    const sy = state.filters.selectedYear;
+    const yr = state.filters.yearRange;
+    if (sy != null && yr && (sy < yr[0] || sy > yr[1])) {
+      state.filters.selectedYear = null;
+    }
     schedulePersist();
     fire('filters');
   }
   function setGroupBy(g) {
     state.groupBy = g;
+    state.sort = defaultSortFor(g);
     state.expandedKey = null;
     state.expandedRoundIds = new Set();
     state.expandedMentions = false;
     schedulePersist();
-    fire(['groupBy', 'expanded']);
+    fire(['groupBy', 'expanded', 'sort']);
+  }
+  function setSort(patch) {
+    const next = { ...state.sort, ...patch };
+    if (state.sort.key === next.key && state.sort.dir === next.dir) return;
+    state.sort = next;
+    schedulePersist();
+    fire('sort');
+  }
+  function toggleSort(key) {
+    if (state.sort.key === key) {
+      setSort({ dir: state.sort.dir === 'asc' ? 'desc' : 'asc' });
+    } else {
+      setSort({ key, dir: 'asc' });
+    }
+  }
+  function setSelectedYear(year) {
+    const next = year == null ? null : Number(year);
+    if (state.filters.selectedYear === next) return;
+    state.filters.selectedYear = next;
+    schedulePersist();
+    fire('filters');
   }
   function setExpandedKey(key) {
     state.expandedKey = state.expandedKey === key ? null : key;
@@ -1005,6 +1054,8 @@
         g: state.groupBy,
         s: state.scopes,
         hu: state.hideUnattributed ? 1 : 0,
+        sy: f.selectedYear,
+        so: state.sort,
       };
       const enc = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
       const u = new URL(location.href);
@@ -1025,11 +1076,22 @@
       if (typeof payload.n === 'number') state.filters.normalize = !!payload.n;
       if (typeof payload.q === 'string') state.filters.q = payload.q;
       if (typeof payload.g === 'string') {
-        // backward compat: old key 'project' maps to 'decisions' (the row-per-event view)
-        state.groupBy = payload.g === 'project' ? 'decisions' : payload.g;
+        // backward compat: 'project' → 'decisions'; 'year' → 'projects' (year is now a filter, not a pivot)
+        let g = payload.g === 'project' ? 'decisions' : payload.g;
+        if (g === 'year') g = 'projects';
+        if (PIVOTS.includes(g)) state.groupBy = g;
       }
       if (Array.isArray(payload.s)) state.scopes = payload.s;
       if (typeof payload.hu === 'number') state.hideUnattributed = !!payload.hu;
+      if (typeof payload.sy === 'number') state.filters.selectedYear = payload.sy;
+      if (payload.so && typeof payload.so === 'object' && typeof payload.so.key === 'string') {
+        state.sort = {
+          key: payload.so.key,
+          dir: payload.so.dir === 'desc' ? 'desc' : 'asc',
+        };
+      } else {
+        state.sort = defaultSortFor(state.groupBy);
+      }
     } catch (_) {}
   }
 
@@ -1475,6 +1537,7 @@
   function applyFilters() {
     const f = state.filters;
     const yr = f.yearRange;
+    const sy = f.selectedYear;
     const programs = f.programs, cats = f.cats, roks = f.roks;
     const searched = f.q.trim() ? searchRowIds(f.q.trim()) : null;
     const scopes = state.scopes;
@@ -1483,6 +1546,7 @@
     for (let i = 0; i < DATA.rows.length; i++) {
       const r = DATA.rows[i];
       if (yr && r.year && (r.year < yr[0] || r.year > yr[1])) continue;
+      if (sy != null && r.year !== sy) continue;
       if (programs.size && !programs.has(r.program)) continue;
       if (cats.size && !cats.has(r.cat_type)) continue;
       if (roks.size && !roks.has(r.rok)) continue;
@@ -1501,7 +1565,6 @@
       if (dim === 'producer')      { value = r.producer  || null; key = value || UNATTRIBUTED_KEY; isUnattributed = !value; }
       else if (dim === 'director') { value = r.director  || null; key = value || UNATTRIBUTED_KEY; isUnattributed = !value; }
       else if (dim === 'applicant'){ value = r.applicant || null; key = value || UNATTRIBUTED_KEY; isUnattributed = !value; }
-      else if (dim === 'year')     { value = r.year != null ? r.year : null; key = value != null ? String(value) : UNATTRIBUTED_KEY; isUnattributed = value == null; }
       else if (dim === 'program')  { value = r.program  || 'other'; key = value; isUnattributed = false; }
       else if (dim === 'cat')      { value = r.cat_type || 'other'; key = value; isUnattributed = false; }
       else { value = null; key = UNATTRIBUTED_KEY; isUnattributed = true; }
@@ -1509,7 +1572,7 @@
       let g = map.get(key);
       if (!g) {
         g = { key, value, label: value == null ? null : String(value),
-              isUnattributed, ids: [], total: 0, n: 0, years: new Set() };
+              isUnattributed, ids: [], total: 0, n: 0, avg: 0, years: new Set() };
         map.set(key, g);
       }
       g.ids.push(i);
@@ -1518,10 +1581,9 @@
       if (r.year) g.years.add(r.year);
     }
     const groups = [...map.values()];
-    if (dim === 'year') groups.sort((a, b) => (+b.label || 0) - (+a.label || 0));
-    else groups.sort((a, b) => b.total - a.total);
-    // Demote unattributed to bottom
-    groups.sort((a, b) => (a.isUnattributed === b.isUnattributed) ? 0 : a.isUnattributed ? 1 : -1);
+    for (const g of groups) {
+      g.avg = g.n > 0 ? g.total / g.n : 0;
+    }
     return groups;
   }
 
@@ -1549,7 +1611,6 @@
       map.set(key, p);
     }
     const out = [...map.values()];
-    out.sort((a, b) => b.total - a.total);
     return out;
   }
 
@@ -1725,7 +1786,7 @@
   }
 
   // ═══ 11. Pivot chips ════════════════════════════════════════════════
-  const PIVOTS = ['projects', 'decisions', 'producer', 'director', 'applicant', 'year', 'program', 'cat'];
+  const PIVOTS = ['projects', 'decisions', 'producer', 'director', 'applicant', 'program', 'cat'];
   const PIVOTS_WITH_UNATTRIBUTED = new Set(['producer', 'director', 'applicant']);
 
   function mountPivot(root) {
@@ -1757,6 +1818,61 @@
     render();
   }
 
+  // ─── Sort comparators ───────────────────────────────────────────────
+  function localeStr(a, b, lang) {
+    return String(a || '').localeCompare(String(b || ''), lang, { sensitivity: 'base', numeric: true });
+  }
+  function withDir(cmp, dir) { return dir === 'desc' ? (a, b) => -cmp(a, b) : cmp; }
+
+  function decisionsComparator(sort, lang) {
+    const dir = sort.dir;
+    switch (sort.key) {
+      case 'year':   return withDir((a, b) => (DATA.rows[a].year || 0) - (DATA.rows[b].year || 0), dir);
+      case 'amount': return withDir((a, b) => (DATA.rows[a].amount_eur || 0) - (DATA.rows[b].amount_eur || 0), dir);
+      case 'title':
+      default:       return withDir((a, b) => localeStr(DATA.rows[a].title, DATA.rows[b].title, lang), dir);
+    }
+  }
+  function projectsComparator(sort, lang) {
+    const dir = sort.dir;
+    switch (sort.key) {
+      case 'years':  return withDir((a, b) => (a.yearMin || 0) - (b.yearMin || 0), dir);
+      case 'amount': return withDir((a, b) => (a.total || 0) - (b.total || 0), dir);
+      case 'title':
+      default:       return withDir((a, b) => localeStr(a.title, b.title, lang), dir);
+    }
+  }
+  function groupComparator(sort, lang, dim) {
+    const dir = sort.dir;
+    const labelOf = (g) => {
+      if (g.isUnattributed) return '';
+      if (dim === 'program') return t('prog.' + g.key, lang);
+      if (dim === 'cat')     return t('cat.' + g.key, lang);
+      return g.label || '';
+    };
+    const minYearOf = (g) => {
+      if (!g.years || g.years.size === 0) return Number.POSITIVE_INFINITY;
+      let minY = Number.POSITIVE_INFINITY;
+      g.years.forEach(y => { if (y < minY) minY = y; });
+      return minY;
+    };
+    switch (sort.key) {
+      case 'total': return withDir((a, b) => (a.total || 0) - (b.total || 0), dir);
+      case 'avg':   return withDir((a, b) => (a.avg || 0) - (b.avg || 0), dir);
+      case 'count': return withDir((a, b) => a.n - b.n, dir);
+      case 'range': return withDir((a, b) => minYearOf(a) - minYearOf(b), dir);
+      case 'name':
+      default:      return withDir((a, b) => localeStr(labelOf(a), labelOf(b), lang), dir);
+    }
+  }
+  // Unattributed always sinks to the bottom regardless of sort key/dir.
+  function withUnattributedLast(cmp) {
+    return (a, b) => {
+      if (a.isUnattributed !== b.isUnattributed) return a.isUnattributed ? 1 : -1;
+      return cmp(a, b);
+    };
+  }
+
   // ═══ 12. Virtualized list ═══════════════════════════════════════════
   function mountList(root) {
     const DECISION_ROW_H = 44;
@@ -1776,7 +1892,53 @@
     const spacer   = el('div', { class: 'list-spacer' });
     scrollEl.appendChild(spacer);
 
+    const headerEl = el('div', { class: 'list-header-wrap' });
     let statusbar;
+
+    function headerCell(label, key, extraClass) {
+      const isActive = state.sort.key === key;
+      const arrow = isActive ? (state.sort.dir === 'asc' ? '↑' : '↓') : '';
+      return el('button', {
+        class: 'col header-cell' + (extraClass ? ' ' + extraClass : '') + (isActive ? ' is-active' : ''),
+        type: 'button',
+        onclick: () => toggleSort(key),
+      }, [
+        el('span', { class: 'header-label', text: label }),
+        el('span', { class: 'sort-arrow', text: arrow }),
+      ]);
+    }
+    function renderHeaderRow(lang) {
+      const gb = state.groupBy;
+      if (gb === 'projects') {
+        return el('div', { class: 'list-header row-grid' }, [
+          el('div', { class: 'col n' }),
+          headerCell(t('col.title', lang),    'title',  'title'),
+          el('div', { class: 'col recipient header-static', text: t('col.producer', lang) }),
+          headerCell(t('col.range', lang),    'years',  'year'),
+          headerCell(t('col.amount', lang),   'amount', 'amount'),
+        ]);
+      }
+      if (gb === 'decisions') {
+        return el('div', { class: 'list-header row-grid' }, [
+          el('div', { class: 'col n' }),
+          headerCell(t('col.title', lang),     'title',  'title'),
+          el('div', { class: 'col recipient header-static', text: t('col.recipient', lang) }),
+          headerCell(t('col.year', lang),      'year',   'year'),
+          headerCell(t('col.amount', lang),    'amount', 'amount'),
+        ]);
+      }
+      return el('div', { class: 'list-header group-grid' }, [
+        el('div', { class: 'col n' }),
+        headerCell(t('col.name', lang),       'name',  'title'),
+        headerCell(t('col.total', lang),      'total', 'subtotal'),
+        headerCell(t('col.avg', lang),        'avg',   'avg'),
+        headerCell(t('col.decisions', lang),  'count', 'count'),
+        headerCell(t('col.range', lang),      'range', 'count'),
+      ]);
+    }
+    function paintHeader() {
+      headerEl.replaceChildren(renderHeaderRow(state.lang));
+    }
 
     function openPdfPreview(doc, fallbackTitle) {
       if (!doc || !doc.source_url) return;
@@ -1797,6 +1959,7 @@
         if (state.hideUnattributed) {
           projectsAgg = projectsAgg.filter(p => p.key !== UNATTRIBUTED_KEY);
         }
+        projectsAgg.sort(projectsComparator(state.sort, state.lang));
         baseRowH = PROJECT_ROW_H;
         totalHeight = projectsAgg.length * baseRowH;
 
@@ -1805,6 +1968,7 @@
           if (expandedIdxInList < 0) state.expandedKey = null;
         }
       } else if (state.groupBy === 'decisions') {
+        filteredIds.sort(decisionsComparator(state.sort, state.lang));
         baseRowH = DECISION_ROW_H;
         totalHeight = filteredIds.length * baseRowH;
 
@@ -1818,6 +1982,7 @@
         if (state.hideUnattributed && PIVOTS_WITH_UNATTRIBUTED.has(state.groupBy)) {
           groups = groups.filter(g => !g.isUnattributed);
         }
+        groups.sort(withUnattributedLast(groupComparator(state.sort, state.lang, state.groupBy)));
         baseRowH = GROUP_ROW_H;
         totalHeight = groups.length * baseRowH;
         // Group rows can't expand here; clear any leftover expansion state
@@ -1825,6 +1990,7 @@
       }
 
       if (expandedIdxInList < 0) expandedHeight = 0;
+      paintHeader();
       paint();
     }
 
@@ -1985,9 +2151,10 @@
       }, [
         el('div', { class: 'col n', text: '' }),
         el('div', { class: 'col title', text: label || '—' }),
-        el('div', { class: 'col count mono', text: `${g.n} ${t('status.rows', lang)}` }),
-        el('div', { class: 'col count mono', text: yearRange }),
         el('div', { class: 'col subtotal mono', text: formatAmount(g.total, 'EUR', lang) }),
+        el('div', { class: 'col avg mono', text: g.n > 0 ? formatAmount(Math.round(g.avg), 'EUR', lang) : '—' }),
+        el('div', { class: 'col count mono', text: `${g.n}` }),
+        el('div', { class: 'col count mono', text: yearRange }),
       ]);
     }
 
@@ -2308,11 +2475,11 @@
     });
     window.addEventListener('resize', paint);
 
-    on(['filters', 'scopes', 'groupBy', 'expanded', 'hideUnattributed', 'lang'], () => {
+    on(['filters', 'scopes', 'groupBy', 'sort', 'expanded', 'hideUnattributed', 'lang'], () => {
       recomputeData();
     });
 
-    root.replaceChildren(scrollEl);
+    root.replaceChildren(headerEl, scrollEl);
 
     statusbar = el('div', { class: 'statusbar' });
     root.parentElement.appendChild(statusbar);
@@ -2779,6 +2946,42 @@
     proc.classList.toggle('is-hidden', state.view !== 'process');
   }
 
+  // ═══ Year pills (single-select year filter row) ═════════════════════
+  function mountYearPills(root) {
+    function render() {
+      const lang = state.lang;
+      const f = state.filters;
+      const allYears = DATA && DATA.facets && Array.isArray(DATA.facets.years) ? DATA.facets.years : [];
+      if (allYears.length === 0) {
+        root.replaceChildren();
+        return;
+      }
+      const [lo, hi] = f.yearRange || [allYears[0], allYears[allYears.length - 1]];
+      const yearsInRange = allYears.filter(y => y >= lo && y <= hi);
+
+      const allBtn = el('button', {
+        class: 'btn mono year-pill year-pill-all' + (f.selectedYear == null ? ' active' : ''),
+        type: 'button',
+        text: t('years.all', lang),
+        onclick: () => setSelectedYear(null),
+      });
+
+      const yearBtns = yearsInRange.map(y => el('button', {
+        class: 'btn mono year-pill' + (f.selectedYear === y ? ' active' : ''),
+        type: 'button',
+        text: String(y),
+        onclick: () => setSelectedYear(f.selectedYear === y ? null : y),
+      }));
+
+      root.replaceChildren(
+        el('span', { class: 'kicker year-pills-kicker', text: t('years.label', lang) }),
+        el('div', { class: 'year-pills-list' }, [allBtn, ...yearBtns]),
+      );
+    }
+    on(['filters', 'lang'], render);
+    render();
+  }
+
   // ═══ 18. Boot ═══════════════════════════════════════════════════════
   async function boot() {
     document.body.classList.add('theme-' + state.theme);
@@ -2818,6 +3021,7 @@
             el('section', { class: 'insights', id: 'insights' }),
             el('section', { class: 'scope-row', id: 'scope-row' }),
             el('nav', { class: 'pivot', id: 'pivot' }),
+            el('section', { class: 'year-pills', id: 'year-pills' }),
             el('section', { class: 'list-wrap', id: 'listwrap' }),
           ]),
         ]),
@@ -2832,6 +3036,7 @@
     mountInsights(document.getElementById('insights'));
     mountScopeRow(document.getElementById('scope-row'));
     mountPivot(document.getElementById('pivot'));
+    mountYearPills(document.getElementById('year-pills'));
     mountList(document.getElementById('listwrap'));
     mountAbout(document.getElementById('view-about'));
     mountProcess(document.getElementById('view-process'));
