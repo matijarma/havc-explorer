@@ -12117,12 +12117,7 @@
       "decision_date": null,
       "decision_body": null,
       "currency": "HRK",
-      "currency_inferred": true,
-      "repair_v1": {
-        "changes": [],
-        "updated_at": "2026-05-17T19:11:30Z",
-        "method": "machine:data_repair_v1"
-      }
+      "currency_inferred": true
     },
     "sections": [
       {
@@ -12284,8 +12279,8 @@
         "rows": [
           {
             "row_number": 6,
-            "project_title": "Ljetnikovac",
-            "applicant": "Spiritus m ovens d .o.o.",
+            "project_title": "Spiritus m ovens d .o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -12303,27 +12298,7 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Spiritus m ovens d .o.o.",
-                    "to": "Ljetnikovac",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Spiritus m ovens d .o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           }
         ],
@@ -12340,8 +12315,8 @@
         "rows": [
           {
             "row_number": 5,
-            "project_title": "U m om s vijetu, g dje m i je l ijepo",
-            "applicant": "Wolfgang i D olly d .o.o.",
+            "project_title": "Wolfgang i D olly d .o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -12359,33 +12334,13 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Wolfgang i D olly d .o.o.",
-                    "to": "U m om s vijetu, g dje m i je l ijepo",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Wolfgang i D olly d .o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
             "row_number": 6,
-            "project_title": "Glavu d ole r uke n a l eđa",
-            "applicant": "Amico s tudio d .o.o.",
+            "project_title": "Amico s tudio d .o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -12403,27 +12358,7 @@
               "amount_repaired_at": "2026-05-17T14:24:11Z",
               "amount_repaired_by": "subagent:pass_c_triage",
               "amount_repair_confidence": "high",
-              "amount_repair_reasoning": "In raw_text, row 6 of the kratkometrazni dokumentarni section is 'Glavu dole ruke na leda / Stipo Majic / Amico studio d.o.o. / 200.000,00'. The current_amount of 6.0 is the row number incorrectly captured; the project_title also shows the producer (Amico studio d.o.o.) suggesting column misalignment. The amount '200.000,00' is unambiguous Croatian format = 200000.00.",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Amico s tudio d .o.o.",
-                    "to": "Glavu d ole r uke n a l eđa",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Amico s tudio d .o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_reasoning": "In raw_text, row 6 of the kratkometrazni dokumentarni section is 'Glavu dole ruke na leda / Stipo Majic / Amico studio d.o.o. / 200.000,00'. The current_amount of 6.0 is the row number incorrectly captured; the project_title also shows the producer (Amico studio d.o.o.) suggesting column misalignment. The amount '200.000,00' is unambiguous Croatian format = 200000.00."
             }
           },
           {
@@ -14165,12 +14100,7 @@
       "decision_date": null,
       "decision_body": null,
       "currency": "HRK",
-      "currency_inferred": true,
-      "repair_v1": {
-        "changes": [],
-        "updated_at": "2026-05-17T19:11:30Z",
-        "method": "machine:data_repair_v1"
-      }
+      "currency_inferred": true
     },
     "sections": [
       {
@@ -14639,8 +14569,8 @@
           },
           {
             "row_number": 4,
-            "project_title": "Vlasta nad tijelom",
-            "applicant": "Filmska udruga Šuma",
+            "project_title": "Filmska udruga Šuma",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -14658,33 +14588,13 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Filmska udruga Šuma",
-                    "to": "Vlasta nad tijelom",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Filmska udruga Šuma",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
             "row_number": 5,
-            "project_title": "Fenomena",
-            "applicant": "Udruga Metonimija",
+            "project_title": "Udruga Metonimija",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -14702,27 +14612,7 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Udruga Metonimija",
-                    "to": "Fenomena",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Udruga Metonimija",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
@@ -14751,8 +14641,8 @@
           },
           {
             "row_number": 2,
-            "project_title": "A gdje je Nataša?",
-            "applicant": "Castor Multimedia d.o.o.",
+            "project_title": "Castor Multimedia d.o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -14770,33 +14660,13 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Castor Multimedia d.o.o.",
-                    "to": "A gdje je Nataša?",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Castor Multimedia d.o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
             "row_number": 3,
-            "project_title": "Buleta",
-            "applicant": "Udruga Marinis Media",
+            "project_title": "Udruga Marinis Media",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -14814,27 +14684,7 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Udruga Marinis Media",
-                    "to": "Buleta",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Udruga Marinis Media",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
@@ -14863,8 +14713,8 @@
           },
           {
             "row_number": 5,
-            "project_title": "Kasna zima",
-            "applicant": "Udruga Blank",
+            "project_title": "Udruga Blank",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -14882,27 +14732,7 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Udruga Blank",
-                    "to": "Kasna zima",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Udruga Blank",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           }
         ],
@@ -50728,12 +50558,7 @@
       "decision_date": null,
       "decision_body": null,
       "currency": "HRK",
-      "currency_inferred": true,
-      "repair_v1": {
-        "changes": [],
-        "updated_at": "2026-05-17T19:11:30Z",
-        "method": "machine:data_repair_v1"
-      }
+      "currency_inferred": true
     },
     "sections": [
       {
@@ -51078,8 +50903,8 @@
         "rows": [
           {
             "row_number": 1,
-            "project_title": "Biti u rodu s Johnom Malkovichem",
-            "applicant": "Četiri film d.o.o.",
+            "project_title": "Četiri film d.o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -51097,33 +50922,13 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Četiri film d.o.o.",
-                    "to": "Biti u rodu s Johnom Malkovichem",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Četiri film d.o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
             "row_number": 2,
-            "project_title": "Krivi kotari",
-            "applicant": "Dinaridi film d.o.o.",
+            "project_title": "Dinaridi film d.o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -51141,27 +50946,7 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Dinaridi film d.o.o.",
-                    "to": "Krivi kotari",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Dinaridi film d.o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
@@ -51214,8 +50999,8 @@
           },
           {
             "row_number": 1,
-            "project_title": "Pravilo broj 5: Pomno pratite svog čovjeka",
-            "applicant": "Filmska udruga Šuma",
+            "project_title": "Filmska udruga Šuma",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -51233,33 +51018,13 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Filmska udruga Šuma",
-                    "to": "Pravilo broj 5: Pomno pratite svog čovjeka",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Filmska udruga Šuma",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
             "row_number": 2,
-            "project_title": "Valeria",
-            "applicant": "Nomad Studio j.d.o.o.",
+            "project_title": "Nomad Studio j.d.o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -51277,27 +51042,7 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Nomad Studio j.d.o.o.",
-                    "to": "Valeria",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Nomad Studio j.d.o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
@@ -51326,8 +51071,8 @@
           },
           {
             "row_number": 4,
-            "project_title": "Impresije -‐ Crna platna",
-            "applicant": "Filmska udruga Šuma",
+            "project_title": "Filmska udruga Šuma",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -51345,33 +51090,13 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Filmska udruga Šuma",
-                    "to": "Impresije -‐ Crna platna",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Filmska udruga Šuma",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
             "row_number": 5,
-            "project_title": "This is not me / Ovo nisam ja",
-            "applicant": "REA -‐ udruga za suvremene umjetničke i arhitektonske produkcije",
+            "project_title": "REA -‐ udruga za suvremene umjetničke i arhitektonske produkcije",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -51389,33 +51114,13 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "REA -‐ udruga za suvremene umjetničke i arhitektonske produkcije",
-                    "to": "This is not me / Ovo nisam ja",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "REA -‐ udruga za suvremene umjetničke i arhitektonske produkcije",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
             "row_number": 6,
-            "project_title": "Zamišljene budućnosti: Turizam",
-            "applicant": "Udruga Marinis Media",
+            "project_title": "Udruga Marinis Media",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -51433,33 +51138,13 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Udruga Marinis Media",
-                    "to": "Zamišljene budućnosti: Turizam",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Udruga Marinis Media",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
             "row_number": 1,
-            "project_title": "Arka",
-            "applicant": "Mohikanac d.o.o.",
+            "project_title": "Mohikanac d.o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -51477,33 +51162,13 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Mohikanac d.o.o.",
-                    "to": "Arka",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Mohikanac d.o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
             "row_number": 2,
-            "project_title": "Dječak",
-            "applicant": "Studio dim d.o.o.",
+            "project_title": "Studio dim d.o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -51521,33 +51186,13 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Studio dim d.o.o.",
-                    "to": "Dječak",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Studio dim d.o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
             "row_number": 3,
-            "project_title": "Čimavica",
-            "applicant": "Udruga Blank",
+            "project_title": "Udruga Blank",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -51565,27 +51210,7 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Udruga Blank",
-                    "to": "Čimavica",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Udruga Blank",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           }
         ],
@@ -66193,7 +65818,7 @@
             "confidence": "high"
           }
         ],
-        "updated_at": "2026-05-17T19:11:30Z",
+        "updated_at": "2026-05-17T19:03:37Z",
         "method": "machine:data_repair_v1"
       }
     },
@@ -66364,8 +65989,8 @@
           },
           {
             "row_number": 2,
-            "project_title": "Petlja",
-            "applicant": "Propeler Film d.o.o.",
+            "project_title": "Propeler Film d.o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -66383,33 +66008,13 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "medium",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Propeler Film d.o.o.",
-                    "to": "Petlja",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Propeler Film d.o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "medium"
             }
           },
           {
             "row_number": 3,
-            "project_title": "Drugi dnevnik Pauline P.",
-            "applicant": "Jaka produkcija d.o.o.",
+            "project_title": "Jaka produkcija d.o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -66427,27 +66032,7 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "medium",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Jaka produkcija d.o.o.",
-                    "to": "Drugi dnevnik Pauline P.",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Jaka produkcija d.o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "medium"
             }
           },
           {
@@ -66488,8 +66073,8 @@
         "rows": [
           {
             "row_number": 1,
-            "project_title": "Ad bestias",
-            "applicant": "Udruga Blank",
+            "project_title": "Udruga Blank",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -66507,33 +66092,13 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Udruga Blank",
-                    "to": "Ad bestias",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Udruga Blank",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
             "row_number": 2,
-            "project_title": "Europ@",
-            "applicant": "Fikcija d.o.o.",
+            "project_title": "Fikcija d.o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -66551,33 +66116,13 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Fikcija d.o.o.",
-                    "to": "Europ@",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Fikcija d.o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
             "row_number": 3,
-            "project_title": "Medo u šparogama",
-            "applicant": "Ustanova Zagreb film",
+            "project_title": "Ustanova Zagreb film",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -66595,27 +66140,7 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Ustanova Zagreb film",
-                    "to": "Medo u šparogama",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Ustanova Zagreb film",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           }
         ],
@@ -71465,12 +70990,7 @@
       "decision_date": null,
       "decision_body": null,
       "currency": "EUR",
-      "currency_inferred": false,
-      "repair_v1": {
-        "changes": [],
-        "updated_at": "2026-05-17T19:11:30Z",
-        "method": "machine:data_repair_v1"
-      }
+      "currency_inferred": false
     },
     "sections": [
       {
@@ -71615,8 +71135,8 @@
         "rows": [
           {
             "row_number": 1,
-            "project_title": "Hajka",
-            "applicant": "Kinorama d.o.o.",
+            "project_title": "Kinorama d.o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -71634,33 +71154,13 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "medium",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Kinorama d.o.o.",
-                    "to": "Hajka",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Kinorama d.o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "medium"
             }
           },
           {
             "row_number": 2,
-            "project_title": "Svadba",
-            "applicant": "Eclectica d.o.o.",
+            "project_title": "Eclectica d.o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -71678,27 +71178,7 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "medium",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Eclectica d.o.o.",
-                    "to": "Svadba",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Eclectica d.o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "medium"
             }
           }
         ],
@@ -99189,12 +98669,7 @@
       "decision_date": null,
       "decision_body": null,
       "currency": "HRK",
-      "currency_inferred": true,
-      "repair_v1": {
-        "changes": [],
-        "updated_at": "2026-05-17T19:11:30Z",
-        "method": "machine:data_repair_v1"
-      }
+      "currency_inferred": true
     },
     "sections": [
       {
@@ -99294,8 +98769,8 @@
           },
           {
             "row_number": 2,
-            "project_title": "Dom",
-            "applicant": "Sekvenca d .o.o.",
+            "project_title": "Sekvenca d .o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -99313,27 +98788,7 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Sekvenca d .o.o.",
-                    "to": "Dom",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Sekvenca d .o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           }
         ],
@@ -99410,8 +98865,8 @@
           },
           {
             "row_number": 2,
-            "project_title": "Nona",
-            "applicant": "Dinaridi f ilm d .o.o",
+            "project_title": "Dinaridi f ilm d .o.o",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -99429,27 +98884,7 @@
               "amount_repaired_at": "2026-05-17T12:54:59Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Dinaridi f ilm d .o.o",
-                    "to": "Nona",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Dinaridi f ilm d .o.o",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           }
         ],
@@ -123532,7 +122967,7 @@
       "currency_inferred": false,
       "repair_v1": {
         "changes": [],
-        "updated_at": "2026-05-17T19:11:30Z",
+        "updated_at": "2026-05-17T19:06:56Z",
         "method": "machine:data_repair_v1"
       }
     },
@@ -124483,8 +123918,8 @@
         "rows": [
           {
             "row_number": 1,
-            "project_title": "Izlet",
-            "applicant": "Antitalent d.o.o.",
+            "project_title": "Antitalent d.o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -124520,23 +123955,9 @@
                     "to": "1.761,53 €",
                     "reason": "align_amount_text_with_converted_eur_value",
                     "confidence": "medium"
-                  },
-                  {
-                    "field": "project_title",
-                    "from": "Antitalent d.o.o.",
-                    "to": "Izlet",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Antitalent d.o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
                   }
                 ],
-                "updated_at": "2026-05-17T19:11:30Z",
+                "updated_at": "2026-05-17T19:05:08Z",
                 "method": "machine:data_repair_v1"
               }
             }
@@ -124589,8 +124010,8 @@
           },
           {
             "row_number": 3,
-            "project_title": "Joso",
-            "applicant": "Fantastično dobra institucija - Fade In d.o.o.",
+            "project_title": "Fantastično dobra institucija - Fade In d.o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -124626,23 +124047,9 @@
                     "to": "1.937,69 €",
                     "reason": "align_amount_text_with_converted_eur_value",
                     "confidence": "medium"
-                  },
-                  {
-                    "field": "project_title",
-                    "from": "Fantastično dobra institucija - Fade In d.o.o.",
-                    "to": "Joso",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Fantastično dobra institucija - Fade In d.o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
                   }
                 ],
-                "updated_at": "2026-05-17T19:11:30Z",
+                "updated_at": "2026-05-17T19:05:08Z",
                 "method": "machine:data_repair_v1"
               }
             }
@@ -124695,8 +124102,8 @@
           },
           {
             "row_number": 5,
-            "project_title": "Poluotok",
-            "applicant": "Udruga Blank",
+            "project_title": "Udruga Blank",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -124732,31 +124139,17 @@
                     "to": "2.201,92 €",
                     "reason": "align_amount_text_with_converted_eur_value",
                     "confidence": "medium"
-                  },
-                  {
-                    "field": "project_title",
-                    "from": "Udruga Blank",
-                    "to": "Poluotok",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Udruga Blank",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
                   }
                 ],
-                "updated_at": "2026-05-17T19:11:30Z",
+                "updated_at": "2026-05-17T19:05:08Z",
                 "method": "machine:data_repair_v1"
               }
             }
           },
           {
             "row_number": 6,
-            "project_title": "Moj stan Držislav",
-            "applicant": "Ustanova Zagreb film",
+            "project_title": "Ustanova Zagreb film",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -124792,31 +124185,17 @@
                     "to": "2.642,30 €",
                     "reason": "align_amount_text_with_converted_eur_value",
                     "confidence": "medium"
-                  },
-                  {
-                    "field": "project_title",
-                    "from": "Ustanova Zagreb film",
-                    "to": "Moj stan Držislav",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Ustanova Zagreb film",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
                   }
                 ],
-                "updated_at": "2026-05-17T19:11:30Z",
+                "updated_at": "2026-05-17T19:05:08Z",
                 "method": "machine:data_repair_v1"
               }
             }
           },
           {
             "row_number": 7,
-            "project_title": "Zalagaonica",
-            "applicant": "Ustanova Zagreb film",
+            "project_title": "Ustanova Zagreb film",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -124852,23 +124231,9 @@
                     "to": "2.642,30 €",
                     "reason": "align_amount_text_with_converted_eur_value",
                     "confidence": "medium"
-                  },
-                  {
-                    "field": "project_title",
-                    "from": "Ustanova Zagreb film",
-                    "to": "Zalagaonica",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Ustanova Zagreb film",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
                   }
                 ],
-                "updated_at": "2026-05-17T19:11:30Z",
+                "updated_at": "2026-05-17T19:05:08Z",
                 "method": "machine:data_repair_v1"
               }
             }
@@ -160803,7 +160168,7 @@
             "confidence": "high"
           }
         ],
-        "updated_at": "2026-05-17T19:11:30Z",
+        "updated_at": "2026-05-17T19:03:37Z",
         "method": "machine:data_repair_v1"
       }
     },
@@ -161202,8 +160567,8 @@
         "rows": [
           {
             "row_number": 5,
-            "project_title": "Doktorice, p em v ' grobeka",
-            "applicant": "Nikolina B arić j .d.o.o.",
+            "project_title": "Nikolina B arić j .d.o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -161221,33 +160586,13 @@
               "amount_repaired_at": "2026-05-17T12:55:00Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Nikolina B arić j .d.o.o.",
-                    "to": "Doktorice, p em v ' grobeka",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Nikolina B arić j .d.o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
             "row_number": 6,
-            "project_title": "Užarska r adionica Ivana D elimara",
-            "applicant": "Udruga D omino",
+            "project_title": "Udruga D omino",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -161265,33 +160610,13 @@
               "amount_repaired_at": "2026-05-17T14:24:11Z",
               "amount_repaired_by": "subagent:pass_c_triage",
               "amount_repair_confidence": "high",
-              "amount_repair_reasoning": "Project is 'Užarska radionica Ivana Delimara' (Vlasta Delimar / Udruga Domino) listed as row 6 in eksperimentalni film section with amount 26.000,00 HRK in raw_text. Parser captured only leading digit '6' from '26.000,00'. Subtotal of section (26.000 + 110.000 = 136.000,00) confirms 26.000.",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Udruga D omino",
-                    "to": "Užarska r adionica Ivana D elimara",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Udruga D omino",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_reasoning": "Project is 'Užarska radionica Ivana Delimara' (Vlasta Delimar / Udruga Domino) listed as row 6 in eksperimentalni film section with amount 26.000,00 HRK in raw_text. Parser captured only leading digit '6' from '26.000,00'. Subtotal of section (26.000 + 110.000 = 136.000,00) confirms 26.000."
             }
           },
           {
             "row_number": 1,
-            "project_title": "Aqualia",
-            "applicant": "Ustanova Z agreb f ilm",
+            "project_title": "Ustanova Z agreb f ilm",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -161309,33 +160634,13 @@
               "amount_repaired_at": "2026-05-17T12:55:00Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Ustanova Z agreb f ilm",
-                    "to": "Aqualia",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Ustanova Z agreb f ilm",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
             "row_number": 2,
-            "project_title": "Među n ama",
-            "applicant": "Luma f ilm d .o.o.",
+            "project_title": "Luma f ilm d .o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -161353,33 +160658,13 @@
               "amount_repaired_at": "2026-05-17T14:24:11Z",
               "amount_repaired_by": "subagent:pass_c_triage",
               "amount_repair_confidence": "high",
-              "amount_repair_reasoning": "Project is 'Među nama' (Petra Balekić / Luma film d.o.o.) row 2 in animirani film section, amount 350.000,00 in raw_text. Parser captured only '2' (likely from preceding row number). Section subtotal (300+350+370+330+470 = 1.820.000,00) confirms 350.000.",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Luma f ilm d .o.o.",
-                    "to": "Među n ama",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Luma f ilm d .o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_reasoning": "Project is 'Među nama' (Petra Balekić / Luma film d.o.o.) row 2 in animirani film section, amount 350.000,00 in raw_text. Parser captured only '2' (likely from preceding row number). Section subtotal (300+350+370+330+470 = 1.820.000,00) confirms 350.000."
             }
           },
           {
             "row_number": 3,
-            "project_title": "Pisma n a k raju š ume",
-            "applicant": "Bonobostudio d .o.o.",
+            "project_title": "Bonobostudio d .o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -161397,33 +160682,13 @@
               "amount_repaired_at": "2026-05-17T12:55:00Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Bonobostudio d .o.o.",
-                    "to": "Pisma n a k raju š ume",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Bonobostudio d .o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
             "row_number": 4,
-            "project_title": "Sakupljač",
-            "applicant": "Ustanova Z agreb f ilm",
+            "project_title": "Ustanova Z agreb f ilm",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -161441,33 +160706,13 @@
               "amount_repaired_at": "2026-05-17T12:55:00Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Ustanova Z agreb f ilm",
-                    "to": "Sakupljač",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Ustanova Z agreb f ilm",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
             "row_number": 5,
-            "project_title": "Sfera",
-            "applicant": "Kinorama d .o.o.",
+            "project_title": "Kinorama d .o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -161485,27 +160730,7 @@
               "amount_repaired_at": "2026-05-17T12:55:00Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "medium",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Kinorama d .o.o.",
-                    "to": "Sfera",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Kinorama d .o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "medium"
             }
           },
           {
@@ -161558,8 +160783,8 @@
           },
           {
             "row_number": 3,
-            "project_title": "Jesen, z ima, p roljeće i l jeto",
-            "applicant": "Udruga B lank",
+            "project_title": "Udruga B lank",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -161577,27 +160802,7 @@
               "amount_repaired_at": "2026-05-17T14:24:11Z",
               "amount_repaired_by": "subagent:pass_c_triage",
               "amount_repair_confidence": "high",
-              "amount_repair_reasoning": "Project is 'Jesen, zima, proljeće i ljeto' (Tamara Bilankov / Udruga Blank) row 3 in kratkometražni dokumentarni film section, amount 90.000,00 in raw_text. Parser captured only the row number '3'. Section subtotal (90+90+90+200+150+150+90 = 860.000,00) confirms 90.000.",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Udruga B lank",
-                    "to": "Jesen, z ima, p roljeće i l jeto",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Udruga B lank",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_reasoning": "Project is 'Jesen, zima, proljeće i ljeto' (Tamara Bilankov / Udruga Blank) row 3 in kratkometražni dokumentarni film section, amount 90.000,00 in raw_text. Parser captured only the row number '3'. Section subtotal (90+90+90+200+150+150+90 = 860.000,00) confirms 90.000."
             }
           },
           {
@@ -161650,8 +160855,8 @@
           },
           {
             "row_number": 6,
-            "project_title": "Oživjeti d jeda",
-            "applicant": "Kinematograf d .o.o.",
+            "project_title": "Kinematograf d .o.o.",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -161669,27 +160874,7 @@
               "amount_repaired_at": "2026-05-17T12:55:00Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Kinematograf d .o.o.",
-                    "to": "Oživjeti d jeda",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Kinematograf d .o.o.",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
@@ -161718,8 +160903,8 @@
           },
           {
             "row_number": 1,
-            "project_title": "Most",
-            "applicant": "Ustanova Z agreb f ilm",
+            "project_title": "Ustanova Z agreb f ilm",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -161737,33 +160922,13 @@
               "amount_repaired_at": "2026-05-17T12:55:00Z",
               "amount_repaired_by": "machine:pass_b_raw_text_remine",
               "amount_repair_format": "croatian_std",
-              "amount_repair_confidence": "high",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Ustanova Z agreb f ilm",
-                    "to": "Most",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Ustanova Z agreb f ilm",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_confidence": "high"
             }
           },
           {
             "row_number": 2,
-            "project_title": "Carpe diem",
-            "applicant": "Udruga B lank",
+            "project_title": "Udruga B lank",
+            "applicant": null,
             "production_company": null,
             "director": null,
             "writer": null,
@@ -161781,27 +160946,7 @@
               "amount_repaired_at": "2026-05-17T14:24:11Z",
               "amount_repaired_by": "subagent:pass_c_triage",
               "amount_repair_confidence": "high",
-              "amount_repair_reasoning": "Project is 'Carpe diem' (Filip Antonio Lizatović / Udruga Blank) row 2 in kratkometražni igrani film section, amount 240.000,00 in raw_text. Parser captured only row number '2'. Section subtotal (180+240+270+280+250 = 1.220.000,00) confirms 240.000.",
-              "repair_v1": {
-                "changes": [
-                  {
-                    "field": "project_title",
-                    "from": "Udruga B lank",
-                    "to": "Carpe diem",
-                    "reason": "project_title_from_col_2_when_title_looks_like_org",
-                    "confidence": "high"
-                  },
-                  {
-                    "field": "applicant",
-                    "from": null,
-                    "to": "Udruga B lank",
-                    "reason": "backfill_applicant_from_original_project_title",
-                    "confidence": "high"
-                  }
-                ],
-                "updated_at": "2026-05-17T19:11:30Z",
-                "method": "machine:data_repair_v1"
-              }
+              "amount_repair_reasoning": "Project is 'Carpe diem' (Filip Antonio Lizatović / Udruga Blank) row 2 in kratkometražni igrani film section, amount 240.000,00 in raw_text. Parser captured only row number '2'. Section subtotal (180+240+270+280+250 = 1.220.000,00) confirms 240.000."
             }
           }
         ],

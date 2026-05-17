@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-05-17T19:11:39Z",
+  "input_path": "D:\\scratch\\havc\\dash\\havc\\data.json",
+  "backup_path": null,
+  "pre_metrics": {
+    "results_docs": 542,
+    "rows_total": 10388,
+    "kn_text_but_eur_currency": 0,
+    "header_with_amount": 0,
+    "stavka_with_amount": 0,
+    "title_mojibake_rows": 0
+  },
+  "post_metrics": {
+    "results_docs": 542,
+    "rows_total": 10388,
+    "kn_text_but_eur_currency": 0,
+    "header_with_amount": 0,
+    "stavka_with_amount": 0,
+    "title_mojibake_rows": 0
+  },
+  "docs_total": 989,
+  "docs_results_total": 542,
+  "docs_changed": 0,
+  "docs_doc_type_changed": 0,
+  "docs_program_changed": 0,
+  "rows_total": 10388,
+  "rows_changed": 0,
+  "rows_amount_fixed": 0,
+  "rows_currency_fixed": 0,
+  "rows_artifact_nulled": 0,
+  "rows_title_fixed": 0,
+  "rows_applicant_backfilled": 0,
+  "rows_flagged_review": 0,
+  "docs": [],
+  "unresolved": []
+}
