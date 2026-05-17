@@ -27,6 +27,22 @@
   const T = {
     'app.subtitle': { en: 'Croatian audiovisual public funding — open registry',
                       hr: 'Hrvatski audiovizualni javni poticaji — otvoreni registar' },
+
+    // View tabs
+    'nav.dashboard': { en: 'Registry', hr: 'Registar' },
+    'nav.about':     { en: 'About',    hr: 'O autoru' },
+    'nav.process':   { en: 'Process',  hr: 'Proces' },
+
+    'about.links_title': { en: 'Elsewhere', hr: 'Drugdje' },
+
+    'process.input':     { en: 'Input',   hr: 'Ulaz' },
+    'process.process':   { en: 'Process', hr: 'Proces' },
+    'process.output':    { en: 'Output',  hr: 'Izlaz' },
+    'process.why_good':  { en: 'Why it worked',         hr: 'Što je radilo' },
+    'process.why_limited':{ en: 'Why it broke',         hr: 'Što je puklo' },
+    'process.artifacts': { en: 'Artifacts',             hr: 'Artefakti' },
+    'process.diagram':   { en: 'The three approaches at a glance', hr: 'Tri pristupa na prvi pogled' },
+
     'search.placeholder': { en: 'Search projects, producers, directors…',
                             hr: 'Traži projekt, producenta, redatelja…' },
     'facet.year':     { en: 'Year',           hr: 'Godina' },
@@ -829,6 +845,7 @@
     hideUnattributed: true,
     showUnfunded: false,
     pdfPreview: null, // { title, source_url }
+    view: 'dashboard', // 'dashboard' | 'about' | 'process'
   };
 
   const subs = new Map();
@@ -899,6 +916,31 @@
   function setPdfPreview(v) {
     state.pdfPreview = v || null;
     fire('pdfPreview');
+  }
+  function setView(view) {
+    const next = (view === 'about' || view === 'process') ? view : 'dashboard';
+    if (state.view === next) return;
+    state.view = next;
+    document.body.classList.remove('view-dashboard', 'view-about', 'view-process');
+    document.body.classList.add('view-' + next);
+    fire('view');
+  }
+  function readViewFromHash() {
+    const h = (location.hash || '').replace(/^#\/?/, '');
+    if (h === 'about') return 'about';
+    if (h === 'process') return 'process';
+    return 'dashboard';
+  }
+  function syncViewFromHash() {
+    setView(readViewFromHash());
+  }
+  function navigateView(view) {
+    const path = view === 'dashboard' ? '#/' : ('#/' + view);
+    if (location.hash !== path) {
+      location.hash = path;        // fires hashchange → syncViewFromHash → setView
+    } else {
+      setView(view);                // already there; still toggle in case of programmatic call
+    }
   }
 
   function scopesEqual(a, b) {
@@ -1079,49 +1121,71 @@
 
   // ═══ 6. Topbar ═════════════════════════════════════════════════════
   function mountTopbar(root) {
+    const VIEW_TABS = ['dashboard', 'about', 'process'];
+
+    function viewTabBtn(view, lang) {
+      const isActive = state.view === view;
+      const attrs = {
+        class: 'view-tab' + (isActive ? ' is-active' : ''),
+        type: 'button',
+        text: t('nav.' + view, lang),
+        onclick: () => navigateView(view),
+      };
+      if (isActive) attrs['aria-current'] = 'page';
+      return el('button', attrs);
+    }
+
     function render() {
       const lang = state.lang;
+      const isDash = state.view === 'dashboard';
       root.replaceChildren(
-        el('div', { class: 'wordmark' }, [
-          'Sredstva',
-          el('span', { class: 'dot', text: '·' }),
-        ]),
-        el('div', { class: 'search' }, [
-          fa('fa-solid fa-magnifying-glass', 'search-icon'),
-          el('input', {
-            type: 'text',
-            placeholder: t('search.placeholder', lang),
-            value: state.filters.q,
-            oninput: (e) => {
-              clearTimeout(render._searchDebounce);
-              const val = e.target.value;
-              render._searchDebounce = setTimeout(() => {
-                setFilters({ q: val });
-              }, 220);
-            },
-          }),
-        ]),
-        el('div', { class: 'toolbar' }, [
-          el('div', { class: 'lang-toggle' }, [
-            el('button', { class: lang === 'en' ? 'active' : '', text: 'EN', onclick: () => setLang('en') }),
-            el('button', { class: lang === 'hr' ? 'active' : '', text: 'HR', onclick: () => setLang('hr') }),
+        el('div', { class: 'topbar-row' }, [
+          el('div', { class: 'wordmark' }, [
+            'Sredstva',
+            el('span', { class: 'dot', text: '·' }),
           ]),
-          el('div', { class: 'theme-toggle' }, [
-            ['auto', 'fa-solid fa-circle-half-stroke'],
-            ['light', 'fa-solid fa-sun'],
-            ['dark', 'fa-solid fa-moon'],
-          ].map(([id, icon]) => el('button', {
-            class: state.theme === id ? 'active' : '',
-            title: id,
-            'aria-label': id,
-            onclick: () => setTheme(id),
-          }, [
-            fa(icon),
-          ]))),
+          el('nav', {
+            class: 'view-tabs',
+            role: 'tablist',
+            'aria-label': 'sections',
+          }, VIEW_TABS.map(v => viewTabBtn(v, lang))),
+          isDash ? el('div', { class: 'search' }, [
+            fa('fa-solid fa-magnifying-glass', 'search-icon'),
+            el('input', {
+              type: 'text',
+              placeholder: t('search.placeholder', lang),
+              value: state.filters.q,
+              oninput: (e) => {
+                clearTimeout(render._searchDebounce);
+                const val = e.target.value;
+                render._searchDebounce = setTimeout(() => {
+                  setFilters({ q: val });
+                }, 220);
+              },
+            }),
+          ]) : el('div', { class: 'search-spacer' }),
+          el('div', { class: 'toolbar' }, [
+            el('div', { class: 'lang-toggle' }, [
+              el('button', { class: lang === 'en' ? 'active' : '', text: 'EN', onclick: () => setLang('en') }),
+              el('button', { class: lang === 'hr' ? 'active' : '', text: 'HR', onclick: () => setLang('hr') }),
+            ]),
+            el('div', { class: 'theme-toggle' }, [
+              ['auto', 'fa-solid fa-circle-half-stroke'],
+              ['light', 'fa-solid fa-sun'],
+              ['dark', 'fa-solid fa-moon'],
+            ].map(([id, icon]) => el('button', {
+              class: state.theme === id ? 'active' : '',
+              title: id,
+              'aria-label': id,
+              onclick: () => setTheme(id),
+            }, [
+              fa(icon),
+            ]))),
+          ]),
         ]),
       );
     }
-    on(['lang', 'theme', 'filters'], render);
+    on(['lang', 'theme', 'filters', 'view'], render);
     render();
   }
 
@@ -2421,9 +2485,300 @@
     });
   }
 
-  // ═══ 15. Boot ═══════════════════════════════════════════════════════
+  // ═══ 15. Static content loader ══════════════════════════════════════
+  const contentCache = new Map();
+  async function loadContent(name, lang) {
+    const key = name + '.' + lang;
+    if (contentCache.has(key)) return contentCache.get(key);
+    const url = './havc/content/' + name + '.' + lang + '.json';
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('fetch failed: ' + url + ' (' + res.status + ')');
+    const data = await res.json();
+    contentCache.set(key, data);
+    return data;
+  }
+
+  // ═══ 16. About view ═════════════════════════════════════════════════
+  function mountAbout(root) {
+    let token = 0;
+
+    function renderLoading() {
+      root.replaceChildren(el('div', { class: 'about-view' }, [
+        el('div', { class: 'kicker', text: t('nav.about', state.lang) }),
+        el('p', { class: 'view-loading', text: '…' }),
+      ]));
+    }
+
+    function renderError(err) {
+      root.replaceChildren(el('div', { class: 'about-view' }, [
+        el('div', { class: 'kicker', text: t('nav.about', state.lang) }),
+        el('p', { class: 'view-error', text: 'failed to load about content — see console' }),
+      ]));
+      console.error(err);
+    }
+
+    function paragraphsToNodes(arr) {
+      return (arr || []).map(p => el('p', { text: p }));
+    }
+
+    function renderContent(c) {
+      const sigText = c.signature || '';
+      root.replaceChildren(el('article', { class: 'about-view' }, [
+        el('header', { class: 'about-hero' }, [
+          el('div', { class: 'kicker', text: c.hero && c.hero.kicker }),
+          el('h1', { class: 'display about-headline', text: c.hero && c.hero.headline }),
+          el('div', { class: 'about-subhead mono', text: c.hero && c.hero.subhead }),
+        ]),
+
+        c.why_this && el('section', { class: 'about-section' }, [
+          el('h2', { class: 'about-section-title', text: c.why_this.title }),
+          el('div', { class: 'about-prose' }, paragraphsToNodes(c.why_this.paragraphs)),
+        ]),
+
+        c.who_i_am && el('section', { class: 'about-section' }, [
+          el('h2', { class: 'about-section-title', text: c.who_i_am.title }),
+          el('div', { class: 'about-prose' }, paragraphsToNodes(c.who_i_am.paragraphs)),
+        ]),
+
+        c.what_aning_is && el('section', { class: 'about-section' }, [
+          el('h2', { class: 'about-section-title', text: c.what_aning_is.title }),
+          el('div', { class: 'about-prose' }, paragraphsToNodes(c.what_aning_is.paragraphs)),
+        ]),
+
+        Array.isArray(c.links) && c.links.length > 0 && el('section', { class: 'about-section about-section--full' }, [
+          el('h2', { class: 'about-section-title', text: t('about.links_title', state.lang) }),
+          el('div', { class: 'about-links' }, c.links.map(link => el('a', {
+            class: 'about-link-card',
+            href: link.href,
+            target: '_blank',
+            rel: 'noopener noreferrer',
+          }, [
+            el('span', { class: 'about-link-label mono', text: link.label }),
+            link.note ? el('span', { class: 'about-link-note', text: link.note }) : null,
+            fa('fa-solid fa-arrow-up-right-from-square', 'about-link-icon'),
+          ]))),
+        ]),
+
+        sigText ? el('div', { class: 'about-signature', text: sigText }) : null,
+      ]));
+    }
+
+    async function render() {
+      const my = ++token;
+      renderLoading();
+      try {
+        const c = await loadContent('about', state.lang);
+        if (my !== token) return; // a newer render started; abandon
+        renderContent(c);
+      } catch (err) {
+        if (my !== token) return;
+        renderError(err);
+      }
+    }
+
+    on('lang', render);
+    render();
+  }
+
+  // ═══ 17. Process view ═══════════════════════════════════════════════
+  function mountProcess(root) {
+    let token = 0;
+
+    function renderLoading() {
+      root.replaceChildren(el('div', { class: 'process-view' }, [
+        el('div', { class: 'kicker', text: t('nav.process', state.lang) }),
+        el('p', { class: 'view-loading', text: '…' }),
+      ]));
+    }
+
+    function renderError(err) {
+      root.replaceChildren(el('div', { class: 'process-view' }, [
+        el('div', { class: 'kicker', text: t('nav.process', state.lang) }),
+        el('p', { class: 'view-error', text: 'failed to load process content — see console' }),
+      ]));
+      console.error(err);
+    }
+
+    function renderEraColumn(era, lang) {
+      const sys = era.system || {};
+      return el('div', { class: 'era-column', dataset: { era: era.id } }, [
+        el('div', { class: 'era-column-head' }, [
+          el('span', { class: 'era-label mono', text: era.label }),
+          el('span', { class: 'era-dates mono', text: era.dates }),
+        ]),
+        el('h3', { class: 'era-column-title', text: era.title }),
+        el('div', { class: 'era-system' }, [
+          el('div', { class: 'era-system-row' }, [
+            el('div', { class: 'era-system-axis kicker', text: t('process.input', lang) }),
+            el('div', { class: 'era-system-input', text: sys.input || '' }),
+          ]),
+          el('div', { class: 'era-system-arrow' }, [el('span', { text: '↓' })]),
+          el('div', { class: 'era-system-row' }, [
+            el('div', { class: 'era-system-axis kicker', text: t('process.process', lang) }),
+            el('ul', { class: 'era-system-process' },
+              (sys.process || []).map(step => el('li', { text: step }))),
+          ]),
+          el('div', { class: 'era-system-arrow' }, [el('span', { text: '↓' })]),
+          el('div', { class: 'era-system-row' }, [
+            el('div', { class: 'era-system-axis kicker', text: t('process.output', lang) }),
+            el('div', { class: 'era-system-output', text: sys.output || '' }),
+          ]),
+        ]),
+      ]);
+    }
+
+    function renderArtifact(a, lang) {
+      if (!a || !a.kind) return null;
+      if (a.kind === 'note') {
+        return el('div', { class: 'artifact artifact-note', text: a.text });
+      }
+      if (a.kind === 'file') {
+        const head = el('div', { class: 'artifact-pill-head' }, [
+          el('span', { class: 'artifact-path mono', text: a.path }),
+          a.size ? el('span', { class: 'artifact-size mono', text: a.size }) : null,
+        ]);
+        return el('div', { class: 'artifact artifact-file' }, [
+          head,
+          a.note ? el('div', { class: 'artifact-note-line', text: a.note }) : null,
+        ]);
+      }
+      if (a.kind === 'metric') {
+        return el('div', { class: 'artifact artifact-metric' }, [
+          el('div', { class: 'artifact-metric-value display', text: a.value }),
+          el('div', { class: 'artifact-metric-label kicker', text: a.label }),
+          a.note ? el('div', { class: 'artifact-metric-note mono', text: a.note }) : null,
+        ]);
+      }
+      if (a.kind === 'code' || a.kind === 'quote') {
+        const cls = 'artifact artifact-code' + (a.kind === 'quote' ? ' is-quote' : '');
+        return el('div', { class: cls }, [
+          a.caption ? el('div', { class: 'artifact-caption kicker', text: a.caption }) : null,
+          el('pre', { class: 'artifact-code-body' }, [
+            el('code', { class: 'mono', text: a.body || '' }),
+          ]),
+        ]);
+      }
+      return null;
+    }
+
+    function partitionArtifacts(artifacts) {
+      const metrics = [];
+      const others = [];
+      (artifacts || []).forEach(a => {
+        if (a && a.kind === 'metric') metrics.push(a);
+        else others.push(a);
+      });
+      return { metrics, others };
+    }
+
+    function renderEraCard(era, lang) {
+      const { metrics, others } = partitionArtifacts(era.artifacts);
+      return el('article', { class: 'era-card', id: 'era-' + era.id }, [
+        el('header', { class: 'era-card-head' }, [
+          el('span', { class: 'era-label mono', text: era.label }),
+          el('span', { class: 'era-dates mono', text: era.dates }),
+        ]),
+        el('h2', { class: 'era-card-title display', text: era.title }),
+        el('p', { class: 'era-what', text: era.what }),
+
+        el('div', { class: 'era-pros-cons' }, [
+          el('div', { class: 'era-prosbox era-prosbox--pros' }, [
+            el('h4', { class: 'era-prosbox-title kicker', text: t('process.why_good', lang) }),
+            el('ul', { class: 'era-prosbox-list' },
+              (era.why_good || []).map(line => el('li', { text: line }))),
+          ]),
+          el('div', { class: 'era-prosbox era-prosbox--cons' }, [
+            el('h4', { class: 'era-prosbox-title kicker', text: t('process.why_limited', lang) }),
+            el('ul', { class: 'era-prosbox-list' },
+              (era.why_limited || []).map(line => el('li', { text: line }))),
+          ]),
+        ]),
+
+        (metrics.length > 0 || others.length > 0) && el('section', { class: 'era-artifacts' }, [
+          el('h4', { class: 'era-artifacts-title kicker', text: t('process.artifacts', lang) }),
+          metrics.length > 0 ? el('div', { class: 'era-metric-row' },
+            metrics.map(m => renderArtifact(m, lang))) : null,
+          others.length > 0 ? el('div', { class: 'era-artifact-stack' },
+            others.map(a => renderArtifact(a, lang))) : null,
+        ]),
+      ]);
+    }
+
+    function renderComparison(cmp, eras, lang) {
+      if (!cmp || !Array.isArray(cmp.rows) || cmp.rows.length === 0) return null;
+      const headers = el('div', { class: 'cmp-row cmp-header' }, [
+        el('div', { class: 'cmp-cell cmp-cell-metric kicker', text: cmp.metric_label || '' }),
+        ...eras.map(e => el('div', { class: 'cmp-cell kicker', text: e.label })),
+      ]);
+      const body = cmp.rows.map(row => el('div', { class: 'cmp-row' }, [
+        el('div', { class: 'cmp-cell cmp-cell-metric', text: row.metric }),
+        el('div', { class: 'cmp-cell', text: row.era1 || '—' }),
+        el('div', { class: 'cmp-cell', text: row.era2 || '—' }),
+        el('div', { class: 'cmp-cell', text: row.era3 || '—' }),
+      ]));
+      return el('section', { class: 'process-comparison' }, [
+        cmp.title ? el('h2', { class: 'process-section-title', text: cmp.title }) : null,
+        el('div', { class: 'cmp-table' }, [headers, ...body]),
+      ]);
+    }
+
+    function renderContent(c) {
+      const lang = state.lang;
+      const eras = Array.isArray(c.eras) ? c.eras : [];
+      root.replaceChildren(el('article', { class: 'process-view' }, [
+        el('header', { class: 'process-hero' }, [
+          el('div', { class: 'kicker', text: c.hero && c.hero.kicker }),
+          el('h1', { class: 'display process-headline', text: c.hero && c.hero.headline }),
+          c.hero && c.hero.subhead ? el('p', { class: 'process-subhead', text: c.hero.subhead }) : null,
+        ]),
+
+        eras.length > 0 && el('section', { class: 'process-diagram-section' }, [
+          el('h2', { class: 'process-section-title', text: t('process.diagram', lang) }),
+          el('div', { class: 'process-diagram' }, eras.map(e => renderEraColumn(e, lang))),
+        ]),
+
+        eras.length > 0 && el('section', { class: 'process-eras' },
+          eras.map(e => renderEraCard(e, lang))),
+
+        renderComparison(c.comparison, eras, lang),
+
+        c.footnote ? el('p', { class: 'process-footnote', text: c.footnote }) : null,
+      ]));
+    }
+
+    async function render() {
+      const my = ++token;
+      renderLoading();
+      try {
+        const c = await loadContent('process', state.lang);
+        if (my !== token) return;
+        renderContent(c);
+      } catch (err) {
+        if (my !== token) return;
+        renderError(err);
+      }
+    }
+
+    on('lang', render);
+    render();
+  }
+
+  function applyViewVisibility() {
+    const dash = document.getElementById('view-dashboard');
+    const about = document.getElementById('view-about');
+    const proc = document.getElementById('view-process');
+    if (!dash || !about || !proc) return;
+    dash.classList.toggle('is-hidden', state.view !== 'dashboard');
+    about.classList.toggle('is-hidden', state.view !== 'about');
+    proc.classList.toggle('is-hidden', state.view !== 'process');
+  }
+
+  // ═══ 18. Boot ═══════════════════════════════════════════════════════
   async function boot() {
     document.body.classList.add('theme-' + state.theme);
+    state.view = readViewFromHash();
+    document.body.classList.add('view-' + state.view);
+
     const app = document.getElementById('app');
     app.replaceChildren(el('div', { class: 'boot' }, [
       el('div', { class: 'wordmark' }, ['Sredstva', el('span', { class: 'dot', text: '·' })]),
@@ -2449,15 +2804,19 @@
     app.className = 'app';
     app.replaceChildren(
       el('header', { class: 'topbar', id: 'topbar' }),
-      el('div', { class: 'workspace' }, [
-        el('aside', { class: 'filter-rail', id: 'rail' }),
-        el('main', { class: 'main' }, [
-          el('section', { class: 'headline', id: 'headline' }),
-          el('section', { class: 'insights', id: 'insights' }),
-          el('section', { class: 'scope-row', id: 'scope-row' }),
-          el('nav', { class: 'pivot', id: 'pivot' }),
-          el('section', { class: 'list-wrap', id: 'listwrap' }),
+      el('div', { class: 'view-root', id: 'view-root' }, [
+        el('div', { class: 'workspace', id: 'view-dashboard' }, [
+          el('aside', { class: 'filter-rail', id: 'rail' }),
+          el('main', { class: 'main' }, [
+            el('section', { class: 'headline', id: 'headline' }),
+            el('section', { class: 'insights', id: 'insights' }),
+            el('section', { class: 'scope-row', id: 'scope-row' }),
+            el('nav', { class: 'pivot', id: 'pivot' }),
+            el('section', { class: 'list-wrap', id: 'listwrap' }),
+          ]),
         ]),
+        el('section', { class: 'about-host', id: 'view-about' }),
+        el('section', { class: 'process-host', id: 'view-process' }),
       ]),
     );
 
@@ -2468,9 +2827,15 @@
     mountScopeRow(document.getElementById('scope-row'));
     mountPivot(document.getElementById('pivot'));
     mountList(document.getElementById('listwrap'));
+    mountAbout(document.getElementById('view-about'));
+    mountProcess(document.getElementById('view-process'));
     mountUnfundedModal();
     mountPdfPreviewModal();
     mountKeyboard();
+
+    applyViewVisibility();
+    on('view', applyViewVisibility);
+    window.addEventListener('hashchange', syncViewFromHash);
   }
 
   document.addEventListener('DOMContentLoaded', boot);
