@@ -82,7 +82,7 @@
     'scope.clearAll': { en: 'clear all', hr: 'očisti sve' },
     'scope.kind.producer':  { en: 'producer',  hr: 'producent' },
     'scope.kind.director':  { en: 'director',  hr: 'redatelj' },
-    'scope.kind.applicant': { en: 'applicant', hr: 'nositelj' },
+    'scope.kind.writer':    { en: 'writer',    hr: 'scenarist' },
     'scope.kind.year':      { en: 'year',      hr: 'godina' },
     'scope.kind.program':   { en: 'programme', hr: 'program' },
     'scope.kind.cat':       { en: 'category',  hr: 'kategorija' },
@@ -95,11 +95,12 @@
     'pivot.decisions': { en: 'Decisions', hr: 'Odluke' },
     'pivot.producer':  { en: 'Producer',  hr: 'Producent' },
     'pivot.director':  { en: 'Director',  hr: 'Redatelj' },
-    'pivot.applicant': { en: 'Applicant', hr: 'Nositelj' },
+    'pivot.writer':    { en: 'Writer',    hr: 'Scenarist' },
     'pivot.year':      { en: 'Year',      hr: 'Godina' },
     'pivot.program':   { en: 'Programme', hr: 'Program' },
     'pivot.cat':       { en: 'Category',  hr: 'Kategorija' },
     'pivot.hideUnattributed': { en: 'hide unattributed', hr: 'sakrij neidentificirano' },
+    'pivot.hiddenSuffix':     { en: 'rows hidden',       hr: 'redaka skriveno' },
 
     'col.title':     { en: 'Title',       hr: 'Naslov' },
     'col.recipient': { en: 'Recipient',   hr: 'Korisnik' },
@@ -120,6 +121,9 @@
     'col.programs':  { en: 'programmes',  hr: 'programi' },
     'col.range':     { en: 'years',       hr: 'godine' },
     'col.unattributed': { en: '(unattributed)', hr: '(neidentificirano)' },
+    'col.unattributed.producer': { en: '(no producer recorded)', hr: '(producent nije zabilježen)' },
+    'col.unattributed.director': { en: '(no director recorded)', hr: '(redatelj nije zabilježen)' },
+    'col.unattributed.writer':   { en: '(no writer recorded)',   hr: '(scenarist nije zabilježen)' },
 
     'status.showing': { en: 'Showing', hr: 'Prikazano' },
     'status.of':      { en: 'of',      hr: 'od' },
@@ -868,7 +872,7 @@
     decisions: { key: 'title', dir: 'asc' },
     producer:  { key: 'name',  dir: 'asc' },
     director:  { key: 'name',  dir: 'asc' },
-    applicant: { key: 'name',  dir: 'asc' },
+    writer:    { key: 'name',  dir: 'asc' },
     program:   { key: 'name',  dir: 'asc' },
     cat:       { key: 'name',  dir: 'asc' },
   };
@@ -1077,11 +1081,18 @@
       if (typeof payload.q === 'string') state.filters.q = payload.q;
       if (typeof payload.g === 'string') {
         // backward compat: 'project' → 'decisions'; 'year' → 'projects' (year is now a filter, not a pivot)
+        // Phase 6: 'applicant' → 'producer' (applicant is now an alias of producer after entity unification)
         let g = payload.g === 'project' ? 'decisions' : payload.g;
         if (g === 'year') g = 'projects';
+        if (g === 'applicant') g = 'producer';
         if (PIVOTS.includes(g)) state.groupBy = g;
       }
-      if (Array.isArray(payload.s)) state.scopes = payload.s;
+      if (Array.isArray(payload.s)) {
+        // Migrate stale applicant scopes to producer (Phase 6).
+        state.scopes = payload.s.map(s =>
+          (s && s.kind === 'applicant') ? Object.assign({}, s, { kind: 'producer' }) : s
+        );
+      }
       if (typeof payload.hu === 'number') state.hideUnattributed = !!payload.hu;
       if (typeof payload.sy === 'number') state.filters.selectedYear = payload.sy;
       if (payload.so && typeof payload.so === 'object' && typeof payload.so.key === 'string') {
@@ -1518,7 +1529,7 @@
       switch (s.kind) {
         case 'producer':  if (r.producer  !== s.value) return false; break;
         case 'director':  if (r.director  !== s.value) return false; break;
-        case 'applicant': if (r.applicant !== s.value) return false; break;
+        case 'writer':    if (r.writer    !== s.value) return false; break;
         case 'year':      if (r.year      !== s.value) return false; break;
         case 'program':   if (r.program   !== s.value) return false; break;
         case 'cat':       if (r.cat_type  !== s.value) return false; break;
@@ -1557,6 +1568,22 @@
     return out;
   }
 
+  // Filter as `applyFilters` would, but also exclude rows that would land in the
+  // unattributed bucket of the active people-pivot, when the hide-unattributed
+  // toggle is on. Keeps the insights metrics in sync with what the table shows.
+  function applyFiltersAndPivotView() {
+    const ids = applyFilters();
+    if (!state.hideUnattributed) return ids;
+    if (!PIVOTS_WITH_UNATTRIBUTED.has(state.groupBy)) return ids;
+    const field = state.groupBy; // 'producer' | 'director' | 'writer'
+    const out = [];
+    for (const i of ids) {
+      const v = DATA.rows[i][field];
+      if (v != null && String(v).trim() !== '') out.push(i);
+    }
+    return out;
+  }
+
   function aggregateBy(rowIds, dim) {
     const map = new Map();
     for (const i of rowIds) {
@@ -1564,7 +1591,7 @@
       let key, value, isUnattributed;
       if (dim === 'producer')      { value = r.producer  || null; key = value || UNATTRIBUTED_KEY; isUnattributed = !value; }
       else if (dim === 'director') { value = r.director  || null; key = value || UNATTRIBUTED_KEY; isUnattributed = !value; }
-      else if (dim === 'applicant'){ value = r.applicant || null; key = value || UNATTRIBUTED_KEY; isUnattributed = !value; }
+      else if (dim === 'writer')   { value = r.writer    || null; key = value || UNATTRIBUTED_KEY; isUnattributed = !value; }
       else if (dim === 'program')  { value = r.program  || 'other'; key = value; isUnattributed = false; }
       else if (dim === 'cat')      { value = r.cat_type || 'other'; key = value; isUnattributed = false; }
       else { value = null; key = UNATTRIBUTED_KEY; isUnattributed = true; }
@@ -1661,7 +1688,7 @@
   function mountInsights(root) {
     function render() {
       const lang = state.lang;
-      const ids = applyFilters();
+      const ids = applyFiltersAndPivotView();
       const amounts = ids.map(i => DATA.rows[i].amount_eur || 0).filter(a => a > 0);
       const total = amounts.reduce((s, x) => s + x, 0);
       const med = median(amounts);
@@ -1730,7 +1757,7 @@
         ]),
       );
     }
-    on(['filters', 'scopes', 'lang'], render);
+    on(['filters', 'scopes', 'lang', 'hideUnattributed', 'groupBy'], render);
     render();
   }
 
@@ -1786,8 +1813,8 @@
   }
 
   // ═══ 11. Pivot chips ════════════════════════════════════════════════
-  const PIVOTS = ['projects', 'decisions', 'producer', 'director', 'applicant', 'program', 'cat'];
-  const PIVOTS_WITH_UNATTRIBUTED = new Set(['producer', 'director', 'applicant']);
+  const PIVOTS = ['projects', 'decisions', 'producer', 'director', 'writer', 'program', 'cat'];
+  const PIVOTS_WITH_UNATTRIBUTED = new Set(['producer', 'director', 'writer']);
 
   function mountPivot(root) {
     function render() {
@@ -1810,11 +1837,26 @@
           text: t('pivot.hideUnattributed', lang),
           onclick: () => setHideUnattributed(!state.hideUnattributed),
         }));
+        if (state.hideUnattributed) {
+          const field = state.groupBy; // 'producer' | 'director' | 'writer'
+          const baseIds = applyFilters();
+          let hiddenCount = 0;
+          for (const i of baseIds) {
+            const v = DATA.rows[i][field];
+            if (v == null || String(v).trim() === '') hiddenCount++;
+          }
+          if (hiddenCount > 0) {
+            right.appendChild(el('span', {
+              class: 'kicker unattributed-caption',
+              text: hiddenCount.toLocaleString() + ' ' + t('pivot.hiddenSuffix', lang),
+            }));
+          }
+        }
       }
 
       root.replaceChildren(left, right);
     }
-    on(['groupBy', 'lang', 'hideUnattributed'], render);
+    on(['groupBy', 'lang', 'hideUnattributed', 'filters', 'scopes'], render);
     render();
   }
 
@@ -2120,7 +2162,11 @@
 
     function renderGroupRow(g, top, lang) {
       let label;
-      if (g.isUnattributed) label = t('col.unattributed', lang);
+      if (g.isUnattributed) {
+        // Use pivot-specific label when the active pivot is one of producer/director/writer.
+        const specific = 'col.unattributed.' + state.groupBy;
+        label = T[specific] ? t(specific, lang) : t('col.unattributed', lang);
+      }
       else if (state.groupBy === 'program') label = t('prog.' + g.key, lang);
       else if (state.groupBy === 'cat') label = t('cat.' + g.key, lang);
       else label = g.label;
