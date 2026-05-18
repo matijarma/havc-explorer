@@ -2663,7 +2663,7 @@
   async function loadContent(name, lang) {
     const key = name + '.' + lang;
     if (contentCache.has(key)) return contentCache.get(key);
-    const url = './havc/content/' + name + '.' + lang + '.json';
+    const url = './content/' + name + '.' + lang + '.json';
     const res = await fetch(url);
     if (!res.ok) throw new Error('fetch failed: ' + url + ' (' + res.status + ')');
     const data = await res.json();
