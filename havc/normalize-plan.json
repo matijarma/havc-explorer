@@ -1,0 +1,1464 @@
+[
+  {
+    "record_index": 31,
+    "doc_sha": "086c7aa34c49ae2f0a198ae4335e1d01b76d2654526e66530497a6bfa965901c",
+    "filename": "30_AV_proizvodnja_%E2%80%93%20kratkometra%C5%BEni%20igrani%20film-%201.%20ROK%20-%2007.%20travnja%202020..pdf",
+    "extractor": "claude-code-inline-subagent",
+    "extractor_version": "1.0",
+    "program_type": "proizvodnja",
+    "year": 2020,
+    "rok": "1. rok",
+    "row_count": 33,
+    "matched_count": 18,
+    "match_ratio": 0.545,
+    "classification": "partial",
+    "rows": [
+      {
+        "row_index": 0,
+        "project_title": "Obiteljski portret",
+        "approved_amount": 450000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+            "filename": "proizvodnja rezultati 1 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 1,
+        "project_title": "U malu je uša đava",
+        "approved_amount": 420000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 2,
+        "project_title": "Ornithology",
+        "approved_amount": 350000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+            "filename": "proizvodnja rezultati 1 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 3,
+        "project_title": "Plavi medo",
+        "approved_amount": 260000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+            "filename": "proizvodnja rezultati 1 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 4,
+        "project_title": "Grad",
+        "approved_amount": 150000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+            "filename": "proizvodnja rezultati 1 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 5,
+        "project_title": "Y",
+        "approved_amount": 130000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+            "filename": "proizvodnja rezultati 1 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 6,
+        "project_title": "Ljubimac Stres",
+        "approved_amount": 130000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 7,
+        "project_title": "Kristalni otmičari",
+        "approved_amount": 5000000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 8,
+        "project_title": "Pula",
+        "approved_amount": 3300000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+            "filename": "proizvodnja rezultati 1 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 9,
+        "project_title": "Zečji nasip",
+        "approved_amount": 4000000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+            "filename": "proizvodnja rezultati 1 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 10,
+        "project_title": "Dnevnik Pauline P.",
+        "approved_amount": 4500000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+            "filename": "proizvodnja rezultati 1 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 11,
+        "project_title": "Bumbarov let",
+        "approved_amount": 5000000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+            "filename": "proizvodnja rezultati 1 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 12,
+        "project_title": "Nuovo Cinema Buie",
+        "approved_amount": 200000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 13,
+        "project_title": "Underground top lista",
+        "approved_amount": 280000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 14,
+        "project_title": "Surogat za Vuda",
+        "approved_amount": 350000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 15,
+        "project_title": "Bili smo u ONB-u",
+        "approved_amount": 200000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 16,
+        "project_title": "Borac",
+        "approved_amount": 300000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 17,
+        "project_title": "Krešok",
+        "approved_amount": 120000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 18,
+        "project_title": "* Djeca mog brata",
+        "approved_amount": 200000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 19,
+        "project_title": "Mi smo ljudi, mi smo sila",
+        "approved_amount": 150000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 20,
+        "project_title": "Biti u rodu s Johnom Malkovichem",
+        "approved_amount": 180000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+            "filename": "proizvodnja rezultati 1 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 21,
+        "project_title": "Krivi kotari",
+        "approved_amount": 100000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+            "filename": "proizvodnja rezultati 1 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 22,
+        "project_title": "Tobogan",
+        "approved_amount": 180000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 23,
+        "project_title": "Bosanski Brodvej",
+        "approved_amount": 50000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 24,
+        "project_title": "Pravilo broj 5: Pomno pratite svog čovjeka",
+        "approved_amount": 115000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+            "filename": "proizvodnja rezultati 1 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 25,
+        "project_title": "Valeria",
+        "approved_amount": 150000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+            "filename": "proizvodnja rezultati 1 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 26,
+        "project_title": "Ta ravna linija horizonta",
+        "approved_amount": 135000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 27,
+        "project_title": "Impresije - Crna platna",
+        "approved_amount": 110000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 28,
+        "project_title": "This is not me / Ovo nisam ja",
+        "approved_amount": 140000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+            "filename": "proizvodnja rezultati 1 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 29,
+        "project_title": "Zamišljene budućnosti: Turizam",
+        "approved_amount": 150000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+            "filename": "proizvodnja rezultati 1 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 30,
+        "project_title": "Arka",
+        "approved_amount": 350000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+            "filename": "proizvodnja rezultati 1 rok 2020.pdf"
+          },
+          {
+            "doc_sha": "356d5eb87c355629b8c72dadd3852e71efec041eacb7f3e499d11c58da5056ea",
+            "filename": "web%20kratkometraz%CC%8Cni%20film.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 31,
+        "project_title": "Dječak",
+        "approved_amount": 300000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "356d5eb87c355629b8c72dadd3852e71efec041eacb7f3e499d11c58da5056ea",
+            "filename": "web%20kratkometraz%CC%8Cni%20film.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 32,
+        "project_title": "Čimavica",
+        "approved_amount": 200000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+            "filename": "proizvodnja rezultati 1 rok 2020.pdf"
+          },
+          {
+            "doc_sha": "356d5eb87c355629b8c72dadd3852e71efec041eacb7f3e499d11c58da5056ea",
+            "filename": "web%20kratkometraz%CC%8Cni%20film.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "record_index": 73,
+    "doc_sha": "117c4c4f3165bb8cf8350609b18a908eef28224253f7e688877fb7efc14fcb5a",
+    "filename": "FESTIVALI_I%20KAT_DUGI_2014_web.pdf",
+    "extractor": "claude-code-inline-subagent",
+    "extractor_version": "1.0",
+    "program_type": "festivali",
+    "year": 2014,
+    "rok": null,
+    "row_count": 15,
+    "matched_count": 0,
+    "match_ratio": 0.0,
+    "classification": "flag_doc",
+    "rows": [
+      {
+        "row_index": 0,
+        "project_title": "AMSTERDAM - IDFA International Documentary Film Festival",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 1,
+        "project_title": "BERLIN - Berlin International Film Festival",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 2,
+        "project_title": "CANNES - Cannes International Film Festival",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 3,
+        "project_title": "CANNES Parallel Sections - Critics' Week / Semaine de la Critique",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 4,
+        "project_title": "CANNES Parallel Sections - Directors' Fortnight / Quinzaine des Realiaateurs",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 5,
+        "project_title": "TORONTO - Hot Docs Canadian International Documentary Festival",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 6,
+        "project_title": "KARLOVY VARY - Karlovy Vary International Film Festival",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 7,
+        "project_title": "LOCARNO - Locarno International Film Festival",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 8,
+        "project_title": "ROTTERDAM - International Film Festival Rotterdam",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 9,
+        "project_title": "SAN SEBASTIAN - San Sebastian International Film Festival",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 10,
+        "project_title": "PARK CITY - Sundance Film Festival",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 11,
+        "project_title": "TORONTO - Toronto International Film Festival",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 12,
+        "project_title": "VENICE - International Film Festival / Venezia - Mostra d'Arte Cinematografica",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 13,
+        "project_title": "VENICE Parallel Sections - International Critics' Week (SIC)",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 14,
+        "project_title": "VENICE Parallel Sections - Giornate degli autori - Venice Days",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      }
+    ]
+  },
+  {
+    "record_index": 137,
+    "doc_sha": "230571541e54b73bef8fa8ca26fc03762d913ab81cac788b4c85e5b9f4fbf8f4",
+    "filename": "2013 Razvoj scenarija TV pojedina_na djela.pdf",
+    "extractor": "missing-results-backfill",
+    "extractor_version": "1.0",
+    "program_type": "razvoj_scenarija",
+    "year": 2013,
+    "rok": null,
+    "row_count": 2,
+    "matched_count": 0,
+    "match_ratio": 0.0,
+    "classification": "flag_doc",
+    "rows": [
+      {
+        "row_index": 0,
+        "project_title": "Šala i užas",
+        "approved_amount": 25000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 1,
+        "project_title": "Tukolovka",
+        "approved_amount": 25000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      }
+    ]
+  },
+  {
+    "record_index": 208,
+    "doc_sha": "3575718733c5b40a0ccaf410b4d61686179d99088d161a8b690ab20ce37d5557",
+    "filename": "Poticanje_koprodukcija_s_manjinskim_udjelom_rok_19_07_2013.pdf",
+    "extractor": "claude-code-inline-subagent",
+    "extractor_version": "1.0",
+    "program_type": "manjinske_koprodukcije",
+    "year": 2013,
+    "rok": null,
+    "row_count": 3,
+    "matched_count": 0,
+    "match_ratio": 0.0,
+    "classification": "flag_doc",
+    "rows": [
+      {
+        "row_index": 0,
+        "project_title": "Nosorog",
+        "approved_amount": 600000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 1,
+        "project_title": "Houston, imamo problem!",
+        "approved_amount": 313500.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 2,
+        "project_title": "Kokoška",
+        "approved_amount": 140000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      }
+    ]
+  },
+  {
+    "record_index": 216,
+    "doc_sha": "362d26aab9b1a90deb4d2ea17df1bd4798c330de17339f55e44ec5660ff4adca",
+    "filename": "30_%20AV_-%20Ostavi%20vrata%20otvorena_15072020_DR.pdf",
+    "extractor": "claude-code-inline-subagent",
+    "extractor_version": "1.0",
+    "program_type": "razvoj_projekata",
+    "year": 2020,
+    "rok": "1. rok",
+    "row_count": 1,
+    "matched_count": 1,
+    "match_ratio": 1.0,
+    "classification": "drop_doc",
+    "rows": [
+      {
+        "row_index": 0,
+        "project_title": "Ostavi vrata otvorena",
+        "approved_amount": 100000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "7be5f62de8c8b9ea81b9fd6fc3d142891d334b0c2a7abe49f15a8bb29bb643c3",
+            "filename": "RPR_2020_1rok_6IV2020_WEB_DUG_IGR.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "record_index": 220,
+    "doc_sha": "36c0aba52ed0dfaa60a6c93c1b98bf1cd776c25fec5973f8ad9372b33cb6beca",
+    "filename": "preba_eno u razvoj projekta dugi igrani .pdf",
+    "extractor": "missing-results-backfill",
+    "extractor_version": "1.0",
+    "program_type": "razvoj_projekata",
+    "year": 2018,
+    "rok": null,
+    "row_count": 6,
+    "matched_count": 0,
+    "match_ratio": 0.0,
+    "classification": "flag_doc",
+    "rows": [
+      {
+        "row_index": 0,
+        "project_title": "debitantski d ugometražni i grani f ilm",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 1,
+        "project_title": "Murina",
+        "approved_amount": 120000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 2,
+        "project_title": "dugometražni i grani f ilm",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 3,
+        "project_title": "Po t amburi",
+        "approved_amount": 120000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 4,
+        "project_title": "Vanka - G ift t o America",
+        "approved_amount": 140000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 5,
+        "project_title": "Brijunska priča",
+        "approved_amount": 140000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      }
+    ]
+  },
+  {
+    "record_index": 422,
+    "doc_sha": "73ba096f9eddf35d7c1ffe3be1af9746a749ac3b2eb53b99545536a928ad13ee",
+    "filename": "Rezultati%20JP%20koprodukcije%20rok%203110.pdf",
+    "extractor": "claude-code-inline-subagent",
+    "extractor_version": "1.0",
+    "program_type": "manjinske_koprodukcije",
+    "year": 2014,
+    "rok": "4. rok",
+    "row_count": 3,
+    "matched_count": 3,
+    "match_ratio": 1.0,
+    "classification": "drop_doc",
+    "rows": [
+      {
+        "row_index": 0,
+        "project_title": "Tajna o mašinovođama",
+        "approved_amount": 600000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "bd694e917172b64bbc45ead6cfa69638426e8f14de106bda358bbd22dccbb6bf",
+            "filename": "rezultati_koprodukcije_301014_vijece.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 1,
+        "project_title": "Sparrows",
+        "approved_amount": 450000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "bd694e917172b64bbc45ead6cfa69638426e8f14de106bda358bbd22dccbb6bf",
+            "filename": "rezultati_koprodukcije_301014_vijece.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 2,
+        "project_title": "Ježeva kućica",
+        "approved_amount": 300000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "bd694e917172b64bbc45ead6cfa69638426e8f14de106bda358bbd22dccbb6bf",
+            "filename": "rezultati_koprodukcije_301014_vijece.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "record_index": 426,
+    "doc_sha": "74dfe2be529f0bc7cd5acfcd42e27058c10e17f5ab29dd2072d75d77624f832c",
+    "filename": "30_%20AV_-%20Po%C4%8Dinje%20bitka_15072020_DR.pdf",
+    "extractor": "claude-code-inline-subagent",
+    "extractor_version": "1.0",
+    "program_type": "razvoj_projekata",
+    "year": 2020,
+    "rok": "1. rok",
+    "row_count": 1,
+    "matched_count": 1,
+    "match_ratio": 1.0,
+    "classification": "drop_doc",
+    "rows": [
+      {
+        "row_index": 0,
+        "project_title": "Počinje bitka",
+        "approved_amount": 120000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "7be5f62de8c8b9ea81b9fd6fc3d142891d334b0c2a7abe49f15a8bb29bb643c3",
+            "filename": "RPR_2020_1rok_6IV2020_WEB_DUG_IGR.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "record_index": 528,
+    "doc_sha": "8c079fc3946b9ace4c277986f94ec90bb8bc6c17f3ccdfab74cd1b2053d1e39e",
+    "filename": "30_AV_komplementarnih%20djelatnosti%20u%202020.%20%E2%80%93%20programi%20me%C4%91unarodne%20suradnje%20%E2%80%9321.04.2020..pdf",
+    "extractor": "claude-code-inline-subagent",
+    "extractor_version": "1.0",
+    "program_type": "komplementarne",
+    "year": 2020,
+    "rok": null,
+    "row_count": 16,
+    "matched_count": 15,
+    "match_ratio": 0.938,
+    "classification": "partial",
+    "rows": [
+      {
+        "row_index": 0,
+        "project_title": "Sudjelovanje na forumu Kidscreen Summit 2020 u Miamiju, SAD",
+        "approved_amount": 14000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "8d038cda49342aa95968141cdb69bb0aa23a23ea3aa583476df6696388201698",
+            "filename": "rezultati medunarodna 2 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 1,
+        "project_title": "Sudjelovanje na generalnoj skupštini ECFA-e (European Children's Film Association) u Berlinu",
+        "approved_amount": 1078.56,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "8d038cda49342aa95968141cdb69bb0aa23a23ea3aa583476df6696388201698",
+            "filename": "rezultati medunarodna 2 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 2,
+        "project_title": "Predstavljanje filma \"IKEA for YU\" na Festivalu dokumentarnog filma DOK u Beogradu",
+        "approved_amount": 1424.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "8d038cda49342aa95968141cdb69bb0aa23a23ea3aa583476df6696388201698",
+            "filename": "rezultati medunarodna 2 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 3,
+        "project_title": "Predstavljanje filma \"IKEA for YU\" na Festivalu dokumentarnog filma DOK u Beogradu",
+        "approved_amount": 2587.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "8d038cda49342aa95968141cdb69bb0aa23a23ea3aa583476df6696388201698",
+            "filename": "rezultati medunarodna 2 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 4,
+        "project_title": "Predstavljanje filma \"Aleksi\" na Pendance Film Festivalu u Torontu",
+        "approved_amount": 6005.25,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "8d038cda49342aa95968141cdb69bb0aa23a23ea3aa583476df6696388201698",
+            "filename": "rezultati medunarodna 2 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 5,
+        "project_title": "Sudjelovanje na međunarodnoj filmskoj radionici Filmdays at VBU u Ludviki, Švedska",
+        "approved_amount": 2540.79,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "8d038cda49342aa95968141cdb69bb0aa23a23ea3aa583476df6696388201698",
+            "filename": "rezultati medunarodna 2 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 6,
+        "project_title": "Sudjelovanje ekipe filma \"Veliki medvjed\" na razvojnoj radionici Ekran+ u Varšavi",
+        "approved_amount": 20000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "8d038cda49342aa95968141cdb69bb0aa23a23ea3aa583476df6696388201698",
+            "filename": "rezultati medunarodna 2 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 7,
+        "project_title": "Svjetska premijera filma \"Mare\" na Berlinaleu 2020.",
+        "approved_amount": 30000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "8d038cda49342aa95968141cdb69bb0aa23a23ea3aa583476df6696388201698",
+            "filename": "rezultati medunarodna 2 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 8,
+        "project_title": "Sudjelovanje članice Izvršnog odbora FIAPF-a i predstavnice za međunarodne odnose Hrvatske udruge producenata Tamare Babun na Godišnjoj skupštini i sastancima radnih skupina",
+        "approved_amount": 3635.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "8d038cda49342aa95968141cdb69bb0aa23a23ea3aa583476df6696388201698",
+            "filename": "rezultati medunarodna 2 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 9,
+        "project_title": "Sudjelovanje producentice Katarine Prpić na radionici EAVE Producers Workshop 2020 u Luksemburgu, Irskoj i Hrvatskoj",
+        "approved_amount": 39000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "8d038cda49342aa95968141cdb69bb0aa23a23ea3aa583476df6696388201698",
+            "filename": "rezultati medunarodna 2 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 10,
+        "project_title": "Sudjelovanje na London Screenwriters' Festivalu",
+        "approved_amount": 7190.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "8d038cda49342aa95968141cdb69bb0aa23a23ea3aa583476df6696388201698",
+            "filename": "rezultati medunarodna 2 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 11,
+        "project_title": "Predstavljanje filma \"Mačka je uvijek ženska\" na VI. Short Movie Club Film Festivalu u Minsku",
+        "approved_amount": 2677.3,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "8d038cda49342aa95968141cdb69bb0aa23a23ea3aa583476df6696388201698",
+            "filename": "rezultati medunarodna 2 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 12,
+        "project_title": "Sudjelovanje u programu Torino Film Lab, radionica ScriptLab - Story Editing 2020 u Ukrajini, Finskoj i Italiji",
+        "approved_amount": 10000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 13,
+        "project_title": "Sudjelovanje na radionici Midpoint TV Launch 2020 u Ukrajini, Češkoj i Estoniji",
+        "approved_amount": 20000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "8d038cda49342aa95968141cdb69bb0aa23a23ea3aa583476df6696388201698",
+            "filename": "rezultati medunarodna 2 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 14,
+        "project_title": "Sudjelovanja scenaristice i redateljice Vedrane Pribačić, producentice i scenaristice Mirte Puhlovski, i montažerke Marte Broz na Docu Rough Cut Boutique - work in progress radionici sa projektom dokumentarnog filma \"Veće od traume\"",
+        "approved_amount": 6500.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "8d038cda49342aa95968141cdb69bb0aa23a23ea3aa583476df6696388201698",
+            "filename": "rezultati medunarodna 2 rok 2020.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 15,
+        "project_title": "Noć hrvatskog filma i novih medija u Bosni i Hercegovini, Rumunjskoj i Madžarskoj",
+        "approved_amount": 19000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "8d038cda49342aa95968141cdb69bb0aa23a23ea3aa583476df6696388201698",
+            "filename": "rezultati medunarodna 2 rok 2020.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "record_index": 627,
+    "doc_sha": "a3e0c7cfd33550ae011dccc49572b1fd1b8138ec17a9f8b4d4c5fb7194243ab4",
+    "filename": "rezultati kratkometraz_ni igrani 2. rok 2025..pdf",
+    "extractor": "missing-results-backfill",
+    "extractor_version": "1.0",
+    "program_type": "proizvodnja",
+    "year": 2025,
+    "rok": "2. rok",
+    "row_count": 6,
+    "matched_count": 1,
+    "match_ratio": 0.167,
+    "classification": "partial",
+    "rows": [
+      {
+        "row_index": 0,
+        "project_title": "kratkometražni igrani filmovi",
+        "approved_amount": null,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "099840facafce2cbbf112cbe403816ee45bb4526652660470f3c8fd4a80f3ba6",
+            "filename": "AV proizvodnja 2010.pdf"
+          },
+          {
+            "doc_sha": "1d21dc8e47c66659bd236a304fc97715410bd7ba9ec410daf6b38b5a3e191081",
+            "filename": "2012 Proizvodnja.pdf"
+          },
+          {
+            "doc_sha": "1d21dc8e47c66659bd236a304fc97715410bd7ba9ec410daf6b38b5a3e191081",
+            "filename": "2012 Proizvodnja.pdf"
+          },
+          {
+            "doc_sha": "3b54d2995f1469360ee02fa79623f85935354a5c0c8c005939fe9e8d5b2e8b18",
+            "filename": "rezultati JP PR FILM 2024-1. rok - KRATKI IGRANI_1_.pdf"
+          },
+          {
+            "doc_sha": "858fcc895dec5c1ac45551f835f60cde6ad43b1111391da522c9c04bd0022c5a",
+            "filename": "2013 Proizvodnja_ IGRANI_ 1. rok.pdf"
+          },
+          {
+            "doc_sha": "868593354c21cf9e53a24128f212a3b55751b05af5855c2cd7fefaf4e57899b2",
+            "filename": "web AV JP PR FILM u 2024. - 2. rok - KRATKI IGRANI.pdf"
+          },
+          {
+            "doc_sha": "c0b3cf68d62072f7a8c3b71700b7b790d52678e279f238fa3e27fb195cbfc818",
+            "filename": "2013 Proizvodnja_ 2. rok.pdf"
+          },
+          {
+            "doc_sha": "c0b3cf68d62072f7a8c3b71700b7b790d52678e279f238fa3e27fb195cbfc818",
+            "filename": "2013 Proizvodnja_ 2. rok.pdf"
+          },
+          {
+            "doc_sha": "ee81a323a946fec93f3c25f29a8d0c0217dac9c75c3967b098e1b65687a52a06",
+            "filename": "WEB av KRATKI IGRANI PR I EKSPERIMENTALNI FILM 2023 - 1 ROK.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 1,
+        "project_title": "Iskra",
+        "approved_amount": 80000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 2,
+        "project_title": "OSVETA",
+        "approved_amount": 75000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 3,
+        "project_title": "Pasji dani",
+        "approved_amount": 70000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 4,
+        "project_title": "kratkometražni igrani film u postprodukcijskoj fazi",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 5,
+        "project_title": "KAKO JE, TAKO JE",
+        "approved_amount": 10000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      }
+    ]
+  },
+  {
+    "record_index": 632,
+    "doc_sha": "a4f2903079028cf8b7aaf0579c4f24a25f5c92055d80e8034ea2a6831ba768e4",
+    "filename": "preba_eno u razvoj projekta dokumentarni .pdf",
+    "extractor": "missing-results-backfill",
+    "extractor_version": "1.0",
+    "program_type": "razvoj_projekata",
+    "year": 2018,
+    "rok": null,
+    "row_count": 1,
+    "matched_count": 0,
+    "match_ratio": 0.0,
+    "classification": "flag_doc",
+    "rows": [
+      {
+        "row_index": 0,
+        "project_title": "Dođi, m oram t i n ešto p okazati",
+        "approved_amount": 100000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      }
+    ]
+  },
+  {
+    "record_index": 646,
+    "doc_sha": "a816850bf17c2c881ab9b11b3616d04693db55b61593763f67c3590c595a39eb",
+    "filename": "odluka_av_06072015_komplementarne_vanroka.pdf",
+    "extractor": "claude-code-inline-subagent",
+    "extractor_version": "1.0",
+    "program_type": "komplementarne",
+    "year": 2015,
+    "rok": null,
+    "row_count": 1,
+    "matched_count": 0,
+    "match_ratio": 0.0,
+    "classification": "flag_doc",
+    "rows": [
+      {
+        "row_index": 0,
+        "project_title": "Gostovanje Paola Cherchija Usaija i Alloy Orchestra u Zagrebu i Rijeci",
+        "approved_amount": 15000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      }
+    ]
+  },
+  {
+    "record_index": 664,
+    "doc_sha": "abf39fea3d0088a41a36db9453cd340a292553134905898f97b6fdf5733a4676",
+    "filename": "Razvoj_projekata_2013_21062013.pdf",
+    "extractor": "claude-code-inline-subagent",
+    "extractor_version": "1.0",
+    "program_type": "razvoj_projekata",
+    "year": 2013,
+    "rok": "2. rok",
+    "row_count": 3,
+    "matched_count": 0,
+    "match_ratio": 0.0,
+    "classification": "flag_doc",
+    "rows": [
+      {
+        "row_index": 0,
+        "project_title": "UHOĐENJE",
+        "approved_amount": 144800.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 1,
+        "project_title": "MALA ZEMLJA ZA VELIKI ODMOR",
+        "approved_amount": 70000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 2,
+        "project_title": "ŽIVOT TEČE U LAGANOM RITMU",
+        "approved_amount": 50000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      }
+    ]
+  },
+  {
+    "record_index": 718,
+    "doc_sha": "b7b46cca6aeda7d7562a74b46fd373dccd7192ff12b07b0c2d631dbc4239dbce",
+    "filename": "preba_eno u razvoj scenarija dugi igrani .pdf",
+    "extractor": "missing-results-backfill",
+    "extractor_version": "1.0",
+    "program_type": "razvoj_scenarija",
+    "year": 2018,
+    "rok": null,
+    "row_count": 3,
+    "matched_count": 0,
+    "match_ratio": 0.0,
+    "classification": "flag_doc",
+    "rows": [
+      {
+        "row_index": 0,
+        "project_title": "debitantski d ugometražni i grani f ilm",
+        "approved_amount": null,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 1,
+        "project_title": "Pučina o d s vile",
+        "approved_amount": 30000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 2,
+        "project_title": "Tragovi",
+        "approved_amount": 30000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      }
+    ]
+  },
+  {
+    "record_index": 735,
+    "doc_sha": "bbf07de78a84e8d41536cdf4a8d29d7b2b7df8532c3907c151591793de839d9b",
+    "filename": "4 rezultati AV MIKROPRORAC_UNSKI 2022.pdf",
+    "extractor": "missing-results-backfill",
+    "extractor_version": "1.0",
+    "program_type": "proizvodnja",
+    "year": 2022,
+    "rok": null,
+    "row_count": 2,
+    "matched_count": 1,
+    "match_ratio": 0.5,
+    "classification": "partial",
+    "rows": [
+      {
+        "row_index": 0,
+        "project_title": "mikroproračunski dugometražni igrani film",
+        "approved_amount": null,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "1b0001c142df5b41d1f5d65321055cf166cc89e13490886f6afcbbc154243f18",
+            "filename": "rezultati mikroproracunski 2021.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 1,
+        "project_title": "Južina",
+        "approved_amount": 159267.37,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      }
+    ]
+  },
+  {
+    "record_index": 789,
+    "doc_sha": "ca0319ca319d355d9971547f6e9c524ad6bb32eb7ddc03ec82514b02808038e5",
+    "filename": "30_AV_RS_RP_%20dugometra%C5%BEnih%20dokumentarnih%20filmova,%201.%20rok%20-%2006.%20travnja%202020.%20g..pdf",
+    "extractor": "claude-code-inline-subagent",
+    "extractor_version": "1.0",
+    "program_type": "razvoj_scenarija",
+    "year": 2020,
+    "rok": "1. rok",
+    "row_count": 17,
+    "matched_count": 9,
+    "match_ratio": 0.529,
+    "classification": "partial",
+    "rows": [
+      {
+        "row_index": 0,
+        "project_title": "BESA: Zarobljenik slobode",
+        "approved_amount": 25000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "5cd11aa1528ef8d9700b73f851abe4f32852a8c291178f42ab04a50481858fd9",
+            "filename": "RSC_2020_1rok_6IV2020_WEB_DUG_DOK.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 1,
+        "project_title": "Dokumentarni film o Josipu Reihl-Kiru - Mirotvorac",
+        "approved_amount": 25000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "5cd11aa1528ef8d9700b73f851abe4f32852a8c291178f42ab04a50481858fd9",
+            "filename": "RSC_2020_1rok_6IV2020_WEB_DUG_DOK.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 2,
+        "project_title": "Jedini učenik",
+        "approved_amount": 25000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "5cd11aa1528ef8d9700b73f851abe4f32852a8c291178f42ab04a50481858fd9",
+            "filename": "RSC_2020_1rok_6IV2020_WEB_DUG_DOK.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 3,
+        "project_title": "Od ništa, ništa",
+        "approved_amount": 25000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "5cd11aa1528ef8d9700b73f851abe4f32852a8c291178f42ab04a50481858fd9",
+            "filename": "RSC_2020_1rok_6IV2020_WEB_DUG_DOK.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 4,
+        "project_title": "Pljuske koje život znače",
+        "approved_amount": 25000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "5cd11aa1528ef8d9700b73f851abe4f32852a8c291178f42ab04a50481858fd9",
+            "filename": "RSC_2020_1rok_6IV2020_WEB_DUG_DOK.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 5,
+        "project_title": "Roditeljstvo",
+        "approved_amount": 25000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "5cd11aa1528ef8d9700b73f851abe4f32852a8c291178f42ab04a50481858fd9",
+            "filename": "RSC_2020_1rok_6IV2020_WEB_DUG_DOK.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 6,
+        "project_title": "Sedmi kolap",
+        "approved_amount": 25000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "5cd11aa1528ef8d9700b73f851abe4f32852a8c291178f42ab04a50481858fd9",
+            "filename": "RSC_2020_1rok_6IV2020_WEB_DUG_DOK.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 7,
+        "project_title": "Sirote",
+        "approved_amount": 25000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "5cd11aa1528ef8d9700b73f851abe4f32852a8c291178f42ab04a50481858fd9",
+            "filename": "RSC_2020_1rok_6IV2020_WEB_DUG_DOK.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 8,
+        "project_title": "ST 90",
+        "approved_amount": 25000.0,
+        "row_decision": "drop_row",
+        "matched_twins": [
+          {
+            "doc_sha": "5cd11aa1528ef8d9700b73f851abe4f32852a8c291178f42ab04a50481858fd9",
+            "filename": "RSC_2020_1rok_6IV2020_WEB_DUG_DOK.pdf"
+          }
+        ]
+      },
+      {
+        "row_index": 9,
+        "project_title": "Isus Krist naš svagdašnji",
+        "approved_amount": 100000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 10,
+        "project_title": "Ljubavna priča",
+        "approved_amount": 70000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 11,
+        "project_title": "Novi život",
+        "approved_amount": 70000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 12,
+        "project_title": "Zaustavi me ako možeš",
+        "approved_amount": 50000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 13,
+        "project_title": "Kontraadmiral",
+        "approved_amount": 100000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 14,
+        "project_title": "Svijet je moj",
+        "approved_amount": 50000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 15,
+        "project_title": "Tražeći Renatu",
+        "approved_amount": 100000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 16,
+        "project_title": "Kozari",
+        "approved_amount": 50000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      }
+    ]
+  },
+  {
+    "record_index": 832,
+    "doc_sha": "d64df827aaefcfc7c03af0110724443d2e2b32b665dbc8d5f4cc6f42c280eab7",
+    "filename": "2013 Razvoj projekata TV pojedina_na djela.pdf",
+    "extractor": "missing-results-backfill",
+    "extractor_version": "1.0",
+    "program_type": "razvoj_projekata",
+    "year": 2013,
+    "rok": null,
+    "row_count": 1,
+    "matched_count": 0,
+    "match_ratio": 0.0,
+    "classification": "flag_doc",
+    "rows": [
+      {
+        "row_index": 0,
+        "project_title": "Jagoda Buić",
+        "approved_amount": 60000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      }
+    ]
+  },
+  {
+    "record_index": 967,
+    "doc_sha": "fc220495c7fe735eef5427129ecd08f78b2d49c41a7976f393f04275538327fb",
+    "filename": "Razvoj_projekata_FF.pdf",
+    "extractor": "claude-code-inline-subagent",
+    "extractor_version": "1.0",
+    "program_type": "razvoj_projekata",
+    "year": 2012,
+    "rok": null,
+    "row_count": 13,
+    "matched_count": 0,
+    "match_ratio": 0.0,
+    "classification": "flag_doc",
+    "rows": [
+      {
+        "row_index": 0,
+        "project_title": "Sve najbolje",
+        "approved_amount": 145000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 1,
+        "project_title": "Ljubav ili smrt",
+        "approved_amount": 100000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 2,
+        "project_title": "Obrnuta perspektiva",
+        "approved_amount": 145000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 3,
+        "project_title": "Anka",
+        "approved_amount": 110000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 4,
+        "project_title": "Tereza33",
+        "approved_amount": 110000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 5,
+        "project_title": "Duboki rezovi",
+        "approved_amount": 140000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 6,
+        "project_title": "Trampolin",
+        "approved_amount": 140000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 7,
+        "project_title": "Kristalni otmičari",
+        "approved_amount": 140000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 8,
+        "project_title": "Moj dida je vanzemaljac",
+        "approved_amount": 120000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 9,
+        "project_title": "Osmi povjerenik",
+        "approved_amount": 50000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 10,
+        "project_title": "Razred",
+        "approved_amount": 175000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 11,
+        "project_title": "Dianina lista",
+        "approved_amount": 140000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      },
+      {
+        "row_index": 12,
+        "project_title": "Povratak u Dol: monolozi pomirenja",
+        "approved_amount": 120000.0,
+        "row_decision": "flag_row",
+        "matched_twins": []
+      }
+    ]
+  }
+]
