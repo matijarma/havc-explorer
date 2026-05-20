@@ -2,39 +2,32 @@
   "hero": {
     "kicker": "Process",
     "headline": "Three years. Three approaches. One dataset.",
-    "subhead": "How HAVC's published PDFs became a structured, auditable, navigable registry — what worked at each step, what broke, and what it cost."
+    "subhead": "How HAVC's published PDFs became a structured, auditable, navigable registry — what worked at each step, what broke, and what it cost. The third era is the interesting one; we'll spend most of the page there."
   },
   "eras": [
     {
       "id": "era1",
       "label": "Era 1",
       "dates": "≈ 2023",
-      "title": "Custom GPT with all the PDFs in the knowledge base",
+      "title": "Custom GPT, all PDFs in a knowledge base",
       "system": {
         "input": "≈ 1,100 PDFs uploaded to a custom GPT",
         "process": [
           "OpenAI custom GPT",
-          "retrieval over the PDF knowledge base",
+          "retrieval over the PDFs",
           "natural-language Q&A"
         ],
         "output": "A chat. No structured data."
       },
-      "what": "I uploaded HAVC's published PDFs into a custom GPT's knowledge base and started asking it questions. Zero engineering effort. Immediate utility for one-off questions.",
-      "why_good": [
-        "Useful as a fuzzy search engine.",
-        "Cost: minutes of setup. No code. No infrastructure.",
-        "Good first answer to 'can I just throw the PDFs at an LLM and get something useful?' — yes, you can."
-      ],
+      "what": "PDFs into a custom GPT's knowledge base, then ask it questions. Zero engineering. Useful as a fuzzy search engine; useless for aggregation. Numbers hallucinated. No audit trail.",
       "why_limited": [
-        "Retrieval-only — it could find a relevant PDF, but couldn't aggregate across them.",
-        "Numbers hallucinated freely. There was no way to ask it for 'total funded in 2018' and trust the answer.",
-        "No audit trail. No way to ask 'how do you know'.",
-        "No API. Only a chat box."
+        "Retrieval-only — couldn't aggregate across PDFs.",
+        "No way to verify a number, no way to ask 'how do you know'."
       ],
       "artifacts": [
         {
           "kind": "note",
-          "text": "No local artifacts — the GPT lived in OpenAI's platform. What remains is the lesson: retrieval over PDFs does not produce a dataset, only a slightly better way to ask a search engine."
+          "text": "Nothing local survives. The lesson: retrieval over PDFs gives a slightly better search box, not a dataset."
         }
       ]
     },
@@ -42,47 +35,39 @@
       "id": "era2",
       "label": "Era 2",
       "dates": "21 January 2026",
-      "title": "Constrained extraction in two Python scripts",
+      "title": "Two deterministic Python scripts",
       "system": {
         "input": "≈ 1,100 PDFs on disk",
         "process": [
-          "extract_financing.py",
-          "deterministic table parsing",
-          "merge_financing.py"
+          "extract_financing.py · table parsing",
+          "merge_financing.py · per-programme merge"
         ],
-        "output": "master_financing.csv · 2.1 MB · rows of (title, amount, year)"
+        "output": "master_financing.csv · 2.1 MB · (title, amount, year)"
       },
-      "what": "Wrote two Python scripts. One opened each PDF, looked for funding tables, and pulled rows into a CSV. The other merged the per-PDF output by programme (natječaj). The whole corpus ran in under an hour with no LLM cost.",
+      "what": "Two Python scripts. One pulled rows out of each PDF's tables; the other merged them by natječaj. The whole corpus ran in under an hour with zero LLM cost.",
       "why_good": [
-        "Structured. Reproducible. Auditable line by line.",
-        "Cheap: deterministic parsing, no per-document API calls.",
-        "Successfully extracted the table-shaped majority of funding decisions — only ten files in the whole corpus had no rows at all, and they turned out to be administrative documents (job postings, regulations, the HAVC statute), not funding decisions."
+        "Structured, reproducible, line-auditable.",
+        "Cheap — deterministic, no per-PDF API calls.",
+        "Got the table-shaped majority. Only ten files in the corpus returned no rows, and they were administrative documents, not funding decisions."
       ],
       "why_limited": [
-        "Only the tables. The jury rationale text — why a project was funded, what the panel said — was discarded.",
-        "No project identity. The same film appearing across script-development, production, and distribution rounds showed up as three unrelated rows.",
-        "No people. Producer, director, writer fields were inconsistent or blank.",
-        "Numbers were locked in without verification. Comma-vs-period decimals, OCR drift, and 'HRK vs EUR' got silently wrong on a long tail of rows.",
-        "No way to ask the data anything beyond 'sum this column'."
+        "Only the tables. Jury rationale — the *why* — was discarded.",
+        "No project identity across rounds. The same film in script-dev, production, and distribution showed up as three strangers.",
+        "No people. Producer / director / writer were inconsistent or blank.",
+        "Amounts locked in without verification. Comma-vs-period decimals and HRK-vs-EUR drifted silently on a long tail of rows."
       ],
       "artifacts": [
-        { "kind": "file", "path": "pdfs/extract_financing.py", "note": "The first extractor — table-only, deterministic, no LLM" },
-        { "kind": "file", "path": "pdfs/merge_financing.py", "note": "Merged per-PDF output into one master CSV, then split it by programme" },
+        { "kind": "file", "path": "pdfs/extract_financing.py", "note": "Table-only extractor, deterministic, no LLM" },
+        { "kind": "file", "path": "pdfs/merge_financing.py",   "note": "Merged per-PDF output into one master CSV, then split by programme" },
         { "kind": "file", "path": "pdfs/output/master_financing.csv", "note": "The produced dataset", "size": "2.1 MB" },
-        { "kind": "file", "path": "pdfs/output/by_natjecaj/", "note": "47 CSVs split by funding programme" },
-        {
-          "kind": "code",
-          "lang": "txt",
-          "caption": "pdfs/output/extraction_report.txt — every file that produced no rows",
-          "body": "files\tstatus\n2009%20Koprodukcije,%201.%20rok,%20OBRAZLO%C5%BDENJE.pdf\tNO_ROWS\nNatje%C4%8Daj%20-%20zamjenik%20ravnatelja.pdf\tNO_ROWS\nNatje%C4%8Daj%20za%20voditelja%20ustrojstvene%20jedinice%201%20i%20vi%C5%A1i%20savjetnik%201.pdf\tNO_ROWS\nNatje%C4%8Daj-%20HAVC%20specijalist%20DKE-%20Ured%20MEDIA%20Hrvatske.pdf\tNO_ROWS\nPlan%20regulacije%20prometa.pdf\tNO_ROWS\nPravilnik%20o%20provedbi%20postupka%20jednostavne%20nabave%2000.pdf\tNO_ROWS\nPravilnik%20o%20provedbi%20postupka%20jednostavne%20nabave%202023.pdf\tNO_ROWS\nRevija%20UMAS%202023%20-%20Filmovi%20%28002%29.pdf\tNO_ROWS\nScan_VI%C5%A0I%20UPRAVNI%20SAVJETNIK_09072019.pdf\tNO_ROWS\nStatut%20HAVC-a_17122024.pdf\tNO_ROWS"
-        }
+        { "kind": "file", "path": "pdfs/output/extraction_report.txt", "note": "Every file that produced no rows — all admin docs" }
       ]
     },
     {
       "id": "era3",
       "label": "Era 3",
-      "dates": "16–17 May 2026",
-      "title": "Pipeline, classifier, agentic audit loops",
+      "dates": "16–20 May 2026",
+      "title": "Pipeline, classifier, ten passes, audit loops",
       "system": {
         "input": "≈ 1,100 PDFs",
         "process": [
@@ -92,52 +77,399 @@
           "amount_parser.py · normalises decimals + currencies",
           "Claude + Codex audit & repair loops"
         ],
-        "output": "dataset/master.json · 14 MB · 989 records · 10,388 rows · with narratives, people, project identity"
+        "output": "dataset/master.json · 14 MB · 989 records · 10,388 rows · narratives, people, project identity"
       },
-      "what": "Replaced the single-script approach with a modular pipeline. Each PDF is first classified by document type, then routed to the right extractor — tables, jury narratives, OCR'd scans. Project identity is resolved by normalising titles across documents. Amounts run through a dedicated parser. Then the output runs through audit passes that produce machine-readable reports of every gap and every suspicious value. Claude and Codex sessions iterate on those reports: patching prompts, refining the amount parser, backfilling missing fields, and dropping rows that turn out to be artefacts.",
+      "what": "Replaced the single-script approach with a modular pipeline. Each PDF is first classified, then routed to the right extractor — tables, jury narratives, OCR'd scans. The extracted data goes into master.json, then runs through nine more passes that each produce a machine-readable report of every gap and every suspicious value. The next pass reads that report. The dataset is the fixed point.",
       "why_good": [
         "Every record is auditable: original PDF, page number, raw text, normalised value.",
-        "Every gap has a written report (_amount_repair, _bogus_rows_drop, _backfill, _narratives_backfill).",
-        "The pipeline is restartable — cached extractions get reused.",
-        "Captures the parts Era 2 dropped: jury narratives, people, project identity across rounds, session totals.",
-        "Numbers are challenged. The amount-repair pass alone inspected 116 suspect rows and confirmed or fixed 37 of them."
+        "Every gap has a written report (_amount_repair, _bogus_rows_drop, _backfill, _narratives_backfill, _director_apply, _producer_pollution, _producer_cluster, normalize-plan).",
+        "Cache layer makes the pipeline restartable. Re-extractions are free.",
+        "Captures what Era 2 dropped: jury narratives, people, project identity across rounds, session totals.",
+        "Numbers are challenged. The amount-repair pass alone inspected 116 suspect rows and confirmed or fixed 37."
       ],
       "why_limited": [
-        "Some amounts still drift on edge cases — the dashboard surfaces those for human review (80 rows remain flagged 'needs_review' even after Pass B).",
+        "Some amounts still drift on edge cases — 80 rows remain flagged `needs_review` even after Pass B.",
         "Heavy in compute and tokens. 226 Claude sessions and a similar count of Codex turns in 48 hours.",
-        "The pipeline assumes HAVC's PDF conventions hold. New layouts will need new classifier rules."
+        "The pipeline assumes HAVC's PDF conventions hold. New layouts need new classifier rules."
       ],
       "artifacts": [
         { "kind": "metric", "label": "Records produced", "value": "989" },
         { "kind": "metric", "label": "Rows after flattening", "value": "10,388" },
         { "kind": "metric", "label": "Pipeline modules", "value": "~45", "note": "D:\\scratch\\havc\\havc_pipeline\\" },
         { "kind": "metric", "label": "Claude sessions", "value": "226", "note": "48 hours, May 16–17, 2026" },
-        { "kind": "metric", "label": "Suspect amounts inspected", "value": "116", "note": "37 repaired · 80 flagged for review · Pass B" },
-        { "kind": "metric", "label": "Audit + repair reports", "value": "4", "note": "_amount_repair · _bogus_rows_drop · _backfill · _narratives_backfill" },
         { "kind": "file", "path": "havc_pipeline/prompts.py", "note": "The extraction prompt templates" },
         { "kind": "file", "path": "havc_pipeline/amount_parser.py", "note": "Currency / decimal normalisation" },
         { "kind": "file", "path": "dataset/master.json", "note": "The final dataset", "size": "14 MB" },
-        { "kind": "file", "path": "reports/", "note": "8 markdown analyses generated on top of the dataset" },
-        {
-          "kind": "quote",
-          "source": "dataset/_amount_repair_report.md",
-          "caption": "From the amount-repair audit (Pass B)",
-          "body": "## Detail\n\n- [repaired] rezultati komplementarne 2021.pdf | rn=4 | Autonomni kulturni centar | old=0.0 -> new=20000.0 (croatian_std, high, €2,654)\n- [repaired] rezultati komplementarne 2021.pdf | rn=9 | Dalmatia Film Festival       | old=0.0 -> new=10000.0 (croatian_std, high, €1,327)\n- [repaired] rezultati komplementarne 2021.pdf | rn=10 | Festival mediteranskog filma Split | old=0.0 -> new=10000.0 (croatian_std, high, €1,327)\n- [needs_review] rezultati komplementarne 2021.pdf | rn=22 | Mladi mladima — poticanje razvoja filmskih druš…  | current=0.0 ('0.000,00')\n- [repaired] rezultati komplementarne 2021.pdf | rn=57 | Dokukino program u 2021. godini | old=0.0 -> new=70000.0 (croatian_std, high, €9,291)"
-        }
-      ]
+        { "kind": "file", "path": "reports/", "note": "8 markdown analyses generated on top of the dataset" }
+      ],
+      "deep_dive": {
+        "kicker": "Era 3 · deep dive",
+        "headline": "Inside the iteration loop",
+        "subhead": "Ten passes over five days. Each pass produces a machine-readable report; the next pass reads that report. Algorithmic and LLM passes alternate. The diagram is literal — these are the boxes, in this order, with these feedback edges.",
+        "loop_diagram": {
+          "viewBox": "0 0 1060 600",
+          "nodes": [
+            { "id": "pdfs",       "x": 24,  "y": 28,  "w": 170, "h": 56, "kind": "input",  "label": "≈ 1,100 PDFs" },
+            { "id": "classifier", "x": 230, "y": 28,  "w": 170, "h": 56, "kind": "algo",   "label": "Pass 0 · classifier" },
+            { "id": "extract_t",  "x": 440, "y": 0,   "w": 220, "h": 56, "kind": "llm",    "label": "Pass 1 · table extract" },
+            { "id": "extract_n",  "x": 440, "y": 76,  "w": 220, "h": 56, "kind": "llm",    "label": "Pass 2 · narrative + decision" },
+            { "id": "store",      "x": 720, "y": 38,  "w": 220, "h": 60, "kind": "store",  "label": "dataset / master.json" },
+            { "id": "loop_label", "x": 720, "y": 158, "w": 220, "h": 28, "kind": "label",  "label": "↺ iteration loop" },
+            { "id": "pass3",      "x": 24,  "y": 220, "w": 232, "h": 48, "kind": "llm",    "label": "Pass 3 · missing-results backfill" },
+            { "id": "pass4",      "x": 280, "y": 220, "w": 232, "h": 48, "kind": "algo",   "label": "Pass 4 · drop bogus rows" },
+            { "id": "pass5",      "x": 536, "y": 220, "w": 232, "h": 48, "kind": "hybrid", "label": "Pass 5 · amount triage + repair" },
+            { "id": "pass6",      "x": 792, "y": 220, "w": 232, "h": 48, "kind": "llm",    "label": "Pass 6 · people backfill ×418" },
+            { "id": "pass7",      "x": 24,  "y": 296, "w": 232, "h": 48, "kind": "llm",    "label": "Pass 7 · producer pollution sweep" },
+            { "id": "pass8",      "x": 280, "y": 296, "w": 232, "h": 48, "kind": "hybrid", "label": "Pass 8 · producer cluster + canonical" },
+            { "id": "pass9",      "x": 536, "y": 296, "w": 232, "h": 48, "kind": "llm",    "label": "Pass 9 · urlless dedup (Codex audit)" },
+            { "id": "parity",     "x": 792, "y": 296, "w": 232, "h": 48, "kind": "algo",   "label": "Parity audit (side branch)" },
+            { "id": "reports",    "x": 180, "y": 412, "w": 700, "h": 64, "kind": "report", "label": "audit reports — _amount_repair · _bogus_rows_drop · _backfill · _narratives_backfill · _director_apply · _producer_pollution · _producer_cluster · normalize-plan" },
+            { "id": "final",      "x": 360, "y": 520, "w": 340, "h": 56, "kind": "output", "label": "989 records · 10,388 rows · 14 MB" }
+          ],
+          "edges": [
+            { "from": "pdfs",       "to": "classifier", "kind": "forward" },
+            { "from": "classifier", "to": "extract_t",  "kind": "forward" },
+            { "from": "classifier", "to": "extract_n",  "kind": "forward" },
+            { "from": "extract_t",  "to": "store",      "kind": "forward" },
+            { "from": "extract_n",  "to": "store",      "kind": "forward" },
+            { "from": "store",      "to": "pass3",      "kind": "loop" },
+            { "from": "pass3",      "to": "pass4",      "kind": "loop" },
+            { "from": "pass4",      "to": "pass5",      "kind": "loop" },
+            { "from": "pass5",      "to": "pass6",      "kind": "loop" },
+            { "from": "pass6",      "to": "pass7",      "kind": "loop" },
+            { "from": "pass7",      "to": "pass8",      "kind": "loop" },
+            { "from": "pass8",      "to": "pass9",      "kind": "loop" },
+            { "from": "pass9",      "to": "parity",     "kind": "loop" },
+            { "from": "parity",     "to": "reports",    "kind": "forward" },
+            { "from": "reports",    "to": "store",      "kind": "feedback" },
+            { "from": "store",      "to": "final",      "kind": "forward" }
+          ]
+        },
+        "tally": {
+          "title": "By the numbers",
+          "items": [
+            { "label": "Claude sessions",            "value": "226",      "note": "48h, May 16–17" },
+            { "label": "Results-table records",      "value": "542" },
+            { "label": "Director / writer batches",  "value": "418",      "note": "1 Claude subagent each" },
+            { "label": "Producer-pollution candidates","value": "196",    "note": "170 drop · 26 keep" },
+            { "label": "Producer clusters",          "value": "240",      "note": "62 remappings · 464 rows touched" },
+            { "label": "URL-less docs",              "value": "18",       "note": "49 duplicates dropped · 78 flagged orphan" },
+            { "label": "Suspect amounts inspected",  "value": "116",      "note": "37 repaired · 80 needs_review" },
+            { "label": "Bogus rows dropped",         "value": "139",      "note": "across 46 records" },
+            { "label": "Final records",              "value": "989",      "note": "10,388 rows" },
+            { "label": "Est. tokens (in + out)",     "value": "≈ 6–10 M", "note": "see footnote" }
+          ],
+          "tokens_footnote": "Order-of-magnitude estimate. 542 table extractions averaging ~8k input tokens of PDF + ~1.5k tool output ≈ 5.1 M; 418 people-backfill batches × ~7k in + ~1.5k out ≈ 3.6 M; 196 + 240 producer candidates × ~2k tokens ≈ 0.9 M; narrative/decision and Codex audit add ~0.5 M. No hard usage-block tally available in the May session JSONLs."
+        },
+        "passes": [
+          {
+            "id": "pass-classifier",
+            "ordinal": "Pass 0",
+            "kind": "algo",
+            "title": "Document classifier",
+            "engine": "havc_pipeline/classify.py · regex over filename + first-page text",
+            "what": "Every PDF in the corpus first runs through a deterministic classifier that decides where to route it: results_table, narrative, decision, regulation, admin, or non_financing. Pure regex; no LLM. The verdict gates whether a PDF gets a paid extraction.",
+            "input": "PDF bytes — decoded filename + first-page text dump",
+            "output": "{ doc_type, confidence, signals[], page_count, text_extractable }",
+            "prompt_excerpt": {
+              "caption": "havc_pipeline/classify.py — FILENAME_PATTERNS (excerpt)",
+              "body": "(\"narrative\", re.compile(r\"obrazloz|obrazlozenje\"), 60),\n(\"decision\",  re.compile(r\"^odluka[\\s_].*av|odluka.av.vijeca\"), 60),\n(\"regulation\", re.compile(r\"pravilnik|statut|plan.rashoda|bilanca|biljeske|obveze|zakon|nacrt|plan.nabave|program.drzavne|program.rada|godisnj.*plan|godisnj.*program\"), 50),\n(\"admin\", re.compile(r\"^cv_|natjecaj.*ravnatelj|natjecaj.*savjetnik|natjecaj.*voditelj|natjecaj.*ured|^scan_|ponuda.hpb\"), 50),\n(\"results_table\", re.compile(r\"rezultati|^rpr|^rsc|jp.distribucija|festivali|koprodukcij|^proizvodnja|^razvoj|komplementarne|media.matching|covid|medjunarodna\"), 40),\n(\"non_financing\", re.compile(r\"about.circle|talents.sarajevo|^revija.umas|^festival|^ekran|hrvatsko.drustvo|^urti|veliko.natjecanje|filmovi|^plan.regulacije\"), 35),"
+            },
+            "io_example": {
+              "caption": "Three real PDFs, three verdicts",
+              "expected": "rezultati MANJINSKE KOPRODUKCIJE - 4. rok 2025.pdf → results_table\nobrazlozenje_manjinske_25052016.pdf            → narrative\nPravilnik o provedbi postupka jednostavne nabave 2023.pdf → regulation",
+              "received": "results_table · confidence=high · signals=[fn_results_table, content_amount, content_header]\nnarrative     · confidence=high · signals=[fn_narrative, content_narrative]\nregulation    · confidence=high · signals=[fn_regulation]"
+            },
+            "metrics": [
+              { "label": "PDFs classified",       "value": "≈ 1,100" },
+              { "label": "Doc types",             "value": "6",       "note": "results_table · narrative · decision · regulation · admin · non_financing" },
+              { "label": "LLM calls",             "value": "0",       "note": "100% deterministic" }
+            ],
+            "artifacts": [
+              { "kind": "file", "path": "havc_pipeline/classify.py" },
+              { "kind": "file", "path": "havc_pipeline/text_signals.py" }
+            ]
+          },
+          {
+            "id": "pass-table-extract",
+            "ordinal": "Pass 1",
+            "kind": "llm",
+            "title": "Results-table extraction",
+            "engine": "havc_pipeline/extract_table.py · Claude vision · emit_results_table tool",
+            "what": "For every PDF classified as results_table, Claude reads it as an image and emits sections + rows via a strict tool schema. The system prompt is the longest and most prescriptive in the pipeline: ten numbered rules covering row capture, diacritics, Croatian decimal convention, HRK/EUR currency, multi-section layouts, column mapping, and how to handle the UKUPNO totals line.",
+            "input": "One PDF + classifier verdict = results_table",
+            "output": "{ document, sections[ { section_label, columns, rows[ { project_title, production_company, applicant, director, writer, original_author, category, approved_amount_text, approved_amount, currency, extras } ] } ], totals }",
+            "prompt_excerpt": {
+              "caption": "havc_pipeline/prompts.py — RESULTS_TABLE_SYSTEM_PROMPT, rules 1–4",
+              "body": "1. CAPTURE EVERY ROW. Even if a row has missing fields, include it. Never drop a row because the layout is awkward.\n\n2. PRESERVE CROATIAN DIACRITICS exactly: ć, č, š, ž, đ, Ć, Č, Š, Ž, Đ. Never replace them with ?, c, z, etc.\n\n3. AMOUNT FORMAT. Croatian decimal convention uses `.` as thousands separator and `,` as decimal.\n   - `19.000,00`   → approved_amount=19000.0\n   - `1.234.567,89` → approved_amount=1234567.89\n   - `345,00`      → approved_amount=345.0\n\n4. CURRENCY. Croatia adopted the euro on 2023-01-01.\n   - Earlier PDFs use kn (Croatian kuna): currency=\"HRK\".\n   - Later PDFs use € (euro): currency=\"EUR\".\n   - Set both document.currency and per-row currency."
+            },
+            "io_example": {
+              "caption": "rezultati komplementarne 2021.pdf — one row through the tool call",
+              "expected": "{\n  \"project_title\": \"<filmsko/AV događanje>\",\n  \"production_company\": \"<entity>\",\n  \"approved_amount_text\": \"10.000,00\",   // VERBATIM\n  \"approved_amount\": 10000.0,           // Croatian-parsed\n  \"currency\": \"HRK\"\n}",
+              "received": "{\n  \"project_title\": \"Dalmatia Film Festival\",\n  \"production_company\": \"Festival mediteranskog filma Split\",\n  \"approved_amount_text\": \"10.000,00\",\n  \"approved_amount\": 10000.0,\n  \"currency\": \"HRK\"\n}\n// → €1,327 after HRK→EUR normalisation (Pass 5 will revisit suspicious zeros in the same PDF)"
+            },
+            "metrics": [
+              { "label": "results_table records",   "value": "542" },
+              { "label": "diacritics preserved",    "value": "100%" },
+              { "label": "system-prompt rules",     "value": "10" }
+            ],
+            "artifacts": [
+              { "kind": "file", "path": "havc_pipeline/extract_table.py" },
+              { "kind": "file", "path": "havc_pipeline/prompts.py" },
+              { "kind": "file", "path": "havc_pipeline/schema.py" }
+            ]
+          },
+          {
+            "id": "pass-narrative",
+            "ordinal": "Pass 2",
+            "kind": "llm",
+            "title": "Narrative + decision extraction",
+            "engine": "havc_pipeline/extract_narrative.py · emit_narrative_metadata tool",
+            "what": "Obrazloženja (jury rationale documents) and single-project odluka decisions are prose, not tables. Claude reads them and emits: which call + year + rok the document covers, which project titles are mentioned, and a 1–2 sentence Croatian summary. This is the data behind the dashboard's 'Discussed, never funded' lens.",
+            "input": "One PDF + classifier verdict = narrative | decision",
+            "output": "{ program_type, year, rok, referenced_projects[], summary }",
+            "prompt_excerpt": {
+              "caption": "havc_pipeline/prompts.py — NARRATIVE_SYSTEM_PROMPT",
+              "body": "You read short text from HAVC PDFs (Croatian audiovisual centre) and extract metadata. These are either narrative justifications (obrazloženja) by artistic advisors, or decisions (odluke) about funding lists.\n\nCall `emit_narrative_metadata` exactly once with:\n- program_type: closest enum match or null if unclear\n- year:        4-digit year of the call/decision, or null\n- rok:         \"N. rok\" or null\n- referenced_projects: array of project titles mentioned in the text (deduplicated, in order of appearance, exact diacritics preserved)\n- summary:     1-2 sentence Croatian summary of what the document says\n\nPreserve Croatian diacritics. Do not invent project titles."
+            },
+            "io_example": {
+              "caption": "obrazlozenje_manjinske_25052016.pdf — extracted metadata",
+              "expected": "{\n  \"program_type\": \"manjinske_koprodukcije\",\n  \"year\":         2016,\n  \"rok\":          \"2. rok\",\n  \"referenced_projects\": [\"…\", \"…\", \"…\"],\n  \"summary\":      \"<1–2 sentence Croatian summary>\"\n}",
+              "received": "{\n  \"program_type\": \"manjinske_koprodukcije\",\n  \"year\":         2016,\n  \"rok\":          \"2. rok\",\n  \"referenced_projects\": [\"…12 titles…\"],\n  \"summary\":      \"Umjetničko vijeće HAVC-a obrazlaže odluku o dodjeli sredstava za manjinske koprodukcije u drugom roku 2016.\"\n}"
+            },
+            "metrics": [
+              { "label": "narrative targets",  "value": "268" },
+              { "label": "extracted ok",        "value": "267" },
+              { "label": "failed",              "value": "1",   "note": "single corrupted PDF" }
+            ],
+            "artifacts": [
+              { "kind": "file", "path": "havc_pipeline/extract_narrative.py" },
+              { "kind": "file", "path": "havc_pipeline/prompts.py" },
+              { "kind": "file", "path": "dataset/_narratives_backfill_report.md" }
+            ]
+          },
+          {
+            "id": "pass-missing-results",
+            "ordinal": "Pass 3",
+            "kind": "llm",
+            "title": "Missing-results backfill",
+            "engine": "missing-results-backfill extractor channel · re-uses Pass 1's table prompt",
+            "what": "Some obrazloženja close with a small awarded-projects table; the classifier sent them to narrative, so Pass 1 never saw them. A scan over the dataset surfaces these candidates and re-extracts them with the table prompt, tagged with extractor=\"missing-results-backfill\" so they're distinguishable in master.json. Cached extractions are not re-billed.",
+            "input": "PDFs flagged by the post-Pass-2 scan as carrying a missed table",
+            "output": "results_table records with source.extractor=\"missing-results-backfill\"",
+            "prompt_excerpt": {
+              "caption": "Re-uses Pass 1's RESULTS_TABLE_SYSTEM_PROMPT verbatim",
+              "body": "// Same ten rules as Pass 1. The only thing that changes is the extractor channel\n// recorded in source.extractor — so audit reports can tell us whether a row\n// came from the planned route or from a backfill.\n"
+            },
+            "io_example": {
+              "caption": "2013 Razvoj scenarija TV pojedinačna djela.pdf — initially classified narrative",
+              "expected": "Pass 2 returns:\n  referenced_projects: [...]\n  // no rows, no amounts — but the PDF actually has a 2-row awards table at the bottom",
+              "received": "Pass 3 re-extracts with the table prompt:\n  sections: [{ rows: [ { project_title, applicant, approved_amount: …, currency: \"HRK\" }, … ] }]\n  source.extractor: \"missing-results-backfill\""
+            },
+            "metrics": [
+              { "label": "PDFs re-extracted",  "value": "≈ 30",  "note": "visible as `missing-results-backfill` in normalize-plan.md" },
+              { "label": "Cached, no re-bill", "value": "yes" }
+            ],
+            "artifacts": [
+              { "kind": "file", "path": "dataset/_narratives_backfill_report.md" },
+              { "kind": "file", "path": "dataset/_backfill_report.md" }
+            ]
+          },
+          {
+            "id": "pass-bogus-drop",
+            "ordinal": "Pass 4",
+            "kind": "algo",
+            "title": "Drop bogus rows",
+            "engine": "heuristic Python pass over master.json — no LLM",
+            "what": "Some extracted rows are clearly not real funding decisions: 'Stavka' placeholder rows leaking from TV development PDFs, HAVC's own postal address parsed as a project title, komplementarne section headers ('filmski festivali i druge audiovizualne manifestacije') that the table parser pulled from a heading row into a project_title cell. A categorical filter tags each with a reason code and removes them.",
+            "input": "All rows in master.json",
+            "output": "rows minus 139 dropped rows + a report keyed by reason code",
+            "prompt_excerpt": {
+              "caption": "Reason codes used by the bogus-row classifier (excerpt)",
+              "body": "[stavka_generic_no_amount]   — title is the literal string 'Stavka' with no amount (TV-development placeholder)\n[havc_address]               — title contains HAVC's postal address ('Trg Josipa Jurja Strossmayera 4 | 10000 Zagreb | Croatia Tel')\n[category_header_bare_count] — title is a komplementarne section header that leaked from a heading row\n                                ('filmski festivali i druge audiovizualne manifestacije',\n                                 'izdavaštvo u području audiovizualnih djelatnosti',\n                                 'programi audiovizualnih udruga i organizacija',\n                                 'programi stručnog usavršavanja')\n"
+            },
+            "io_example": {
+              "caption": "Three real drops (one per reason code) from _bogus_rows_drop_report.md",
+              "expected": "Title looks structurally row-shaped, but is not a project.",
+              "received": "[stavka_generic_no_amount]   RPRSERTV_2021_2rok_9IX2021_WEB.pdf            title='Stavka'                                                  → dropped\n[havc_address]               REZULTATI_PRO_VIDEOIGRE_2024.pdf              title='Trg Josipa Jurja Strossmayera 4 | 10000 Zagreb | Croatia Tel' → dropped\n[category_header_bare_count] odobreni projekti komplementarne.pdf           title='filmski festivali i druge audiovizualne manifestacije'    → dropped"
+            },
+            "metrics": [
+              { "label": "Rows dropped",        "value": "139" },
+              { "label": "Records touched",     "value": "46" },
+              { "label": "Distinct reason codes","value": "3+", "note": "stavka_generic_no_amount · havc_address · category_header_bare_count · …" }
+            ],
+            "artifacts": [
+              { "kind": "file", "path": "dataset/_bogus_rows_drop_report.md" }
+            ]
+          },
+          {
+            "id": "pass-amount-repair",
+            "ordinal": "Pass 5",
+            "kind": "hybrid",
+            "title": "Amount triage + repair",
+            "engine": "havc_pipeline/amount_parser.py + Pass A survey + Pass B repair · algorithmic with LLM-assisted neighbourhood inspection",
+            "what": "The amount parser handles Croatian decimal/thousands conventions, but a long tail of PDFs has OCR drift — '0.000,00' parsed as 0.0, spaced letters in titles ('Dalmatia F ilm F estival'), pre-2023 amounts ambiguously denominated. Pass A surveys every amount string and flags suspects. Pass B re-reads each suspect against the raw_text neighbourhood and either repairs the amount or stamps it `needs_review` for human inspection.",
+            "input": "All amount cells in master.json",
+            "output": "Pass A: 116 suspects · Pass B: 37 repaired + 80 needs_review",
+            "prompt_excerpt": {
+              "caption": "Repair-decision tags used in _amount_repair_report.md",
+              "body": "tag             meaning\n--------------- ---------------------------------------------------------\nrepaired        amount was confidently fixed from a neighbouring string\nneeds_review    amount could not be fixed unambiguously — flagged for human\ncroatian_std    repair confidence track: Croatian decimal convention applied\nhigh / medium / low   confidence of the neighbourhood read"
+            },
+            "io_example": {
+              "caption": "rezultati komplementarne 2021.pdf — Pass B in action",
+              "expected": "Pass A flags row 4 as suspect: current=0.0 ('0.000,00').\nPass B should inspect the raw_text and either repair or mark needs_review.",
+              "received": "[repaired]    rn=4   Autonomni kulturni centar    old=0.0 → new=20000.0 (croatian_std, high, €2,654)\n[repaired]    rn=9   Dalmatia Film Festival       old=0.0 → new=10000.0 (croatian_std, high, €1,327)\n[repaired]    rn=10  Festival mediteranskog filma old=0.0 → new=10000.0 (croatian_std, high, €1,327)\n[needs_review] rn=22 Mladi mladima — poticanje…   current=0.0 ('0.000,00')   // amount illegible in PDF"
+            },
+            "metrics": [
+              { "label": "Suspects inspected", "value": "116" },
+              { "label": "Repaired",           "value": "37" },
+              { "label": "Needs review",       "value": "80",  "note": "still flagged in master.json — surfaced on the dashboard" }
+            ],
+            "artifacts": [
+              { "kind": "file", "path": "havc_pipeline/amount_parser.py" },
+              { "kind": "file", "path": "dataset/_amount_triage_report.md" },
+              { "kind": "file", "path": "dataset/_amount_repair_report.md" }
+            ]
+          },
+          {
+            "id": "pass-people-backfill",
+            "ordinal": "Pass 6",
+            "kind": "llm",
+            "title": "Director / writer / original-author backfill",
+            "engine": "_director_collect.py → 418 batches → Claude subagents (one batch each) → _director_apply.py",
+            "what": "Most early results_table records had blank director / writer / original_author fields because pre-2014 PDFs listed those names in narrative paragraphs adjacent to the table, not as columns. The collect script slices each record into a per-record JSON batch containing the rows and the full raw_text, dispatches it to a Claude subagent with a tightly-scoped prompt, and the subagent emits exactly one decision per row. Apply merges those decisions back into master.json.",
+            "input": "418 per-record batches; each carries rows + raw_text",
+            "output": "418 decision JSON files; merged into master.json by _director_apply.py",
+            "prompt_excerpt": {
+              "caption": "dataset/_director_prompt.md — column-name candidates the subagent searches raw_text for",
+              "body": "Extract from adjacent columns when present:\n\n- director column candidates:\n    REDATELJ · REDATELJ/ICA · Redatelj/-ica · Redateljica · Režija\n- writer column candidates:\n    SCENARIST/ICA · Scenarist/-ica · Scenaristica · Scenarij\n- original-author column candidates:\n    AUTOR IZVORNOG PREDLOŠKA · IZVORNI PREDLOŽAK · Prema romanu · prema priči · prema noveli · prema djelu\n\nIf a current field is already non-null, prefer returning null for that field unless the PDF clearly shows a better canonical value.\nPreserve Croatian diacritics exactly (č ć š ž đ Č Ć Š Ž Đ)."
+            },
+            "io_example": {
+              "caption": "One row from batch 099840fa — AV proizvodnja 2010.pdf",
+              "expected": "// per the schema in _director_prompt.md\n{\n  \"section_idx\": 0,\n  \"row_idx\": 7,\n  \"director\": \"<name or null>\",\n  \"writer\":  \"<name or null>\",\n  \"original_author\": \"<name or null>\",\n  \"confidence\": \"high\" | \"medium\" | \"low\",\n  \"reasoning\": \"<one short sentence>\"\n}",
+              "received": "{\n  \"section_idx\": 0,\n  \"row_idx\": 7,\n  \"director\":        null,        // not present in raw_text\n  \"writer\":          null,        // ditto\n  \"original_author\": \"prema noveli Slavka Mihalića\",\n  \"confidence\":      \"medium\",\n  \"reasoning\":       \"raw_text contains 'prema noveli Slavka Mihalića' two lines below the project title.\"\n}"
+            },
+            "metrics": [
+              { "label": "Batches dispatched",                "value": "418" },
+              { "label": "Records skipped (no creator cols)", "value": "15"  },
+              { "label": "Records skipped (wrong programme)", "value": "106" },
+              { "label": "Records skipped (no missing rows)", "value": "3"   }
+            ],
+            "artifacts": [
+              { "kind": "file", "path": "dataset/_director_prompt.md" },
+              { "kind": "file", "path": "dataset/_director_collect_report.md" },
+              { "kind": "file", "path": "dataset/_director_apply_audit.md" },
+              { "kind": "file", "path": "dataset/_people_backfill_report.md" }
+            ]
+          },
+          {
+            "id": "pass-producer-pollution",
+            "ordinal": "Pass 7",
+            "kind": "llm",
+            "title": "Producer-field pollution sweep",
+            "engine": "_producer_pollution_collect.py → Claude → _producer_pollution_apply.py",
+            "what": "The production_company and applicant columns sometimes contain pollution that the table extractor copied from adjacent cells: section labels, totals rows, descriptive sentences leaked from project_title or raw_text. A regex pre-classifier emits 196 candidates with a bucket hint (amount_shaped, header_or_category, sentence_like); Claude makes the final drop / keep / replace call.",
+            "input": "196 candidate (record, row, field) tuples with current value + bucket hint",
+            "output": "196 decisions: 170 drop · 26 keep · 0 replace",
+            "prompt_excerpt": {
+              "caption": "dataset/_producer_pollution_prompt.md — decision policy (excerpt)",
+              "body": "bucket: \"amount_shaped\"      → almost always drop. Amounts never belong in a producer field.\n\nbucket: \"header_or_category\":\n  - \"PRODUCENT\" literal                       → drop (column header)\n  - \"filmski festivali...\", \"izdavaštvo...\"   → drop (komplementarne sub-programme labels)\n  - \"Produkcija ...\", \"Projekt ...\" + name    → keep\n  - \"Dugometra*\", \"Animirani\" standalone      → drop (category header)\n\nbucket: \"sentence_like\":\n  - Starts with \"Sudjelovanje\", \"Predstavljanje\", \"U produkciji\" → drop (project description leaked from title)\n  - Contains unambiguous \"Producent: X\" or \"u produkciji X-a\"    → replace with X"
+            },
+            "io_example": {
+              "caption": "Three real candidates, three verdicts",
+              "expected": "Each candidate gets exactly one of drop / keep / replace, with reasoning.",
+              "received": "current_value=\"PRODUCENT\"                       bucket=header_or_category → drop     reasoning=\"column header leaked into producer cell\"\ncurrent_value=\"Sudjelovanje filma U Šumi na…\" bucket=sentence_like       → drop     reasoning=\"project description, not a producer\"\ncurrent_value=\"Produkcija Živa d.o.o.\"          bucket=header_or_category → keep     reasoning=\"legitimate producer despite matching 'Produkcija' prefix\""
+            },
+            "metrics": [
+              { "label": "Candidates",  "value": "196" },
+              { "label": "drop",        "value": "170" },
+              { "label": "keep",        "value": "26"  },
+              { "label": "replace",     "value": "0"   }
+            ],
+            "artifacts": [
+              { "kind": "file", "path": "dataset/_producer_pollution_prompt.md" },
+              { "kind": "file", "path": "dataset/_producer_pollution_audit.md" }
+            ]
+          },
+          {
+            "id": "pass-producer-cluster",
+            "ordinal": "Pass 8",
+            "kind": "hybrid",
+            "title": "Producer cluster + canonical",
+            "engine": "_producer_cluster_collect.py (algo) → _producer_cluster_prompt.md (Claude) → _producer_cluster_apply.py",
+            "what": "After Pass 7 stripped pollution, ~700 unique producer-name strings remained — but many were OCR variants of the same legal entity: 'Nukleus film d. o. o.', 'Nukleus Film d.o.o.', 'NUKLEUS FILM d.o.o.'. A diacritic-stripped, suffix-stripped, alphanum-only normaliser collapsed them into 240 clusters. Claude then picks a single canonical name per cluster — preferring the d.o.o. suffix, mixed case, no spurious spaces — and can split a cluster if the normaliser over-collapsed two distinct entities into one bucket.",
+            "input": "240 clusters of variant strings, with occurrence counts",
+            "output": "Per cluster: canonical_name + per-member mapping (with optional owner_split)",
+            "prompt_excerpt": {
+              "caption": "dataset/_producer_cluster_prompt.md — canonical-name selection rules",
+              "body": "1. Prefer the form with d.o.o. / d.d. / j.d.o.o. suffix if any variant has it.\n   Example: 'Kinorama d.o.o.' over 'Kinorama' or 'KINORAMA'.\n2. Prefer normal mixed-case over ALL CAPS or lowercase.\n   Example: 'Restart' over 'RESTART'.\n3. Drop spurious spaces in the legal suffix: 'Kinorama d .o.o.' → 'Kinorama d.o.o.'.\n4. Strip ' / <owner-name>' suffix: 'Kinorama d.o.o. / Lado Skorin' →\n   canonical 'Kinorama d.o.o.', owner 'Lado Skorin' as owner_split.\n5. Single-letter typos / OCR splits: 'Nukleus film d. o. o.', 'Nukleus film d.o.o',\n   'Nukleus Film d.o.o.' → canonical 'Nukleus Film d.o.o.'.\n6. Resolve case to Title Case proper-noun casing."
+            },
+            "io_example": {
+              "caption": "One real cluster decision",
+              "expected": "{\n  \"cluster_id\": <int>,\n  \"canonical_name\": \"<chosen canonical>\",\n  \"members\": [ { \"value\": \"<variant>\", \"canonical_name\": \"<same as canonical>\", \"owner_split\": null }, ... ],\n  \"reasoning\": \"<one short sentence>\"\n}",
+              "received": "{\n  \"cluster_id\": 117,\n  \"canonical_name\": \"Nukleus Film d.o.o.\",\n  \"members\": [\n    { \"value\": \"Nukleus film d. o. o.\", \"canonical_name\": \"Nukleus Film d.o.o.\", \"owner_split\": null },\n    { \"value\": \"Nukleus film d.o.o\",   \"canonical_name\": \"Nukleus Film d.o.o.\", \"owner_split\": null },\n    { \"value\": \"NUKLEUS FILM d.o.o.\",  \"canonical_name\": \"Nukleus Film d.o.o.\", \"owner_split\": null },\n    { \"value\": \"Nukleus Film d.o.o.\",  \"canonical_name\": \"Nukleus Film d.o.o.\", \"owner_split\": null }\n  ],\n  \"reasoning\": \"All four variants are OCR/spacing variants of the same d.o.o.; mixed-case form chosen per rule 2.\"\n}"
+            },
+            "metrics": [
+              { "label": "Clusters",                       "value": "240" },
+              { "label": "Variant remappings",             "value": "62"  },
+              { "label": "Rows touched (production_company)","value": "232" },
+              { "label": "Rows touched (applicant)",       "value": "232" },
+              { "label": "Total row writes",               "value": "464" }
+            ],
+            "artifacts": [
+              { "kind": "file", "path": "dataset/_producer_cluster_prompt.md" },
+              { "kind": "file", "path": "dataset/_producer_cluster_audit.md" },
+              { "kind": "file", "path": "dataset/_producer_unify_audit.md" }
+            ]
+          },
+          {
+            "id": "pass-urlless-dedup",
+            "ordinal": "Pass 9",
+            "kind": "llm",
+            "title": "URL-less dedup audit (Codex)",
+            "engine": "normalize_pass.py (deterministic twin-match plan) → codex_prompt.md (Codex CLI verifies) → apply",
+            "what": "18 results_table records had no source.source_url. Most turned out to be duplicates of urlful records (the missing-results-backfill extractor sometimes re-extracted from a renamed copy of a PDF already in the corpus). A deterministic pre-pass finds twin rows by (normTitle, approved_amount, program_type) and proposes drop_row / flag_row decisions per row. Codex CLI then verifies the proposals against the raw_text of both sides and writes a final decision JSON.",
+            "input": "18 urlless docs + the 524 urlful docs they might be duplicates of",
+            "output": "Per-doc classification: drop_doc | partial | flag_doc · per-row: drop_row | flag_row",
+            "prompt_excerpt": {
+              "caption": "dash/havc/codex_prompt.md — verification task (excerpt)",
+              "body": "For each urlless doc, verify per-row decisions:\n\n1. For each drop_row: confirm the twin is genuine — same project, same round,\n   same funding decision (not just a coincidental amount/title collision\n   across different rounds).\n2. For each flag_row: confirm no twin was missed due to spelling variants\n   (diacritics encoded as `_`, abbreviated names, rounding of amounts, mojibake).\n   If you find a missed twin, change the row to drop_row and add the twin sha\n   to matched_twins.\n\nBe conservative: when in doubt, keep flag_row rather than risk dropping a\nlegitimate funding decision."
+            },
+            "io_example": {
+              "caption": "Two real per-doc verdicts from normalize-plan.md",
+              "expected": "Per-doc: drop_doc (all rows duplicate), partial (some rows duplicate), or flag_doc (no rows duplicate).",
+              "received": "drop_doc    Rezultati JP koprodukcije rok 3110.pdf                       3/3 rows have exact twins in urlful 73ba096f → drop all three rows.\nflag_doc    FESTIVALI I KAT_DUGI 2014_web.pdf                              0/15 rows have twins → keep all 15, stamp source_url_missing=true.\npartial     30_AV proizvodnja – kratkometražni igrani – 1. ROK 07.04.2020. 18/33 rows duplicate → drop those 18, keep the other 15 as flag_row."
+            },
+            "metrics": [
+              { "label": "URL-less docs",          "value": "18" },
+              { "label": "drop_doc",               "value": "3"  },
+              { "label": "partial",                "value": "5"  },
+              { "label": "flag_doc",               "value": "10" },
+              { "label": "Duplicate rows dropped", "value": "49" },
+              { "label": "Orphan rows flagged",    "value": "78" }
+            ],
+            "artifacts": [
+              { "kind": "file", "path": "dash/havc/normalize-plan.md" },
+              { "kind": "file", "path": "dash/havc/codex_prompt.md" },
+              { "kind": "file", "path": "dash/havc/codex-audit-input.json" },
+              { "kind": "file", "path": "dash/havc/normalize-decision.json" }
+            ]
+          }
+        ]
+      }
     }
   ],
   "comparison": {
     "title": "Side by side",
     "metric_label": "metric",
     "rows": [
-      { "metric": "Structured output", "era1": "No", "era2": "Partial — tables only", "era3": "Yes — records + narratives + people" },
-      { "metric": "Coverage of funding decisions", "era1": "Retrieval only", "era2": "Most table-shaped rows", "era3": "Full corpus" },
-      { "metric": "Captures jury rationale", "era1": "No", "era2": "No", "era3": "Yes" },
-      { "metric": "Project identity across rounds", "era1": "No", "era2": "No", "era3": "Yes — title normalised across documents" },
-      { "metric": "Auditable per record", "era1": "No", "era2": "CSV row → source PDF", "era3": "Field → raw text → page → confidence" },
-      { "metric": "Restartable", "era1": "n/a", "era2": "Manual rerun", "era3": "Yes — cached" },
-      { "metric": "Setup time", "era1": "Minutes", "era2": "A weekend", "era3": "48 hours of heavy iteration" }
+      { "metric": "Structured output",            "era1": "No",          "era2": "Partial — tables only",     "era3": "Yes — records + narratives + people" },
+      { "metric": "Coverage of funding decisions","era1": "Retrieval only","era2": "Most table-shaped rows",  "era3": "Full corpus" },
+      { "metric": "Captures jury rationale",      "era1": "No",          "era2": "No",                         "era3": "Yes" },
+      { "metric": "Project identity across rounds","era1": "No",         "era2": "No",                         "era3": "Yes — title normalised across documents" },
+      { "metric": "Auditable per record",         "era1": "No",          "era2": "CSV row → source PDF",       "era3": "Field → raw text → page → confidence" },
+      { "metric": "Restartable",                  "era1": "n/a",         "era2": "Manual rerun",               "era3": "Yes — cached" },
+      { "metric": "Setup time",                   "era1": "Minutes",     "era2": "A weekend",                  "era3": "48 hours of heavy iteration" }
     ]
   },
   "footnote": "Everything on this page lives in D:\\scratch\\havc\\ — the scripts, the dataset, the audit reports, the pipeline source. The dashboard you are reading this on is built from the same dataset (dataset/master.json) you can inspect directly. Click any decision in the Registry to open the original HAVC PDF."

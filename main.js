@@ -45,6 +45,15 @@
     'process.why_limited':{ en: 'Why it broke',         hr: 'Što je puklo' },
     'process.artifacts': { en: 'Artifacts',             hr: 'Artefakti' },
     'process.diagram':   { en: 'The three approaches at a glance', hr: 'Tri pristupa na prvi pogled' },
+    'process.deep_dive.input':    { en: 'Input',    hr: 'Ulaz' },
+    'process.deep_dive.output':   { en: 'Output',   hr: 'Izlaz' },
+    'process.deep_dive.expected': { en: 'Expected', hr: 'Očekivano' },
+    'process.deep_dive.received': { en: 'Received', hr: 'Dobiveno' },
+    'process.kind.algo':          { en: 'algorithmic', hr: 'algoritamski' },
+    'process.kind.llm':           { en: 'LLM',         hr: 'LLM' },
+    'process.kind.hybrid':        { en: 'hybrid',      hr: 'hibrid' },
+    'process.deep_dive.todo':     { en: '(translation pending — content below in English)',
+                                    hr: '(prijevod u tijeku — sadržaj u nastavku je na engleskom)' },
 
     'search.placeholder': { en: 'Search projects, producers, directors…',
                             hr: 'Traži projekt, producenta, redatelja…' },
@@ -2900,6 +2909,243 @@
       return { metrics, others };
     }
 
+    // ── Deep-dive renderers (Era 3 only) ────────────────────────────────
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    function svgEl(tag, attrs, children) {
+      const node = document.createElementNS(SVG_NS, tag);
+      if (attrs) {
+        for (const k in attrs) {
+          const v = attrs[k];
+          if (v == null || v === false) continue;
+          if (k === 'text') node.textContent = v;
+          else node.setAttribute(k, v);
+        }
+      }
+      if (children) {
+        const list = Array.isArray(children) ? children : [children];
+        for (const c of list) {
+          if (c == null || c === false) continue;
+          node.appendChild(c);
+        }
+      }
+      return node;
+    }
+
+    function renderKindBadge(kind, lang) {
+      const k = (kind || '').toLowerCase();
+      const labelKey = (k === 'algo' || k === 'llm' || k === 'hybrid') ? ('process.kind.' + k) : null;
+      const text = labelKey ? t(labelKey, lang) : (kind || '');
+      return el('span', { class: 'pass-badge pass-badge--' + k, text });
+    }
+
+    function trimToBoxEdge(ax, ay, bx, by, w, h) {
+      const dx = bx - ax, dy = by - ay;
+      if (dx === 0 && dy === 0) return { x: ax, y: ay };
+      const tx = Math.abs(dx) > 0 ? (w / 2) / Math.abs(dx) : Infinity;
+      const ty = Math.abs(dy) > 0 ? (h / 2) / Math.abs(dy) : Infinity;
+      const tval = Math.min(tx, ty);
+      return { x: ax + dx * tval, y: ay + dy * tval };
+    }
+
+    function renderFlowDiagram(d) {
+      if (!d || !Array.isArray(d.nodes) || !Array.isArray(d.edges)) return null;
+      const byId = new Map(d.nodes.map(n => [n.id, n]));
+
+      function arrowMarker(id, cls) {
+        return svgEl('marker', {
+          id,
+          viewBox: '0 0 10 10',
+          refX: '9',
+          refY: '5',
+          markerWidth: '7',
+          markerHeight: '7',
+          orient: 'auto-start-reverse',
+        }, [svgEl('path', { d: 'M 0 0 L 10 5 L 0 10 z', class: cls })]);
+      }
+      const defs = svgEl('defs', null, [
+        arrowMarker('flow-arrow-forward',  'flow-arrow-head flow-arrow-head--forward'),
+        arrowMarker('flow-arrow-loop',     'flow-arrow-head flow-arrow-head--loop'),
+        arrowMarker('flow-arrow-feedback', 'flow-arrow-head flow-arrow-head--feedback'),
+      ]);
+
+      const edgeNodes = d.edges.map(e => {
+        const a = byId.get(e.from);
+        const b = byId.get(e.to);
+        if (!a || !b) return null;
+        const acx = a.x + a.w / 2, acy = a.y + a.h / 2;
+        const bcx = b.x + b.w / 2, bcy = b.y + b.h / 2;
+        const start = trimToBoxEdge(acx, acy, bcx, bcy, a.w, a.h);
+        const end   = trimToBoxEdge(bcx, bcy, acx, acy, b.w, b.h);
+        const kind = e.kind || 'forward';
+        const dx = end.x - start.x, dy = end.y - start.y;
+        const len = Math.hypot(dx, dy) || 1;
+        const nx = -dy / len, ny = dx / len; // unit perpendicular
+        let dStr;
+        let markerId = 'flow-arrow-forward';
+        if (kind === 'loop')     markerId = 'flow-arrow-loop';
+        if (kind === 'feedback') markerId = 'flow-arrow-feedback';
+
+        if (kind === 'forward') {
+          dStr = 'M ' + start.x + ' ' + start.y + ' L ' + end.x + ' ' + end.y;
+        } else if (kind === 'loop') {
+          const bow = 22;
+          const mx = (start.x + end.x) / 2 + nx * bow;
+          const my = (start.y + end.y) / 2 + ny * bow;
+          dStr = 'M ' + start.x + ' ' + start.y +
+                 ' Q ' + mx + ' ' + my + ' ' + end.x + ' ' + end.y;
+        } else { // feedback — big curve back
+          const bow = 110;
+          const c1x = start.x + nx * bow;
+          const c1y = start.y + ny * bow;
+          const c2x = end.x   + nx * bow;
+          const c2y = end.y   + ny * bow;
+          dStr = 'M ' + start.x + ' ' + start.y +
+                 ' C ' + c1x + ' ' + c1y + ', ' + c2x + ' ' + c2y + ', ' + end.x + ' ' + end.y;
+        }
+        return svgEl('path', {
+          d: dStr,
+          'data-kind': kind,
+          'marker-end': 'url(#' + markerId + ')',
+        });
+      }).filter(Boolean);
+
+      function wrapText(textNode, label, w) {
+        // Soft-wrap into <tspan> lines, ~ 22 chars/line for the standard font size.
+        const maxChars = Math.max(10, Math.floor(w / 7.2));
+        const words = String(label || '').split(/\s+/);
+        const lines = [];
+        let cur = '';
+        for (const word of words) {
+          if (!cur.length) { cur = word; continue; }
+          if ((cur + ' ' + word).length <= maxChars) cur += ' ' + word;
+          else { lines.push(cur); cur = word; }
+        }
+        if (cur.length) lines.push(cur);
+        return lines;
+      }
+
+      const nodeGroups = d.nodes.map(n => {
+        const cx = n.x + n.w / 2;
+        const cy = n.y + n.h / 2;
+        if (n.kind === 'label') {
+          return svgEl('text', {
+            x: String(cx),
+            y: String(cy + 4),
+            'text-anchor': 'middle',
+            class: 'flow-loop-label mono',
+          }, [document.createTextNode(n.label || '')]);
+        }
+        const lines = wrapText(null, n.label || '', n.w - 16);
+        const lineHeight = 13;
+        const startY = cy - ((lines.length - 1) * lineHeight) / 2 + 4;
+        const tspans = lines.map((ln, i) => svgEl('tspan', {
+          x: String(cx),
+          y: String(startY + i * lineHeight),
+        }, [document.createTextNode(ln)]));
+        return svgEl('g', { class: 'flow-node', 'data-kind': n.kind }, [
+          svgEl('rect', {
+            x: String(n.x), y: String(n.y),
+            width: String(n.w), height: String(n.h),
+            rx: '4', ry: '4',
+            'data-kind': n.kind,
+          }),
+          svgEl('text', {
+            'text-anchor': 'middle',
+            'data-kind': n.kind,
+            class: 'flow-node-label',
+          }, tspans),
+        ]);
+      });
+
+      const svg = svgEl('svg', {
+        viewBox: d.viewBox || '0 0 1060 600',
+        class: 'flow-diagram-svg',
+        role: 'img',
+        'aria-label': 'pipeline iteration loop',
+      }, [defs, ...edgeNodes, ...nodeGroups]);
+
+      return el('div', { class: 'flow-diagram' }, [svg]);
+    }
+
+    function renderPassCard(p, lang) {
+      if (!p) return null;
+      return el('article', { class: 'pass-card', id: p.id || null }, [
+        el('header', { class: 'pass-card-head' }, [
+          el('span', { class: 'pass-ordinal mono', text: p.ordinal || '' }),
+          renderKindBadge(p.kind, lang),
+          el('h3', { class: 'pass-card-title display', text: p.title || '' }),
+        ]),
+        p.engine ? el('div', { class: 'pass-engine mono', text: p.engine }) : null,
+        p.what ? el('p', { class: 'pass-what', text: p.what }) : null,
+        (p.input || p.output) ? el('div', { class: 'pass-io' }, [
+          el('div', { class: 'pass-io-box' }, [
+            el('div', { class: 'pass-io-axis kicker', text: t('process.deep_dive.input', lang) }),
+            el('div', { class: 'pass-io-value', text: p.input || '—' }),
+          ]),
+          el('div', { class: 'pass-io-box' }, [
+            el('div', { class: 'pass-io-axis kicker', text: t('process.deep_dive.output', lang) }),
+            el('div', { class: 'pass-io-value', text: p.output || '—' }),
+          ]),
+        ]) : null,
+        p.prompt_excerpt ? el('div', { class: 'pass-prompt artifact-code' }, [
+          p.prompt_excerpt.caption ? el('div', { class: 'artifact-caption kicker', text: p.prompt_excerpt.caption }) : null,
+          el('pre', { class: 'artifact-code-body' }, [
+            el('code', { class: 'mono', text: p.prompt_excerpt.body || '' }),
+          ]),
+        ]) : null,
+        p.io_example ? el('div', { class: 'pass-io-example' }, [
+          p.io_example.caption ? el('div', { class: 'artifact-caption kicker', text: p.io_example.caption }) : null,
+          el('div', { class: 'pass-io-grid' }, [
+            el('div', { class: 'pass-io-cell pass-io-cell--expected' }, [
+              el('div', { class: 'pass-io-axis kicker', text: t('process.deep_dive.expected', lang) }),
+              el('pre', { class: 'artifact-code-body' }, [el('code', { class: 'mono', text: p.io_example.expected || '' })]),
+            ]),
+            el('div', { class: 'pass-io-cell pass-io-cell--received' }, [
+              el('div', { class: 'pass-io-axis kicker', text: t('process.deep_dive.received', lang) }),
+              el('pre', { class: 'artifact-code-body' }, [el('code', { class: 'mono', text: p.io_example.received || '' })]),
+            ]),
+          ]),
+        ]) : null,
+        (Array.isArray(p.metrics) && p.metrics.length) ? el('div', { class: 'pass-metric-row' },
+          p.metrics.map(m => el('div', { class: 'artifact artifact-metric pass-metric' }, [
+            el('div', { class: 'artifact-metric-value display', text: m.value }),
+            el('div', { class: 'artifact-metric-label kicker', text: m.label }),
+            m.note ? el('div', { class: 'artifact-metric-note mono', text: m.note }) : null,
+          ]))) : null,
+        (Array.isArray(p.artifacts) && p.artifacts.length) ? el('div', { class: 'pass-artifacts' },
+          p.artifacts.map(a => renderArtifact(a, lang))) : null,
+      ]);
+    }
+
+    function renderTally(tally) {
+      if (!tally || !Array.isArray(tally.items)) return null;
+      return el('section', { class: 'deepdive-tally' }, [
+        tally.title ? el('h3', { class: 'process-section-title', text: tally.title }) : null,
+        el('div', { class: 'tally-strip' }, tally.items.map(it => el('div', { class: 'tally-tile' }, [
+          el('div', { class: 'display tally-tile-value', text: it.value }),
+          el('div', { class: 'kicker tally-tile-label', text: it.label }),
+          it.note ? el('div', { class: 'mono tally-tile-note', text: it.note }) : null,
+        ]))),
+        tally.tokens_footnote ? el('p', { class: 'tokens-footnote mono', text: tally.tokens_footnote }) : null,
+      ]);
+    }
+
+    function renderDeepDive(dd, lang) {
+      if (!dd) return null;
+      return el('section', { class: 'process-deepdive' }, [
+        el('header', { class: 'deepdive-head' }, [
+          dd.kicker ? el('div', { class: 'kicker', text: dd.kicker }) : null,
+          dd.headline ? el('h2', { class: 'display deepdive-headline', text: dd.headline }) : null,
+          dd.subhead ? el('p', { class: 'deepdive-subhead', text: dd.subhead }) : null,
+          dd._todo_translate ? el('p', { class: 'deepdive-todo mono', text: t('process.deep_dive.todo', lang) }) : null,
+        ]),
+        dd.loop_diagram ? el('section', { class: 'deepdive-loop' }, [renderFlowDiagram(dd.loop_diagram)]) : null,
+        (Array.isArray(dd.passes) && dd.passes.length) ? el('section', { class: 'deepdive-passes' },
+          dd.passes.map(p => renderPassCard(p, lang))) : null,
+        renderTally(dd.tally),
+      ]);
+    }
+
     function renderEraCard(era, lang) {
       const { metrics, others } = partitionArtifacts(era.artifacts);
       return el('article', { class: 'era-card', id: 'era-' + era.id }, [
@@ -2954,6 +3200,8 @@
     function renderContent(c) {
       const lang = state.lang;
       const eras = Array.isArray(c.eras) ? c.eras : [];
+      const era3 = eras.find(e => e && e.id === 'era3');
+      const deepDive = era3 && era3.deep_dive ? era3.deep_dive : null;
       root.replaceChildren(el('article', { class: 'process-view' }, [
         el('header', { class: 'process-hero' }, [
           el('div', { class: 'kicker', text: c.hero && c.hero.kicker }),
@@ -2968,6 +3216,8 @@
 
         eras.length > 0 && el('section', { class: 'process-eras' },
           eras.map(e => renderEraCard(e, lang))),
+
+        deepDive ? renderDeepDive(deepDive, lang) : null,
 
         renderComparison(c.comparison, eras, lang),
 
