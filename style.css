@@ -817,6 +817,12 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   cursor: pointer;
 }
 .round-card .rc-compare:hover { color: var(--red); border-color: var(--red); }
+.round-card .rc-compare.pdf-missing {
+  cursor: default;
+  opacity: 0.55;
+  border-style: dashed;
+}
+.round-card .rc-compare.pdf-missing:hover { color: var(--paper-dim); border-color: var(--rule); }
 .round-card .rc-why {
   background: transparent; border: 1px solid var(--rule);
   color: var(--paper-dim);

@@ -151,6 +151,7 @@
     'profile.decisions_count': { en: '{n} sanctions / clawbacks', hr: '{n} sankcija / povrata' },
     'profile.scope_short': { en: 'scope', hr: 'suzi' },
     'pdf.preview':     { en: 'preview', hr: 'pregled' },
+    'pdf.missing':     { en: 'no canonical PDF on file', hr: 'nema službenog PDF-a' },
     'pdf.preview_title': { en: 'HAVC source preview', hr: 'Pregled HAVC izvora' },
     'pdf.havc_source': { en: 'HAVC source', hr: 'HAVC izvor' },
     'pdf.url_label':   { en: 'HAVC URL', hr: 'HAVC URL' },
@@ -508,6 +509,7 @@
       id,
       filename,
       source_url: sourceUrl,
+      source_url_missing: !sourceUrl && src.source_url_missing === true,
       natjecaj_title: doc.natjecaj_title || null,
       decision_date: doc.decision_date || null,
       decision_body: doc.decision_body || null,
@@ -2354,6 +2356,14 @@
         }, [
           fa('fa-solid fa-eye', 'icon-left'),
           t('pdf.preview', lang),
+        ]));
+      } else if (doc && doc.source_url_missing) {
+        docActions.push(el('span', {
+          class: 'rc-compare mono pdf-missing',
+          title: t('pdf.missing', lang),
+        }, [
+          fa('fa-regular fa-file-excel', 'icon-left'),
+          t('pdf.missing', lang),
         ]));
       }
 
