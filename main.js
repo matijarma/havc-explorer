@@ -25,6 +25,8 @@
 
   // ═══ 1. i18n ════════════════════════════════════════════════════════
   const T = {
+    'app.name': { en: 'Sredstva', hr: 'Sredstva' },
+    'app.title': { en: 'Sredstva · HAVC Open Registry', hr: 'Sredstva · HAVC otvoreni registar' },
     'app.subtitle': { en: 'Croatian audiovisual public funding — open registry',
                       hr: 'Hrvatski audiovizualni javni poticaji — otvoreni registar' },
 
@@ -32,6 +34,7 @@
     'nav.dashboard': { en: 'Registry', hr: 'Registar' },
     'nav.about':     { en: 'About',    hr: 'O autoru' },
     'nav.process':   { en: 'Process',  hr: 'Proces' },
+    'nav.sections':  { en: 'sections', hr: 'sekcije' },
 
     'about.links_title': { en: 'Elsewhere', hr: 'Drugdje' },
 
@@ -68,6 +71,7 @@
     'facet.all':      { en: 'all',            hr: 'sve' },
     'facet.reset':    { en: 'Reset',          hr: 'Poništi' },
     'facet.copy':     { en: 'Copy share-link',hr: 'Kopiraj link' },
+    'facet.currency_note': { en: '1 € = {rate} kn (fixed, ECB)', hr: '1 € = {rate} kn (fiksno, ESB)' },
     'facet.unfunded.label': { en: 'Discussed, never funded', hr: 'Spominjani, ne financirani' },
     'facet.unfunded.sub':   { en: 'projects mentioned in jury narratives without a funding record',
                               hr: 'projekti spomenuti u obrazloženjima žirija bez evidencije financiranja' },
@@ -82,11 +86,38 @@
       en: 'Data provenance',
       hr: 'Podrijetlo podataka',
     },
+    'header.notice.kicker.sanity': {
+      en: 'Sanity check vs official reports',
+      hr: 'Sanity provjera prema sluzbenim izvjescima',
+    },
     'header.notice.body': {
       en: 'All registry data is machine-extracted from public funding results published on havc.hr. Each project, decision, and amount links directly to the source HAVC PDF. No human review has been performed yet; human review is planned if HAVC approves the project under Komplementarne.',
       hr: 'Svi podaci u registru strojno su izdvojeni iz javno objavljenih rezultata financiranja na havc.hr. Svaki projekt, odluka i iznos imaju izravnu poveznicu na izvorni HAVC PDF. Ručna provjera još nije provedena; planirana je ako HAVC odobri projekt u okviru poziva Komplementarne.',
     },
-
+    'header.notice.sanity.lead': {
+      en: 'Sanity report {ts}',
+      hr: 'Sanity izvjesce {ts}',
+    },
+    'header.notice.sanity.lead_no_ts': {
+      en: 'Sanity report',
+      hr: 'Sanity izvjesce',
+    },
+    'header.notice.sanity.group.production': {
+      en: 'prod+coprod',
+      hr: 'proizvodnja+koprod',
+    },
+    'header.notice.sanity.group.complementary': {
+      en: 'complementary',
+      hr: 'komplementarne',
+    },
+    'header.notice.sanity.group.international': {
+      en: 'international',
+      hr: 'medunarodna',
+    },
+    'header.notice.sanity.rows': {
+      en: 'rows {raw}->{dedup} (-{removed})',
+      hr: 'redci {raw}->{dedup} (-{removed})',
+    },
     'toggle.lang': { en: 'Language', hr: 'Jezik' },
     'toggle.theme': { en: 'Theme', hr: 'Tema' },
     'toggle.theme.light': { en: 'Light', hr: 'Svijetlo' },
@@ -169,6 +200,7 @@
     'col.rounds':    { en: 'rounds',      hr: 'rundi' },
     'col.programs':  { en: 'programmes',  hr: 'programi' },
     'col.range':     { en: 'years',       hr: 'godine' },
+    'col.untitled':  { en: '(untitled)',  hr: '(bez naslova)' },
     'col.unattributed': { en: '(unattributed)', hr: '(neidentificirano)' },
     'col.unattributed.producer': { en: '(no producer recorded)', hr: '(producent nije zabilježen)' },
     'col.unattributed.director': { en: '(no director recorded)', hr: '(redatelj nije zabilježen)' },
@@ -178,6 +210,7 @@
     'status.of':      { en: 'of',      hr: 'od' },
     'status.rows':    { en: 'records', hr: 'zapisa' },
     'status.total':   { en: 'total',   hr: 'ukupno' },
+    'status.coverage':{ en: 'HAVC 2009–{maxYear}', hr: 'HAVC 2009.–{maxYear}.' },
     'status.empty':   { en: 'No funding decisions match these filters — try removing a chip or widening the year range.',
                         hr: 'Nijedna odluka ne odgovara filterima — pokušaj ukloniti čip ili proširi raspon godina.' },
 
@@ -198,9 +231,13 @@
     'profile.pdf':     { en: 'PDF', hr: 'PDF' },
     'profile.narratives_count':{ en: '{n} narratives', hr: '{n} obrazloženja' },
     'profile.decisions_count': { en: '{n} sanctions / clawbacks', hr: '{n} sankcija / povrata' },
+    'profile.events_count': { en: '{n} events', hr: '{n} događaja' },
+    'profile.decision_tag': { en: 'decision', hr: 'odluka' },
     'profile.scope_short': { en: 'scope', hr: 'suzi' },
+    'amount.original_suffix': { en: '(orig.)', hr: '(izvorno)' },
     'pdf.preview':     { en: 'preview', hr: 'pregled' },
     'pdf.missing':     { en: 'no canonical PDF on file', hr: 'nema službenog PDF-a' },
+    'pdf.fallback_title': { en: 'PDF', hr: 'PDF' },
     'pdf.preview_title': { en: 'HAVC source preview', hr: 'Pregled HAVC izvora' },
     'pdf.havc_source': { en: 'HAVC source', hr: 'HAVC izvor' },
     'pdf.url_label':   { en: 'HAVC URL', hr: 'HAVC URL' },
@@ -212,7 +249,17 @@
                         hr: 'Spominjani, ali nikad financirani' },
     'unfunded.note':  { en: 'Projects mentioned in jury narratives or decision documents that don\'t appear in any results table. Click one to scope the main view to that title.',
                         hr: 'Projekti spomenuti u obrazloženjima žirija ili odlukama, ali bez zapisa u rezultatima. Klikni redak da suziš pregled na taj naslov.' },
+    'unfunded.sources_count': { en: '{n} src', hr: '{n} izv.' },
     'modal.close':    { en: 'close',  hr: 'zatvori' },
+    'view.about.load_error': { en: 'failed to load about content — see console', hr: 'učitavanje sadržaja stranice O autoru nije uspjelo — pogledaj konzolu' },
+    'view.process.load_error': { en: 'failed to load process content — see console', hr: 'učitavanje sadržaja stranice Proces nije uspjelo — pogledaj konzolu' },
+    'process.diagram_aria': { en: 'pipeline iteration loop', hr: 'petlja iteracija obrade' },
+    'process.timeline.problem': { en: 'Problem', hr: 'Problem' },
+    'process.timeline.decision': { en: 'Decision', hr: 'Odluka' },
+    'process.timeline.result': { en: 'Result', hr: 'Rezultat' },
+    'process.timeline.more_context': { en: 'More context', hr: 'Više konteksta' },
+    'boot.loading_registry': { en: 'loading registry…', hr: 'učitavanje registra…' },
+    'boot.load_data_error': { en: 'failed to load data.json — see console', hr: 'učitavanje data.json nije uspjelo — pogledaj konzolu' },
 
     // Programmes
     'prog.razvoj_projekata':       { en: 'Project development',    hr: 'Razvoj projekata' },
@@ -254,6 +301,11 @@
     return s;
   }
 
+  function syncDocumentI18n(lang) {
+    document.documentElement.lang = lang;
+    document.title = t('app.title', lang);
+  }
+
   const UNATTRIBUTED_KEY = '__unattributed__';
   const SIZE_BUCKETS = [0, 1000, 5000, 20000, 50000, 100000, 250000, 500000, 1000000, Infinity];
 
@@ -266,6 +318,7 @@
   let rowNormTitles = [];                // rowIdx -> normalized title
   let projectIndex = new Map();          // normTitle -> aggregated project record
   let GLOBAL_ANALYTICS = null;           // global dataset analytics snapshot
+  let SANITY_REPORT = null;              // optional sanity report summary
 
   function normalizeText(s) {
     if (!s) return '';
@@ -810,11 +863,31 @@
     }
     throw new Error('Unsupported data.json format.');
   }
-
+  async function loadOptionalSanityReport() {
+    const urls = [
+      '../reports/10_sanity_check_official.json',
+      './reports/10_sanity_check_official.json',
+      'reports/10_sanity_check_official.json',
+    ];
+    for (const url of urls) {
+      try {
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) continue;
+        return asObject(sanitizeDeep(await res.json()));
+      } catch (_) {
+        // Optional source: silently continue to fallback text.
+      }
+    }
+    return null;
+  }
   async function loadData() {
-    const res = await fetch('havc/data.json');
+    const [res, sanityReport] = await Promise.all([
+      fetch('havc/data.json'),
+      loadOptionalSanityReport(),
+    ]);
     const raw = sanitizeDeep(await res.json());
     DATA = coerceDashboardData(raw);
+    SANITY_REPORT = sanityReport;
     docById = new Map(DATA.docs.map(d => [d.id, d]));
     narrativeById = new Map(DATA.narratives.map(n => [n.id, n]));
     decisionById = new Map(DATA.decisions.map(d => [d.id, d]));
@@ -844,7 +917,7 @@
       let p = projectIndex.get(key);
       if (!p) {
         p = {
-          title: r.title || '(no title)',
+          title: r.title || '',
           normTitle: key,
           rows: [],
           total_eur: 0,
@@ -1196,7 +1269,7 @@
   function setLang(lang) {
     state.lang = lang;
     localStorage.setItem('sredstva-lang', lang);
-    document.documentElement.lang = lang;
+    syncDocumentI18n(lang);
     fire('lang');
   }
 
@@ -1455,6 +1528,70 @@
     return pct.toLocaleString(locale, { minimumFractionDigits: d, maximumFractionDigits: d }) + '%';
   }
 
+  function formatUtcTimestamp(iso, lang) {
+    if (!iso) return null;
+    const d = new Date(iso);
+    if (!Number.isFinite(d.getTime())) return null;
+    const locale = lang === 'hr' ? 'hr-HR' : 'en-US';
+    try {
+      return new Intl.DateTimeFormat(locale, {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+        timeZone: 'UTC',
+      }).format(d) + ' UTC';
+    } catch (_) {
+      return String(iso).replace('T', ' ').replace('Z', ' UTC');
+    }
+  }
+
+  function sanityGroupStatusPair(report, groupId) {
+    const groups = asArray(asObject(asObject(report).results).direct_groups);
+    for (const g of groups) {
+      const item = asObject(g);
+      if (item.group !== groupId) continue;
+      const raw = item.status_raw || item.status || 'NA';
+      const dedup = item.status_dedup || item.status || 'NA';
+      return raw + '/' + dedup;
+    }
+    return 'NA/NA';
+  }
+
+  function buildSanityInfoSummary(lang) {
+    if (!SANITY_REPORT) return null;
+
+    const ts = formatUtcTimestamp(SANITY_REPORT.generated_at, lang);
+    const lead = ts
+      ? t('header.notice.sanity.lead', lang, { ts })
+      : t('header.notice.sanity.lead_no_ts', lang);
+    const locale = lang === 'hr' ? 'hr-HR' : 'en-US';
+
+    const parts = [];
+    parts.push(t('header.notice.sanity.group.production', lang) + ' ' +
+      sanityGroupStatusPair(SANITY_REPORT, 'production_plus_coprod'));
+    parts.push(t('header.notice.sanity.group.complementary', lang) + ' ' +
+      sanityGroupStatusPair(SANITY_REPORT, 'komplementarne'));
+    parts.push(t('header.notice.sanity.group.international', lang) + ' ' +
+      sanityGroupStatusPair(SANITY_REPORT, 'medjunarodna_suradnja'));
+
+    const diag = asObject(SANITY_REPORT.diagnostics_summary);
+    const rowsRaw = toFiniteInt(diag.rows_raw_total);
+    const rowsDedup = toFiniteInt(diag.rows_dedup_total);
+    const rowsRemoved = toFiniteInt(diag.rows_removed_total);
+    if (rowsRaw != null && rowsDedup != null && rowsRemoved != null) {
+      parts.push(t('header.notice.sanity.rows', lang, {
+        raw: rowsRaw.toLocaleString(locale),
+        dedup: rowsDedup.toLocaleString(locale),
+        removed: rowsRemoved.toLocaleString(locale),
+      }));
+    }
+
+    return lead + ' · ' + parts.join(' · ');
+  }
+
   function bandLabel(lo, hi) {
     const f = (v) => v >= 1_000_000 ? (v / 1_000_000) + 'M' : v >= 1000 ? (v / 1000) + 'k' : String(v);
     if (lo === 0) return '<' + f(hi);
@@ -1567,13 +1704,13 @@
       root.replaceChildren(
         el('div', { class: 'topbar-row' }, [
           el('div', { class: 'wordmark' }, [
-            'Sredstva',
+            t('app.name', lang),
             el('span', { class: 'dot', text: '·' }),
           ]),
           el('nav', {
             class: 'view-tabs',
             role: 'tablist',
-            'aria-label': 'sections',
+            'aria-label': t('nav.sections', lang),
           }, VIEW_TABS.map(v => viewTabBtn(v, lang))),
           isDash ? el('div', { class: 'search' }, [
             fa('fa-solid fa-magnifying-glass', 'search-icon'),
@@ -1863,7 +2000,7 @@
               onclick: () => setFilters({ normalize: true }),
             }),
           ]),
-          el('span', { class: 'note', text: `1 € = ${DATA.hrk_to_eur} kn (fixed, ECB)` }),
+          el('span', { class: 'note', text: t('facet.currency_note', lang, { rate: DATA.hrk_to_eur }) }),
         ]),
         // Footer
         el('div', { class: 'rail-footer' }, [
@@ -2000,7 +2137,7 @@
       const key = rowNormTitles[i] || UNATTRIBUTED_KEY;
       let p = map.get(key);
       if (!p) p = { key, rows: [], total: 0, yearMin: null, yearMax: null,
-                    title: DATA.rows[i].title || '(no title)',
+                    title: DATA.rows[i].title || '',
                     programs: new Set(), cats: new Set(),
                     producers: new Set(), directors: new Set() };
       p.rows.push(i);
@@ -2032,14 +2169,17 @@
     function render() {
       const lang = state.lang;
       const maxYear = DATA.facets.years[DATA.facets.years.length - 1];
+      const sanitySummary = buildSanityInfoSummary(lang);
+      const infoKicker = sanitySummary ? t('header.notice.kicker.sanity', lang) : t('header.notice.kicker', lang);
+      const infoBody = sanitySummary || t('header.notice.body', lang);
       root.replaceChildren(
         el('div', { class: 'head-line' }, [
           el('span', { class: 'head-main', text: t('header.line', lang, { maxYear }) }),
         ]),
         el('aside', { class: 'head-infopill', role: 'note' }, [
           fa('fa-solid fa-circle-info', 'icon-left'),
-          el('span', { class: 'head-infopill-kicker kicker', text: t('header.notice.kicker', lang) }),
-          el('span', { class: 'head-infopill-body', text: t('header.notice.body', lang) }),
+          el('span', { class: 'head-infopill-kicker kicker', text: infoKicker }),
+          el('span', { class: sanitySummary ? 'head-infopill-body mono' : 'head-infopill-body', text: infoBody }),
         ]),
         el('div', { class: 'head-stats mono' }, [
           el('span', {}, [
@@ -2175,7 +2315,7 @@
       let val;
       if (s.kind === 'program') val = t('prog.' + s.value, lang);
       else if (s.kind === 'cat') val = t('cat.' + s.value, lang);
-      else if (s.kind === 'project') val = s.label || s.value;
+      else if (s.kind === 'project') val = s.label || t('col.untitled', lang);
       else if (s.kind === 'sizeBand') val = s.label || bandLabel(s.value[0], s.value[1]);
       else val = s.label != null ? s.label : String(s.value);
       return [kindLabel, val];
@@ -2409,7 +2549,7 @@
     function openPdfPreview(doc, fallbackTitle) {
       if (!doc || !doc.source_url) return;
       setPdfPreview({
-        title: doc.natjecaj_title || fallbackTitle || doc.filename || 'PDF',
+        title: doc.natjecaj_title || fallbackTitle || doc.filename || t('pdf.fallback_title', state.lang),
         source_url: doc.source_url,
       });
     }
@@ -2546,7 +2686,7 @@
         el('div', { class: 'col n', text: doc ? (r.n + ' · ' + doc.id) : String(r.n) }),
         el('div', { class: 'col title' }, [
           el('span', { text: r.title || '—' }),
-          hasEvents && el('span', { class: 'events-pip', title: `${events.length} event(s)` }),
+          hasEvents && el('span', { class: 'events-pip', title: t('profile.events_count', lang, { n: events.length }) }),
           el('span', { class: 'meta', text:
             (r.program ? t('prog.' + r.program, lang) : '') +
             (r.cat_type && r.cat_type !== 'other' ? ' · ' + t('cat.' + r.cat_type, lang) : '') +
@@ -2562,7 +2702,7 @@
             lang
           ) }),
           r.currency === 'HRK' && normalize && el('span', { class: 'alt', text:
-            formatAmount(r.amount, 'HRK', lang) + ' (orig.)' }),
+            formatAmount(r.amount, 'HRK', lang) + ' ' + t('amount.original_suffix', lang) }),
         ]),
       ]);
     }
@@ -2574,7 +2714,7 @@
         : `${p.yearMin}–${p.yearMax}`;
       const progLabels = [...p.programs].slice(0, 3).map(k => t('prog.' + k, lang)).join(' · ');
       const moreCount = p.programs.size > 3 ? ' +' + (p.programs.size - 3) : '';
-      const titleText = p.key === UNATTRIBUTED_KEY ? t('col.unattributed', lang) : p.title;
+      const titleText = p.key === UNATTRIBUTED_KEY ? t('col.unattributed', lang) : (p.title || t('col.untitled', lang));
       return el('div', {
         class: 'row project-row' + (expanded ? ' expanded' : ''),
         style: `top:${top}px; height:${PROJECT_ROW_H}px`,
@@ -2707,7 +2847,7 @@
         peopleRows.push(el('span', { class: 'v', text: [...set].join(' · ') }));
       }
 
-      const titleText = project.key === UNATTRIBUTED_KEY ? t('col.unattributed', lang) : (project.title || '—');
+      const titleText = project.key === UNATTRIBUTED_KEY ? t('col.unattributed', lang) : (project.title || t('col.untitled', lang));
 
       const hero = el('div', { class: 'pf-hero' }, [
         el('h3', { class: 'pf-title', text: titleText }),
@@ -2923,7 +3063,7 @@
             return el('div', { class: 'event' }, [
               el('span', { class: 'e-year', text: e.year != null ? String(e.year) : '—' }),
               el('div', { class: 'e-body' }, [
-                el('span', { class: 'tag decision', text: 'decision' }),
+                el('span', { class: 'tag decision', text: t('profile.decision_tag', lang) }),
                 e.summary || '—',
               ]),
               actions.length ? el('div', { class: 'e-actions' }, actions) : null,
@@ -2948,7 +3088,7 @@
           ' ' + t('status.of', lang) + ' ' + total.toLocaleString() + ' ' + t('status.rows', lang) + ' · ',
           formatAmount(sum, 'EUR', lang) + ' ' + t('status.total', lang),
         ]),
-        el('span', { text: 'HAVC 2009–' + DATA.facets.years[DATA.facets.years.length - 1] }),
+        el('span', { text: t('status.coverage', lang, { maxYear: DATA.facets.years[DATA.facets.years.length - 1] }) }),
       );
     }
 
@@ -3152,7 +3292,7 @@
             }, [
               el('span', { class: 'y mono', text: u.first_year != null ? String(u.first_year) : '—' }),
               el('span', { class: 't', text: u.title }),
-              el('span', { class: 'n mono', text: u.narratives.length + ' src' }),
+              el('span', { class: 'n mono', text: t('unfunded.sources_count', lang, { n: u.narratives.length }) }),
             ])),
           ]),
         ]),
@@ -3187,7 +3327,7 @@
       if (!preview) return;
 
       const lang = state.lang;
-      const paneTitle = preview.title || 'PDF';
+      const paneTitle = preview.title || t('pdf.fallback_title', lang);
 
       const remotePane = preview.source_url ? el('div', { class: 'pdf-pane' }, [
         el('div', { class: 'pdf-pane-head' }, [
@@ -3333,7 +3473,7 @@
     function renderError(err) {
       root.replaceChildren(el('div', { class: 'about-view' }, [
         el('div', { class: 'kicker', text: t('nav.about', state.lang) }),
-        el('p', { class: 'view-error', text: 'failed to load about content — see console' }),
+        el('p', { class: 'view-error', text: t('view.about.load_error', state.lang) }),
       ]));
       console.error(err);
     }
@@ -3415,7 +3555,7 @@
     function renderError(err) {
       root.replaceChildren(el('div', { class: 'process-view' }, [
         el('div', { class: 'kicker', text: t('nav.process', state.lang) }),
-        el('p', { class: 'view-error', text: 'failed to load process content — see console' }),
+        el('p', { class: 'view-error', text: t('view.process.load_error', state.lang) }),
       ]));
       console.error(err);
     }
@@ -3750,7 +3890,7 @@
         viewBox: d.viewBox || '0 0 1060 600',
         class: 'flow-diagram-svg',
         role: 'img',
-        'aria-label': 'pipeline iteration loop',
+        'aria-label': t('process.diagram_aria', state.lang),
       }, [defs, ...edgeNodes, ...nodeGroups]);
 
       return el('div', { class: 'flow-diagram' }, [svg]);
@@ -3798,15 +3938,15 @@
           cp.summary ? renderClaimBlock('p', 'timeline-summary', cp.summary) : null,
           (cp.problem || cp.decision || cp.result) ? el('div', { class: 'timeline-three-up' }, [
             cp.problem ? el('div', { class: 'timeline-lane' }, [
-              el('div', { class: 'timeline-lane-label kicker', text: cp.problem_label || 'Problem' }),
+              el('div', { class: 'timeline-lane-label kicker', text: cp.problem_label || t('process.timeline.problem', state.lang) }),
               renderClaimBlock('p', 'timeline-lane-copy', cp.problem),
             ]) : null,
             cp.decision ? el('div', { class: 'timeline-lane' }, [
-              el('div', { class: 'timeline-lane-label kicker', text: cp.decision_label || 'Decision' }),
+              el('div', { class: 'timeline-lane-label kicker', text: cp.decision_label || t('process.timeline.decision', state.lang) }),
               renderClaimBlock('p', 'timeline-lane-copy', cp.decision),
             ]) : null,
             cp.result ? el('div', { class: 'timeline-lane' }, [
-              el('div', { class: 'timeline-lane-label kicker', text: cp.result_label || 'Result' }),
+              el('div', { class: 'timeline-lane-label kicker', text: cp.result_label || t('process.timeline.result', state.lang) }),
               renderClaimBlock('p', 'timeline-lane-copy', cp.result),
             ]) : null,
           ]) : null,
@@ -3820,7 +3960,7 @@
           cp.excerpt_more ? el('details', { class: 'timeline-more' }, [
             el('summary', {
               class: 'timeline-more-summary mono',
-              text: cp.excerpt_more.toggle_label || 'More context',
+              text: cp.excerpt_more.toggle_label || t('process.timeline.more_context', state.lang),
             }),
             renderExcerpt(cp.excerpt_more, 'timeline-excerpt timeline-excerpt-more artifact-code'),
           ]) : null,
@@ -4067,7 +4207,7 @@
 
   // ═══ 18. Boot ═══════════════════════════════════════════════════════
   async function boot() {
-    document.documentElement.lang = state.lang;
+    syncDocumentI18n(state.lang);
     document.body.classList.add('theme-' + state.theme);
     document.body.classList.remove('mobile-filters-open');
     document.body.classList.toggle('is-mobile', isMobile());
@@ -4076,15 +4216,15 @@
 
     const app = document.getElementById('app');
     app.replaceChildren(el('div', { class: 'boot' }, [
-      el('div', { class: 'wordmark' }, ['Sredstva', el('span', { class: 'dot', text: '·' })]),
-      el('div', { class: 'label', text: 'loading registry…' }),
+      el('div', { class: 'wordmark' }, [t('app.name', state.lang), el('span', { class: 'dot', text: '·' })]),
+      el('div', { class: 'label', text: t('boot.loading_registry', state.lang) }),
     ]));
 
     try {
       await loadData();
     } catch (err) {
       app.replaceChildren(el('div', { class: 'boot' }, [
-        el('div', { class: 'label', text: 'failed to load data.json — see console' }),
+        el('div', { class: 'label', text: t('boot.load_data_error', state.lang) }),
       ]));
       console.error(err);
       return;
