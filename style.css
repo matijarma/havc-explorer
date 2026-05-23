@@ -350,6 +350,29 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   color: var(--paper);
   margin-bottom: 4px;
 }
+.headline .head-infopill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--rule);
+  background: color-mix(in oklab, var(--panel) 78%, transparent);
+  padding: 8px 10px;
+  margin: 10px 0 10px;
+  border-radius: 2px;
+}
+.headline .head-infopill .icon-left {
+  color: var(--red);
+  margin-right: 0;
+  flex-shrink: 0;
+}
+.headline .head-infopill-kicker {
+  flex-shrink: 0;
+}
+.headline .head-infopill-body {
+  color: var(--paper-dim);
+  font-size: 11px;
+  line-height: 1.5;
+}
 .headline .head-stats {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px; letter-spacing: 0.1em;
@@ -1034,28 +1057,48 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
 .statusbar b { color: var(--paper); font-weight: 500; }
 
 /* ─── Theme + language toggles in topbar ─────────────────────────── */
-.theme-toggle, .lang-toggle {
-  display: inline-flex; align-items: center;
+.mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   border: 1.5px solid var(--rule);
   border-radius: 999px;
-  padding: 2px;
+  background: transparent;
+  color: var(--paper);
+  padding: 4px 10px;
+  min-height: 30px;
+  cursor: pointer;
+  transition: border-color 140ms ease, background 140ms ease, color 140ms ease;
 }
-.theme-toggle button {
-  display: inline-flex; align-items: center; justify-content: center;
-  min-width: 28px;
-  background: transparent; color: var(--paper-dim); border: none;
-  border-radius: 999px;
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  padding: 4px 8px; cursor: pointer; line-height: 1;
+.mode-toggle:hover {
+  border-color: var(--paper-dim);
 }
-.theme-toggle button.active { background: var(--paper); color: var(--ink); }
-.lang-toggle button {
-  background: transparent; color: var(--paper-dim); border: none;
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  letter-spacing: 0.08em; padding: 4px 8px; cursor: pointer;
-  border-radius: 999px;
+.mode-toggle:focus-visible {
+  outline: none;
+  border-color: var(--red);
 }
-.lang-toggle button.active { background: var(--paper); color: var(--ink); }
+.mode-toggle i {
+  color: var(--red);
+  font-size: 11px;
+}
+.mode-toggle-k {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+}
+.mode-toggle-v {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+.mode-toggle-next {
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
 
 /* ─── Loading state ──────────────────────────────────────────────── */
 .boot {
