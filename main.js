@@ -64,6 +64,7 @@
     'facet.currency': { en: 'Currency',       hr: 'Valuta' },
     'facet.original': { en: 'As decided',     hr: 'Izvorno' },
     'facet.normalize':{ en: 'Normalize to €', hr: 'Normaliziraj u €' },
+    'facet.filters':  { en: 'Filters',        hr: 'Filtri' },
     'facet.all':      { en: 'all',            hr: 'sve' },
     'facet.reset':    { en: 'Reset',          hr: 'Poništi' },
     'facet.copy':     { en: 'Copy share-link',hr: 'Kopiraj link' },
@@ -1053,6 +1054,26 @@
     return acc;
   }
 
+  function dashboardYearBounds() {
+    const ys = DATA && DATA.facets && Array.isArray(DATA.facets.years) ? DATA.facets.years : null;
+    if (!ys || ys.length === 0) return null;
+    return [ys[0], ys[ys.length - 1]];
+  }
+
+  function countActiveFilters() {
+    const f = state.filters;
+    let n = 0;
+    const yrBounds = dashboardYearBounds();
+    if (f.yearRange && yrBounds &&
+        (f.yearRange[0] !== yrBounds[0] || f.yearRange[1] !== yrBounds[1])) n++;
+    if (f.selectedYear != null) n++;
+    if (f.programs.size > 0) n++;
+    if (f.cats.size > 0) n++;
+    if (f.roks.size > 0) n++;
+    if (f.q && f.q.trim()) n++;
+    return n;
+  }
+
   // ═══ 3. State + observer ════════════════════════════════════════════
   const state = {
     filters: {
@@ -1076,6 +1097,7 @@
     showUnfunded: false,
     showAnalytics: false,
     pdfPreview: null, // { title, source_url }
+    mobileFiltersOpen: false,
     view: 'dashboard', // 'dashboard' | 'about' | 'process'
   };
 
@@ -1207,9 +1229,21 @@
     state.pdfPreview = v || null;
     fire('pdfPreview');
   }
+  function setMobileFiltersOpen(v) {
+    const open = !!v;
+    if (open && state.view !== 'dashboard') return;
+    if (open && !window.matchMedia('(max-width: 900px)').matches) return;
+    if (state.mobileFiltersOpen === open) return;
+    state.mobileFiltersOpen = open;
+    document.body.classList.toggle('mobile-filters-open', open);
+    fire('mobileFilters');
+  }
   function setView(view) {
     const next = (view === 'about' || view === 'process') ? view : 'dashboard';
     if (state.view === next) return;
+    if (next !== 'dashboard' && state.mobileFiltersOpen) {
+      setMobileFiltersOpen(false);
+    }
     state.view = next;
     document.body.classList.remove('view-dashboard', 'view-about', 'view-process');
     document.body.classList.add('view-' + next);
@@ -1503,6 +1537,7 @@
     function render() {
       const lang = state.lang;
       const isDash = state.view === 'dashboard';
+      const filterCount = isDash ? countActiveFilters() : 0;
       const nextLang = lang === 'hr' ? 'en' : 'hr';
       const themeIcon = state.theme === 'light'
         ? 'fa-solid fa-sun'
@@ -1536,6 +1571,21 @@
             }),
           ]) : el('div', { class: 'search-spacer' }),
           el('div', { class: 'toolbar' }, [
+            isDash ? el('button', {
+              class: 'mode-toggle mobile-filter-toggle' +
+                (state.mobileFiltersOpen ? ' is-open' : '') +
+                (filterCount > 0 ? ' has-active' : ''),
+              type: 'button',
+              title: t('facet.filters', lang),
+              'aria-label': `${t('facet.filters', lang)}${filterCount > 0 ? ` (${filterCount})` : ''}`,
+              'aria-controls': 'rail',
+              'aria-expanded': state.mobileFiltersOpen ? 'true' : 'false',
+              onclick: () => setMobileFiltersOpen(!state.mobileFiltersOpen),
+            }, [
+              fa(state.mobileFiltersOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-sliders'),
+              el('span', { class: 'mode-toggle-k', text: t('facet.filters', lang) }),
+              filterCount > 0 ? el('span', { class: 'mobile-filter-count mono', text: String(filterCount) }) : null,
+            ]) : null,
             el('button', {
               class: 'mode-toggle mode-toggle-lang',
               type: 'button',
@@ -1562,7 +1612,7 @@
         ]),
       );
     }
-    on(['lang', 'theme', 'filters', 'view'], render);
+    on(['lang', 'theme', 'filters', 'view', 'mobileFilters'], render);
     render();
   }
 
@@ -1727,6 +1777,17 @@
       ]);
 
       root.replaceChildren(
+        el('div', { class: 'rail-mobile-head' }, [
+          el('span', { class: 'kicker', text: t('facet.filters', lang) }),
+          el('button', {
+            class: 'btn mono rail-mobile-close',
+            type: 'button',
+            onclick: () => setMobileFiltersOpen(false),
+          }, [
+            fa('fa-solid fa-xmark', 'icon-left'),
+            t('modal.close', lang),
+          ]),
+        ]),
         // Year
         el('div', { class: 'facet' }, [
           el('div', { class: 'facet-header' }, [
@@ -3140,6 +3201,10 @@
     document.addEventListener('keydown', (e) => {
       const tag = (e.target && e.target.tagName) || '';
       const inField = tag === 'INPUT' || tag === 'TEXTAREA' || (e.target && e.target.isContentEditable);
+      if (e.key === 'Escape' && state.mobileFiltersOpen) {
+        setMobileFiltersOpen(false);
+        return;
+      }
       if (e.key === '/' && !inField) {
         e.preventDefault();
         const inp = document.querySelector('.search input');
@@ -3161,6 +3226,16 @@
         }
       }
     });
+  }
+
+  function installMobileFilterViewportGuard() {
+    const mq = window.matchMedia('(max-width: 900px)');
+    const sync = () => {
+      if (!mq.matches) setMobileFiltersOpen(false);
+    };
+    if (typeof mq.addEventListener === 'function') mq.addEventListener('change', sync);
+    else if (typeof mq.addListener === 'function') mq.addListener(sync);
+    sync();
   }
 
   // ═══ 15. Static content loader ══════════════════════════════════════
@@ -3926,6 +4001,7 @@
   async function boot() {
     document.documentElement.lang = state.lang;
     document.body.classList.add('theme-' + state.theme);
+    document.body.classList.remove('mobile-filters-open');
     state.view = readViewFromHash();
     document.body.classList.add('view-' + state.view);
 
@@ -3957,6 +4033,11 @@
       el('div', { class: 'view-root', id: 'view-root' }, [
         el('div', { class: 'workspace', id: 'view-dashboard' }, [
           el('aside', { class: 'filter-rail', id: 'rail' }),
+          el('div', {
+            class: 'filter-drawer-backdrop',
+            id: 'filter-drawer-backdrop',
+            onclick: () => setMobileFiltersOpen(false),
+          }),
           el('main', { class: 'main' }, [
             el('section', { class: 'headline', id: 'headline' }),
             el('section', { class: 'insights', id: 'insights' }),
@@ -3973,6 +4054,7 @@
 
     mountTopbar(document.getElementById('topbar'));
     mountFilterRail(document.getElementById('rail'));
+    installMobileFilterViewportGuard();
     mountHeadline(document.getElementById('headline'));
     mountInsights(document.getElementById('insights'));
     mountScopeRow(document.getElementById('scope-row'));
