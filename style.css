@@ -480,7 +480,7 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
 }
 .metric.clickable .bars .bar { cursor: pointer; }
 .metric.clickable .label::after {
-  content: ' · click bar';
+  content: attr(data-click-hint);
   color: var(--muted);
   letter-spacing: 0.08em;
   font-size: 8px;
