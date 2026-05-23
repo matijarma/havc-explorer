@@ -77,6 +77,20 @@
     'header.funded':    { en: '{amt} funded',  hr: '{amt} dodijeljeno' },
     'header.calls':     { en: '{n} calls',     hr: '{n} natječaja' },
     'header.unfunded':  { en: '{n} unfunded',  hr: '{n} bez sredstava' },
+    'header.notice.kicker': {
+      en: 'Data provenance',
+      hr: 'Podrijetlo podataka',
+    },
+    'header.notice.body': {
+      en: 'All registry data is machine-extracted from public funding results published on havc.hr. Each project, decision, and amount links directly to the source HAVC PDF. No human review has been performed yet; human review is planned if HAVC approves the project under Komplementarne.',
+      hr: 'Svi podaci u registru strojno su izdvojeni iz javno objavljenih rezultata financiranja na havc.hr. Svaki projekt, odluka i iznos imaju izravnu poveznicu na izvorni HAVC PDF. Ručna provjera još nije provedena; planirana je ako HAVC odobri projekt u okviru poziva Komplementarne.',
+    },
+
+    'toggle.lang': { en: 'Language', hr: 'Jezik' },
+    'toggle.theme': { en: 'Theme', hr: 'Tema' },
+    'toggle.theme.light': { en: 'Light', hr: 'Svijetlo' },
+    'toggle.theme.dark': { en: 'Dark', hr: 'Tamno' },
+    'toggle.theme.auto': { en: 'Auto', hr: 'Auto' },
 
     'metric.total':       { en: 'Total funded',  hr: 'Ukupno dodijeljeno' },
     'metric.median':      { en: 'Median award',  hr: 'Medijan iznos' },
@@ -870,8 +884,8 @@
     expandedKey: null,     // normTitle of the expanded project (works in projects/decisions)
     expandedRoundIds: new Set(), // `${doc}:${n}` per expanded "why" inside a profile
     expandedMentions: false,
-    theme: localStorage.getItem('sredstva-theme') || 'auto',
-    lang: localStorage.getItem('sredstva-lang') || 'en',
+    theme: localStorage.getItem('sredstva-theme') || 'light',
+    lang: localStorage.getItem('sredstva-lang') || 'hr',
     hideUnattributed: true,
     showUnfunded: false,
     pdfPreview: null, // { title, source_url }
@@ -973,7 +987,22 @@
   function setLang(lang) {
     state.lang = lang;
     localStorage.setItem('sredstva-lang', lang);
+    document.documentElement.lang = lang;
     fire('lang');
+  }
+
+  function cycleLang() {
+    setLang(state.lang === 'hr' ? 'en' : 'hr');
+  }
+
+  function nextTheme(theme) {
+    if (theme === 'light') return 'dark';
+    if (theme === 'dark') return 'auto';
+    return 'light';
+  }
+
+  function cycleTheme() {
+    setTheme(nextTheme(state.theme));
   }
   function setHideUnattributed(v) {
     state.hideUnattributed = v;
@@ -1228,6 +1257,12 @@
     function render() {
       const lang = state.lang;
       const isDash = state.view === 'dashboard';
+      const nextLang = lang === 'hr' ? 'en' : 'hr';
+      const themeIcon = state.theme === 'light'
+        ? 'fa-solid fa-sun'
+        : state.theme === 'dark'
+          ? 'fa-solid fa-moon'
+          : 'fa-solid fa-circle-half-stroke';
       root.replaceChildren(
         el('div', { class: 'topbar-row' }, [
           el('div', { class: 'wordmark' }, [
@@ -1255,22 +1290,28 @@
             }),
           ]) : el('div', { class: 'search-spacer' }),
           el('div', { class: 'toolbar' }, [
-            el('div', { class: 'lang-toggle' }, [
-              el('button', { class: lang === 'en' ? 'active' : '', text: 'EN', onclick: () => setLang('en') }),
-              el('button', { class: lang === 'hr' ? 'active' : '', text: 'HR', onclick: () => setLang('hr') }),
-            ]),
-            el('div', { class: 'theme-toggle' }, [
-              ['auto', 'fa-solid fa-circle-half-stroke'],
-              ['light', 'fa-solid fa-sun'],
-              ['dark', 'fa-solid fa-moon'],
-            ].map(([id, icon]) => el('button', {
-              class: state.theme === id ? 'active' : '',
-              title: id,
-              'aria-label': id,
-              onclick: () => setTheme(id),
+            el('button', {
+              class: 'mode-toggle mode-toggle-lang',
+              type: 'button',
+              title: t('toggle.lang', lang),
+              'aria-label': `${t('toggle.lang', lang)}: ${lang.toUpperCase()}`,
+              onclick: cycleLang,
             }, [
-              fa(icon),
-            ]))),
+              el('span', { class: 'mode-toggle-k', text: t('toggle.lang', lang) }),
+              el('span', { class: 'mode-toggle-v mono', text: lang.toUpperCase() }),
+              el('span', { class: 'mode-toggle-next mono', text: nextLang.toUpperCase() }),
+            ]),
+            el('button', {
+              class: 'mode-toggle mode-toggle-theme',
+              type: 'button',
+              title: t('toggle.theme', lang),
+              'aria-label': `${t('toggle.theme', lang)}: ${t('toggle.theme.' + state.theme, lang)}`,
+              onclick: cycleTheme,
+            }, [
+              fa(themeIcon),
+              el('span', { class: 'mode-toggle-k', text: t('toggle.theme', lang) }),
+              el('span', { class: 'mode-toggle-v mono', text: t('toggle.theme.' + state.theme, lang) }),
+            ]),
           ]),
         ]),
       );
@@ -1667,6 +1708,11 @@
       root.replaceChildren(
         el('div', { class: 'head-line' }, [
           el('span', { class: 'head-main', text: t('header.line', lang, { maxYear }) }),
+        ]),
+        el('aside', { class: 'head-infopill', role: 'note' }, [
+          fa('fa-solid fa-circle-info', 'icon-left'),
+          el('span', { class: 'head-infopill-kicker kicker', text: t('header.notice.kicker', lang) }),
+          el('span', { class: 'head-infopill-body', text: t('header.notice.body', lang) }),
         ]),
         el('div', { class: 'head-stats mono' }, [
           el('span', {}, [
@@ -3290,6 +3336,7 @@
 
   // ═══ 18. Boot ═══════════════════════════════════════════════════════
   async function boot() {
+    document.documentElement.lang = state.lang;
     document.body.classList.add('theme-' + state.theme);
     state.view = readViewFromHash();
     document.body.classList.add('view-' + state.view);
