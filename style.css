@@ -383,13 +383,19 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
 }
 .headline .head-infopill {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
   border: 1px solid var(--rule);
   background: color-mix(in oklab, var(--panel) 78%, transparent);
   padding: 8px 10px;
   margin: 10px 0 10px;
   border-radius: 2px;
+}
+.headline .head-infopill-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 .headline .head-infopill .icon-left {
   color: var(--red);
@@ -403,6 +409,14 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   color: var(--paper-dim);
   font-size: 11px;
   line-height: 1.5;
+}
+.headline .head-infopill-audit {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.4;
+  margin-top: 2px;
+  text-transform: none;
+  letter-spacing: 0.02em;
 }
 .headline .head-stats {
   font-family: 'JetBrains Mono', monospace;
@@ -1042,17 +1056,71 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 10px;
+  align-items: start;
 }
 .analytics-kpi {
+  position: relative;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--rule);
   background: var(--ink);
   padding: 10px 12px;
   min-height: 76px;
+  cursor: pointer;
+  transition: background-color .12s ease, border-color .12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.analytics-kpi:hover {
+  background: color-mix(in oklab, var(--ink) 86%, var(--panel));
+}
+.analytics-kpi:focus-visible {
+  outline: none;
+  border-color: var(--red);
+}
+.analytics-kpi.is-expanded {
+  border-color: var(--red);
+  background: color-mix(in oklab, var(--ink) 92%, var(--panel));
+}
+.analytics-kpi-chevron {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 9px;
+  color: var(--paper-dim);
+  line-height: 1;
+}
+.analytics-kpi:hover .analytics-kpi-chevron,
+.analytics-kpi.is-expanded .analytics-kpi-chevron {
+  color: var(--red);
+}
+.analytics-kpi-detail {
+  margin-top: 10px;
+}
+.analytics-kpi-detail-label {
+  margin: 0 0 4px;
+  font-size: 9px;
+  color: var(--paper-dim);
+}
+.analytics-kpi-formula {
+  padding: 8px 10px;
+  border: 1px dashed var(--rule);
+  background: color-mix(in oklab, var(--ink) 78%, var(--panel));
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--paper);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.analytics-kpi-explain {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--paper-dim);
 }
 .analytics-kpi .label {
   margin-bottom: 6px;
+  padding-right: 20px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
   letter-spacing: 0.12em;
