@@ -98,6 +98,31 @@
     'metric.yearTrend':   { en: 'Year trend',    hr: 'Po godini' },
     'metric.distrib':     { en: 'Award sizes',   hr: 'Raspodjela iznosa' },
     'metric.click.hint':  { en: 'click a bar to scope', hr: 'klik na stupić za opseg' },
+    'metric.decisions':   { en: 'Decisions', hr: 'Odluke' },
+    'metric.top10share':  { en: 'Top 10 share', hr: 'Udio top 10' },
+    'metric.top50share':  { en: 'Top 50 share', hr: 'Udio top 50' },
+    'metric.p90':         { en: 'P90 award', hr: 'P90 iznos' },
+    'metric.p95':         { en: 'P95 award', hr: 'P95 iznos' },
+    'metric.mean':        { en: 'Mean award', hr: 'Prosjecni iznos' },
+    'metric.gini':        { en: 'Inequality (Gini)', hr: 'Nejednakost (Gini)' },
+    'metric.projects':    { en: 'projects', hr: 'projekata' },
+
+    'insights.open.hint':   { en: 'click anywhere for full analytics', hr: 'klikni bilo gdje za punu analitiku' },
+    'insights.open.kicker': { en: 'global dataset', hr: 'globalni skup podataka' },
+
+    'analytics.title':        { en: 'Registry analytics', hr: 'Analitika registra' },
+    'analytics.subtitle':     { en: 'Global view across all available rows (independent from active filters)', hr: 'Globalni pregled svih dostupnih redaka (neovisno o aktivnim filterima)' },
+    'analytics.yearly':       { en: 'Funding by year', hr: 'Financiranje po godini' },
+    'analytics.program_mix':  { en: 'Programme mix by amount', hr: 'Raspodjela po programu (iznos)' },
+    'analytics.category_mix': { en: 'Category mix by amount', hr: 'Raspodjela po kategoriji (iznos)' },
+    'analytics.size_dist':    { en: 'Award-size distribution', hr: 'Raspodjela velicine iznosa' },
+    'analytics.volatility':   { en: 'Year-over-year shifts', hr: 'Promjene iz godine u godinu' },
+    'analytics.window':       { en: 'Data window notes', hr: 'Napomene o vremenskom rasponu' },
+    'analytics.yoy.up':       { en: 'largest increase', hr: 'najveci rast' },
+    'analytics.yoy.down':     { en: 'largest drop', hr: 'najveci pad' },
+    'analytics.note.pre2009': { en: 'Rows exist before 2009 (earliest detected year is 2008).', hr: 'Postoje redci prije 2009. (najranija pronadena godina je 2008.).' },
+    'analytics.note.current': { en: '{year} is likely partial (in-year data snapshot).', hr: '{year} je vjerojatno parcijalna godina (presjek usred godine).' },
+    'analytics.note.stable':  { en: 'No special year-window caveats detected.', hr: 'Nema posebnih napomena za vremenski raspon.' },
 
     'scope.label':    { en: 'scope', hr: 'opseg' },
     'scope.empty':    { en: 'nothing scoped — click any bar, group row, or value to narrow',
@@ -239,6 +264,7 @@
   let searchIndex = new Map();           // token -> Set<rowIdx>
   let rowNormTitles = [];                // rowIdx -> normalized title
   let projectIndex = new Map();          // normTitle -> aggregated project record
+  let GLOBAL_ANALYTICS = null;           // global dataset analytics snapshot
 
   function normalizeText(s) {
     if (!s) return '';
@@ -806,6 +832,7 @@
       }
     });
 
+    GLOBAL_ANALYTICS = buildGlobalAnalytics(DATA.rows);
     buildProjectIndex();
   }
 
@@ -843,6 +870,165 @@
       if (r.program)   p.programs.add(r.program);
       if (r.cat_type)  p.cats.add(r.cat_type);
     });
+  }
+
+  function percentileFromSorted(sorted, p) {
+    if (!sorted.length) return 0;
+    const i = Math.floor((sorted.length - 1) * p);
+    return sorted[i];
+  }
+
+  function giniFromSorted(sorted) {
+    if (!sorted.length) return 0;
+    let weighted = 0;
+    let sum = 0;
+    for (let i = 0; i < sorted.length; i++) {
+      const x = sorted[i];
+      sum += x;
+      weighted += (i + 1) * x;
+    }
+    if (!sum) return 0;
+    const n = sorted.length;
+    return (2 * weighted) / (n * sum) - ((n + 1) / n);
+  }
+
+  function topShare(projectEntries, n, total) {
+    if (!total) return 0;
+    let s = 0;
+    const limit = Math.min(n, projectEntries.length);
+    for (let i = 0; i < limit; i++) s += projectEntries[i][1];
+    return s / total;
+  }
+
+  function buildGlobalAnalytics(rows) {
+    const positiveAmounts = [];
+    const byYearAmount = new Map();
+    const byYearCount = new Map();
+    const byProgramAmount = new Map();
+    const byProgramCount = new Map();
+    const byCatAmount = new Map();
+    const byCatCount = new Map();
+    const sizeHistogram = new Array(SIZE_BUCKETS.length - 1).fill(0);
+    const projectTotals = new Map();
+
+    for (let i = 0; i < rows.length; i++) {
+      const r = rows[i];
+      const amt = r.amount_eur || 0;
+      const year = r.year;
+      const program = r.program || 'other';
+      const cat = r.cat_type || 'other';
+
+      byProgramCount.set(program, (byProgramCount.get(program) || 0) + 1);
+      byProgramAmount.set(program, (byProgramAmount.get(program) || 0) + amt);
+      byCatCount.set(cat, (byCatCount.get(cat) || 0) + 1);
+      byCatAmount.set(cat, (byCatAmount.get(cat) || 0) + amt);
+
+      if (year != null) {
+        byYearCount.set(year, (byYearCount.get(year) || 0) + 1);
+        byYearAmount.set(year, (byYearAmount.get(year) || 0) + amt);
+      }
+
+      if (amt > 0) {
+        positiveAmounts.push(amt);
+        for (let b = 0; b < SIZE_BUCKETS.length - 1; b++) {
+          if (amt >= SIZE_BUCKETS[b] && amt < SIZE_BUCKETS[b + 1]) {
+            sizeHistogram[b] += 1;
+            break;
+          }
+        }
+        const pKey = rowNormTitles[i] || '';
+        if (pKey && pKey !== UNATTRIBUTED_KEY) {
+          projectTotals.set(pKey, (projectTotals.get(pKey) || 0) + amt);
+        }
+      }
+    }
+
+    const sortedAmounts = positiveAmounts.slice().sort((a, b) => a - b);
+    const totalAmount = positiveAmounts.reduce((s, x) => s + x, 0);
+    const awardedCount = positiveAmounts.length;
+    const meanAmount = awardedCount ? (totalAmount / awardedCount) : 0;
+    const medianAmount = median(positiveAmounts);
+    const p90Amount = percentileFromSorted(sortedAmounts, 0.90);
+    const p95Amount = percentileFromSorted(sortedAmounts, 0.95);
+    const gini = giniFromSorted(sortedAmounts);
+
+    const yearSeries = [...byYearCount.keys()]
+      .sort((a, b) => a - b)
+      .map((year) => ({
+        year,
+        amount: byYearAmount.get(year) || 0,
+        count: byYearCount.get(year) || 0,
+      }));
+
+    const minYear = yearSeries.length ? yearSeries[0].year : null;
+    const maxYear = yearSeries.length ? yearSeries[yearSeries.length - 1].year : null;
+    const currentYear = new Date().getFullYear();
+
+    const yoy = [];
+    for (let i = 1; i < yearSeries.length; i++) {
+      const prev = yearSeries[i - 1];
+      const cur = yearSeries[i];
+      const delta = cur.amount - prev.amount;
+      yoy.push({
+        year: cur.year,
+        delta,
+        pct: prev.amount > 0 ? (delta / prev.amount) : null,
+      });
+    }
+    const yoyForExtrema = (maxYear != null && maxYear === currentYear)
+      ? yoy.filter((x) => x.year !== currentYear)
+      : yoy;
+    const maxGain = yoyForExtrema.length
+      ? yoyForExtrema.reduce((best, cur) => cur.delta > best.delta ? cur : best, yoyForExtrema[0])
+      : null;
+    const maxDrop = yoyForExtrema.length
+      ? yoyForExtrema.reduce((best, cur) => cur.delta < best.delta ? cur : best, yoyForExtrema[0])
+      : null;
+
+    function mixFrom(amountMap, countMap) {
+      return [...amountMap.entries()]
+        .map(([key, amount]) => ({
+          key,
+          amount,
+          count: countMap.get(key) || 0,
+          share: totalAmount ? (amount / totalAmount) : 0,
+        }))
+        .sort((a, b) => b.amount - a.amount);
+    }
+
+    const programMix = mixFrom(byProgramAmount, byProgramCount);
+    const categoryMix = mixFrom(byCatAmount, byCatCount);
+    const projectEntries = [...projectTotals.entries()].sort((a, b) => b[1] - a[1]);
+
+    return {
+      rowCount: rows.length,
+      awardedCount,
+      totalAmount,
+      meanAmount,
+      medianAmount,
+      p90Amount,
+      p95Amount,
+      gini,
+      yearSeries,
+      sizeHistogram,
+      programMix,
+      categoryMix,
+      projectCount: projectEntries.length,
+      concentration: {
+        top10: topShare(projectEntries, 10, totalAmount),
+        top50: topShare(projectEntries, 50, totalAmount),
+        top100: topShare(projectEntries, 100, totalAmount),
+      },
+      yoy: {
+        maxGain,
+        maxDrop,
+      },
+      flags: {
+        pre2009Present: minYear != null && minYear < 2009,
+        currentYearPartial: maxYear != null && maxYear === currentYear,
+        currentYear,
+      },
+    };
   }
 
   function projectEventsFor(key) {
@@ -888,6 +1074,7 @@
     lang: localStorage.getItem('sredstva-lang') || 'hr',
     hideUnattributed: true,
     showUnfunded: false,
+    showAnalytics: false,
     pdfPreview: null, // { title, source_url }
     view: 'dashboard', // 'dashboard' | 'about' | 'process'
   };
@@ -1011,6 +1198,10 @@
   function setShowUnfunded(v) {
     state.showUnfunded = v;
     fire('showUnfunded');
+  }
+  function setShowAnalytics(v) {
+    state.showAnalytics = !!v;
+    fire('showAnalytics');
   }
   function setPdfPreview(v) {
     state.pdfPreview = v || null;
@@ -1203,6 +1394,13 @@
     return '€' + Math.round(n);
   }
 
+  function formatPercent(ratio, lang, digits) {
+    const locale = lang === 'hr' ? 'hr-HR' : 'en-US';
+    const pct = ((ratio || 0) * 100);
+    const d = digits == null ? 1 : digits;
+    return pct.toLocaleString(locale, { minimumFractionDigits: d, maximumFractionDigits: d }) + '%';
+  }
+
   function bandLabel(lo, hi) {
     const f = (v) => v >= 1_000_000 ? (v / 1_000_000) + 'M' : v >= 1000 ? (v / 1000) + 'k' : String(v);
     if (lo === 0) return '<' + f(hi);
@@ -1214,27 +1412,75 @@
     opts = opts || {};
     const max = Math.max(1, ...values);
     const tooltip = el('div', { class: 'bar-tooltip' });
+    const readout = el('div', { class: 'chart-readout mono' });
+    let pinned = null;
+
+    function labelFor(i, v) {
+      return labels && labels[i] != null ? labels[i] : String(v);
+    }
+
+    function renderPinnedOrHide() {
+      if (pinned == null) {
+        tooltip.classList.remove('on');
+        readout.classList.remove('on');
+        readout.textContent = '';
+        return;
+      }
+      const v = values[pinned] != null ? values[pinned] : '';
+      const text = labelFor(pinned, v);
+      tooltip.textContent = text;
+      tooltip.classList.add('on');
+      readout.textContent = text;
+      readout.classList.add('on');
+    }
+
+    function show(i, v, stick) {
+      const text = labelFor(i, v);
+      tooltip.textContent = text;
+      tooltip.classList.add('on');
+      readout.textContent = text;
+      readout.classList.add('on');
+      if (stick) pinned = i;
+    }
+
     const bars = values.map((v, i) => {
+      const label = labelFor(i, v);
       const bar = el('div', {
         class: 'bar',
         style: `height: ${Math.max(1, (v / max) * 100)}%`,
       });
       if (labels && labels[i] != null) bar.dataset.label = labels[i];
+      bar.setAttribute('title', label);
+      bar.setAttribute('role', 'button');
+      bar.setAttribute('tabindex', '0');
+      bar.setAttribute('aria-label', label);
       bar.addEventListener('mouseenter', () => {
-        tooltip.textContent = labels && labels[i] != null ? labels[i] : String(v);
-        tooltip.classList.add('on');
+        show(i, v, false);
         bar.classList.add('hot');
       });
       bar.addEventListener('mouseleave', () => {
-        tooltip.classList.remove('on');
+        renderPinnedOrHide();
         bar.classList.remove('hot');
       });
-      if (opts.onclick) bar.addEventListener('click', () => opts.onclick(i, v));
+      bar.addEventListener('focus', () => show(i, v, false));
+      bar.addEventListener('blur', () => renderPinnedOrHide());
+      bar.addEventListener('click', (e) => {
+        if (pinned === i) pinned = null;
+        else pinned = i;
+        renderPinnedOrHide();
+        if (opts.onclick) opts.onclick(i, v, e);
+      });
+      bar.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        e.preventDefault();
+        bar.click();
+      });
       return bar;
     });
     return el('div', { class: 'chart-wrap' }, [
       el('div', { class: 'bars' }, bars),
       tooltip,
+      readout,
     ]);
   }
 
@@ -1743,70 +1989,72 @@
 
   // ═══ 9. Insights strip ══════════════════════════════════════════════
   function mountInsights(root) {
+    const openAnalytics = () => setShowAnalytics(true);
+    root.classList.add('insights-openable');
+    root.tabIndex = 0;
+    root.setAttribute('role', 'button');
+    root.addEventListener('click', (e) => {
+      const interactive = e.target && e.target.closest('button, a, input, textarea, select');
+      if (interactive) return;
+      openAnalytics();
+    });
+    root.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      openAnalytics();
+    });
+
     function render() {
       const lang = state.lang;
-      const ids = applyFiltersAndPivotView();
-      const amounts = ids.map(i => DATA.rows[i].amount_eur || 0).filter(a => a > 0);
-      const total = amounts.reduce((s, x) => s + x, 0);
-      const med = median(amounts);
-
-      // Year trend
-      const byYear = new Map();
-      const countsByYear = new Map();
-      for (const i of ids) {
-        const r = DATA.rows[i];
-        if (!r.year) continue;
-        byYear.set(r.year, (byYear.get(r.year) || 0) + (r.amount_eur || 0));
-        countsByYear.set(r.year, (countsByYear.get(r.year) || 0) + 1);
+      const a = GLOBAL_ANALYTICS;
+      if (!a) {
+        root.replaceChildren();
+        return;
       }
-      const years = [...byYear.keys()].sort((a, b) => a - b);
-      const yearVals = years.map(y => byYear.get(y));
-      const yearTooltips = years.map(y =>
-        `${y} · ${formatCompact(byYear.get(y), lang)} · ${countsByYear.get(y)} ${t('metric.count', lang)}`);
 
-      // Histogram
-      const buckets = SIZE_BUCKETS;
-      const histVals = new Array(buckets.length - 1).fill(0);
-      for (const a of amounts) {
-        for (let i = 0; i < buckets.length - 1; i++) {
-          if (a >= buckets[i] && a < buckets[i + 1]) { histVals[i]++; break; }
-        }
-      }
-      const histTooltips = buckets.slice(0, -1).map((b, i) =>
-        `${bandLabel(buckets[i], buckets[i + 1])} · ${histVals[i]} ${t('metric.count', lang)}`);
+      root.setAttribute('aria-label', t('insights.open.hint', lang));
+
+      const yearVals = a.yearSeries.map(x => x.amount);
+      const yearTooltips = a.yearSeries.map(x =>
+        `${x.year} · ${formatCompact(x.amount, lang)} · ${x.count.toLocaleString()} ${t('metric.count', lang)}`);
+
+      const histVals = a.sizeHistogram;
+      const histTooltips = histVals.map((v, i) =>
+        `${bandLabel(SIZE_BUCKETS[i], SIZE_BUCKETS[i + 1])} · ${v.toLocaleString()} ${t('metric.count', lang)}`);
 
       root.replaceChildren(
+        el('div', { class: 'insights-open-hint kicker', text: `${t('insights.open.kicker', lang)} · ${t('insights.open.hint', lang)}` }),
         el('div', { class: 'metric' }, [
           el('span', { class: 'label', text: t('metric.total', lang) }),
-          el('span', { class: 'value', text: formatAmount(total, 'EUR', lang) }),
-          el('span', { class: 'sub', text: `${ids.length.toLocaleString()} ${t('status.rows', lang)}` }),
+          el('span', { class: 'value', text: formatAmount(a.totalAmount, 'EUR', lang) }),
+          el('span', { class: 'sub', text: `${a.rowCount.toLocaleString()} ${t('status.rows', lang)}` }),
+        ]),
+        el('div', { class: 'metric' }, [
+          el('span', { class: 'label', text: t('metric.decisions', lang) }),
+          el('span', { class: 'value', text: a.rowCount.toLocaleString() }),
+          el('span', { class: 'sub', text: `${a.awardedCount.toLocaleString()} ${t('metric.count', lang)}` }),
         ]),
         el('div', { class: 'metric' }, [
           el('span', { class: 'label', text: t('metric.median', lang) }),
-          el('span', { class: 'value', text: formatAmount(med, 'EUR', lang) }),
-          el('span', { class: 'sub', text: `${amounts.length.toLocaleString()} ${t('metric.count', lang)}` }),
+          el('span', { class: 'value', text: formatAmount(a.medianAmount, 'EUR', lang) }),
+          el('span', { class: 'sub', text: `${t('metric.p90', lang)}: ${formatAmount(a.p90Amount, 'EUR', lang)}` }),
         ]),
-        el('div', { class: 'metric chart clickable' }, [
+        el('div', { class: 'metric' }, [
+          el('span', { class: 'label', text: t('metric.top10share', lang) }),
+          el('span', { class: 'value', text: formatPercent(a.concentration.top10, lang, 1) }),
+          el('span', { class: 'sub', text: `${a.projectCount.toLocaleString()} ${t('metric.projects', lang)}` }),
+        ]),
+        el('div', { class: 'metric chart' }, [
           el('span', { class: 'label', text: t('metric.yearTrend', lang) }),
-          barsChart(yearVals, yearTooltips, {
-            onclick: (i) => {
-              const y = years[i];
-              addScope({ kind: 'year', value: y, label: String(y) });
-            },
-          }),
+          barsChart(yearVals, yearTooltips),
           el('div', { class: 'bars-labels' }, [
-            el('span', { text: years[0] != null ? String(years[0]) : '' }),
-            el('span', { text: years.length ? String(years[years.length - 1]) : '' }),
+            el('span', { text: a.yearSeries.length ? String(a.yearSeries[0].year) : '' }),
+            el('span', { text: a.yearSeries.length ? String(a.yearSeries[a.yearSeries.length - 1].year) : '' }),
           ]),
         ]),
-        el('div', { class: 'metric chart clickable' }, [
+        el('div', { class: 'metric chart' }, [
           el('span', { class: 'label', text: t('metric.distrib', lang) }),
-          barsChart(histVals, histTooltips, {
-            onclick: (i) => {
-              const lo = buckets[i], hi = buckets[i + 1];
-              addScope({ kind: 'sizeBand', value: [lo, hi], label: bandLabel(lo, hi) });
-            },
-          }),
+          barsChart(histVals, histTooltips),
           el('div', { class: 'bars-labels' }, [
             el('span', { text: '€0' }),
             el('span', { text: '€1M+' }),
@@ -1814,7 +2062,7 @@
         ]),
       );
     }
-    on(['filters', 'scopes', 'lang', 'hideUnattributed', 'groupBy'], render);
+    on(['lang'], render);
     render();
   }
 
@@ -2598,7 +2846,151 @@
     recomputeData();
   }
 
-  // ═══ 13. Unfunded mentions modal ════════════════════════════════════
+  // ═══ 13. Analytics modal ════════════════════════════════════════════
+  function mountAnalyticsModal() {
+    let host = null;
+    let keyHandler = null;
+
+    function close() { setShowAnalytics(false); }
+
+    function kpiCard(label, value, sub) {
+      return el('article', { class: 'analytics-kpi' }, [
+        el('span', { class: 'label', text: label }),
+        el('span', { class: 'value', text: value }),
+        sub ? el('span', { class: 'sub', text: sub }) : null,
+      ]);
+    }
+
+    function mixList(items, lang, keyPrefix) {
+      return el('div', { class: 'analytics-mix-list' }, items.map((m) => el('div', { class: 'analytics-mix-row' }, [
+        el('div', { class: 'analytics-mix-head' }, [
+          el('span', { class: 'analytics-mix-name', text: t(keyPrefix + m.key, lang) }),
+          el('span', { class: 'analytics-mix-val mono', text: formatAmount(m.amount, 'EUR', lang) }),
+          el('span', { class: 'analytics-mix-pct mono', text: formatPercent(m.share, lang, 1) }),
+        ]),
+        el('div', { class: 'analytics-mix-track' }, [
+          el('div', { class: 'analytics-mix-fill', style: `width:${Math.max(1, m.share * 100)}%` }),
+        ]),
+      ])));
+    }
+
+    function yoyRow(kindKey, item, lang) {
+      if (!item) {
+        return el('div', { class: 'analytics-yoy-row' }, [
+          el('span', { class: 'analytics-yoy-kind kicker', text: t(kindKey, lang) }),
+          el('span', { class: 'analytics-yoy-year mono', text: '—' }),
+          el('span', { class: 'analytics-yoy-delta mono', text: '—' }),
+        ]);
+      }
+      const pctText = item.pct == null ? '—' : formatPercent(Math.abs(item.pct), lang, 1);
+      return el('div', { class: 'analytics-yoy-row' }, [
+        el('span', { class: 'analytics-yoy-kind kicker', text: t(kindKey, lang) }),
+        el('span', { class: 'analytics-yoy-year mono', text: String(item.year) }),
+        el('span', { class: 'analytics-yoy-delta mono', text: `${formatAmount(item.delta, 'EUR', lang)} · ${pctText}` }),
+      ]);
+    }
+
+    function render() {
+      if (keyHandler) {
+        document.removeEventListener('keydown', keyHandler);
+        keyHandler = null;
+      }
+      if (host) {
+        host.remove();
+        host = null;
+      }
+
+      if (!state.showAnalytics || !GLOBAL_ANALYTICS) return;
+
+      const lang = state.lang;
+      const a = GLOBAL_ANALYTICS;
+      const yearVals = a.yearSeries.map(x => x.amount);
+      const yearTooltips = a.yearSeries.map(x =>
+        `${x.year} · ${formatCompact(x.amount, lang)} · ${x.count.toLocaleString()} ${t('metric.count', lang)}`);
+      const histVals = a.sizeHistogram;
+      const histTooltips = histVals.map((v, i) =>
+        `${bandLabel(SIZE_BUCKETS[i], SIZE_BUCKETS[i + 1])} · ${v.toLocaleString()} ${t('metric.count', lang)}`);
+      const notes = [];
+      if (a.flags.pre2009Present) notes.push(t('analytics.note.pre2009', lang));
+      if (a.flags.currentYearPartial) notes.push(t('analytics.note.current', lang, { year: a.flags.currentYear }));
+      if (notes.length === 0) notes.push(t('analytics.note.stable', lang));
+
+      host = el('div', { class: 'modal-backdrop', onclick: close }, [
+        el('div', { class: 'modal modal-wide analytics-modal', onclick: (e) => e.stopPropagation() }, [
+          el('div', { class: 'modal-head' }, [
+            el('div', { class: 'analytics-head' }, [
+              el('h2', { text: t('analytics.title', lang) }),
+              el('p', { class: 'analytics-subhead mono', text: t('analytics.subtitle', lang) }),
+            ]),
+            el('button', { class: 'btn mono', onclick: close }, [
+              fa('fa-solid fa-xmark', 'icon-left'),
+              t('modal.close', lang),
+            ]),
+          ]),
+          el('div', { class: 'modal-body analytics-body' }, [
+            el('section', { class: 'analytics-kpis' }, [
+              kpiCard(t('metric.total', lang), formatAmount(a.totalAmount, 'EUR', lang), `${a.rowCount.toLocaleString()} ${t('status.rows', lang)}`),
+              kpiCard(t('metric.decisions', lang), a.rowCount.toLocaleString(), `${a.awardedCount.toLocaleString()} ${t('metric.count', lang)}`),
+              kpiCard(t('metric.median', lang), formatAmount(a.medianAmount, 'EUR', lang), `${t('metric.mean', lang)}: ${formatAmount(a.meanAmount, 'EUR', lang)}`),
+              kpiCard(t('metric.p90', lang), formatAmount(a.p90Amount, 'EUR', lang), `${t('metric.p95', lang)}: ${formatAmount(a.p95Amount, 'EUR', lang)}`),
+              kpiCard(t('metric.top10share', lang), formatPercent(a.concentration.top10, lang, 1), `${t('metric.top50share', lang)}: ${formatPercent(a.concentration.top50, lang, 1)}`),
+              kpiCard(t('metric.gini', lang), formatPercent(a.gini, lang, 1), `${a.projectCount.toLocaleString()} ${t('metric.projects', lang)}`),
+            ]),
+            el('section', { class: 'analytics-grid' }, [
+              el('article', { class: 'analytics-card analytics-card-year' }, [
+                el('div', { class: 'analytics-card-title kicker', text: t('analytics.yearly', lang) }),
+                barsChart(yearVals, yearTooltips),
+                el('div', { class: 'bars-labels' }, [
+                  el('span', { text: a.yearSeries.length ? String(a.yearSeries[0].year) : '' }),
+                  el('span', { text: a.yearSeries.length ? String(a.yearSeries[a.yearSeries.length - 1].year) : '' }),
+                ]),
+              ]),
+              el('article', { class: 'analytics-card analytics-card-program' }, [
+                el('div', { class: 'analytics-card-title kicker', text: t('analytics.program_mix', lang) }),
+                mixList(a.programMix.slice(0, 10), lang, 'prog.'),
+              ]),
+              el('article', { class: 'analytics-card analytics-card-category' }, [
+                el('div', { class: 'analytics-card-title kicker', text: t('analytics.category_mix', lang) }),
+                mixList(a.categoryMix.slice(0, 10), lang, 'cat.'),
+              ]),
+              el('article', { class: 'analytics-card analytics-card-size' }, [
+                el('div', { class: 'analytics-card-title kicker', text: t('analytics.size_dist', lang) }),
+                barsChart(histVals, histTooltips),
+                el('div', { class: 'bars-labels' }, [
+                  el('span', { text: '€0' }),
+                  el('span', { text: '€1M+' }),
+                ]),
+              ]),
+            ]),
+            el('section', { class: 'analytics-meta' }, [
+              el('article', { class: 'analytics-card analytics-card-volatility' }, [
+                el('div', { class: 'analytics-card-title kicker', text: t('analytics.volatility', lang) }),
+                yoyRow('analytics.yoy.up', a.yoy.maxGain, lang),
+                yoyRow('analytics.yoy.down', a.yoy.maxDrop, lang),
+              ]),
+              el('article', { class: 'analytics-card analytics-card-window' }, [
+                el('div', { class: 'analytics-card-title kicker', text: t('analytics.window', lang) }),
+                el('ul', { class: 'analytics-note-list' }, notes.map((line) =>
+                  el('li', { class: 'analytics-note', text: line })
+                )),
+              ]),
+            ]),
+          ]),
+        ]),
+      ]);
+      document.body.appendChild(host);
+
+      keyHandler = (e) => {
+        if (e.key === 'Escape') close();
+      };
+      document.addEventListener('keydown', keyHandler);
+    }
+
+    on(['showAnalytics', 'lang'], render);
+    render();
+  }
+
+  // ═══ 14. Unfunded mentions modal ════════════════════════════════════
   function mountUnfundedModal() {
     let host = null;
     function close() { setShowUnfunded(false); }
@@ -2755,7 +3147,9 @@
         return;
       }
       if (e.key === 'Escape' && !inField) {
-        if (state.pdfPreview) {
+        if (state.showAnalytics) {
+          setShowAnalytics(false);
+        } else if (state.pdfPreview) {
           setPdfPreview(null);
         } else if (state.expandedKey) {
           state.expandedKey = null;
@@ -2883,6 +3277,106 @@
       console.error(err);
     }
 
+    function normalizeClaim(claim) {
+      if (claim && typeof claim === 'object' && !Array.isArray(claim)) {
+        return {
+          text: typeof claim.text === 'string' ? claim.text : '',
+          sources: Array.isArray(claim.sources) ? claim.sources : [],
+        };
+      }
+      return {
+        text: claim == null ? '' : String(claim),
+        sources: [],
+      };
+    }
+
+    function renderSourceChips(sources) {
+      const chips = (Array.isArray(sources) ? sources : []).map((src) => {
+        if (!src || typeof src !== 'object') return null;
+        const parts = [];
+        if (src.label) parts.push(String(src.label));
+        if (src.stamp) parts.push(String(src.stamp));
+        const text = parts.join(' · ');
+        if (!text) return null;
+        const kind = src.kind ? (' source-chip--' + String(src.kind)) : '';
+        return el('span', { class: 'source-chip mono' + kind, text });
+      }).filter(Boolean);
+      if (!chips.length) return null;
+      return el('div', { class: 'source-chips' }, chips);
+    }
+
+    function renderClaimBlock(tag, className, claim) {
+      const c = normalizeClaim(claim);
+      if (!c.text && (!c.sources || !c.sources.length)) return null;
+      return el(tag, { class: className }, [
+        c.text ? el('span', { class: 'claim-text', text: c.text }) : null,
+        renderSourceChips(c.sources),
+      ]);
+    }
+
+    function renderClaimList(items) {
+      return (items || []).map((line) => {
+        const c = normalizeClaim(line);
+        if (!c.text && (!c.sources || !c.sources.length)) return null;
+        return el('li', null, [
+          c.text ? el('span', { class: 'claim-text', text: c.text }) : null,
+          renderSourceChips(c.sources),
+        ]);
+      }).filter(Boolean);
+    }
+
+    function computeLiveFacts() {
+      const docs = DATA && Array.isArray(DATA.docs) ? DATA.docs : [];
+      const rows = DATA && Array.isArray(DATA.rows) ? DATA.rows : [];
+      const narratives = DATA && Array.isArray(DATA.narratives) ? DATA.narratives : [];
+      const decisions = DATA && Array.isArray(DATA.decisions) ? DATA.decisions : [];
+      const years = DATA && DATA.facets && Array.isArray(DATA.facets.years)
+        ? DATA.facets.years.filter((y) => Number.isInteger(y)).sort((a, b) => a - b)
+        : [];
+
+      const sourceUrlMissingCount = docs.reduce((acc, d) => (
+        acc + ((d && (!d.source_url || d.source_url_missing === true)) ? 1 : 0)
+      ), 0);
+
+      return {
+        record_count: docs.length + narratives.length + decisions.length,
+        results_doc_count: docs.length,
+        narrative_count: narratives.length,
+        decision_count: decisions.length,
+        row_count: rows.length,
+        source_url_missing_count: sourceUrlMissingCount,
+        year_range: years.length ? `${years[0]}–${years[years.length - 1]}` : '—',
+        hrk_to_eur: DATA && DATA.hrk_to_eur ? String(DATA.hrk_to_eur) : '—',
+      };
+    }
+
+    function formatLiveFactValue(item, facts) {
+      if (!item || typeof item !== 'object') return '—';
+      let raw = item.data_key ? facts[item.data_key] : item.value;
+      if (raw == null || raw === '') return '—';
+      if (typeof raw === 'number') {
+        if (item.format === 'int' || item.format === 'number') return raw.toLocaleString();
+        return String(raw);
+      }
+      return String(raw);
+    }
+
+    function renderLiveFacts(liveFactsCfg) {
+      if (!liveFactsCfg || !Array.isArray(liveFactsCfg.items) || !liveFactsCfg.items.length) return null;
+      const facts = computeLiveFacts();
+      return el('section', { class: 'process-live-facts' }, [
+        liveFactsCfg.title ? el('h2', { class: 'process-section-title', text: liveFactsCfg.title }) : null,
+        liveFactsCfg.subtitle ? el('p', { class: 'process-live-facts-subhead', text: liveFactsCfg.subtitle }) : null,
+        el('div', { class: 'live-facts-grid' }, liveFactsCfg.items.map((it) => el('article', { class: 'live-fact-card' }, [
+          el('div', { class: 'live-fact-value display', text: formatLiveFactValue(it, facts) }),
+          el('div', { class: 'live-fact-label kicker', text: it.label || '' }),
+          it.note ? el('div', { class: 'live-fact-note mono', text: it.note }) : null,
+          renderSourceChips(it.sources),
+        ]))),
+        liveFactsCfg.footnote ? el('p', { class: 'process-live-facts-footnote', text: liveFactsCfg.footnote }) : null,
+      ]);
+    }
+
     function renderEraColumn(era, lang) {
       const sys = era.system || {};
       return el('div', { class: 'era-column', dataset: { era: era.id } }, [
@@ -2914,7 +3408,10 @@
     function renderArtifact(a, lang) {
       if (!a || !a.kind) return null;
       if (a.kind === 'note') {
-        return el('div', { class: 'artifact artifact-note', text: a.text });
+        return el('div', { class: 'artifact artifact-note' }, [
+          renderClaimBlock('div', 'artifact-note-line', a.text),
+          renderSourceChips(a.sources),
+        ]);
       }
       if (a.kind === 'file') {
         const head = el('div', { class: 'artifact-pill-head' }, [
@@ -2923,14 +3420,16 @@
         ]);
         return el('div', { class: 'artifact artifact-file' }, [
           head,
-          a.note ? el('div', { class: 'artifact-note-line', text: a.note }) : null,
+          a.note ? renderClaimBlock('div', 'artifact-note-line', a.note) : null,
+          renderSourceChips(a.sources),
         ]);
       }
       if (a.kind === 'metric') {
         return el('div', { class: 'artifact artifact-metric' }, [
           el('div', { class: 'artifact-metric-value display', text: a.value }),
           el('div', { class: 'artifact-metric-label kicker', text: a.label }),
-          a.note ? el('div', { class: 'artifact-metric-note mono', text: a.note }) : null,
+          a.note ? renderClaimBlock('div', 'artifact-metric-note mono', a.note) : null,
+          renderSourceChips(a.sources),
         ]);
       }
       if (a.kind === 'code' || a.kind === 'quote') {
@@ -2940,6 +3439,7 @@
           el('pre', { class: 'artifact-code-body' }, [
             el('code', { class: 'mono', text: a.body || '' }),
           ]),
+          renderSourceChips(a.sources),
         ]);
       }
       return null;
@@ -3113,6 +3613,79 @@
       return el('div', { class: 'flow-diagram' }, [svg]);
     }
 
+    function renderExcerpt(excerpt, cls) {
+      if (!excerpt) return null;
+      const ex = typeof excerpt === 'string' ? { body: excerpt } : excerpt;
+      return el('div', { class: cls || 'timeline-excerpt artifact-code' }, [
+        ex.caption ? el('div', { class: 'artifact-caption kicker', text: ex.caption }) : null,
+        el('pre', { class: 'artifact-code-body' }, [
+          el('code', { class: 'mono', text: ex.body || '' }),
+        ]),
+        renderSourceChips(ex.sources),
+      ]);
+    }
+
+    function renderPlainGuide(guide) {
+      if (!guide) return null;
+      const items = Array.isArray(guide.items) ? guide.items : [];
+      return el('section', { class: 'deepdive-plain' }, [
+        guide.title ? el('h3', { class: 'process-section-title', text: guide.title }) : null,
+        guide.intro ? renderClaimBlock('p', 'deepdive-plain-intro', guide.intro) : null,
+        items.length ? el('div', { class: 'plain-guide-grid' }, items.map((it) => el('article', { class: 'plain-guide-card' }, [
+          it.title ? el('h4', { class: 'plain-guide-title', text: it.title }) : null,
+          it.body ? renderClaimBlock('p', 'plain-guide-body', it.body) : null,
+          renderSourceChips(it.sources),
+        ]))) : null,
+      ]);
+    }
+
+    function renderTimeline(timeline) {
+      if (!timeline || !Array.isArray(timeline.checkpoints) || !timeline.checkpoints.length) return null;
+      return el('section', { class: 'deepdive-timeline' }, [
+        timeline.title ? el('h3', { class: 'process-section-title', text: timeline.title }) : null,
+        timeline.intro ? renderClaimBlock('p', 'timeline-intro', timeline.intro) : null,
+        el('div', { class: 'timeline-list' }, timeline.checkpoints.map((cp) => el('article', {
+          class: 'timeline-item',
+          id: cp.id || null,
+        }, [
+          el('header', { class: 'timeline-item-head' }, [
+            cp.date ? el('div', { class: 'timeline-date mono', text: cp.date }) : null,
+            cp.title ? el('h4', { class: 'timeline-title', text: cp.title }) : null,
+          ]),
+          cp.summary ? renderClaimBlock('p', 'timeline-summary', cp.summary) : null,
+          (cp.problem || cp.decision || cp.result) ? el('div', { class: 'timeline-three-up' }, [
+            cp.problem ? el('div', { class: 'timeline-lane' }, [
+              el('div', { class: 'timeline-lane-label kicker', text: cp.problem_label || 'Problem' }),
+              renderClaimBlock('p', 'timeline-lane-copy', cp.problem),
+            ]) : null,
+            cp.decision ? el('div', { class: 'timeline-lane' }, [
+              el('div', { class: 'timeline-lane-label kicker', text: cp.decision_label || 'Decision' }),
+              renderClaimBlock('p', 'timeline-lane-copy', cp.decision),
+            ]) : null,
+            cp.result ? el('div', { class: 'timeline-lane' }, [
+              el('div', { class: 'timeline-lane-label kicker', text: cp.result_label || 'Result' }),
+              renderClaimBlock('p', 'timeline-lane-copy', cp.result),
+            ]) : null,
+          ]) : null,
+          (Array.isArray(cp.delta_metrics) && cp.delta_metrics.length) ? el('div', { class: 'timeline-metric-row' },
+            cp.delta_metrics.map((m) => el('div', { class: 'timeline-metric' }, [
+              el('div', { class: 'timeline-metric-value display', text: m.value || '—' }),
+              el('div', { class: 'timeline-metric-label kicker', text: m.label || '' }),
+              m.note ? el('div', { class: 'timeline-metric-note mono', text: m.note }) : null,
+            ]))) : null,
+          cp.excerpt_compact ? renderExcerpt(cp.excerpt_compact, 'timeline-excerpt artifact-code') : null,
+          cp.excerpt_more ? el('details', { class: 'timeline-more' }, [
+            el('summary', {
+              class: 'timeline-more-summary mono',
+              text: cp.excerpt_more.toggle_label || 'More context',
+            }),
+            renderExcerpt(cp.excerpt_more, 'timeline-excerpt timeline-excerpt-more artifact-code'),
+          ]) : null,
+          renderSourceChips(cp.sources),
+        ]))),
+      ]);
+    }
+
     function renderPassCard(p, lang) {
       if (!p) return null;
       return el('article', { class: 'pass-card', id: p.id || null }, [
@@ -3122,7 +3695,7 @@
           el('h3', { class: 'pass-card-title display', text: p.title || '' }),
         ]),
         p.engine ? el('div', { class: 'pass-engine mono', text: p.engine }) : null,
-        p.what ? el('p', { class: 'pass-what', text: p.what }) : null,
+        p.what ? renderClaimBlock('p', 'pass-what', p.what) : null,
         (p.input || p.output) ? el('div', { class: 'pass-io' }, [
           el('div', { class: 'pass-io-box' }, [
             el('div', { class: 'pass-io-axis kicker', text: t('process.deep_dive.input', lang) }),
@@ -3157,9 +3730,11 @@
             el('div', { class: 'artifact-metric-value display', text: m.value }),
             el('div', { class: 'artifact-metric-label kicker', text: m.label }),
             m.note ? el('div', { class: 'artifact-metric-note mono', text: m.note }) : null,
+            renderSourceChips(m.sources),
           ]))) : null,
         (Array.isArray(p.artifacts) && p.artifacts.length) ? el('div', { class: 'pass-artifacts' },
           p.artifacts.map(a => renderArtifact(a, lang))) : null,
+        renderSourceChips(p.sources),
       ]);
     }
 
@@ -3167,28 +3742,39 @@
       if (!tally || !Array.isArray(tally.items)) return null;
       return el('section', { class: 'deepdive-tally' }, [
         tally.title ? el('h3', { class: 'process-section-title', text: tally.title }) : null,
+        tally.as_of ? el('p', { class: 'tally-as-of mono', text: tally.as_of }) : null,
         el('div', { class: 'tally-strip' }, tally.items.map(it => el('div', { class: 'tally-tile' }, [
           el('div', { class: 'display tally-tile-value', text: it.value }),
           el('div', { class: 'kicker tally-tile-label', text: it.label }),
           it.note ? el('div', { class: 'mono tally-tile-note', text: it.note }) : null,
+          renderSourceChips(it.sources),
         ]))),
-        tally.tokens_footnote ? el('p', { class: 'tokens-footnote mono', text: tally.tokens_footnote }) : null,
+        tally.tokens_footnote ? renderClaimBlock('p', 'tokens-footnote mono', tally.tokens_footnote) : null,
+        renderSourceChips(tally.sources),
       ]);
     }
 
     function renderDeepDive(dd, lang) {
       if (!dd) return null;
-      return el('section', { class: 'process-deepdive' }, [
-        el('header', { class: 'deepdive-head' }, [
-          dd.kicker ? el('div', { class: 'kicker', text: dd.kicker }) : null,
-          dd.headline ? el('h2', { class: 'display deepdive-headline', text: dd.headline }) : null,
-          dd.subhead ? el('p', { class: 'deepdive-subhead', text: dd.subhead }) : null,
-          dd._todo_translate ? el('p', { class: 'deepdive-todo mono', text: t('process.deep_dive.todo', lang) }) : null,
-        ]),
+      const technicalBlocks = [
         dd.loop_diagram ? el('section', { class: 'deepdive-loop' }, [renderFlowDiagram(dd.loop_diagram)]) : null,
         (Array.isArray(dd.passes) && dd.passes.length) ? el('section', { class: 'deepdive-passes' },
           dd.passes.map(p => renderPassCard(p, lang))) : null,
         renderTally(dd.tally),
+      ].filter(Boolean);
+      return el('section', { class: 'process-deepdive' }, [
+        el('header', { class: 'deepdive-head' }, [
+          dd.kicker ? el('div', { class: 'kicker', text: dd.kicker }) : null,
+          dd.headline ? el('h2', { class: 'display deepdive-headline', text: dd.headline }) : null,
+          dd.subhead ? renderClaimBlock('p', 'deepdive-subhead', dd.subhead) : null,
+          dd._todo_translate ? el('p', { class: 'deepdive-todo mono', text: t('process.deep_dive.todo', lang) }) : null,
+        ]),
+        renderPlainGuide(dd.plain_guide),
+        renderTimeline(dd.timeline),
+        technicalBlocks.length ? el('section', { class: 'deepdive-technical' }, [
+          dd.technical_title ? el('h3', { class: 'process-section-title', text: dd.technical_title }) : null,
+          ...technicalBlocks,
+        ]) : null,
       ]);
     }
 
@@ -3200,18 +3786,18 @@
           el('span', { class: 'era-dates mono', text: era.dates }),
         ]),
         el('h2', { class: 'era-card-title display', text: era.title }),
-        el('p', { class: 'era-what', text: era.what }),
+        renderClaimBlock('p', 'era-what', era.what),
 
         el('div', { class: 'era-pros-cons' }, [
           el('div', { class: 'era-prosbox era-prosbox--pros' }, [
             el('h4', { class: 'era-prosbox-title kicker', text: t('process.why_good', lang) }),
             el('ul', { class: 'era-prosbox-list' },
-              (era.why_good || []).map(line => el('li', { text: line }))),
+              renderClaimList(era.why_good || [])),
           ]),
           el('div', { class: 'era-prosbox era-prosbox--cons' }, [
             el('h4', { class: 'era-prosbox-title kicker', text: t('process.why_limited', lang) }),
             el('ul', { class: 'era-prosbox-list' },
-              (era.why_limited || []).map(line => el('li', { text: line }))),
+              renderClaimList(era.why_limited || [])),
           ]),
         ]),
 
@@ -3252,8 +3838,10 @@
         el('header', { class: 'process-hero' }, [
           el('div', { class: 'kicker', text: c.hero && c.hero.kicker }),
           el('h1', { class: 'display process-headline', text: c.hero && c.hero.headline }),
-          c.hero && c.hero.subhead ? el('p', { class: 'process-subhead', text: c.hero.subhead }) : null,
+          c.hero && c.hero.subhead ? renderClaimBlock('p', 'process-subhead', c.hero.subhead) : null,
         ]),
+
+        renderLiveFacts(c.live_facts),
 
         eras.length > 0 && el('section', { class: 'process-diagram-section' }, [
           el('h2', { class: 'process-section-title', text: t('process.diagram', lang) }),
@@ -3267,7 +3855,7 @@
 
         renderComparison(c.comparison, eras, lang),
 
-        c.footnote ? el('p', { class: 'process-footnote', text: c.footnote }) : null,
+        c.footnote ? renderClaimBlock('p', 'process-footnote', c.footnote) : null,
       ]));
     }
 
@@ -3393,6 +3981,7 @@
     mountList(document.getElementById('listwrap'));
     mountAbout(document.getElementById('view-about'));
     mountProcess(document.getElementById('view-process'));
+    mountAnalyticsModal();
     mountUnfundedModal();
     mountPdfPreviewModal();
     mountKeyboard();
