@@ -1238,6 +1238,26 @@
     document.body.classList.toggle('mobile-filters-open', open);
     fire('mobileFilters');
   }
+
+  // ─── Mobile breakpoint observer ─────────────────────────────────────
+  const MOBILE_MQL = typeof window !== 'undefined' && window.matchMedia
+    ? window.matchMedia('(max-width: 900px)')
+    : null;
+  function isMobile() {
+    return !!(MOBILE_MQL && MOBILE_MQL.matches);
+  }
+  if (MOBILE_MQL) {
+    const onMobileChange = () => {
+      document.body.classList.toggle('is-mobile', isMobile());
+      if (!isMobile() && state.mobileFiltersOpen) {
+        state.mobileFiltersOpen = false;
+        document.body.classList.remove('mobile-filters-open');
+      }
+      fire('mobile');
+    };
+    if (MOBILE_MQL.addEventListener) MOBILE_MQL.addEventListener('change', onMobileChange);
+    else if (MOBILE_MQL.addListener) MOBILE_MQL.addListener(onMobileChange);
+  }
   function setView(view) {
     const next = (view === 'about' || view === 'process') ? view : 'dashboard';
     if (state.view === next) return;
@@ -2074,6 +2094,27 @@
       }
 
       root.setAttribute('aria-label', t('insights.open.hint', lang));
+      root.classList.toggle('insights-mobile', isMobile());
+
+      if (isMobile()) {
+        root.replaceChildren(
+          el('div', { class: 'insights-mobile-summary' }, [
+            el('span', { class: 'insights-mobile-amount mono', text: formatCompact(a.totalAmount, lang) }),
+            el('span', { class: 'insights-mobile-meta mono', text:
+              `${a.rowCount.toLocaleString()} ${t('status.rows', lang)} · ${a.projectCount.toLocaleString()} ${t('metric.projects', lang)}`
+            }),
+          ]),
+          el('button', {
+            class: 'btn mono insights-mobile-btn',
+            type: 'button',
+            onclick: openAnalytics,
+          }, [
+            fa('fa-solid fa-chart-column', 'icon-left'),
+            t('analytics.title', lang),
+          ]),
+        );
+        return;
+      }
 
       const yearVals = a.yearSeries.map(x => x.amount);
       const yearTooltips = a.yearSeries.map(x =>
@@ -2123,7 +2164,7 @@
         ]),
       );
     }
-    on(['lang'], render);
+    on(['lang', 'mobile'], render);
     render();
   }
 
@@ -2187,14 +2228,31 @@
       const lang = state.lang;
       const showUnattributedToggle = PIVOTS_WITH_UNATTRIBUTED.has(state.groupBy);
 
-      const left = el('div', { class: 'pivot-left' }, [
-        el('span', { class: 'kicker', text: t('pivot.label', lang) }),
-        ...PIVOTS.map(p => el('button', {
-          class: 'btn mono' + (state.groupBy === p ? ' active' : ''),
-          text: t('pivot.' + p, lang),
-          onclick: () => setGroupBy(p),
-        })),
-      ]);
+      let left;
+      if (isMobile()) {
+        const select = el('select', {
+          class: 'pivot-select mono',
+          'aria-label': t('pivot.label', lang),
+          onchange: (e) => setGroupBy(e.target.value),
+        }, PIVOTS.map(p => {
+          const opt = el('option', { value: p, text: t('pivot.' + p, lang) });
+          if (state.groupBy === p) opt.selected = true;
+          return opt;
+        }));
+        left = el('div', { class: 'pivot-left' }, [
+          el('label', { class: 'kicker', text: t('pivot.label', lang) }),
+          select,
+        ]);
+      } else {
+        left = el('div', { class: 'pivot-left' }, [
+          el('span', { class: 'kicker', text: t('pivot.label', lang) }),
+          ...PIVOTS.map(p => el('button', {
+            class: 'btn mono' + (state.groupBy === p ? ' active' : ''),
+            text: t('pivot.' + p, lang),
+            onclick: () => setGroupBy(p),
+          })),
+        ]);
+      }
 
       const right = el('div', { class: 'pivot-right' });
       if (showUnattributedToggle) {
@@ -2222,7 +2280,7 @@
 
       root.replaceChildren(left, right);
     }
-    on(['groupBy', 'lang', 'hideUnattributed', 'filters', 'scopes'], render);
+    on(['groupBy', 'lang', 'hideUnattributed', 'filters', 'scopes', 'mobile'], render);
     render();
   }
 
@@ -2413,8 +2471,15 @@
         return;
       }
 
-      const visibleH = scrollEl.clientHeight || 600;
-      const scrollTop = scrollEl.scrollTop;
+      let visibleH, scrollTop;
+      if (isMobile()) {
+        visibleH = window.innerHeight || 600;
+        const rect = scrollEl.getBoundingClientRect();
+        scrollTop = Math.max(0, -rect.top);
+      } else {
+        visibleH = scrollEl.clientHeight || 600;
+        scrollTop = scrollEl.scrollTop;
+      }
 
       let virtualHeight = totalHeight;
       if (expandedIdxInList >= 0) {
@@ -2888,16 +2953,19 @@
     }
 
     let rafQueued = false;
-    scrollEl.addEventListener('scroll', () => {
+    const requestPaint = () => {
       if (rafQueued) return;
       rafQueued = true;
       requestAnimationFrame(() => { rafQueued = false; paint(); });
-    });
+    };
+    scrollEl.addEventListener('scroll', requestPaint);
+    window.addEventListener('scroll', requestPaint, { passive: true });
     window.addEventListener('resize', paint);
 
     on(['filters', 'scopes', 'groupBy', 'sort', 'expanded', 'hideUnattributed', 'lang'], () => {
       recomputeData();
     });
+    on(['mobile'], paint);
 
     root.replaceChildren(headerEl, scrollEl);
 
@@ -4002,6 +4070,7 @@
     document.documentElement.lang = state.lang;
     document.body.classList.add('theme-' + state.theme);
     document.body.classList.remove('mobile-filters-open');
+    document.body.classList.toggle('is-mobile', isMobile());
     state.view = readViewFromHash();
     document.body.classList.add('view-' + state.view);
 

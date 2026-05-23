@@ -49,8 +49,14 @@ html, body {
   background: var(--ink); color: var(--paper);
   font-family: 'Albert Sans', system-ui, sans-serif;
   font-size: 14px;
-  height: 100%;
-  overflow: hidden;
+}
+/* Desktop: lock viewport so internal panels scroll. Mobile (≤900px) lets the
+ * document scroll naturally — see the @media block further down. */
+@media (min-width: 901px) {
+  html, body { height: 100%; overflow: hidden; }
+}
+@media (max-width: 900px) {
+  html, body { min-height: 100dvh; overflow-x: hidden; }
 }
 ::selection { background: var(--red); color: var(--paper); }
 button, input { font: inherit; color: inherit; }
@@ -1529,6 +1535,190 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   .pivot { padding: 10px 16px; flex-wrap: wrap; }
   .pivot .pivot-left, .pivot .pivot-right { flex-wrap: wrap; }
   .statusbar { padding: 8px 16px; }
+
+  /* ── Mobile shell: let the document scroll naturally ─────────────── */
+  .app { height: auto; min-height: 100dvh; display: block; }
+  .view-root { position: static; min-height: 0; }
+  .view-root > * { position: static; inset: auto; }
+  .workspace { display: block; min-height: 0; }
+  .main { display: block; min-height: 0; }
+  .about-host, .process-host { overflow: visible; }
+
+  /* Sticky topbar so navigation stays reachable while scrolling */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: var(--ink);
+  }
+  .topbar-row { padding: 10px 14px; }
+
+  /* Compact, touch-friendly bar of inline controls */
+  .view-tab {
+    padding: 9px 12px;
+    font-size: 12px;
+    min-height: 36px;
+  }
+  .mode-toggle { min-height: 36px; padding: 6px 12px; }
+  .mobile-filter-toggle { min-height: 36px; padding: 6px 10px; }
+
+  /* Insights strip → compact summary + single CTA */
+  .insights.insights-mobile {
+    display: flex;
+    grid-template-columns: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+  }
+  .insights.insights-mobile .insights-mobile-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .insights.insights-mobile .insights-mobile-amount {
+    font-size: 20px;
+    color: var(--paper);
+    letter-spacing: 0;
+  }
+  .insights.insights-mobile .insights-mobile-meta {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--paper-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .insights.insights-mobile .insights-mobile-btn {
+    flex-shrink: 0;
+    min-height: 38px;
+    padding: 8px 12px;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+
+  /* Pivot becomes a native select (rendered by JS) */
+  .pivot .pivot-left {
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+  }
+  .pivot-select {
+    flex: 1;
+    min-height: 40px;
+    padding: 8px 32px 8px 12px;
+    background: transparent;
+    color: var(--paper);
+    border: 1.5px solid var(--rule);
+    border-radius: 2px;
+    font-family: 'Albert Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--paper-dim) 50%),
+                      linear-gradient(135deg, var(--paper-dim) 50%, transparent 50%);
+    background-position: calc(100% - 16px) center, calc(100% - 11px) center;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+  }
+  .pivot-select:focus { outline: none; border-color: var(--red); }
+  .pivot .pivot-right { width: 100%; gap: 8px; }
+  .pivot .unattributed-toggle { min-height: 38px; padding: 8px 12px; font-size: 12px; }
+
+  /* Year pills: horizontal scroll strip */
+  .year-pills {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .year-pills::-webkit-scrollbar { display: none; }
+  .year-pills-list {
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+  }
+  .year-pill {
+    min-height: 36px;
+    padding: 8px 14px;
+    font-size: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .year-pills-kicker { flex-shrink: 0; }
+
+  /* List header is redundant on mobile (column meta lives inside rows) */
+  .list-header-wrap { display: none; }
+
+  /* List itself: page owns the scroll, list just provides a tall canvas */
+  .list-wrap {
+    overflow: visible;
+    flex: none;
+    display: block;
+  }
+  .list {
+    overflow: visible;
+    position: relative;
+    min-height: 60vh;
+  }
+
+  /* Row: title + amount only. Title cell stacks meta beneath. */
+  .row {
+    grid-template-columns: 32px minmax(0, 1fr) auto;
+    padding: 10px 14px;
+    min-height: 60px;
+  }
+  .row .col.recipient,
+  .row .col.year { display: none; }
+  .row .col.title { font-size: 14px; white-space: normal; }
+  .row .col.title .meta { font-size: 10px; }
+  .row .col.amount { font-size: 13px; }
+
+  /* Group rows compact to 3 visible columns */
+  .group {
+    grid-template-columns: 32px minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    padding: 10px 14px;
+    min-height: 64px;
+    row-gap: 2px;
+    column-gap: 10px;
+  }
+  .group .col.title {
+    grid-column: 2 / 3;
+    grid-row: 1;
+    font-size: 15px;
+    white-space: normal;
+  }
+  .group .col.subtotal {
+    grid-column: 3 / 4;
+    grid-row: 1;
+    font-size: 13px;
+  }
+  .group .col.avg { display: none; }
+  .group .col.count {
+    grid-column: 2 / -1;
+    grid-row: 2;
+    font-size: 10px;
+    text-align: left;
+  }
+  .group .col.count + .col.count { text-align: right; }
+  .group .col.n { grid-row: 1; }
+
+  /* Project profile + decision detail: phone padding + single-column */
+  .detail { grid-template-columns: 1fr; padding: 14px 16px 20px; gap: 14px; }
+
+  /* Statusbar: small, non-sticky, lives at end of page flow */
+  .statusbar { position: static; flex-wrap: wrap; row-gap: 6px; }
+
+  /* Touch-friendly chip + btn baseline */
+  .btn { min-height: 36px; padding: 8px 12px; font-size: 12px; }
+  .btn.mono { min-height: 34px; }
+  .chip { min-height: 36px; padding: 8px 10px; }
+  .scope-chip { min-height: 32px; padding: 6px 8px 6px 10px; }
 }
 
 /* ─── About + Process views (shared) ─────────────────────────────── */
