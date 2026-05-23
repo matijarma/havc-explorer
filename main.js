@@ -865,6 +865,7 @@
   }
   async function loadOptionalSanityReport() {
     const urls = [
+      'havc/10_sanity_check_official.json',
       '../reports/10_sanity_check_official.json',
       './reports/10_sanity_check_official.json',
       'reports/10_sanity_check_official.json',
