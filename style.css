@@ -188,6 +188,29 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
 }
 
 .toolbar { display: flex; gap: 8px; align-items: center; }
+.mobile-filter-toggle { display: none; }
+.mobile-filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  color: var(--paper);
+  background: color-mix(in oklab, var(--ink) 82%, var(--panel));
+  font-size: 10px;
+  letter-spacing: 0;
+}
+.mobile-filter-toggle.has-active .mobile-filter-count {
+  border-color: var(--red);
+  color: var(--paper);
+  background: var(--red-soft);
+}
+.mobile-filter-toggle.is-open {
+  border-color: var(--red);
+}
 
 /* ─── Buttons / chips ─────────────────────────────────────────────── */
 .btn {
@@ -240,6 +263,8 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   padding: 18px 16px 60px;
   overflow-y: auto; overflow-x: hidden;
 }
+.filter-drawer-backdrop { display: none; }
+.rail-mobile-head { display: none; }
 .facet { padding: 14px 0; border-bottom: 1px solid var(--rule); }
 .facet:last-child { border-bottom: none; }
 .facet-header {
@@ -1397,10 +1422,60 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
 
 @media (max-width: 900px) {
   .workspace { grid-template-columns: 1fr; }
+  .mobile-filter-toggle {
+    display: inline-flex;
+  }
+  .filter-drawer-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 45;
+    background: color-mix(in oklab, var(--ink) 72%, transparent);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 140ms ease;
+  }
   .filter-rail {
-    border-right: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 50;
+    width: min(86vw, 360px);
+    max-width: 360px;
+    border-right: 1px solid var(--rule);
+    border-bottom: none;
+    background: var(--ink);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.34);
+    padding: 14px 14px 24px;
+    max-height: none;
+    pointer-events: none;
+    transform: translateX(calc(-100% - 12px));
+    transition: transform 160ms ease;
+  }
+  .rail-mobile-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-bottom: 10px;
+    margin-bottom: 4px;
     border-bottom: 1px solid var(--rule);
-    max-height: 40vh;
+    position: sticky;
+    top: 0;
+    background: var(--ink);
+    z-index: 1;
+  }
+  .rail-mobile-close {
+    padding: 5px 8px;
+  }
+  body.mobile-filters-open .filter-drawer-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  body.mobile-filters-open .filter-rail {
+    pointer-events: auto;
+    transform: translateX(0);
   }
   .row { grid-template-columns: 40px 1.5fr 1fr 60px 90px; padding: 0 14px; }
   .group { grid-template-columns: 40px 1.5fr 80px 80px 70px 70px; padding: 0 14px; }
@@ -1597,6 +1672,7 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
 /* ─── Process view ───────────────────────────────────────────────── */
 .process-view {
   max-width: 1180px;
+  overflow-x: clip;
 }
 .process-hero {
   padding-left: 22px;
@@ -1612,6 +1688,7 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   font-size: 16px;
   line-height: 1.55;
   color: var(--paper-dim);
+  overflow-wrap: anywhere;
 }
 .process-live-facts {
   margin: 0 0 56px;
@@ -1737,6 +1814,8 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   line-height: 1.4;
   color: var(--paper);
   background: rgba(244, 237, 226, 0.04);
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .era-system-output {
   border-color: var(--red);
@@ -1908,6 +1987,8 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   font-size: 12px;
   color: var(--paper);
   letter-spacing: 0.01em;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .artifact-size {
   font-size: 10px;
@@ -1921,6 +2002,7 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   color: var(--paper-dim);
   margin-top: 4px;
   line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 .artifact-code {
   border-left-color: var(--red);
@@ -2040,6 +2122,7 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   line-height: 1.55;
   color: var(--paper-dim);
   margin: 0;
+  overflow-wrap: anywhere;
 }
 .deepdive-todo {
   font-size: 12px;
@@ -2081,6 +2164,7 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   font-size: 13px;
   line-height: 1.55;
   color: var(--paper-dim);
+  overflow-wrap: anywhere;
 }
 
 .deepdive-timeline {
@@ -2126,12 +2210,14 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   font-size: 17px;
   line-height: 1.25;
   color: var(--paper);
+  overflow-wrap: anywhere;
 }
 .timeline-summary {
   margin: 0;
   font-size: 14px;
   line-height: 1.55;
   color: var(--paper);
+  overflow-wrap: anywhere;
 }
 .timeline-three-up {
   display: grid;
@@ -2155,6 +2241,7 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   font-size: 12px;
   line-height: 1.5;
   color: var(--paper);
+  overflow-wrap: anywhere;
 }
 .timeline-metric-row {
   display: grid;
@@ -2217,6 +2304,7 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   padding: 20px 12px;
 }
 .flow-diagram {
+  max-width: 100%;
   overflow-x: auto;
   scrollbar-width: thin;
 }
@@ -2323,6 +2411,7 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   color: var(--paper);
   margin: 0;
   max-width: 78ch;
+  overflow-wrap: anywhere;
 }
 .pass-io {
   display: grid;
@@ -2443,13 +2532,31 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   .about-section { grid-template-columns: 1fr; gap: 10px; }
   .about-section-title { position: static; }
   .about-prose { font-size: 15px; }
+  .process-host { overflow-x: hidden; }
+  .process-view { overflow-x: hidden; }
+  .process-hero { margin-bottom: 36px; padding-left: 14px; }
+  .process-subhead { font-size: 15px; line-height: 1.52; }
+  .process-live-facts { margin-bottom: 40px; }
+  .live-facts-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  .live-fact-value { font-size: 24px; }
   .process-diagram { grid-template-columns: 1fr; }
+  .era-column { padding: 14px 12px 16px; gap: 10px; }
+  .era-system-input, .era-system-output, .era-system-process { font-size: 10px; }
   .era-pros-cons { grid-template-columns: 1fr; gap: 18px; }
+  .process-deepdive { gap: 34px; padding-top: 34px; margin-top: 18px; }
+  .deepdive-loop { padding: 12px 8px; }
+  .flow-diagram-svg { min-width: 760px; }
+  .timeline-item { padding: 12px 12px 11px; }
   .cmp-row { grid-template-columns: 1fr; }
   .cmp-cell { border-right: none; border-bottom: 1px solid var(--rule); }
   .cmp-row .cmp-cell:last-child { border-bottom: none; }
   .cmp-row.cmp-header { display: none; }
+  .pass-card { padding: 16px 14px 18px; gap: 12px; }
   .pass-io, .pass-io-grid { grid-template-columns: 1fr; }
   .plain-guide-grid { grid-template-columns: 1fr; }
   .timeline-three-up { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .flow-diagram-svg { min-width: 680px; }
 }
