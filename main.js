@@ -86,37 +86,13 @@
       en: 'Data provenance',
       hr: 'Podrijetlo podataka',
     },
-    'header.notice.kicker.sanity': {
-      en: 'Sanity check vs official reports',
-      hr: 'Sanity provjera prema sluzbenim izvjescima',
-    },
     'header.notice.body': {
       en: 'All registry data is machine-extracted from public funding results published on havc.hr. Each project, decision, and amount links directly to the source HAVC PDF. No human review has been performed yet; human review is planned if HAVC approves the project under Komplementarne.',
       hr: 'Svi podaci u registru strojno su izdvojeni iz javno objavljenih rezultata financiranja na havc.hr. Svaki projekt, odluka i iznos imaju izravnu poveznicu na izvorni HAVC PDF. Ručna provjera još nije provedena; planirana je ako HAVC odobri projekt u okviru poziva Komplementarne.',
     },
-    'header.notice.sanity.lead': {
-      en: 'Sanity report {ts}',
-      hr: 'Sanity izvjesce {ts}',
-    },
-    'header.notice.sanity.lead_no_ts': {
-      en: 'Sanity report',
-      hr: 'Sanity izvjesce',
-    },
-    'header.notice.sanity.group.production': {
-      en: 'prod+coprod',
-      hr: 'proizvodnja+koprod',
-    },
-    'header.notice.sanity.group.complementary': {
-      en: 'complementary',
-      hr: 'komplementarne',
-    },
-    'header.notice.sanity.group.international': {
-      en: 'international',
-      hr: 'medunarodna',
-    },
-    'header.notice.sanity.rows': {
-      en: 'rows {raw}->{dedup} (-{removed})',
-      hr: 'redci {raw}->{dedup} (-{removed})',
+    'header.notice.audit': {
+      en: 'Automated cross-check {ts}: official totals alignment (PASS {pass}, WARN {warn}, FAIL {fail}); rows {raw}->{dedup}.',
+      hr: 'Automatska provjera {ts}: uskladenost sa sluzbenim zbrojevima (PASS {pass}, WARN {warn}, FAIL {fail}); redci {raw}->{dedup}.',
     },
     'toggle.lang': { en: 'Language', hr: 'Jezik' },
     'toggle.theme': { en: 'Theme', hr: 'Tema' },
@@ -138,6 +114,43 @@
     'metric.mean':        { en: 'Mean award', hr: 'Prosjecni iznos' },
     'metric.gini':        { en: 'Inequality (Gini)', hr: 'Nejednakost (Gini)' },
     'metric.projects':    { en: 'projects', hr: 'projekata' },
+
+    'metric.projects.kpi':    { en: 'Projects', hr: 'Projekata' },
+    'metric.awardedShare':    { en: 'Awarded share', hr: 'Udio dodijeljenih' },
+    'metric.max':             { en: 'Largest award', hr: 'Najveci iznos' },
+    'metric.yearsCovered':    { en: 'Years covered', hr: 'Pokrivene godine' },
+    'metric.uniqueProducers': { en: 'Producers', hr: 'Producenata' },
+    'metric.uniqueDirectors': { en: 'Directors', hr: 'Redatelja' },
+    'metric.directors.sub':   { en: '{n} directors', hr: '{n} redatelja' },
+    'metric.expand.hint':     { en: 'click for formula and explanation', hr: 'klikni za formulu i objasnjenje' },
+    'metric.formula.label':   { en: 'Formula', hr: 'Formula' },
+    'metric.explain.label':   { en: 'What it measures', hr: 'Sto mjeri' },
+
+    'formula.total':            { en: 'Σ amount_eur (across all rows)', hr: 'Σ amount_eur (po svim recima)' },
+    'formula.decisions':        { en: 'count(rows)', hr: 'count(redaka)' },
+    'formula.projects':         { en: 'count(distinct project | amount_eur > 0)', hr: 'count(razlicitih projekata | amount_eur > 0)' },
+    'formula.awardedShare':     { en: 'count(amount_eur > 0) ÷ count(rows)', hr: 'count(amount_eur > 0) ÷ count(redaka)' },
+    'formula.median':           { en: 'median(amount_eur | amount_eur > 0)', hr: 'medijan(amount_eur | amount_eur > 0)' },
+    'formula.mean':             { en: 'Σ amount_eur ÷ count(amount_eur > 0)', hr: 'Σ amount_eur ÷ count(amount_eur > 0)' },
+    'formula.p90':              { en: 'quantile(amount_eur, 0.90 | amount_eur > 0)', hr: 'kvantil(amount_eur, 0.90 | amount_eur > 0)' },
+    'formula.max':              { en: 'max(amount_eur | amount_eur > 0)', hr: 'max(amount_eur | amount_eur > 0)' },
+    'formula.top10share':       { en: 'Σ(top 10 projects by total) ÷ Σ(all amounts)', hr: 'Σ(top 10 projekata po iznosu) ÷ Σ(svi iznosi)' },
+    'formula.gini':             { en: '(2·Σ(i·xᵢ) − (n+1)·Σxᵢ) ÷ (n·Σxᵢ)\nover sorted project totals x₁ ≤ … ≤ xₙ', hr: '(2·Σ(i·xᵢ) − (n+1)·Σxᵢ) ÷ (n·Σxᵢ)\nnad sortiranim sumama projekata x₁ ≤ … ≤ xₙ' },
+    'formula.yearsCovered':     { en: 'max(year) − min(year) + 1', hr: 'max(godina) − min(godina) + 1' },
+    'formula.uniqueProducers':  { en: 'count(distinct r.producer | r.producer ≠ null)', hr: 'count(razlicitih r.producent | r.producent ≠ null)' },
+
+    'kpi.desc.total':            { en: 'Sum of every awarded amount in the registry, converted to EUR. Includes all years and programmes — this is the headline volume figure.', hr: 'Zbroj svih dodijeljenih iznosa u registru, preracunato u EUR. Ukljucuje sve godine i programe — temeljni pokazatelj ukupnog obujma.' },
+    'kpi.desc.decisions':        { en: 'Total number of registry rows, i.e. every individual funding decision. Some decisions carry no money (rejections, support letters) — see awarded share.', hr: 'Ukupan broj redaka u registru, tj. svaka pojedinacna odluka o financiranju. Neke odluke nemaju iznos (odbijanja, pisma podrske) — vidi udio dodijeljenih.' },
+    'kpi.desc.projects':         { en: 'Number of distinct projects that received at least one positive award. Multiple decisions on the same project (development → production → distribution) collapse into one project.', hr: 'Broj razlicitih projekata koji su primili barem jednu pozitivnu dodjelu. Vise odluka o istom projektu (razvoj → proizvodnja → distribucija) racunaju se kao jedan projekt.' },
+    'kpi.desc.awardedShare':     { en: 'Share of decisions that actually carried a positive amount. The complement is rows that exist for transparency but moved no money (rejections, listed-only entries).', hr: 'Udio odluka koje su zaista nosile pozitivan iznos. Ostatak su redci koji postoje radi transparentnosti ali nisu donijeli sredstva (odbijanja, samo evidentirani upisi).' },
+    'kpi.desc.median':           { en: 'The middle award when all positive amounts are sorted. Half the awards are smaller, half are larger. Robust to extreme values — unlike the mean.', hr: 'Sredisnji iznos kad se sve pozitivne dodjele poredaju po velicini. Polovica iznosa je manja, polovica veca. Otporan na ekstreme, za razliku od prosjeka.' },
+    'kpi.desc.mean':             { en: 'Arithmetic average of all positive awards. A few very large awards pull this number well above the median — the gap between mean and median is itself a signal of skew.', hr: 'Aritmeticki prosjek svih pozitivnih dodjela. Nekoliko jako velikih iznosa povlace ovaj broj iznad medijana — razlika izmedu prosjeka i medijana sama je signal asimetricnosti.' },
+    'kpi.desc.p90':              { en: '90th percentile: only 10 % of awards are this large or larger. Useful for spotting the threshold above which an award counts as a "big ticket" in this registry.', hr: '90. percentil: samo 10 % dodjela je ovog iznosa ili veceg. Korisno za prepoznavanje praga iznad kojeg se dodjela u ovom registru smatra "velikom".' },
+    'kpi.desc.max':              { en: 'The single largest positive award recorded. Useful as a sanity check (catches one-off mega-grants) and to contextualise the percentile spread above.', hr: 'Najveca pojedinacna pozitivna dodjela u registru. Sluzi kao kontrola razumnosti (otkriva jednokratne velike potpore) i daje kontekst rasponu percentila iznad.' },
+    'kpi.desc.top10share':       { en: 'Share of total funding that flowed to the ten projects with the largest cumulative awards. A high share means funding is concentrated on a few flagship projects.', hr: 'Udio ukupnih sredstava koji je primilo deset projekata s najvecim kumulativnim dodjelama. Visok udio znaci da su sredstva koncentrirana na nekoliko nositeljskih projekata.' },
+    'kpi.desc.gini':             { en: 'Inequality coefficient on project totals: 0 % means every project received an equal sum, 100 % means one project absorbed everything. Computed per project, not per decision.', hr: 'Koeficijent nejednakosti racunat nad sumama po projektu: 0 % znaci da je svaki projekt primio jednak iznos, 100 % da je jedan projekt apsorbirao sve. Racuna se po projektu, ne po odluci.' },
+    'kpi.desc.yearsCovered':     { en: 'How many calendar years the registry spans, from the earliest to the latest decision year. Gives a quick read on how much historical depth is available for comparisons.', hr: 'Koliko kalendarskih godina pokriva registar, od najranije do najkasnije godine odluke. Brzi uvid u to koliko je povijesne dubine dostupno za usporedbe.' },
+    'kpi.desc.uniqueProducers':  { en: 'Number of distinct producer entities named anywhere in the registry. Indicates how broad the active production ecosystem is — together with director count, a rough proxy for sector breadth.', hr: 'Broj razlicitih producentskih subjekata navedenih bilo gdje u registru. Pokazuje kolika je aktivna producentska zajednica — uz broj redatelja, gruba mjera sirine sektora.' },
 
     'insights.open.hint':   { en: 'click anywhere for full analytics', hr: 'klikni bilo gdje za punu analitiku' },
     'insights.open.kicker': { en: 'global dataset', hr: 'globalni skup podataka' },
@@ -985,6 +998,10 @@
     const byCatCount = new Map();
     const sizeHistogram = new Array(SIZE_BUCKETS.length - 1).fill(0);
     const projectTotals = new Map();
+    const producers = new Set();
+    const directors = new Set();
+    const writers = new Set();
+    const roks = new Set();
 
     for (let i = 0; i < rows.length; i++) {
       const r = rows[i];
@@ -1002,6 +1019,11 @@
         byYearCount.set(year, (byYearCount.get(year) || 0) + 1);
         byYearAmount.set(year, (byYearAmount.get(year) || 0) + amt);
       }
+
+      if (r.producer) producers.add(r.producer);
+      if (r.director) directors.add(r.director);
+      if (r.writer) writers.add(r.writer);
+      if (r.rok) roks.add(r.rok);
 
       if (amt > 0) {
         positiveAmounts.push(amt);
@@ -1025,6 +1047,8 @@
     const medianAmount = median(positiveAmounts);
     const p90Amount = percentileFromSorted(sortedAmounts, 0.90);
     const p95Amount = percentileFromSorted(sortedAmounts, 0.95);
+    const maxAmount = sortedAmounts.length ? sortedAmounts[sortedAmounts.length - 1] : 0;
+    const minAmount = sortedAmounts.length ? sortedAmounts[0] : 0;
     const gini = giniFromSorted(sortedAmounts);
 
     const yearSeries = [...byYearCount.keys()]
@@ -1078,17 +1102,31 @@
     return {
       rowCount: rows.length,
       awardedCount,
+      awardedShare: rows.length ? (awardedCount / rows.length) : 0,
       totalAmount,
       meanAmount,
       medianAmount,
       p90Amount,
       p95Amount,
+      maxAmount,
+      minAmount,
       gini,
       yearSeries,
       sizeHistogram,
       programMix,
       categoryMix,
       projectCount: projectEntries.length,
+      uniqueProducers: producers.size,
+      uniqueDirectors: directors.size,
+      uniqueWriters: writers.size,
+      uniqueRoks: roks.size,
+      programCount: byProgramAmount.size,
+      categoryCount: byCatAmount.size,
+      yearsCovered: {
+        from: minYear,
+        to: maxYear,
+        span: (minYear != null && maxYear != null) ? (maxYear - minYear + 1) : 0,
+      },
       concentration: {
         top10: topShare(projectEntries, 10, totalAmount),
         top50: topShare(projectEntries, 50, totalAmount),
@@ -1170,6 +1208,7 @@
     hideUnattributed: true,
     showUnfunded: false,
     showAnalytics: false,
+    expandedAnalyticsKpi: null, // KPI key currently expanded inside the analytics modal
     pdfPreview: null, // { title, source_url }
     mobileFiltersOpen: false,
     view: 'dashboard', // 'dashboard' | 'about' | 'process'
@@ -1297,7 +1336,12 @@
   }
   function setShowAnalytics(v) {
     state.showAnalytics = !!v;
+    if (!state.showAnalytics) state.expandedAnalyticsKpi = null;
     fire('showAnalytics');
+  }
+  function setExpandedAnalyticsKpi(key) {
+    state.expandedAnalyticsKpi = state.expandedAnalyticsKpi === key ? null : key;
+    fire('expandedAnalyticsKpi');
   }
   function setPdfPreview(v) {
     state.pdfPreview = v || null;
@@ -1549,48 +1593,33 @@
     }
   }
 
-  function sanityGroupStatusPair(report, groupId) {
-    const groups = asArray(asObject(asObject(report).results).direct_groups);
-    for (const g of groups) {
-      const item = asObject(g);
-      if (item.group !== groupId) continue;
-      const raw = item.status_raw || item.status || 'NA';
-      const dedup = item.status_dedup || item.status || 'NA';
-      return raw + '/' + dedup;
-    }
-    return 'NA/NA';
-  }
-
   function buildSanityInfoSummary(lang) {
     if (!SANITY_REPORT) return null;
 
-    const ts = formatUtcTimestamp(SANITY_REPORT.generated_at, lang);
-    const lead = ts
-      ? t('header.notice.sanity.lead', lang, { ts })
-      : t('header.notice.sanity.lead_no_ts', lang);
     const locale = lang === 'hr' ? 'hr-HR' : 'en-US';
+    const ts = formatUtcTimestamp(SANITY_REPORT.generated_at, lang)
+      || (lang === 'hr' ? 'bez vremenske oznake' : 'no timestamp');
 
-    const parts = [];
-    parts.push(t('header.notice.sanity.group.production', lang) + ' ' +
-      sanityGroupStatusPair(SANITY_REPORT, 'production_plus_coprod'));
-    parts.push(t('header.notice.sanity.group.complementary', lang) + ' ' +
-      sanityGroupStatusPair(SANITY_REPORT, 'komplementarne'));
-    parts.push(t('header.notice.sanity.group.international', lang) + ' ' +
-      sanityGroupStatusPair(SANITY_REPORT, 'medjunarodna_suradnja'));
+    const directOverall = asObject(asObject(asObject(SANITY_REPORT).results).direct_overall);
+    const counts = asObject(directOverall.group_status_counts_dedup);
+    const pass = toFiniteInt(counts.PASS) || 0;
+    const warn = toFiniteInt(counts.WARN) || 0;
+    const fail = toFiniteInt(counts.FAIL) || 0;
 
     const diag = asObject(SANITY_REPORT.diagnostics_summary);
     const rowsRaw = toFiniteInt(diag.rows_raw_total);
     const rowsDedup = toFiniteInt(diag.rows_dedup_total);
-    const rowsRemoved = toFiniteInt(diag.rows_removed_total);
-    if (rowsRaw != null && rowsDedup != null && rowsRemoved != null) {
-      parts.push(t('header.notice.sanity.rows', lang, {
-        raw: rowsRaw.toLocaleString(locale),
-        dedup: rowsDedup.toLocaleString(locale),
-        removed: rowsRemoved.toLocaleString(locale),
-      }));
-    }
 
-    return lead + ' · ' + parts.join(' · ');
+    const rawText = rowsRaw == null ? '—' : rowsRaw.toLocaleString(locale);
+    const dedupText = rowsDedup == null ? '—' : rowsDedup.toLocaleString(locale);
+    return t('header.notice.audit', lang, {
+      ts,
+      pass: pass.toLocaleString(locale),
+      warn: warn.toLocaleString(locale),
+      fail: fail.toLocaleString(locale),
+      raw: rawText,
+      dedup: dedupText,
+    });
   }
 
   function bandLabel(lo, hi) {
@@ -2170,17 +2199,18 @@
     function render() {
       const lang = state.lang;
       const maxYear = DATA.facets.years[DATA.facets.years.length - 1];
-      const sanitySummary = buildSanityInfoSummary(lang);
-      const infoKicker = sanitySummary ? t('header.notice.kicker.sanity', lang) : t('header.notice.kicker', lang);
-      const infoBody = sanitySummary || t('header.notice.body', lang);
+      const auditSummary = buildSanityInfoSummary(lang);
       root.replaceChildren(
         el('div', { class: 'head-line' }, [
           el('span', { class: 'head-main', text: t('header.line', lang, { maxYear }) }),
         ]),
         el('aside', { class: 'head-infopill', role: 'note' }, [
           fa('fa-solid fa-circle-info', 'icon-left'),
-          el('span', { class: 'head-infopill-kicker kicker', text: infoKicker }),
-          el('span', { class: sanitySummary ? 'head-infopill-body mono' : 'head-infopill-body', text: infoBody }),
+          el('div', { class: 'head-infopill-copy' }, [
+            el('span', { class: 'head-infopill-kicker kicker', text: t('header.notice.kicker', lang) }),
+            el('span', { class: 'head-infopill-body', text: t('header.notice.body', lang) }),
+            auditSummary ? el('span', { class: 'head-infopill-audit mono', text: auditSummary }) : null,
+          ]),
         ]),
         el('div', { class: 'head-stats mono' }, [
           el('span', {}, [
@@ -3123,12 +3153,154 @@
 
     function close() { setShowAnalytics(false); }
 
-    function kpiCard(label, value, sub) {
-      return el('article', { class: 'analytics-kpi' }, [
-        el('span', { class: 'label', text: label }),
-        el('span', { class: 'value', text: value }),
-        sub ? el('span', { class: 'sub', text: sub }) : null,
-      ]);
+    function kpiCard(spec, lang) {
+      const isOpen = state.expandedAnalyticsKpi === spec.key;
+      const onActivate = () => setExpandedAnalyticsKpi(spec.key);
+      const children = [
+        el('span', { class: 'label', text: spec.label }),
+        el('span', { class: 'value', text: spec.value }),
+        spec.sub ? el('span', { class: 'sub', text: spec.sub }) : null,
+        el('span', { class: 'analytics-kpi-chevron' }, [
+          fa(isOpen ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'),
+        ]),
+      ];
+      if (isOpen) {
+        if (spec.formulaKey) {
+          children.push(el('div', { class: 'analytics-kpi-detail' }, [
+            el('div', { class: 'analytics-kpi-detail-label kicker', text: t('metric.formula.label', lang) }),
+            el('div', { class: 'analytics-kpi-formula', text: t(spec.formulaKey, lang) }),
+          ]));
+        }
+        if (spec.descKey) {
+          children.push(el('div', { class: 'analytics-kpi-detail' }, [
+            el('div', { class: 'analytics-kpi-detail-label kicker', text: t('metric.explain.label', lang) }),
+            el('p', { class: 'analytics-kpi-explain', text: t(spec.descKey, lang) }),
+          ]));
+        }
+      }
+      return el('article', {
+        class: 'analytics-kpi' + (isOpen ? ' is-expanded' : ''),
+        role: 'button',
+        tabindex: '0',
+        'aria-expanded': isOpen ? 'true' : 'false',
+        'aria-label': spec.label,
+        title: isOpen ? '' : t('metric.expand.hint', lang),
+        onclick: onActivate,
+        onkeydown: (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onActivate();
+          }
+        },
+      }, children);
+    }
+
+    function buildKpiSpecs(a, lang) {
+      const yc = a.yearsCovered || { from: null, to: null, span: 0 };
+      const yearRangeSub = (yc.from != null && yc.to != null)
+        ? `${yc.from} – ${yc.to}`
+        : null;
+      const directorsSub = a.uniqueDirectors != null
+        ? t('metric.directors.sub', lang, { n: a.uniqueDirectors.toLocaleString() })
+        : null;
+      return [
+        {
+          key: 'total',
+          label: t('metric.total', lang),
+          value: formatAmount(a.totalAmount, 'EUR', lang),
+          sub: `${a.rowCount.toLocaleString()} ${t('status.rows', lang)}`,
+          formulaKey: 'formula.total',
+          descKey: 'kpi.desc.total',
+        },
+        {
+          key: 'decisions',
+          label: t('metric.decisions', lang),
+          value: a.rowCount.toLocaleString(),
+          sub: `${a.awardedCount.toLocaleString()} ${t('metric.count', lang)}`,
+          formulaKey: 'formula.decisions',
+          descKey: 'kpi.desc.decisions',
+        },
+        {
+          key: 'projects',
+          label: t('metric.projects.kpi', lang),
+          value: a.projectCount.toLocaleString(),
+          sub: null,
+          formulaKey: 'formula.projects',
+          descKey: 'kpi.desc.projects',
+        },
+        {
+          key: 'awardedShare',
+          label: t('metric.awardedShare', lang),
+          value: formatPercent(a.awardedShare, lang, 1),
+          sub: `${a.awardedCount.toLocaleString()} / ${a.rowCount.toLocaleString()}`,
+          formulaKey: 'formula.awardedShare',
+          descKey: 'kpi.desc.awardedShare',
+        },
+        {
+          key: 'median',
+          label: t('metric.median', lang),
+          value: formatAmount(a.medianAmount, 'EUR', lang),
+          sub: null,
+          formulaKey: 'formula.median',
+          descKey: 'kpi.desc.median',
+        },
+        {
+          key: 'mean',
+          label: t('metric.mean', lang),
+          value: formatAmount(a.meanAmount, 'EUR', lang),
+          sub: null,
+          formulaKey: 'formula.mean',
+          descKey: 'kpi.desc.mean',
+        },
+        {
+          key: 'p90',
+          label: t('metric.p90', lang),
+          value: formatAmount(a.p90Amount, 'EUR', lang),
+          sub: `${t('metric.p95', lang)}: ${formatAmount(a.p95Amount, 'EUR', lang)}`,
+          formulaKey: 'formula.p90',
+          descKey: 'kpi.desc.p90',
+        },
+        {
+          key: 'max',
+          label: t('metric.max', lang),
+          value: formatAmount(a.maxAmount, 'EUR', lang),
+          sub: null,
+          formulaKey: 'formula.max',
+          descKey: 'kpi.desc.max',
+        },
+        {
+          key: 'top10share',
+          label: t('metric.top10share', lang),
+          value: formatPercent(a.concentration.top10, lang, 1),
+          sub: `${t('metric.top50share', lang)}: ${formatPercent(a.concentration.top50, lang, 1)}`,
+          formulaKey: 'formula.top10share',
+          descKey: 'kpi.desc.top10share',
+        },
+        {
+          key: 'gini',
+          label: t('metric.gini', lang),
+          value: formatPercent(a.gini, lang, 1),
+          sub: `${a.projectCount.toLocaleString()} ${t('metric.projects', lang)}`,
+          formulaKey: 'formula.gini',
+          descKey: 'kpi.desc.gini',
+        },
+        {
+          key: 'yearsCovered',
+          label: t('metric.yearsCovered', lang),
+          value: yc.span ? yc.span.toLocaleString() : '—',
+          sub: yearRangeSub,
+          formulaKey: 'formula.yearsCovered',
+          descKey: 'kpi.desc.yearsCovered',
+        },
+        {
+          key: 'uniqueProducers',
+          label: t('metric.uniqueProducers', lang),
+          value: (a.uniqueProducers || 0).toLocaleString(),
+          sub: directorsSub,
+          formulaKey: 'formula.uniqueProducers',
+          descKey: 'kpi.desc.uniqueProducers',
+        },
+      ];
     }
 
     function mixList(items, lang, keyPrefix) {
@@ -3198,14 +3370,7 @@
             ]),
           ]),
           el('div', { class: 'modal-body analytics-body' }, [
-            el('section', { class: 'analytics-kpis' }, [
-              kpiCard(t('metric.total', lang), formatAmount(a.totalAmount, 'EUR', lang), `${a.rowCount.toLocaleString()} ${t('status.rows', lang)}`),
-              kpiCard(t('metric.decisions', lang), a.rowCount.toLocaleString(), `${a.awardedCount.toLocaleString()} ${t('metric.count', lang)}`),
-              kpiCard(t('metric.median', lang), formatAmount(a.medianAmount, 'EUR', lang), `${t('metric.mean', lang)}: ${formatAmount(a.meanAmount, 'EUR', lang)}`),
-              kpiCard(t('metric.p90', lang), formatAmount(a.p90Amount, 'EUR', lang), `${t('metric.p95', lang)}: ${formatAmount(a.p95Amount, 'EUR', lang)}`),
-              kpiCard(t('metric.top10share', lang), formatPercent(a.concentration.top10, lang, 1), `${t('metric.top50share', lang)}: ${formatPercent(a.concentration.top50, lang, 1)}`),
-              kpiCard(t('metric.gini', lang), formatPercent(a.gini, lang, 1), `${a.projectCount.toLocaleString()} ${t('metric.projects', lang)}`),
-            ]),
+            el('section', { class: 'analytics-kpis' }, buildKpiSpecs(a, lang).map((spec) => kpiCard(spec, lang))),
             el('section', { class: 'analytics-grid' }, [
               el('article', { class: 'analytics-card analytics-card-year' }, [
                 el('div', { class: 'analytics-card-title kicker', text: t('analytics.yearly', lang) }),
@@ -3256,7 +3421,7 @@
       document.addEventListener('keydown', keyHandler);
     }
 
-    on(['showAnalytics', 'lang'], render);
+    on(['showAnalytics', 'lang', 'expandedAnalyticsKpi'], render);
     render();
   }
 
