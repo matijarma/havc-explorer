@@ -107,50 +107,44 @@
     'metric.distrib':     { en: 'Award sizes',   hr: 'Raspodjela iznosa' },
     'metric.click.hint':  { en: 'click a bar to scope', hr: 'klik na stupić za opseg' },
     'metric.decisions':   { en: 'Decisions', hr: 'Odluke' },
-    'metric.top10share':  { en: 'Top 10 share', hr: 'Udio top 10' },
     'metric.top50share':  { en: 'Top 50 share', hr: 'Udio top 50' },
     'metric.p90':         { en: 'P90 award', hr: 'P90 iznos' },
     'metric.p95':         { en: 'P95 award', hr: 'P95 iznos' },
     'metric.mean':        { en: 'Mean award', hr: 'Prosjecni iznos' },
-    'metric.gini':        { en: 'Inequality (Gini)', hr: 'Nejednakost (Gini)' },
     'metric.projects':    { en: 'projects', hr: 'projekata' },
 
-    'metric.projects.kpi':    { en: 'Projects', hr: 'Projekata' },
-    'metric.awardedShare':    { en: 'Awarded share', hr: 'Udio dodijeljenih' },
-    'metric.max':             { en: 'Largest award', hr: 'Najveci iznos' },
-    'metric.yearsCovered':    { en: 'Years covered', hr: 'Pokrivene godine' },
-    'metric.uniqueProducers': { en: 'Producers', hr: 'Producenata' },
-    'metric.uniqueDirectors': { en: 'Directors', hr: 'Redatelja' },
-    'metric.directors.sub':   { en: '{n} directors', hr: '{n} redatelja' },
+    'metric.top10ProdShare':  { en: 'Top 10 producers share', hr: 'Udio top 10 producenata' },
+    'metric.giniProducers':   { en: 'Producer inequality (Gini)', hr: 'Nejednakost producenata (Gini)' },
+    'metric.pareto50':        { en: 'Producers holding 50 %', hr: 'Producenata za 50 %' },
+    'metric.repeatFunded':    { en: 'Multi-round projects', hr: 'Projekti s vise rundi' },
+    'metric.medianRounds':    { en: 'Median rounds per project', hr: 'Medijan rundi po projektu' },
+    'metric.largestProject':  { en: 'Largest cumulative project', hr: 'Najveci kumulativni projekt' },
+    'metric.skew':            { en: 'Skew (mean ÷ median)', hr: 'Asimetricnost (prosjek÷medijan)' },
+    'metric.producers.sub':   { en: '{n} producers', hr: '{n} producenata' },
+    'metric.pareto.sub':      { en: '{share} of all producers', hr: '{share} svih producenata' },
+    'metric.repeat.sub':      { en: 'of {n} funded projects', hr: 'od {n} financiranih projekata' },
+    'metric.largest.sub':     { en: 'summed across rounds', hr: 'zbroj svih rundi' },
     'metric.expand.hint':     { en: 'click for formula and explanation', hr: 'klikni za formulu i objasnjenje' },
     'metric.formula.label':   { en: 'Formula', hr: 'Formula' },
     'metric.explain.label':   { en: 'What it measures', hr: 'Sto mjeri' },
 
-    'formula.total':            { en: 'Σ amount_eur (across all rows)', hr: 'Σ amount_eur (po svim recima)' },
-    'formula.decisions':        { en: 'count(rows)', hr: 'count(redaka)' },
-    'formula.projects':         { en: 'count(distinct project | amount_eur > 0)', hr: 'count(razlicitih projekata | amount_eur > 0)' },
-    'formula.awardedShare':     { en: 'count(amount_eur > 0) ÷ count(rows)', hr: 'count(amount_eur > 0) ÷ count(redaka)' },
-    'formula.median':           { en: 'median(amount_eur | amount_eur > 0)', hr: 'medijan(amount_eur | amount_eur > 0)' },
-    'formula.mean':             { en: 'Σ amount_eur ÷ count(amount_eur > 0)', hr: 'Σ amount_eur ÷ count(amount_eur > 0)' },
-    'formula.p90':              { en: 'quantile(amount_eur, 0.90 | amount_eur > 0)', hr: 'kvantil(amount_eur, 0.90 | amount_eur > 0)' },
-    'formula.max':              { en: 'max(amount_eur | amount_eur > 0)', hr: 'max(amount_eur | amount_eur > 0)' },
-    'formula.top10share':       { en: 'Σ(top 10 projects by total) ÷ Σ(all amounts)', hr: 'Σ(top 10 projekata po iznosu) ÷ Σ(svi iznosi)' },
-    'formula.gini':             { en: '(2·Σ(i·xᵢ) − (n+1)·Σxᵢ) ÷ (n·Σxᵢ)\nover sorted project totals x₁ ≤ … ≤ xₙ', hr: '(2·Σ(i·xᵢ) − (n+1)·Σxᵢ) ÷ (n·Σxᵢ)\nnad sortiranim sumama projekata x₁ ≤ … ≤ xₙ' },
-    'formula.yearsCovered':     { en: 'max(year) − min(year) + 1', hr: 'max(godina) − min(godina) + 1' },
-    'formula.uniqueProducers':  { en: 'count(distinct r.producer | r.producer ≠ null)', hr: 'count(razlicitih r.producent | r.producent ≠ null)' },
+    'formula.top10ProdShare':   { en: 'Σ(top 10 producers by total) ÷ Σ(all amounts)', hr: 'Σ(top 10 producenata po iznosu) ÷ Σ(svi iznosi)' },
+    'formula.giniProducers':    { en: '(2·Σ(i·xᵢ) − (n+1)·Σxᵢ) ÷ (n·Σxᵢ)\nover sorted producer totals x₁ ≤ … ≤ xₙ', hr: '(2·Σ(i·xᵢ) − (n+1)·Σxᵢ) ÷ (n·Σxᵢ)\nnad sortiranim sumama producenata x₁ ≤ … ≤ xₙ' },
+    'formula.pareto50':         { en: 'min { k | Σᵢ₌₁..k xᵢ ÷ Σ(all amounts) ≥ 0.5 }\nover producers sorted descending', hr: 'min { k | Σᵢ₌₁..k xᵢ ÷ Σ(svi iznosi) ≥ 0.5 }\nnad producentima sortiranima silazno' },
+    'formula.repeatFunded':     { en: 'count(projects with ≥ 2 positive decisions) ÷ count(funded projects)', hr: 'count(projekti s ≥ 2 pozitivne odluke) ÷ count(financirani projekti)' },
+    'formula.medianRounds':     { en: 'median(count(positive decisions per project))', hr: 'medijan(count(pozitivne odluke po projektu))' },
+    'formula.largestProject':   { en: 'max(Σ amount_eur per project)', hr: 'max(Σ amount_eur po projektu)' },
+    'formula.p95':              { en: 'quantile(amount_eur, 0.95 | amount_eur > 0)', hr: 'kvantil(amount_eur, 0.95 | amount_eur > 0)' },
+    'formula.skew':             { en: 'mean ÷ median (over positive amounts)', hr: 'prosjek ÷ medijan (nad pozitivnim iznosima)' },
 
-    'kpi.desc.total':            { en: 'Sum of every awarded amount in the registry, converted to EUR. Includes all years and programmes — this is the headline volume figure.', hr: 'Zbroj svih dodijeljenih iznosa u registru, preracunato u EUR. Ukljucuje sve godine i programe — temeljni pokazatelj ukupnog obujma.' },
-    'kpi.desc.decisions':        { en: 'Total number of registry rows, i.e. every individual funding decision. Some decisions carry no money (rejections, support letters) — see awarded share.', hr: 'Ukupan broj redaka u registru, tj. svaka pojedinacna odluka o financiranju. Neke odluke nemaju iznos (odbijanja, pisma podrske) — vidi udio dodijeljenih.' },
-    'kpi.desc.projects':         { en: 'Number of distinct projects that received at least one positive award. Multiple decisions on the same project (development → production → distribution) collapse into one project.', hr: 'Broj razlicitih projekata koji su primili barem jednu pozitivnu dodjelu. Vise odluka o istom projektu (razvoj → proizvodnja → distribucija) racunaju se kao jedan projekt.' },
-    'kpi.desc.awardedShare':     { en: 'Share of decisions that actually carried a positive amount. The complement is rows that exist for transparency but moved no money (rejections, listed-only entries).', hr: 'Udio odluka koje su zaista nosile pozitivan iznos. Ostatak su redci koji postoje radi transparentnosti ali nisu donijeli sredstva (odbijanja, samo evidentirani upisi).' },
-    'kpi.desc.median':           { en: 'The middle award when all positive amounts are sorted. Half the awards are smaller, half are larger. Robust to extreme values — unlike the mean.', hr: 'Sredisnji iznos kad se sve pozitivne dodjele poredaju po velicini. Polovica iznosa je manja, polovica veca. Otporan na ekstreme, za razliku od prosjeka.' },
-    'kpi.desc.mean':             { en: 'Arithmetic average of all positive awards. A few very large awards pull this number well above the median — the gap between mean and median is itself a signal of skew.', hr: 'Aritmeticki prosjek svih pozitivnih dodjela. Nekoliko jako velikih iznosa povlace ovaj broj iznad medijana — razlika izmedu prosjeka i medijana sama je signal asimetricnosti.' },
-    'kpi.desc.p90':              { en: '90th percentile: only 10 % of awards are this large or larger. Useful for spotting the threshold above which an award counts as a "big ticket" in this registry.', hr: '90. percentil: samo 10 % dodjela je ovog iznosa ili veceg. Korisno za prepoznavanje praga iznad kojeg se dodjela u ovom registru smatra "velikom".' },
-    'kpi.desc.max':              { en: 'The single largest positive award recorded. Useful as a sanity check (catches one-off mega-grants) and to contextualise the percentile spread above.', hr: 'Najveca pojedinacna pozitivna dodjela u registru. Sluzi kao kontrola razumnosti (otkriva jednokratne velike potpore) i daje kontekst rasponu percentila iznad.' },
-    'kpi.desc.top10share':       { en: 'Share of total funding that flowed to the ten projects with the largest cumulative awards. A high share means funding is concentrated on a few flagship projects.', hr: 'Udio ukupnih sredstava koji je primilo deset projekata s najvecim kumulativnim dodjelama. Visok udio znaci da su sredstva koncentrirana na nekoliko nositeljskih projekata.' },
-    'kpi.desc.gini':             { en: 'Inequality coefficient on project totals: 0 % means every project received an equal sum, 100 % means one project absorbed everything. Computed per project, not per decision.', hr: 'Koeficijent nejednakosti racunat nad sumama po projektu: 0 % znaci da je svaki projekt primio jednak iznos, 100 % da je jedan projekt apsorbirao sve. Racuna se po projektu, ne po odluci.' },
-    'kpi.desc.yearsCovered':     { en: 'How many calendar years the registry spans, from the earliest to the latest decision year. Gives a quick read on how much historical depth is available for comparisons.', hr: 'Koliko kalendarskih godina pokriva registar, od najranije do najkasnije godine odluke. Brzi uvid u to koliko je povijesne dubine dostupno za usporedbe.' },
-    'kpi.desc.uniqueProducers':  { en: 'Number of distinct producer entities named anywhere in the registry. Indicates how broad the active production ecosystem is — together with director count, a rough proxy for sector breadth.', hr: 'Broj razlicitih producentskih subjekata navedenih bilo gdje u registru. Pokazuje kolika je aktivna producentska zajednica — uz broj redatelja, gruba mjera sirine sektora.' },
+    'kpi.desc.top10ProdShare':  { en: 'Share of total funding that flowed to the ten production companies with the largest cumulative awards. A high share means the sector is financially concentrated around a few key houses.', hr: 'Udio ukupnih sredstava koji je primilo 10 najvecih produkcijskih kuca po kumulativnom iznosu. Visok udio znaci da je sektor financijski koncentriran na nekoliko nositelja.' },
+    'kpi.desc.giniProducers':   { en: 'Inequality coefficient over cumulative funding per production company (not per project). 0 % means every company received an equal sum, 100 % means one company absorbed everything.', hr: 'Nejednakost ukupne dodjele po produkcijskim kucama (ne po projektima). 0 % znaci da je svaka kuca primila jednak ukupni iznos, 100 % da je jedna kuca apsorbirala sve.' },
+    'kpi.desc.pareto50':        { en: 'How many production companies it takes to add up to half of all registry funding. A small number means funding is heavily concentrated.', hr: 'Koliko je produkcijskih kuca skupilo polovicu svih sredstava registra. Ako je broj malen, financiranje je jako koncentrirano.' },
+    'kpi.desc.repeatFunded':    { en: 'Share of funded projects that received more than one positive decision (e.g. development plus production). Indicates how often projects are followed across multiple stages.', hr: 'Udio projekata koji su primili vise od jedne pozitivne odluke (npr. razvoj i proizvodnja). Pokazuje koliko se cesto projekti prate kroz vise faza.' },
+    'kpi.desc.medianRounds':    { en: 'Typical number of positive decisions a project accumulates across its lifetime in the registry. A value of 1 means projects mostly get touched once; higher values mean staged support.', hr: 'Tipican broj pozitivnih odluka koje projekt akumulira tijekom svog vijeka u registru. Vrijednost 1 znaci da se projekti uglavnom financiraju jednom; vise vrijednosti znace fazno pracenje.' },
+    'kpi.desc.largestProject':  { en: 'The biggest single cumulative project total — i.e. all decisions on one project summed. Differs from the largest individual award and exposes long-running flagships.', hr: 'Najveci ukupni iznos koji je jedan projekt prikupio kroz sve svoje rundi. Razlikuje se od najvece pojedinacne dodjele i otkriva projekte koji su financirani u vise navrata.' },
+    'kpi.desc.p95':             { en: '95th percentile: only 5 % of decisions are this large or larger. A sharper long-tail indicator than P90 — useful when the top of the distribution is what matters.', hr: '95. percentil: samo 5 % dodjela je ovog iznosa ili veceg. Ostriji indikator dugog repa od P90 — koristan kad nas zanima sam vrh raspodjele.' },
+    'kpi.desc.skew':            { en: 'Ratio of mean to median across positive awards. 1.00× means a symmetric distribution; higher values mean a few very large awards are pulling the mean above the median.', hr: 'Omjer prosjeka i medijana nad pozitivnim dodjelama. 1.00× znaci simetricnu raspodjelu; visi brojevi znace da pojedinacne velike potpore povlace prosjek iznad medijana.' },
 
     'insights.open.hint':   { en: 'click anywhere for full analytics', hr: 'klikni bilo gdje za punu analitiku' },
     'insights.open.kicker': { en: 'global dataset', hr: 'globalni skup podataka' },
@@ -998,10 +992,8 @@
     const byCatCount = new Map();
     const sizeHistogram = new Array(SIZE_BUCKETS.length - 1).fill(0);
     const projectTotals = new Map();
-    const producers = new Set();
-    const directors = new Set();
-    const writers = new Set();
-    const roks = new Set();
+    const projectRoundCounts = new Map();
+    const producerTotals = new Map();
 
     for (let i = 0; i < rows.length; i++) {
       const r = rows[i];
@@ -1020,11 +1012,6 @@
         byYearAmount.set(year, (byYearAmount.get(year) || 0) + amt);
       }
 
-      if (r.producer) producers.add(r.producer);
-      if (r.director) directors.add(r.director);
-      if (r.writer) writers.add(r.writer);
-      if (r.rok) roks.add(r.rok);
-
       if (amt > 0) {
         positiveAmounts.push(amt);
         for (let b = 0; b < SIZE_BUCKETS.length - 1; b++) {
@@ -1036,6 +1023,10 @@
         const pKey = rowNormTitles[i] || '';
         if (pKey && pKey !== UNATTRIBUTED_KEY) {
           projectTotals.set(pKey, (projectTotals.get(pKey) || 0) + amt);
+          projectRoundCounts.set(pKey, (projectRoundCounts.get(pKey) || 0) + 1);
+        }
+        if (r.producer) {
+          producerTotals.set(r.producer, (producerTotals.get(r.producer) || 0) + amt);
         }
       }
     }
@@ -1047,9 +1038,9 @@
     const medianAmount = median(positiveAmounts);
     const p90Amount = percentileFromSorted(sortedAmounts, 0.90);
     const p95Amount = percentileFromSorted(sortedAmounts, 0.95);
+    const p99Amount = percentileFromSorted(sortedAmounts, 0.99);
     const maxAmount = sortedAmounts.length ? sortedAmounts[sortedAmounts.length - 1] : 0;
-    const minAmount = sortedAmounts.length ? sortedAmounts[0] : 0;
-    const gini = giniFromSorted(sortedAmounts);
+    const meanMedianRatio = medianAmount > 0 ? (meanAmount / medianAmount) : null;
 
     const yearSeries = [...byYearCount.keys()]
       .sort((a, b) => a - b)
@@ -1099,39 +1090,56 @@
     const categoryMix = mixFrom(byCatAmount, byCatCount);
     const projectEntries = [...projectTotals.entries()].sort((a, b) => b[1] - a[1]);
 
+    const producerEntries = [...producerTotals.entries()].sort((a, b) => b[1] - a[1]);
+    const producerSortedAsc = [...producerTotals.values()].sort((a, b) => a - b);
+    const producerGini = giniFromSorted(producerSortedAsc);
+
+    let paretoAcc = 0;
+    let pareto50Count = 0;
+    for (let i = 0; i < producerEntries.length; i++) {
+      paretoAcc += producerEntries[i][1];
+      pareto50Count = i + 1;
+      if (totalAmount > 0 && paretoAcc / totalAmount >= 0.5) break;
+    }
+    const pareto50 = {
+      count: producerEntries.length ? pareto50Count : 0,
+      share: producerTotals.size ? (pareto50Count / producerTotals.size) : 0,
+    };
+
+    const roundCounts = [...projectRoundCounts.values()];
+    const repeatFundedShare = roundCounts.length
+      ? roundCounts.filter((n) => n > 1).length / roundCounts.length
+      : 0;
+    const medianRounds = roundCounts.length ? median(roundCounts) : 0;
+    const largestProjectTotal = projectEntries.length ? projectEntries[0][1] : 0;
+
     return {
       rowCount: rows.length,
       awardedCount,
-      awardedShare: rows.length ? (awardedCount / rows.length) : 0,
       totalAmount,
       meanAmount,
       medianAmount,
       p90Amount,
       p95Amount,
+      p99Amount,
       maxAmount,
-      minAmount,
-      gini,
+      meanMedianRatio,
+      gini: producerGini,
       yearSeries,
       sizeHistogram,
       programMix,
       categoryMix,
       projectCount: projectEntries.length,
-      uniqueProducers: producers.size,
-      uniqueDirectors: directors.size,
-      uniqueWriters: writers.size,
-      uniqueRoks: roks.size,
-      programCount: byProgramAmount.size,
-      categoryCount: byCatAmount.size,
-      yearsCovered: {
-        from: minYear,
-        to: maxYear,
-        span: (minYear != null && maxYear != null) ? (maxYear - minYear + 1) : 0,
-      },
+      uniqueProducers: producerTotals.size,
       concentration: {
-        top10: topShare(projectEntries, 10, totalAmount),
-        top50: topShare(projectEntries, 50, totalAmount),
-        top100: topShare(projectEntries, 100, totalAmount),
+        top10: topShare(producerEntries, 10, totalAmount),
+        top50: topShare(producerEntries, 50, totalAmount),
+        top100: topShare(producerEntries, 100, totalAmount),
       },
+      pareto50,
+      repeatFundedShare,
+      medianRounds,
+      largestProjectTotal,
       yoy: {
         maxGain,
         maxDrop,
@@ -2313,9 +2321,9 @@
           el('span', { class: 'sub', text: `${t('metric.p90', lang)}: ${formatAmount(a.p90Amount, 'EUR', lang)}` }),
         ]),
         el('div', { class: 'metric' }, [
-          el('span', { class: 'label', text: t('metric.top10share', lang) }),
+          el('span', { class: 'label', text: t('metric.top10ProdShare', lang) }),
           el('span', { class: 'value', text: formatPercent(a.concentration.top10, lang, 1) }),
-          el('span', { class: 'sub', text: `${a.projectCount.toLocaleString()} ${t('metric.projects', lang)}` }),
+          el('span', { class: 'sub', text: t('metric.producers.sub', lang, { n: (a.uniqueProducers || 0).toLocaleString() }) }),
         ]),
         el('div', { class: 'metric chart' }, [
           el('span', { class: 'label', text: t('metric.yearTrend', lang) }),
@@ -3196,109 +3204,80 @@
     }
 
     function buildKpiSpecs(a, lang) {
-      const yc = a.yearsCovered || { from: null, to: null, span: 0 };
-      const yearRangeSub = (yc.from != null && yc.to != null)
-        ? `${yc.from} – ${yc.to}`
-        : null;
-      const directorsSub = a.uniqueDirectors != null
-        ? t('metric.directors.sub', lang, { n: a.uniqueDirectors.toLocaleString() })
-        : null;
+      const producersSub = t('metric.producers.sub', lang, {
+        n: (a.uniqueProducers || 0).toLocaleString(),
+      });
+      const skewValue = a.meanMedianRatio != null
+        ? a.meanMedianRatio.toFixed(2) + '×'
+        : '—';
       return [
         {
-          key: 'total',
-          label: t('metric.total', lang),
-          value: formatAmount(a.totalAmount, 'EUR', lang),
-          sub: `${a.rowCount.toLocaleString()} ${t('status.rows', lang)}`,
-          formulaKey: 'formula.total',
-          descKey: 'kpi.desc.total',
-        },
-        {
-          key: 'decisions',
-          label: t('metric.decisions', lang),
-          value: a.rowCount.toLocaleString(),
-          sub: `${a.awardedCount.toLocaleString()} ${t('metric.count', lang)}`,
-          formulaKey: 'formula.decisions',
-          descKey: 'kpi.desc.decisions',
-        },
-        {
-          key: 'projects',
-          label: t('metric.projects.kpi', lang),
-          value: a.projectCount.toLocaleString(),
-          sub: null,
-          formulaKey: 'formula.projects',
-          descKey: 'kpi.desc.projects',
-        },
-        {
-          key: 'awardedShare',
-          label: t('metric.awardedShare', lang),
-          value: formatPercent(a.awardedShare, lang, 1),
-          sub: `${a.awardedCount.toLocaleString()} / ${a.rowCount.toLocaleString()}`,
-          formulaKey: 'formula.awardedShare',
-          descKey: 'kpi.desc.awardedShare',
-        },
-        {
-          key: 'median',
-          label: t('metric.median', lang),
-          value: formatAmount(a.medianAmount, 'EUR', lang),
-          sub: null,
-          formulaKey: 'formula.median',
-          descKey: 'kpi.desc.median',
-        },
-        {
-          key: 'mean',
-          label: t('metric.mean', lang),
-          value: formatAmount(a.meanAmount, 'EUR', lang),
-          sub: null,
-          formulaKey: 'formula.mean',
-          descKey: 'kpi.desc.mean',
-        },
-        {
-          key: 'p90',
-          label: t('metric.p90', lang),
-          value: formatAmount(a.p90Amount, 'EUR', lang),
-          sub: `${t('metric.p95', lang)}: ${formatAmount(a.p95Amount, 'EUR', lang)}`,
-          formulaKey: 'formula.p90',
-          descKey: 'kpi.desc.p90',
-        },
-        {
-          key: 'max',
-          label: t('metric.max', lang),
-          value: formatAmount(a.maxAmount, 'EUR', lang),
-          sub: null,
-          formulaKey: 'formula.max',
-          descKey: 'kpi.desc.max',
-        },
-        {
-          key: 'top10share',
-          label: t('metric.top10share', lang),
+          key: 'top10ProdShare',
+          label: t('metric.top10ProdShare', lang),
           value: formatPercent(a.concentration.top10, lang, 1),
           sub: `${t('metric.top50share', lang)}: ${formatPercent(a.concentration.top50, lang, 1)}`,
-          formulaKey: 'formula.top10share',
-          descKey: 'kpi.desc.top10share',
+          formulaKey: 'formula.top10ProdShare',
+          descKey: 'kpi.desc.top10ProdShare',
         },
         {
-          key: 'gini',
-          label: t('metric.gini', lang),
+          key: 'giniProducers',
+          label: t('metric.giniProducers', lang),
           value: formatPercent(a.gini, lang, 1),
-          sub: `${a.projectCount.toLocaleString()} ${t('metric.projects', lang)}`,
-          formulaKey: 'formula.gini',
-          descKey: 'kpi.desc.gini',
+          sub: producersSub,
+          formulaKey: 'formula.giniProducers',
+          descKey: 'kpi.desc.giniProducers',
         },
         {
-          key: 'yearsCovered',
-          label: t('metric.yearsCovered', lang),
-          value: yc.span ? yc.span.toLocaleString() : '—',
-          sub: yearRangeSub,
-          formulaKey: 'formula.yearsCovered',
-          descKey: 'kpi.desc.yearsCovered',
+          key: 'pareto50',
+          label: t('metric.pareto50', lang),
+          value: (a.pareto50?.count || 0).toLocaleString(),
+          sub: t('metric.pareto.sub', lang, {
+            share: formatPercent(a.pareto50?.share || 0, lang, 1),
+          }),
+          formulaKey: 'formula.pareto50',
+          descKey: 'kpi.desc.pareto50',
         },
         {
-          key: 'uniqueProducers',
-          label: t('metric.uniqueProducers', lang),
-          value: (a.uniqueProducers || 0).toLocaleString(),
-          sub: directorsSub,
-          formulaKey: 'formula.uniqueProducers',
-          descKey: 'kpi.desc.uniqueProducers',
+          key: 'repeatFunded',
+          label: t('metric.repeatFunded', lang),
+          value: formatPercent(a.repeatFundedShare || 0, lang, 1),
+          sub: t('metric.repeat.sub', lang, {
+            n: (a.projectCount || 0).toLocaleString(),
+          }),
+          formulaKey: 'formula.repeatFunded',
+          descKey: 'kpi.desc.repeatFunded',
+        },
+        {
+          key: 'medianRounds',
+          label: t('metric.medianRounds', lang),
+          value: (a.medianRounds || 0).toLocaleString(undefined, { maximumFractionDigits: 1 }),
+          sub: null,
+          formulaKey: 'formula.medianRounds',
+          descKey: 'kpi.desc.medianRounds',
+        },
+        {
+          key: 'largestProject',
+          label: t('metric.largestProject', lang),
+          value: formatAmount(a.largestProjectTotal || 0, 'EUR', lang),
+          sub: t('metric.largest.sub', lang),
+          formulaKey: 'formula.largestProject',
+          descKey: 'kpi.desc.largestProject',
+        },
+        {
+          key: 'p95',
+          label: t('metric.p95', lang),
+          value: formatAmount(a.p95Amount, 'EUR', lang),
+          sub: a.p99Amount ? `P99: ${formatAmount(a.p99Amount, 'EUR', lang)}` : null,
+          formulaKey: 'formula.p95',
+          descKey: 'kpi.desc.p95',
+        },
+        {
+          key: 'skew',
+          label: t('metric.skew', lang),
+          value: skewValue,
+          sub: null,
+          formulaKey: 'formula.skew',
+          descKey: 'kpi.desc.skew',
         },
       ];
     }
