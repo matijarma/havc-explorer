@@ -1,1 +1,1 @@
-Live: [https://havc.matijar.info]havc.matijar.info
+Live: https://havc.matijar.info
