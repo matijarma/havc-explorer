@@ -2216,8 +2216,7 @@
           fa('fa-solid fa-circle-info', 'icon-left'),
           el('div', { class: 'head-infopill-copy' }, [
             el('span', { class: 'head-infopill-kicker kicker', text: t('header.notice.kicker', lang) }),
-            el('span', { class: 'head-infopill-body', text: t('header.notice.body', lang) }),
-            auditSummary ? el('span', { class: 'head-infopill-audit mono', text: auditSummary }) : null,
+            el('span', { class: 'head-infopill-body', text: t('header.notice.body', lang) })
           ]),
         ]),
         el('div', { class: 'head-stats mono' }, [
