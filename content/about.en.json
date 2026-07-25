@@ -7,17 +7,22 @@
   "why_this": {
     "title": "Why this exists",
     "paragraphs": [
-      "I am a Croatian film producer. For 16 years I have been on the applying side of the table at HAVC — the Croatian Audiovisual Centre — and like every producer in this country I have spent a strange amount of my professional life inside their published PDFs, trying to remember who won what under which programme in which round.",
-      "HAVC publishes its decisions diligently and openly, but the trail lives across a thousand separate files. There is no single place to scan the whole 16-year arc, ask honest questions about it, and check the answers against the source. I built this so I — and any peer who has ever asked the same questions — would have one.",
-      "Everything you see is sourced from HAVC's own published documents. Where a number looks off, the dashboard lets you open the original PDF and check. The point is not to replace HAVC's record. The point is to make it navigable."
+      "How well informed a society is, is the single most important factor in that same society's freedom.",
+      "For all that this is received wisdom — and despite the fact that Croatia has developed open-data portals at both the national ([data.gov.hr](https://data.gov.hr)) and the local ([data.zagreb.hr](https://data.zagreb.hr)) level — almost no institution that funds cultural projects in Croatia with public money uses those portals, or shows any interest by any other means in making access to historical and current data available and legible to the public that cares about it.",
+      "That absence of transparency helps sustain the status quo of a culturally truncated society, which in turn produces scientifically, technically and morally questionable initiatives and decisions in entirely different branches of public life — from engaged activism, investigative journalism or politics, to purely commercial industries, civil society and, of course, culture and the arts themselves. Put differently: when the chronology and the facts are out of reach, every person and every legal entity is directly (dis)abled from putting their creative, professional, even personal ideas into practice — which stands in direct contradiction to the commonly held, and moreover taken-for-granted, thesis of a free meritocratic society.",
+      "Motivated by that line of thinking, and by having the technical means to contribute something to the problem described, I built this application in my own free time — first and foremost as a demonstration of what is technically possible, through a directly measurable ratio between time invested and result.",
+      "Turning the published PDFs into structured datasets and building the application took me around 60 working hours across 6 weeks in total, spread over 3 “eras” of different attempts, creative development, programming, testing, fixes and refinements (see the [Process](#/process) tab). The bulk of the work was done between 10 and 31 May 2026.",
+      "The application is served as a free Cloudflare Worker with a total footprint of 22.6 MiB, of which the database is 22.2 MiB ([data.json](https://havc.matijar.info/havc/data.json)). The code used is vanilla HTML, JS and CSS, which means there are no third-party dependencies. FontAwesome icons and Google Fonts are used for presentation, both optional to functionality.",
+      "The code and the full history of development, revision and review are available in a public repository: [github.com/matijarma/havc-explorer](https://github.com/matijarma/havc-explorer)."
     ]
   },
   "who_i_am": {
     "title": "Who I am",
     "paragraphs": [
-      "I started on stage at seven and spent twelve years acting before I moved into film. I dropped out of an IT degree when it became obvious that filmmaking was the work, not the hobby. The IT part never quite left — every tool on this site is something I wrote.",
-      "I trained through the three European programmes that matter most for a producer of my generation: Maia Workshops, EAVE Producers Workshop, and TorinoFilmLab. I co-produced Breathing into Marble, which played East of the West at Karlovy Vary in 2018. The range of the rest of the work runs from a 200,000 EUR Allianz corporate event I produced and directed in 2010, to short films at Cannes Short Film Corner, to transmedia campaigns like Glowbrain and Croatia goes cross-media.",
-      "I wrote and run Dogma 23, a manifesto and a film gallery in Zagreb that argues cinema deserves to be exhibited with the care a painting gets. I built and maintain filmincroatia.com, the Filming in Croatia GPT, and a storyboard tool. Aning Film mentors filmmakers, runs workshops for children, and represents unrepresented European artists free of charge."
+      "I have studied every aspect of art and computing actively and articulately from the earliest age possible — before I had even started primary school, and shortly after that the drama studio of the Zagreb Youth Theatre, where I grew up and spent my formative years. A lifelong love of and ambition for drama and screen acting evolved when I came of age, and after failing the acting entrance exam at Zagreb's Academy of Dramatic Art — first into film directing, and then into creative producing, a term I found such a good fit that I often don't hesitate to say I am the one genuinely authentic creative producer in Croatia. Then again, given that the term is as a rule not an archetype of the positive kind in the culture of the European film industry, the joke is not nearly as impudent as it may first appear.",
+      "In parallel with growing up on the boards and in the worn-out halls of Zagreb's cinemas, I also followed, from the earliest age and with devotion, every hertz and byte of every electronic device I was allowed to touch. Devouring books, films and plays while digging through every piece of software and hardware I could get my hands on, I took dramatic art and computer technology as my domains of work and inspiration. Given that this same growing up happened to coincide with films like The Matrix, Pretty Village Pretty Flame, Titanic, Pulp Fiction, What Iva Recorded or Fight Club, as well as with the genesis of the internet and everything that followed from it — and all of it in a post-war Croatia filled with corruption at every level, a subject that has not stopped being current to this day — I don't think it is all that improbable that I grew into a film producer who sees computer technology not only as his domain and his tool, but as a safe harbour, a means of standardisation and transparency, a guarantee of the efficient systems that the fragile budgets of independent art productions depend on — and, on top of that, in a field whose authors and audiences are almost without exception at the mercy of intermediaries and self-appointed third parties whose interest overrides artistic expression, or even the audience's plain wish to experience a work.",
+      "This application is the simplest possible demonstration of those capabilities — raw data and statistics that have been available all along, at the same time, on HAVC's own official website.",
+      "I will submit the application as a project to the HAVC call for funding complementary activities, in September 2026. Most of the costs will go to the working hours needed to obtain the data from HAVC and to clean and verify it by hand, so that the final datasets can be published with a guarantee of one hundred per cent accuracy."
     ]
   },
   "what_aning_is": {
@@ -42,6 +47,11 @@
       "label": "dogma23.org",
       "href": "https://dogma23.org",
       "note": "Manifesto, gallery, smart-contract distribution thesis"
+    },
+    {
+      "label": "github.com/matijarma/havc-explorer",
+      "href": "https://github.com/matijarma/havc-explorer",
+      "note": "Source code of this dashboard and the full development history"
     }
   ],
   "signature": "— Matija Radeljak · Zagreb · May 2026"
