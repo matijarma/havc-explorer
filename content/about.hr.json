@@ -25,29 +25,7 @@
       "Aplikaciju ću prijaviti kao projekt na natječaj za financiranje programa komplementarnih djelatnosti pri HAVC-u, u rujnu 2026. godine. Većina troškova će otpadati na radne sate potrebne za prikupljanje podataka od HAVC-a te njihovo ručno čišćenje i provjere kako bi se konačni skupovi mogli objaviti uz jamstvo stopostotne točnosti."
     ]
   },
-  "what_aning_is": {
-    "title": "Što je Aning Film",
-    "paragraphs": [
-      "Aning Film je studio, ne tvrtka. Jednoautorska praksa koja snima filmove, gradi alate, vodi platforme — i, povremeno, objavi i jednu ovakvu bazu podataka.",
-      "Sve što je potpisano s Aning Film potpisao sam ja. Kada je rad uistinu zajednički — koprodukcija, redateljski projekt, suautor — ti su suradnici imenovani izravno. Kraljevsko mi nije glas ove kuće."
-    ]
-  },
   "links": [
-    {
-      "label": "aningfilm.hr",
-      "href": "https://aningfilm.hr",
-      "note": "Studio — usluge, projekti, kontakt"
-    },
-    {
-      "label": "filmincroatia.com",
-      "href": "https://filmincroatia.com",
-      "note": "Kalkulator financiranja, GPT i storyboard alat za međunarodne produkcije koje snimaju u Hrvatskoj"
-    },
-    {
-      "label": "dogma23.org",
-      "href": "https://dogma23.org",
-      "note": "Manifest, galerija i teza o distribuciji preko smart contracta"
-    },
     {
       "label": "github.com/matijarma/havc-explorer",
       "href": "https://github.com/matijarma/havc-explorer",
