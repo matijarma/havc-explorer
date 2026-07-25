@@ -3622,8 +3622,45 @@
       console.error(err);
     }
 
+    // Prose paragraphs may carry inline links: [label](href) for a named link,
+    // or a bare http(s) URL. Internal hrefs (#/process) stay in-tab.
+    const INLINE_LINK = /\[([^\]]+)\]\(([^\s)]+)\)|(https?:\/\/[^\s<>()]+)/g;
+
+    function inlineToNodes(text) {
+      const src = String(text == null ? '' : text);
+      const nodes = [];
+      let last = 0;
+      INLINE_LINK.lastIndex = 0;
+      let m;
+      while ((m = INLINE_LINK.exec(src)) !== null) {
+        if (m.index > last) nodes.push(document.createTextNode(src.slice(last, m.index)));
+        let label = m[1] || m[3];
+        let href = m[2] || m[3];
+        let trailing = '';
+        if (!m[1]) {                              // bare URL: don't swallow sentence punctuation
+          const trim = /[.,;:!?]+$/.exec(href);
+          if (trim) {
+            trailing = trim[0];
+            href = href.slice(0, -trailing.length);
+            label = href;
+          }
+        }
+        const external = /^https?:\/\//i.test(href);
+        nodes.push(el('a', {
+          href,
+          text: label,
+          target: external ? '_blank' : null,
+          rel: external ? 'noopener noreferrer' : null,
+        }));
+        if (trailing) nodes.push(document.createTextNode(trailing));
+        last = m.index + m[0].length;
+      }
+      if (last < src.length) nodes.push(document.createTextNode(src.slice(last)));
+      return nodes;
+    }
+
     function paragraphsToNodes(arr) {
-      return (arr || []).map(p => el('p', { text: p }));
+      return (arr || []).map(p => el('p', null, inlineToNodes(p)));
     }
 
     function renderContent(c) {
