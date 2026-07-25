@@ -25,29 +25,7 @@
       "In September 2026 I will submit this as a project to HAVC's call for funding complementary activities. Most of the budget goes to a single line: the hours needed to obtain the data from HAVC and to clean and check it by hand, so the final datasets can be published with a guarantee that they are one hundred per cent correct."
     ]
   },
-  "what_aning_is": {
-    "title": "What Aning Film is",
-    "paragraphs": [
-      "Aning Film is a studio, not a company. It is a one-author practice that makes films, builds tools, runs platforms — and, occasionally, publishes a dataset like this one.",
-      "Everything signed Aning Film is signed by me. When the work is genuinely collaborative — a co-production, a director's project, a co-author — those collaborators are named directly. The royal we is not the house voice."
-    ]
-  },
   "links": [
-    {
-      "label": "aningfilm.hr",
-      "href": "https://aningfilm.hr",
-      "note": "The studio — services, projects, contact"
-    },
-    {
-      "label": "filmincroatia.com",
-      "href": "https://filmincroatia.com",
-      "note": "Financing calculator, GPT, and storyboard tool for international productions filming in Croatia"
-    },
-    {
-      "label": "dogma23.org",
-      "href": "https://dogma23.org",
-      "note": "Manifesto, gallery, smart-contract distribution thesis"
-    },
     {
       "label": "github.com/matijarma/havc-explorer",
       "href": "https://github.com/matijarma/havc-explorer",
