@@ -7,17 +7,22 @@
   "why_this": {
     "title": "Zašto ovo postoji",
     "paragraphs": [
-      "Hrvatski sam filmski producent. Šesnaest godina nalazim se s prijaviteljske strane stola pred HAVC-om — Hrvatskim audiovizualnim centrom — i kao i svaki producent u ovoj zemlji proveo sam neobično velik dio svog profesionalnog vremena u njihovim objavljenim PDF-ovima, pokušavajući se sjetiti tko je što dobio po kojem programu i u kojem roku.",
-      "HAVC svoje odluke objavljuje uredno i otvoreno, ali trag je rasut po tisuću zasebnih dokumenata. Ne postoji jedno mjesto na kojem se može preletjeti cijeli 16-godišnji luk, postaviti mu poštena pitanja i provjeriti odgovore u izvoru. Napravio sam ovo da bih ga ja — i svaki kolega koji se ikad zapitao isto — imao.",
-      "Sve što vidite izvedeno je iz HAVC-ovih vlastitih objavljenih dokumenata. Tamo gdje broj djeluje sumnjivo, registar vam omogućuje otvaranje izvornog PDF-a i provjeru. Ovo ne želi zamijeniti HAVC-ov zapis. Želi ga učiniti prohodnim."
+      "Informiranost bilo kojeg društva je najvažniji čimbenik slobode tog istog društva.",
+      "Takvoj općeprihvaćenoj mudrosti unatoč, kao i činjenici da u RH postoje razvijeni portali otvorenih podataka na nacionalnoj ([data.gov.hr](https://data.gov.hr)) i lokalnoj ([data.zagreb.hr](https://data.zagreb.hr)) razini, gotovo niti jedna institucija koja financira projekte u kulturi u RH javnim novcem, te portale ne koristi, niti na bilo koji drugi način pokazuje interes da učini pristup povijesnim i aktualnim podacima pristupačnim i čitljivim zainteresiranoj javnosti.",
+      "Takav izostanak transparentnosti doprinosi održavanju status-quo kulturno krnjeg društva, iz kojeg zauzvrat proizlaze znanstveno, tehnički i moralno upitne inicijative i odluke na sasvim drugim granama društva, od angažiranog aktivizma, istraživačkog novinarstva ili politike, do isključivo komercijalnih industrija, civilnog društva i, dakako, same kulture i umjetnosti. Drugim riječima, nedostupnost kronologije i faktografije izravno o(ne)mogućuje sve fizičke i pravne osobe da (ne) provode svoje kreativne, poslovne, pa čak i osobne zamisli, u djelo, a što je u izravnoj suprotnosti sa općeprihvaćenom, i štoviše uzimanom zdravo za gotovo, tezom o slobodnom meritokratskom društvu.",
+      "Motiviran takvim promišljanjem i tehničkim mogućnostima da pozitivno doprinesem opisanoj problematici, aplikaciju sam izradio u svom slobodnom vremenu, i to na prvom mjestu kao demonstraciju tehničkih mogućnosti kroz izravno mjerljiv odnos uloženog vremena i rezultata.",
+      "Za stvaranje strukturiranih skupova podataka iz objavljenih PDF-ova te izradu aplikacije mi je trebalo 60-ak radnih sati kroz ukupno 6 tjedana, odnosno kroz 3 “ere” različitih pokušaja, kreativnog razvoja, programiranja, testiranja, popravaka i dorada (vidi karticu [Proces](#/process)). Glavnina posla je napravljena između 10. i 31. 5. 2026. godine.",
+      "Aplikacija je poslužena kao besplatni Cloudflare Worker, ukupnog otiska 22.6 MiB od čega je baza podataka 22.2 MiB ([data.json](https://havc.matijar.info/havc/data.json)). Korišteni kod su vanilla HTML, JS i CSS, što znači da ne postoje ovisnosti o trećim stranama. Za vizualni prikaz se koriste FontAwesome ikone i Google fontovi, oboje opcionalno za funkcionalnost.",
+      "Kod i povijest razvoja, revizije i kontrole su dostupni na javnom repozitoriju: [github.com/matijarma/havc-explorer](https://github.com/matijarma/havc-explorer)."
     ]
   },
   "who_i_am": {
     "title": "Tko sam",
     "paragraphs": [
-      "Na scenu sam stupio sa sedam godina i dvanaest godina glumio prije nego što sam prešao na film. Ispisao sam se s informatičkog studija kad je postalo očito da je film posao, a ne hobi. Informatički dio nikad nije sasvim otišao — svaki alat na ovoj stranici je nešto što sam sam napisao.",
-      "Prošao sam tri europska programa koja za producenta moje generacije najviše znače: Maia Workshops, EAVE Producers Workshop i TorinoFilmLab. Koproducirao sam Breathing into Marble, koji je 2018. igrao East of the West u Karlovim Varima. Raspon ostalog rada ide od Allianzove prodajne konferencije iz 2010. (200.000 EUR, producirao i režirao), preko kratkih filmova na Cannes Short Film Corner, do transmedijalnih kampanja poput Glowbrain i Croatia goes cross-media.",
-      "Napisao sam i vodim Dogmu 23, manifest i filmsku galeriju u Zagrebu koja brani tezu da film zaslužuje da bude izložen s pažnjom kakvu dobiva slika. Izgradio sam i održavam filmincroatia.com, custom GPT Filming in Croatia i alat za storyboard. Aning Film mentorira filmaše, vodi radionice za djecu i besplatno zastupa europske autore bez agenta."
+      "Aktivno i artikulirano proučavam sve aspekte umjetnosti i računarstva od najranije moguće dobi, prije nego sam i započeo osnovnu školu te ubrzo zatim i dramski studio Zagrebačkog kazališta mladih u kojem sam odrastao i proveo formativne godine. Cjeloživotna ljubav i ambicija prema drami i filmskoj glumi je sa punoljetnošću, i nakon neuspjeha na prijemnom za glumu na zagrebačkoj ADU, evoluirala — isprva u filmsku režiju, a potom i u kreativnu produkciju, termin s kojim sam se toliko dobro pronašao da se često ne libim reći da sam upravo i jedini autentični kreativni producent u RH. No, obzirom da takav termin u pravilu niti nije arhetip pozitivnog tipa u kulturi europske filmske industrije, takva šala i nije toliko bezobrazna koliko se na prvu može činiti.",
+      "Paralelno sa odrastanjem na daskama i u ofucanim dvoranama zagrebačkih kinematografa, također od najranije dobi sam zaljubljeno pratio svaki hertz i bajt svakog elektroničkog uređaja kojeg mi je dopušteno dodirnuti. Istovremeno gutajući knjige, filmove i kazališne komade, te kopanjem po svakom komadu softvera i hardvera koji mi je mogao doći pod ruku, dramsku umjetnost i računalnu tehnologiju sam prihvatio kao svoje domene djelovanja i inspiracije. Obzirom da je vrijeme tog istog odrastanja igrom slučaja bilo vrijeme filmova kao što su Matrix, Lepa sela lepo gore, Titanic, Pakleni šund, Što je Iva snimila ili Klub boraca, kao i same geneze interneta i svega što je posljedično uslijedilo, i to u post-ratnoj Hrvatskoj ispunjenoj korupcijom na svim razinama što nije prestala biti tema do danas, mislim da nije toliko nevjerojatno da sam se razvio u filmskog producenta koji računalnu tehnologiju doživljava ne samo kao svoju domenu i alat, već kao sigurnu luku, sredstvo standardizacije i transparentnosti, garant efikasnih sustava presudnih za krhke budžete nezavisnih umjetničkih produkcija, a dodatno čiji su autori i publika gotovo bez iznimke žrtva posrednika i samo-nametnutih trećih strana čiji interes nadilazi umjetnički izražaj ili čak i puku volju publike konzumirati umjetničko djelo.",
+      "Ova aplikacija je najjednostavnija moguća demonstracija takvih mogućnosti — sirovi podaci i statistike istovremeno i oduvijek dostupni na službenim stranicama HAVC-a.",
+      "Aplikaciju ću prijaviti kao projekt na natječaj za financiranje programa komplementarnih djelatnosti pri HAVC-u, u rujnu 2026. godine. Većina troškova će otpadati na radne sate potrebne za prikupljanje podataka od HAVC-a te njihovo ručno čišćenje i provjere kako bi se konačni skupovi mogli objaviti uz jamstvo stopostotne točnosti."
     ]
   },
   "what_aning_is": {
@@ -42,6 +47,11 @@
       "label": "dogma23.org",
       "href": "https://dogma23.org",
       "note": "Manifest, galerija i teza o distribuciji preko smart contracta"
+    },
+    {
+      "label": "github.com/matijarma/havc-explorer",
+      "href": "https://github.com/matijarma/havc-explorer",
+      "note": "Izvorni kod ovog registra i cijela povijest razvoja"
     }
   ],
   "signature": "— Matija Radeljak · Zagreb · svibanj 2026."

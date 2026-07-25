@@ -1866,6 +1866,17 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
 .about-prose p:last-child {
   margin-bottom: 0;
 }
+.about-prose a {
+  text-decoration: underline;
+  text-decoration-color: var(--red-soft);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+.about-prose a:hover {
+  text-decoration-color: var(--red);
+  text-decoration-style: solid;
+}
 .about-section--full {
   grid-template-columns: 1fr;
 }
