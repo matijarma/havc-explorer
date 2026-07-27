@@ -1798,13 +1798,12 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
 }
 .about-view .kicker,
 .process-view .kicker { margin-bottom: 14px; }
-.about-view .display,
-.process-view .display {
-  font-size: clamp(28px, 4.4vw, 56px);
-  line-height: 1.04;
-  letter-spacing: -0.025em;
-  color: var(--paper);
-  margin: 0 0 16px;
+.about-view .display, .process-view .display {
+    font-size: clamp(16px, 3vw, 28px);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    color: var(--paper);
+    margin: 0 0 16px;
 }
 .view-stub {
   border-left: 2px solid var(--red);
