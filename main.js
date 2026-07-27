@@ -1253,6 +1253,16 @@
   }
 
   function setFilters(patch) {
+    const keys = Object.keys(patch || {});
+    if (keys.length === 0) return;
+    let changed = false;
+    for (const k of keys) {
+      if (state.filters[k] !== patch[k]) {
+        changed = true;
+        break;
+      }
+    }
+    if (!changed) return;
     state.filters = { ...state.filters, ...patch };
     const sy = state.filters.selectedYear;
     const yr = state.filters.yearRange;
@@ -1716,6 +1726,7 @@
   // ═══ 6. Topbar ═════════════════════════════════════════════════════
   function mountTopbar(root) {
     const VIEW_TABS = ['dashboard', 'about', 'process'];
+    let searchDraft = state.filters.q || '';
 
     function viewTabBtn(view, lang) {
       const isActive = state.view === view;
@@ -1734,6 +1745,24 @@
       const isDash = state.view === 'dashboard';
       const filterCount = isDash ? countActiveFilters() : 0;
       const nextLang = lang === 'hr' ? 'en' : 'hr';
+      const activeEl = document.activeElement;
+      const hadSearchFocus = Boolean(
+        activeEl &&
+        activeEl.tagName === 'INPUT' &&
+        activeEl.closest &&
+        activeEl.closest('.search')
+      );
+      const prevSelStart = hadSearchFocus && typeof activeEl.selectionStart === 'number'
+        ? activeEl.selectionStart
+        : null;
+      const prevSelEnd = hadSearchFocus && typeof activeEl.selectionEnd === 'number'
+        ? activeEl.selectionEnd
+        : null;
+      if (hadSearchFocus) {
+        searchDraft = activeEl.value;
+      } else {
+        searchDraft = state.filters.q || '';
+      }
       const themeIcon = state.theme === 'light'
         ? 'fa-solid fa-sun'
         : state.theme === 'dark'
@@ -1755,10 +1784,11 @@
             el('input', {
               type: 'text',
               placeholder: t('search.placeholder', lang),
-              value: state.filters.q,
+              value: searchDraft,
               oninput: (e) => {
                 clearTimeout(render._searchDebounce);
                 const val = e.target.value;
+                searchDraft = val;
                 render._searchDebounce = setTimeout(() => {
                   setFilters({ q: val });
                 }, 220);
@@ -1806,6 +1836,19 @@
           ]),
         ]),
       );
+      if (isDash && hadSearchFocus) {
+        const nextSearchInput = root.querySelector('.search input');
+        if (nextSearchInput) {
+          nextSearchInput.focus();
+          if (prevSelStart != null && prevSelEnd != null) {
+            const max = nextSearchInput.value.length;
+            nextSearchInput.setSelectionRange(
+              Math.min(prevSelStart, max),
+              Math.min(prevSelEnd, max),
+            );
+          }
+        }
+      }
     }
     on(['lang', 'theme', 'filters', 'view', 'mobileFilters'], render);
     render();
@@ -4229,7 +4272,7 @@
       return el('section', { class: 'process-deepdive' }, [
         el('header', { class: 'deepdive-head' }, [
           dd.kicker ? el('div', { class: 'kicker', text: dd.kicker }) : null,
-          dd.headline ? el('h3', { class: 'display deepdive-headline', text: dd.headline }) : null,
+          dd.headline ? el('h2', { class: 'display deepdive-headline', text: dd.headline }) : null,
           dd.subhead ? renderClaimBlock('p', 'deepdive-subhead', dd.subhead) : null,
           dd._todo_translate ? el('p', { class: 'deepdive-todo mono', text: t('process.deep_dive.todo', lang) }) : null,
         ]),
