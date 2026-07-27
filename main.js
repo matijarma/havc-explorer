@@ -4229,7 +4229,7 @@
       return el('section', { class: 'process-deepdive' }, [
         el('header', { class: 'deepdive-head' }, [
           dd.kicker ? el('div', { class: 'kicker', text: dd.kicker }) : null,
-          dd.headline ? el('h2', { class: 'display deepdive-headline', text: dd.headline }) : null,
+          dd.headline ? el('h3', { class: 'display deepdive-headline', text: dd.headline }) : null,
           dd.subhead ? renderClaimBlock('p', 'deepdive-subhead', dd.subhead) : null,
           dd._todo_translate ? el('p', { class: 'deepdive-todo mono', text: t('process.deep_dive.todo', lang) }) : null,
         ]),
