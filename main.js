@@ -265,6 +265,14 @@
     'process.timeline.decision': { en: 'Decision', hr: 'Odluka' },
     'process.timeline.result': { en: 'Result', hr: 'Rezultat' },
     'process.timeline.more_context': { en: 'More context', hr: 'Više konteksta' },
+    'helper.tip.label': { en: 'HAVC helper', hr: 'HAVC asistent' },
+    'helper.tip.title': { en: 'Browse HAVC directly', hr: 'Pregledavaj HAVC izravno' },
+    'helper.tip.body': {
+      en: 'HAVC Companion is meant for easier browsing of havc.hr public-calls pages directly, without using this Sredstva web app.',
+      hr: 'HAVC asistent služi za lakše pregledavanje stranica javnih poziva na havc.hr izravno, bez korištenja web aplikacije Sredstva.',
+    },
+    'helper.tip.open_store': { en: 'Open in Chrome Web Store', hr: 'Otvori u Chrome Web Storeu' },
+    'helper.tip.store_aria': { en: 'Open HAVC Companion in Chrome Web Store', hr: 'Otvori HAVC asistent u Chrome Web Storeu' },
     'boot.loading_registry': { en: 'loading registry…', hr: 'učitavanje registra…' },
     'boot.load_data_error': { en: 'failed to load data.json — see console', hr: 'učitavanje data.json nije uspjelo — pogledaj konzolu' },
 
@@ -315,6 +323,7 @@
 
   const UNATTRIBUTED_KEY = '__unattributed__';
   const SIZE_BUCKETS = [0, 1000, 5000, 20000, 50000, 100000, 250000, 500000, 1000000, Infinity];
+  const HAVC_HELPER_STORE_URL = 'https://chromewebstore.google.com/detail/havc-companion-%E2%80%94-javni-po/jjfmjbmebnljefefcgfdjljenilgmfpg';
 
   // ═══ 2. Data loader + indexers ══════════════════════════════════════
   let DATA = null;
@@ -1218,6 +1227,7 @@
     showAnalytics: false,
     expandedAnalyticsKpi: null, // KPI key currently expanded inside the analytics modal
     pdfPreview: null, // { title, source_url }
+    showHelperTip: false,
     mobileFiltersOpen: false,
     view: 'dashboard', // 'dashboard' | 'about' | 'process'
   };
@@ -1365,6 +1375,12 @@
     state.pdfPreview = v || null;
     fire('pdfPreview');
   }
+  function setShowHelperTip(v) {
+    const next = !!v;
+    if (state.showHelperTip === next) return;
+    state.showHelperTip = next;
+    fire('helperTip');
+  }
   function setMobileFiltersOpen(v) {
     const open = !!v;
     if (open && state.view !== 'dashboard') return;
@@ -1400,6 +1416,7 @@
     if (next !== 'dashboard' && state.mobileFiltersOpen) {
       setMobileFiltersOpen(false);
     }
+    state.showHelperTip = false;
     state.view = next;
     document.body.classList.remove('view-dashboard', 'view-about', 'view-process');
     document.body.classList.add('view-' + next);
@@ -1728,6 +1745,20 @@
     const VIEW_TABS = ['dashboard', 'about', 'process'];
     let searchDraft = state.filters.q || '';
 
+    const onDocPointerDown = (e) => {
+      if (!state.showHelperTip) return;
+      const wrap = root.querySelector('.helper-tip-wrap');
+      if (!wrap) return;
+      if (!wrap.contains(e.target)) setShowHelperTip(false);
+    };
+    const onDocKeyDown = (e) => {
+      if (e.key === 'Escape' && state.showHelperTip) {
+        setShowHelperTip(false);
+      }
+    };
+    document.addEventListener('pointerdown', onDocPointerDown);
+    document.addEventListener('keydown', onDocKeyDown);
+
     function viewTabBtn(view, lang) {
       const isActive = state.view === view;
       const attrs = {
@@ -1796,6 +1827,38 @@
             }),
           ]) : el('div', { class: 'search-spacer' }),
           el('div', { class: 'toolbar' }, [
+            el('div', { class: 'helper-tip-wrap' }, [
+              el('button', {
+                class: 'mode-toggle helper-tip-btn',
+                type: 'button',
+                title: t('helper.tip.label', lang),
+                'aria-haspopup': 'dialog',
+                'aria-expanded': state.showHelperTip ? 'true' : 'false',
+                onclick: (e) => {
+                  e.stopPropagation();
+                  setShowHelperTip(!state.showHelperTip);
+                },
+              }, [
+                fa('fa-brands fa-chrome'),
+                el('span', { class: 'mode-toggle-k', text: t('helper.tip.label', lang) }),
+              ]),
+              state.showHelperTip ? el('div', {
+                class: 'helper-tip-popover',
+                role: 'dialog',
+                'aria-label': t('helper.tip.title', lang),
+              }, [
+                el('h3', { class: 'helper-tip-title display', text: t('helper.tip.title', lang) }),
+                el('p', { class: 'helper-tip-body', text: t('helper.tip.body', lang) }),
+                el('a', {
+                  class: 'btn mono helper-tip-link',
+                  href: HAVC_HELPER_STORE_URL,
+                  target: '_blank',
+                  rel: 'noopener',
+                  'aria-label': t('helper.tip.store_aria', lang),
+                  onclick: () => setShowHelperTip(false),
+                }, [t('helper.tip.open_store', lang)]),
+              ]) : null,
+            ]),
             isDash ? el('button', {
               class: 'mode-toggle mobile-filter-toggle' +
                 (state.mobileFiltersOpen ? ' is-open' : '') +
@@ -1850,7 +1913,7 @@
         }
       }
     }
-    on(['lang', 'theme', 'filters', 'view', 'mobileFilters'], render);
+    on(['lang', 'theme', 'filters', 'view', 'mobileFilters', 'helperTip'], render);
     render();
   }
 

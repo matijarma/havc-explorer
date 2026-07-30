@@ -1387,6 +1387,44 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   color: var(--muted);
 }
 
+.helper-tip-wrap {
+  position: relative;
+}
+.helper-tip-btn .fa-chrome {
+  color: #4ea5f5;
+}
+.helper-tip-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: min(360px, calc(100vw - 36px));
+  padding: 12px 13px;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: color-mix(in oklab, var(--panel) 86%, var(--ink));
+  box-shadow: 0 22px 36px rgba(0, 0, 0, 0.34);
+  z-index: 65;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.helper-tip-title {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.05;
+  color: var(--paper);
+}
+.helper-tip-body {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--paper-dim);
+}
+.helper-tip-link {
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
 /* ─── Loading state ──────────────────────────────────────────────── */
 .boot {
   height: 100vh; display: flex; flex-direction: column;
@@ -1629,6 +1667,11 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   }
   .mode-toggle { min-height: 36px; padding: 6px 12px; }
   .mobile-filter-toggle { min-height: 36px; padding: 6px 10px; }
+  .helper-tip-popover {
+    right: auto;
+    left: 0;
+    width: min(92vw, 340px);
+  }
 
   /* Insights strip → compact summary + single CTA */
   .insights.insights-mobile {
