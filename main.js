@@ -12,7 +12,7 @@
  *   6. topbar
  *   7. filter rail (chips + smooth year slider)
  *   8. orientation headline
- *   9. insights strip (clickable lenses: year-trend & size-distribution)
+ *   9. scoped all-project funding timeline
  *  10. scope-chip row
  *  11. pivot chips (group-by + unattributed toggle)
  *  12. virtualized list (Projects aggregated · Decisions per-row · Groups clickable · Project profile)
@@ -80,8 +80,13 @@
                      hr: 'Hrvatski javni poticaji za audiovizualnu djelatnost · 2009.–{maxYear}.' },
     'header.decisions': { en: '{n} decisions', hr: '{n} odluka' },
     'header.funded':    { en: '{amt} funded',  hr: '{amt} dodijeljeno' },
+    'header.projects':  { en: '{n} funded projects', hr: '{n} financiranih projekata' },
     'header.calls':     { en: '{n} calls',     hr: '{n} natječaja' },
     'header.unfunded':  { en: '{n} unfunded',  hr: '{n} bez sredstava' },
+    'header.stats.open': {
+      en: 'Open full registry analytics',
+      hr: 'Otvori punu analitiku registra',
+    },
     'header.notice.kicker': {
       en: 'Data provenance',
       hr: 'Podrijetlo podataka',
@@ -151,6 +156,10 @@
 
     'analytics.title':        { en: 'Registry analytics', hr: 'Analitika registra' },
     'analytics.subtitle':     { en: 'Global view across all available rows (independent from active filters)', hr: 'Globalni pregled svih dostupnih redaka (neovisno o aktivnim filterima)' },
+    'analytics.overview':     { en: 'Registry overview', hr: 'Pregled registra' },
+    'analytics.projects':     { en: 'Funded projects', hr: 'Financirani projekti' },
+    'analytics.calls':        { en: 'Source calls', hr: 'Izvorni natječaji' },
+    'analytics.unfunded':     { en: 'Unfunded mentions', hr: 'Spomenuti bez sredstava' },
     'analytics.yearly':       { en: 'Funding by year', hr: 'Financiranje po godini' },
     'analytics.program_mix':  { en: 'Programme mix by amount', hr: 'Raspodjela po programu (iznos)' },
     'analytics.category_mix': { en: 'Category mix by amount', hr: 'Raspodjela po kategoriji (iznos)' },
@@ -162,6 +171,43 @@
     'analytics.note.pre2009': { en: 'Rows exist before 2009 (earliest detected year is 2008).', hr: 'Postoje redci prije 2009. (najranija pronadena godina je 2008.).' },
     'analytics.note.current': { en: '{year} is likely partial (in-year data snapshot).', hr: '{year} je vjerojatno parcijalna godina (presjek usred godine).' },
     'analytics.note.stable':  { en: 'No special year-window caveats detected.', hr: 'Nema posebnih napomena za vremenski raspon.' },
+
+    'timeline.projects.title': {
+      en: 'Project funding timeline',
+      hr: 'Vremenska crta financiranja projekata',
+    },
+    'timeline.projects.summary': {
+      en: '{n} funded projects in the current scope',
+      hr: '{n} financiranih projekata u trenutačnom opsegu',
+    },
+    'timeline.projects.legend': {
+      en: 'Bubble area represents complete lifetime funding',
+      hr: 'Površina kruga prikazuje ukupno financiranje kroz cijeli vijek projekta',
+    },
+    'timeline.projects.placement': {
+      en: 'Placed at the latest matching year',
+      hr: 'Smješteno u zadnju godinu koja odgovara filtrima',
+    },
+    'timeline.projects.hint': {
+      en: 'Hover or use arrow keys to inspect. Click or press Enter to open a project.',
+      hr: 'Prijeđi pokazivačem ili koristi strelice za pregled. Klikni ili pritisni Enter za otvaranje projekta.',
+    },
+    'timeline.projects.empty': {
+      en: 'No projects with a positive recorded lifetime amount match the current filters.',
+      hr: 'Nijedan projekt s pozitivnim zabilježenim ukupnim iznosom ne odgovara trenutačnim filtrima.',
+    },
+    'timeline.projects.lifetime': {
+      en: 'Lifetime funding',
+      hr: 'Ukupno financiranje',
+    },
+    'timeline.projects.matching': {
+      en: '{n} matching decisions',
+      hr: '{n} odluka u opsegu',
+    },
+    'timeline.projects.keyboard': {
+      en: 'Project funding timeline with {n} projects. Use arrow keys to move between projects and Enter to open the selected project.',
+      hr: 'Vremenska crta financiranja s {n} projekata. Koristi strelice za pomicanje među projektima i Enter za otvaranje odabranog projekta.',
+    },
 
     'scope.label':    { en: 'scope', hr: 'opseg' },
     'scope.empty':    { en: 'nothing scoped — click any bar, group row, or value to narrow',
@@ -1440,6 +1486,23 @@
     schedulePersist();
     fire(['scopes', 'groupBy']);
   }
+  function openScopedProject(projectKey, projectTitle) {
+    const scope = { kind: 'project', value: projectKey, label: projectTitle };
+    if (!state.scopes.some(s => scopesEqual(s, scope))) {
+      state.scopes = [...state.scopes, scope];
+    }
+    state.groupBy = 'projects';
+    state.sort = defaultSortFor('projects');
+    state.expandedKey = projectKey;
+    state.expandedRoundIds = new Set();
+    state.expandedMentions = false;
+    schedulePersist();
+    fire(['scopes', 'groupBy', 'sort', 'expanded']);
+    requestAnimationFrame(() => {
+      const list = document.querySelector('#listwrap .list');
+      if (list && typeof list.scrollTo === 'function') list.scrollTo({ top: 0, left: 0 });
+    });
+  }
   function removeScope(idx) {
     state.scopes = state.scopes.filter((_, i) => i !== idx);
     schedulePersist();
@@ -2298,10 +2361,11 @@
 
   // ═══ 8. Orientation headline ════════════════════════════════════════
   function mountHeadline(root) {
+    const openAnalytics = () => setShowAnalytics(true);
     function render() {
       const lang = state.lang;
       const maxYear = DATA.facets.years[DATA.facets.years.length - 1];
-      const auditSummary = buildSanityInfoSummary(lang);
+      const fundedProjects = GLOBAL_ANALYTICS ? GLOBAL_ANALYTICS.projectCount : 0;
       root.replaceChildren(
         el('div', { class: 'head-line' }, [
           el('span', { class: 'head-main', text: t('header.line', lang, { maxYear }) }),
@@ -2313,26 +2377,33 @@
             el('span', { class: 'head-infopill-body', text: t('header.notice.body', lang) })
           ]),
         ]),
-        el('div', { class: 'head-stats mono' }, [
-          el('span', {}, [
-            fa('fa-solid fa-list-check', 'icon-left'),
-            t('header.decisions', lang, { n: DATA.counts.rows.toLocaleString() }),
-          ]),
-          el('span', { class: 'sep', text: '·' }),
-          el('span', {}, [
+        el('button', {
+          class: 'head-stats mono',
+          type: 'button',
+          onclick: openAnalytics,
+          title: t('header.stats.open', lang),
+          'aria-label': t('header.stats.open', lang),
+        }, [
+          el('span', { class: 'head-stat' }, [
             fa('fa-solid fa-coins', 'icon-left'),
             t('header.funded', lang, { amt: formatAmount(DATA.counts.total_amount_eur, 'EUR', lang) }),
           ]),
           el('span', { class: 'sep', text: '·' }),
-          el('span', {}, [
+          el('span', { class: 'head-stat' }, [
+            fa('fa-regular fa-clapperboard', 'icon-left'),
+            t('header.projects', lang, { n: fundedProjects.toLocaleString() }),
+          ]),
+          el('span', { class: 'sep', text: '·' }),
+          el('span', { class: 'head-stat' }, [
+            fa('fa-solid fa-list-check', 'icon-left'),
+            t('header.decisions', lang, { n: DATA.counts.rows.toLocaleString() }),
+          ]),
+          el('span', { class: 'sep', text: '·' }),
+          el('span', { class: 'head-stat' }, [
             fa('fa-regular fa-folder-open', 'icon-left'),
             t('header.calls', lang, { n: DATA.counts.docs_results_tables }),
           ]),
-          el('span', { class: 'sep', text: '·' }),
-          el('span', {}, [
-            fa('fa-solid fa-triangle-exclamation', 'icon-left'),
-            t('header.unfunded', lang, { n: DATA.counts.unfunded_mention_count }),
-          ]),
+          fa('fa-solid fa-arrow-up-right-from-square', 'head-stats-open-icon'),
         ]),
       );
     }
@@ -2343,21 +2414,471 @@
   // ═══ 9. Insights strip ══════════════════════════════════════════════
   function mountInsights(root) {
     const openAnalytics = () => setShowAnalytics(true);
-    root.classList.add('insights-openable');
-    root.tabIndex = 0;
-    root.setAttribute('role', 'button');
+    let timelineCleanup = null;
+
     root.addEventListener('click', (e) => {
+      if (!isMobile()) return;
       const interactive = e.target && e.target.closest('button, a, input, textarea, select');
       if (interactive) return;
       openAnalytics();
     });
     root.addEventListener('keydown', (e) => {
+      if (!isMobile()) return;
       if (e.key !== 'Enter' && e.key !== ' ') return;
       e.preventDefault();
       openAnalytics();
     });
 
+    function hashString(value) {
+      let hash = 2166136261;
+      const input = String(value || '');
+      for (let i = 0; i < input.length; i++) {
+        hash ^= input.charCodeAt(i);
+        hash = Math.imul(hash, 16777619);
+      }
+      return hash >>> 0;
+    }
+
+    function timelineModel() {
+      const matches = new Map();
+      for (const rowId of applyFilters()) {
+        const key = rowNormTitles[rowId];
+        const row = DATA.rows[rowId];
+        if (!key || key === UNATTRIBUTED_KEY || row.year == null) continue;
+        let item = matches.get(key);
+        if (!item) {
+          item = {
+            key,
+            title: row.title || '',
+            year: row.year,
+            matchingCount: 0,
+          };
+          matches.set(key, item);
+        }
+        item.matchingCount += 1;
+        if (row.year > item.year) item.year = row.year;
+      }
+
+      const items = [];
+      for (const item of matches.values()) {
+        const project = projectIndex.get(item.key);
+        if (!project || !(project.total_eur > 0)) continue;
+        items.push({
+          ...item,
+          title: project.title || item.title || t('col.untitled', state.lang),
+          total: project.total_eur,
+        });
+      }
+
+      const selectedYear = state.filters.selectedYear;
+      const fallbackRange = [
+        DATA.facets.years[0],
+        DATA.facets.years[DATA.facets.years.length - 1],
+      ];
+      const range = selectedYear != null
+        ? [selectedYear, selectedYear]
+        : (state.filters.yearRange || fallbackRange);
+
+      return {
+        items,
+        minYear: Number(range[0]),
+        maxYear: Number(range[1]),
+      };
+    }
+
+    function timelineItemLabel(item, lang) {
+      return [
+        item.title,
+        String(item.year),
+        `${t('timeline.projects.lifetime', lang)}: ${formatAmount(item.total, 'EUR', lang)}`,
+        t('timeline.projects.matching', lang, { n: item.matchingCount.toLocaleString() }),
+      ].join(' · ');
+    }
+
+    function packTimelineItems(items, width, height, minYear, maxYear) {
+      const margin = { left: 18, right: 18, top: 14, bottom: 30 };
+      const plotWidth = Math.max(1, width - margin.left - margin.right);
+      const plotHeight = Math.max(1, height - margin.top - margin.bottom);
+      const yearCount = Math.max(1, maxYear - minYear + 1);
+      const bandWidth = plotWidth / yearCount;
+      const maxTotal = items.reduce((max, item) => Math.max(max, item.total), 1);
+      const minRadius = 1.8;
+      const maxRadius = Math.max(12, Math.min(22, bandWidth * 0.48, plotHeight * 0.16));
+      const byYear = new Map();
+
+      for (const item of items) {
+        const year = Math.max(minYear, Math.min(maxYear, item.year));
+        const list = byYear.get(year) || [];
+        list.push({
+          ...item,
+          radius: Math.max(minRadius, Math.sqrt(item.total / maxTotal) * maxRadius),
+        });
+        byYear.set(year, list);
+      }
+
+      const packed = [];
+      const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+
+      function overlapScore(candidate, nearby, gap) {
+        let score = 0;
+        for (const other of nearby) {
+          const dx = candidate.x - other.x;
+          const dy = candidate.y - other.y;
+          const minDistance = candidate.radius + other.radius + gap;
+          const distanceSq = dx * dx + dy * dy;
+          if (distanceSq >= minDistance * minDistance) continue;
+          const distance = Math.sqrt(Math.max(distanceSq, 0.0001));
+          const overlap = minDistance - distance;
+          score += overlap * overlap;
+        }
+        return score;
+      }
+
+      for (let year = minYear; year <= maxYear; year++) {
+        const list = byYear.get(year) || [];
+        if (!list.length) continue;
+        list.sort((a, b) => b.radius - a.radius || hashString(a.key) - hashString(b.key));
+
+        const laneLeft = margin.left + (year - minYear) * bandWidth;
+        const centerX = laneLeft + bandWidth / 2;
+        const centerY = margin.top + plotHeight / 2;
+        const cellSize = Math.max(8, maxRadius * 1.4);
+        const spatial = new Map();
+
+        function cellKey(x, y) {
+          return `${Math.floor(x / cellSize)}:${Math.floor(y / cellSize)}`;
+        }
+        function nearbyFor(x, y, radius) {
+          const reach = radius + maxRadius + 2;
+          const minX = Math.floor((x - reach) / cellSize);
+          const maxX = Math.floor((x + reach) / cellSize);
+          const minY = Math.floor((y - reach) / cellSize);
+          const maxY = Math.floor((y + reach) / cellSize);
+          const nearby = [];
+          for (let gx = minX; gx <= maxX; gx++) {
+            for (let gy = minY; gy <= maxY; gy++) {
+              const bucket = spatial.get(`${gx}:${gy}`);
+              if (bucket) nearby.push(...bucket);
+            }
+          }
+          return nearby;
+        }
+        function remember(item) {
+          const key = cellKey(item.x, item.y);
+          const bucket = spatial.get(key) || [];
+          bucket.push(item);
+          spatial.set(key, bucket);
+        }
+
+        for (const item of list) {
+          const seed = hashString(item.key);
+          const candidateCount = list.length > 500 ? 48 : list.length > 180 ? 64 : 88;
+          const horizontalReach = Math.max(0, bandWidth / 2 - Math.min(item.radius, bandWidth * 0.44) - 1);
+          const verticalReach = Math.max(0, plotHeight / 2 - item.radius - 1);
+          let best = null;
+          let bestScore = Infinity;
+
+          for (let attempt = 0; attempt < candidateCount; attempt++) {
+            const fraction = Math.sqrt((attempt + 0.5) / candidateCount);
+            const angle = attempt * goldenAngle + (seed % 6283) / 1000;
+            const candidate = {
+              ...item,
+              x: centerX + Math.cos(angle) * horizontalReach * fraction,
+              y: centerY + Math.sin(angle) * verticalReach * fraction,
+            };
+            const score = overlapScore(candidate, nearbyFor(candidate.x, candidate.y, candidate.radius), 0.7)
+              + Math.abs(candidate.x - centerX) * 0.002;
+            if (score < bestScore) {
+              best = candidate;
+              bestScore = score;
+            }
+            if (score === 0) break;
+          }
+
+          remember(best);
+          packed.push(best);
+        }
+      }
+
+      return {
+        items: packed.sort((a, b) => a.radius - b.radius || hashString(a.key) - hashString(b.key)),
+        margin,
+        plotWidth,
+        plotHeight,
+        bandWidth,
+        yearCount,
+      };
+    }
+
+    function mountTimelineCanvas(plot, canvas, tooltip, option, live, model, lang) {
+      let layout = null;
+      let resizeObserver = null;
+      let frame = null;
+      let activeKey = null;
+      let hoverKey = null;
+      let hasKeyboardFocus = false;
+      let hitGrid = new Map();
+      const hitCellSize = 30;
+
+      function cssVar(name) {
+        return getComputedStyle(document.body).getPropertyValue(name).trim();
+      }
+
+      function itemByKey(key) {
+        return key && layout ? layout.items.find(item => item.key === key) : null;
+      }
+
+      function buildHitGrid() {
+        hitGrid = new Map();
+        if (!layout) return;
+        for (const item of layout.items) {
+          const minX = Math.floor((item.x - item.radius - 2) / hitCellSize);
+          const maxX = Math.floor((item.x + item.radius + 2) / hitCellSize);
+          const minY = Math.floor((item.y - item.radius - 2) / hitCellSize);
+          const maxY = Math.floor((item.y + item.radius + 2) / hitCellSize);
+          for (let gx = minX; gx <= maxX; gx++) {
+            for (let gy = minY; gy <= maxY; gy++) {
+              const key = `${gx}:${gy}`;
+              const bucket = hitGrid.get(key) || [];
+              bucket.push(item);
+              hitGrid.set(key, bucket);
+            }
+          }
+        }
+      }
+
+      function hitTest(x, y) {
+        const bucket = hitGrid.get(`${Math.floor(x / hitCellSize)}:${Math.floor(y / hitCellSize)}`) || [];
+        for (let i = bucket.length - 1; i >= 0; i--) {
+          const item = bucket[i];
+          const dx = x - item.x;
+          const dy = y - item.y;
+          const hitRadius = Math.max(4, item.radius + 1.5);
+          if (dx * dx + dy * dy <= hitRadius * hitRadius) return item;
+        }
+        return null;
+      }
+
+      function showTooltip(item) {
+        if (!item || !layout) {
+          tooltip.hidden = true;
+          return;
+        }
+        tooltip.replaceChildren(
+          el('strong', { class: 'project-timeline-tooltip-title', text: item.title }),
+          el('span', {
+            class: 'project-timeline-tooltip-meta mono',
+            text: `${item.year} · ${formatAmount(item.total, 'EUR', lang)} · ${t('timeline.projects.matching', lang, { n: item.matchingCount.toLocaleString() })}`,
+          }),
+        );
+        tooltip.hidden = false;
+        const width = canvas.clientWidth || 1;
+        const left = Math.max(108, Math.min(width - 108, item.x));
+        const above = item.y > 76;
+        tooltip.classList.toggle('is-below', !above);
+        tooltip.style.left = `${left}px`;
+        tooltip.style.top = `${above ? item.y - item.radius - 8 : item.y + item.radius + 8}px`;
+      }
+
+      function draw() {
+        if (!layout) return;
+        const rect = canvas.getBoundingClientRect();
+        const width = Math.max(1, rect.width);
+        const height = Math.max(1, rect.height);
+        const dpr = Math.min(2, window.devicePixelRatio || 1);
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        const ctx = canvas.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, width, height);
+
+        const rule = cssVar('--rule');
+        const paperDim = cssVar('--paper-dim');
+        const ink = cssVar('--ink');
+        const red = cssVar('--red');
+        const selected = itemByKey(hoverKey) || itemByKey(activeKey);
+
+        ctx.save();
+        ctx.strokeStyle = rule;
+        ctx.lineWidth = 1;
+        ctx.globalAlpha = 0.65;
+        for (let year = model.minYear; year <= model.maxYear; year++) {
+          const x = layout.margin.left + (year - model.minYear + 0.5) * layout.bandWidth;
+          ctx.beginPath();
+          ctx.moveTo(x, layout.margin.top);
+          ctx.lineTo(x, height - layout.margin.bottom + 2);
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        for (const item of layout.items) {
+          const isSelected = selected && selected.key === item.key;
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(item.x, item.y, item.radius, 0, Math.PI * 2);
+          ctx.fillStyle = red;
+          ctx.globalAlpha = isSelected ? 0.98 : 0.5;
+          ctx.fill();
+          if (item.radius >= 4) {
+            ctx.strokeStyle = ink;
+            ctx.lineWidth = isSelected ? 1.8 : 0.8;
+            ctx.globalAlpha = isSelected ? 0.95 : 0.6;
+            ctx.stroke();
+          }
+          if (isSelected) {
+            ctx.beginPath();
+            ctx.arc(item.x, item.y, item.radius + 3, 0, Math.PI * 2);
+            ctx.strokeStyle = red;
+            ctx.lineWidth = 2;
+            ctx.globalAlpha = 0.7;
+            ctx.stroke();
+          }
+          ctx.restore();
+        }
+
+        ctx.save();
+        ctx.fillStyle = paperDim;
+        ctx.font = '9px "JetBrains Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+        const labelCapacity = Math.max(2, Math.floor(layout.plotWidth / 52));
+        const labelStep = Math.max(1, Math.ceil(layout.yearCount / labelCapacity));
+        for (let year = model.minYear; year <= model.maxYear; year++) {
+          const isEdge = year === model.minYear || year === model.maxYear;
+          if (!isEdge && (year - model.minYear) % labelStep !== 0) continue;
+          const x = layout.margin.left + (year - model.minYear + 0.5) * layout.bandWidth;
+          ctx.fillText(String(year), x, height - 5);
+        }
+        ctx.restore();
+      }
+
+      function setActive(item, announce) {
+        if (!item) return;
+        activeKey = item.key;
+        const label = timelineItemLabel(item, lang);
+        option.textContent = label;
+        option.setAttribute('aria-label', label);
+        if (announce) live.textContent = label;
+        if (hasKeyboardFocus && !hoverKey) showTooltip(item);
+        draw();
+      }
+
+      function moveActive(direction) {
+        if (!layout || !layout.items.length) return;
+        const current = itemByKey(activeKey) || layout.items[layout.items.length - 1];
+        const candidates = layout.items.filter(item => {
+          if (item.key === current.key) return false;
+          if (direction === 'left') return item.x < current.x - 0.5;
+          if (direction === 'right') return item.x > current.x + 0.5;
+          if (direction === 'up') return item.y < current.y - 0.5;
+          return item.y > current.y + 0.5;
+        });
+        if (!candidates.length) return;
+        const horizontal = direction === 'left' || direction === 'right';
+        candidates.sort((a, b) => {
+          const aPrimary = horizontal ? Math.abs(a.x - current.x) : Math.abs(a.y - current.y);
+          const bPrimary = horizontal ? Math.abs(b.x - current.x) : Math.abs(b.y - current.y);
+          const aCross = horizontal ? Math.abs(a.y - current.y) : Math.abs(a.x - current.x);
+          const bCross = horizontal ? Math.abs(b.y - current.y) : Math.abs(b.x - current.x);
+          return (aPrimary + aCross * 0.28) - (bPrimary + bCross * 0.28);
+        });
+        setActive(candidates[0], true);
+      }
+
+      function activate(item) {
+        if (!item) return;
+        openScopedProject(item.key, item.title);
+      }
+
+      function relayout() {
+        const rect = canvas.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        layout = packTimelineItems(model.items, rect.width, rect.height, model.minYear, model.maxYear);
+        buildHitGrid();
+        if (activeKey && !itemByKey(activeKey)) activeKey = null;
+        draw();
+      }
+
+      function scheduleRelayout() {
+        if (frame != null) cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(() => {
+          frame = null;
+          relayout();
+        });
+      }
+
+      canvas.addEventListener('pointermove', (e) => {
+        if (!layout) return;
+        const rect = canvas.getBoundingClientRect();
+        const item = hitTest(e.clientX - rect.left, e.clientY - rect.top);
+        const nextKey = item ? item.key : null;
+        if (hoverKey === nextKey) return;
+        hoverKey = nextKey;
+        canvas.classList.toggle('is-over-project', !!item);
+        if (item) showTooltip(item);
+        else if (hasKeyboardFocus) showTooltip(itemByKey(activeKey));
+        else showTooltip(null);
+        draw();
+      });
+      canvas.addEventListener('pointerleave', () => {
+        hoverKey = null;
+        canvas.classList.remove('is-over-project');
+        if (hasKeyboardFocus) showTooltip(itemByKey(activeKey));
+        else showTooltip(null);
+        draw();
+      });
+      canvas.addEventListener('click', (e) => {
+        if (!layout) return;
+        const rect = canvas.getBoundingClientRect();
+        activate(hitTest(e.clientX - rect.left, e.clientY - rect.top));
+      });
+      plot.addEventListener('focus', () => {
+        hasKeyboardFocus = true;
+        if (!activeKey && layout && layout.items.length) {
+          setActive(layout.items[layout.items.length - 1], false);
+        } else {
+          showTooltip(itemByKey(activeKey));
+          draw();
+        }
+      });
+      plot.addEventListener('blur', () => {
+        hasKeyboardFocus = false;
+        if (!hoverKey) showTooltip(null);
+        draw();
+      });
+      plot.addEventListener('keydown', (e) => {
+        const keyMap = {
+          ArrowLeft: 'left',
+          ArrowRight: 'right',
+          ArrowUp: 'up',
+          ArrowDown: 'down',
+        };
+        if (keyMap[e.key]) {
+          e.preventDefault();
+          moveActive(keyMap[e.key]);
+          return;
+        }
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activate(itemByKey(activeKey));
+        }
+      });
+
+      resizeObserver = new ResizeObserver(scheduleRelayout);
+      resizeObserver.observe(canvas);
+      scheduleRelayout();
+
+      return () => {
+        if (frame != null) cancelAnimationFrame(frame);
+        if (resizeObserver) resizeObserver.disconnect();
+      };
+    }
+
     function render() {
+      if (timelineCleanup) {
+        timelineCleanup();
+        timelineCleanup = null;
+      }
       const lang = state.lang;
       const a = GLOBAL_ANALYTICS;
       if (!a) {
@@ -2365,10 +2886,11 @@
         return;
       }
 
-      root.setAttribute('aria-label', t('insights.open.hint', lang));
-      root.classList.toggle('insights-mobile', isMobile());
-
       if (isMobile()) {
+        root.className = 'insights insights-openable insights-mobile';
+        root.tabIndex = 0;
+        root.setAttribute('role', 'button');
+        root.setAttribute('aria-label', t('insights.open.hint', lang));
         root.replaceChildren(
           el('div', { class: 'insights-mobile-summary' }, [
             el('span', { class: 'insights-mobile-amount mono', text: formatCompact(a.totalAmount, lang) }),
@@ -2388,55 +2910,75 @@
         return;
       }
 
-      const yearVals = a.yearSeries.map(x => x.amount);
-      const yearTooltips = a.yearSeries.map(x =>
-        `${x.year} · ${formatCompact(x.amount, lang)} · ${x.count.toLocaleString()} ${t('metric.count', lang)}`);
+      root.className = 'insights project-timeline-insights';
+      root.removeAttribute('role');
+      root.removeAttribute('aria-label');
+      root.removeAttribute('tabindex');
+      const model = timelineModel();
+      const summary = t('timeline.projects.summary', lang, { n: model.items.length.toLocaleString() });
+      const head = el('header', { class: 'project-timeline-head' }, [
+        el('div', { class: 'project-timeline-heading' }, [
+          el('span', { class: 'kicker', text: t('timeline.projects.title', lang) }),
+          el('span', { class: 'project-timeline-summary mono', text: summary }),
+        ]),
+        el('div', { class: 'project-timeline-legend mono' }, [
+          el('span', { class: 'project-timeline-legend-dots', 'aria-hidden': 'true' }, [
+            el('span', { class: 'project-timeline-legend-dot is-small' }),
+            el('span', { class: 'project-timeline-legend-dot is-large' }),
+          ]),
+          el('span', { text: t('timeline.projects.legend', lang) }),
+          el('span', { class: 'sep', text: '·' }),
+          el('span', { text: t('timeline.projects.placement', lang) }),
+        ]),
+      ]);
 
-      const histVals = a.sizeHistogram;
-      const histTooltips = histVals.map((v, i) =>
-        `${bandLabel(SIZE_BUCKETS[i], SIZE_BUCKETS[i + 1])} · ${v.toLocaleString()} ${t('metric.count', lang)}`);
+      if (!model.items.length) {
+        root.replaceChildren(
+          head,
+          el('div', { class: 'project-timeline-empty' }, [
+            fa('fa-regular fa-circle', 'icon-left'),
+            el('span', { text: t('timeline.projects.empty', lang) }),
+          ]),
+        );
+        return;
+      }
 
+      const canvas = el('canvas', {
+        class: 'project-timeline-canvas',
+        'aria-hidden': 'true',
+      });
+      const tooltip = el('div', {
+        class: 'project-timeline-tooltip',
+        role: 'tooltip',
+        hidden: true,
+      });
+      const optionId = 'project-timeline-active-option';
+      const option = el('div', {
+        class: 'sr-only',
+        id: optionId,
+        role: 'option',
+        'aria-selected': 'true',
+      });
+      const live = el('div', {
+        class: 'sr-only',
+        'aria-live': 'polite',
+        'aria-atomic': 'true',
+      });
+      const plot = el('div', {
+        class: 'project-timeline-plot',
+        role: 'listbox',
+        tabindex: '0',
+        'aria-activedescendant': optionId,
+        'aria-label': t('timeline.projects.keyboard', lang, { n: model.items.length.toLocaleString() }),
+      }, [canvas, tooltip, option, live]);
       root.replaceChildren(
-        el('div', { class: 'insights-open-hint kicker', text: `${t('insights.open.kicker', lang)} · ${t('insights.open.hint', lang)}` }),
-        el('div', { class: 'metric' }, [
-          el('span', { class: 'label', text: t('metric.total', lang) }),
-          el('span', { class: 'value', text: formatAmount(a.totalAmount, 'EUR', lang) }),
-          el('span', { class: 'sub', text: `${a.rowCount.toLocaleString()} ${t('status.rows', lang)}` }),
-        ]),
-        el('div', { class: 'metric' }, [
-          el('span', { class: 'label', text: t('metric.decisions', lang) }),
-          el('span', { class: 'value', text: a.rowCount.toLocaleString() }),
-          el('span', { class: 'sub', text: `${a.awardedCount.toLocaleString()} ${t('metric.count', lang)}` }),
-        ]),
-        el('div', { class: 'metric' }, [
-          el('span', { class: 'label', text: t('metric.median', lang) }),
-          el('span', { class: 'value', text: formatAmount(a.medianAmount, 'EUR', lang) }),
-          el('span', { class: 'sub', text: `${t('metric.p90', lang)}: ${formatAmount(a.p90Amount, 'EUR', lang)}` }),
-        ]),
-        el('div', { class: 'metric' }, [
-          el('span', { class: 'label', text: t('metric.top10ProdShare', lang) }),
-          el('span', { class: 'value', text: formatPercent(a.concentration.top10, lang, 1) }),
-          el('span', { class: 'sub', text: t('metric.producers.sub', lang, { n: (a.uniqueProducers || 0).toLocaleString() }) }),
-        ]),
-        el('div', { class: 'metric chart' }, [
-          el('span', { class: 'label', text: t('metric.yearTrend', lang) }),
-          barsChart(yearVals, yearTooltips),
-          el('div', { class: 'bars-labels' }, [
-            el('span', { text: a.yearSeries.length ? String(a.yearSeries[0].year) : '' }),
-            el('span', { text: a.yearSeries.length ? String(a.yearSeries[a.yearSeries.length - 1].year) : '' }),
-          ]),
-        ]),
-        el('div', { class: 'metric chart' }, [
-          el('span', { class: 'label', text: t('metric.distrib', lang) }),
-          barsChart(histVals, histTooltips),
-          el('div', { class: 'bars-labels' }, [
-            el('span', { text: '€0' }),
-            el('span', { text: '€1M+' }),
-          ]),
-        ]),
+        head,
+        plot,
+        el('p', { class: 'project-timeline-hint mono', text: t('timeline.projects.hint', lang) }),
       );
+      timelineCleanup = mountTimelineCanvas(plot, canvas, tooltip, option, live, model, lang);
     }
-    on(['lang', 'mobile'], render);
+    on(['filters', 'scopes', 'lang', 'theme', 'mobile'], render);
     render();
   }
 
@@ -3254,6 +3796,14 @@
 
     function close() { setShowAnalytics(false); }
 
+    function overviewStat(label, value, sub) {
+      return el('article', { class: 'analytics-overview-stat' }, [
+        el('span', { class: 'label', text: label }),
+        el('span', { class: 'value', text: value }),
+        sub ? el('span', { class: 'sub', text: sub }) : null,
+      ]);
+    }
+
     function kpiCard(spec, lang) {
       const isOpen = state.expandedAnalyticsKpi === spec.key;
       const onActivate = () => setExpandedAnalyticsKpi(spec.key);
@@ -3442,6 +3992,17 @@
             ]),
           ]),
           el('div', { class: 'modal-body analytics-body' }, [
+            el('section', { class: 'analytics-overview-block' }, [
+              el('div', { class: 'analytics-section-title kicker', text: t('analytics.overview', lang) }),
+              el('div', { class: 'analytics-overview' }, [
+                overviewStat(t('metric.total', lang), formatAmount(a.totalAmount, 'EUR', lang)),
+                overviewStat(t('analytics.projects', lang), a.projectCount.toLocaleString()),
+                overviewStat(t('metric.decisions', lang), a.rowCount.toLocaleString()),
+                overviewStat(t('analytics.calls', lang), DATA.counts.docs_results_tables.toLocaleString()),
+                overviewStat(t('metric.median', lang), formatAmount(a.medianAmount, 'EUR', lang)),
+                overviewStat(t('analytics.unfunded', lang), DATA.counts.unfunded_mention_count.toLocaleString()),
+              ]),
+            ]),
             el('section', { class: 'analytics-kpis' }, buildKpiSpecs(a, lang).map((spec) => kpiCard(spec, lang))),
             el('section', { class: 'analytics-grid' }, [
               el('article', { class: 'analytics-card analytics-card-year' }, [
