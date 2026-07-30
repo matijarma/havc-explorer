@@ -1401,6 +1401,9 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   letter-spacing: 0.06em;
   color: var(--muted);
 }
+.mode-toggle.mobile-filter-toggle {
+  display: none;
+}
 
 .helper-tip-wrap {
   position: relative;
@@ -1549,61 +1552,25 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
 
 @media (max-width: 900px) {
   .workspace { grid-template-columns: 1fr; }
-  .mobile-filter-toggle {
-    display: inline-flex;
-  }
+  .mode-toggle.mobile-filter-toggle { display: none; }
   .filter-drawer-backdrop {
-    display: block;
-    position: fixed;
-    inset: 0;
-    z-index: 45;
-    background: color-mix(in oklab, var(--ink) 72%, transparent);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 140ms ease;
+    display: none !important;
   }
   .filter-rail {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 50;
-    width: min(86vw, 360px);
-    max-width: 360px;
-    border-right: 1px solid var(--rule);
-    border-bottom: none;
-    background: var(--ink);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.34);
-    padding: 14px 14px 24px;
-    max-height: none;
-    pointer-events: none;
-    transform: translateX(calc(-100% - 12px));
-    transition: transform 160ms ease;
-  }
-  .rail-mobile-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding-bottom: 10px;
-    margin-bottom: 4px;
+    position: static;
+    width: auto;
+    max-width: none;
+    border-right: none;
     border-bottom: 1px solid var(--rule);
-    position: sticky;
-    top: 0;
     background: var(--ink);
-    z-index: 1;
-  }
-  .rail-mobile-close {
-    padding: 5px 8px;
-  }
-  body.mobile-filters-open .filter-drawer-backdrop {
-    opacity: 1;
+    box-shadow: none;
+    padding: 12px 14px 16px;
+    max-height: none;
     pointer-events: auto;
+    transform: none;
+    transition: none;
   }
-  body.mobile-filters-open .filter-rail {
-    pointer-events: auto;
-    transform: translateX(0);
-  }
+  .rail-mobile-head { display: none; }
   .row { grid-template-columns: 40px 1.5fr 1fr 60px 90px; padding: 0 14px; }
   .group { grid-template-columns: 40px 1.5fr 80px 80px 70px 70px; padding: 0 14px; }
   .list-header { padding: 0 14px; }
