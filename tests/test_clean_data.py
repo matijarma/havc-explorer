@@ -144,6 +144,49 @@ def test_machine_recovers_shifted_project_and_applicant_columns():
     assert "ocr_letter_spacing" in clean_data.review_reasons(repaired)
 
 
+def test_primary_source_corrections_replace_documents_and_patch_rows():
+    replacement_sha = "f" * 64
+    patch_sha = "1" * 64
+    records = [
+        result_record([row("", 2400)], sha=replacement_sha),
+        result_record([row("Verified project", None, row_number=8)], sha=patch_sha),
+    ]
+    corrections = {
+        "documents": {
+            replacement_sha: {
+                "evidence": "Original PDF.",
+                "replace_sections": [
+                    {
+                        "section_label": "verified",
+                        "rows": [row("Recovered project", 5000, row_number=1)],
+                    }
+                ],
+                "totals": {"ukupno": 5000},
+            },
+            patch_sha: {
+                "row_patches": [
+                    {
+                        "section_index": 0,
+                        "row_number": 8,
+                        "fields": {
+                            "approved_amount": 1000,
+                            "approved_amount_text": "1.000,00",
+                        },
+                    }
+                ]
+            },
+        }
+    }
+
+    cleaned, audit = clean_data.deterministic_cleanup(records, {}, corrections)
+
+    assert cleaned[0]["sections"][0]["rows"][0]["project_title"] == "Recovered project"
+    assert cleaned[0]["totals"]["ukupno"] == 5000
+    assert cleaned[1]["sections"][0]["rows"][0]["approved_amount"] == 1000
+    assert audit["counts"]["source_documents_reconciled"] == 1
+    assert audit["counts"]["source_rows_reconciled"] == 1
+
+
 def test_structural_review_reasons_do_not_reject_numbered_editions():
     edition = row("17. Zagreb Film Festival", 1000)
     flattened = row("1. - Applicant - Project title - 10.000,00", 10000)
@@ -361,6 +404,56 @@ def test_explicit_withdrawal_is_treated_as_nonaward_evidence():
     assert not clean_data.evidence_indicates_explicit_nonaward(
         "Projekt je dobio ugovor o sufinanciranju."
     )
+
+
+def test_high_confidence_keep_award_repairs_missing_amount():
+    record = result_record(
+        [
+            row(
+                "1970",
+                None,
+                applicant="PomPom Film d.o.o.",
+                approved_amount_text="65.000,00 €",
+            )
+        ]
+    )
+    cleaned, audit = clean_data.deterministic_cleanup([record], {})
+    target = cleaned[0]["sections"][0]["rows"][0]
+    cache = {
+        "row_reviews": {
+            "a" * 64: {
+                "batches": {
+                    "review": {
+                        "candidate_reasons": {
+                            target["row_id"]: ["missing_amount"]
+                        },
+                        "decision": {
+                            "doc_sha": "a" * 64,
+                            "decisions": [
+                                {
+                                    "row_id": target["row_id"],
+                                    "action": "keep_award",
+                                    "canonical_title": "1970",
+                                    "applicant": "PomPom Film d.o.o.",
+                                    "production_company": "PomPom Film d.o.o.",
+                                    "approved_amount": 65000,
+                                    "currency": "EUR",
+                                    "merge_row_ids": [],
+                                    "confidence": "high",
+                                    "evidence": "Official award row.",
+                                }
+                            ],
+                        },
+                    }
+                }
+            }
+        }
+    }
+
+    clean_data.apply_row_reviews(cleaned, cache, audit)
+
+    assert target["approved_amount"] == 65000
+    assert target["funding_status"] == "awarded"
 
 
 def test_family_review_groups_editions_but_not_distinct_festival():

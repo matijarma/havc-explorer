@@ -33,6 +33,7 @@ HERE = Path(__file__).resolve().parent
 DATA_PATH = HERE / "data.json"
 CACHE_PATH = HERE / "data-curation-decisions.json"
 AUDIT_PATH = HERE / "data-curation-audit.json"
+SOURCE_CORRECTIONS_PATH = HERE / "source-corrections.json"
 LEGACY_RESULTS_PATH = HERE.parent.parent / "dataset" / "_parity_results"
 CLAUDE_SESSIONS_PATH = (
     Path.home() / ".claude" / "projects" / "D--scratch-havc-dash"
@@ -456,6 +457,69 @@ def mark_change(
     return True
 
 
+def apply_source_corrections(
+    record: dict[str, Any],
+    source_sha: str,
+    corrections: dict[str, Any],
+    audit: dict[str, Any],
+) -> None:
+    correction = (corrections.get("documents") or {}).get(source_sha)
+    if not isinstance(correction, dict):
+        return
+
+    evidence = correction.get("evidence") or "Verified against the original source PDF."
+    replacement = correction.get("replace_sections")
+    if isinstance(replacement, list):
+        record["sections"] = copy.deepcopy(replacement)
+        if isinstance(correction.get("totals"), dict):
+            record["totals"] = copy.deepcopy(correction["totals"])
+        audit["counts"]["source_documents_reconciled"] += 1
+        for section in record["sections"]:
+            for row in section.get("rows") or []:
+                row.setdefault("curation", {}).update(
+                    {
+                        "method": "source-pdf-reconciliation",
+                        "confidence": "high",
+                        "evidence": evidence,
+                    }
+                )
+
+    for patch in correction.get("row_patches") or []:
+        section_index = patch.get("section_index")
+        row_number = patch.get("row_number")
+        fields = patch.get("fields")
+        if not isinstance(section_index, int) or not isinstance(fields, dict):
+            continue
+        sections = record.get("sections") or []
+        if not (0 <= section_index < len(sections)):
+            continue
+        for row in sections[section_index].get("rows") or []:
+            if row.get("row_number") != row_number:
+                continue
+            expected_title = patch.get("project_title")
+            if expected_title and norm_text(row.get("project_title")) != norm_text(expected_title):
+                continue
+            changed = False
+            for field, value in fields.items():
+                changed |= mark_change(
+                    row,
+                    field,
+                    value,
+                    "source_pdf_reconciliation",
+                    method="source-pdf-reconciliation",
+                )
+            row.setdefault("curation", {}).update(
+                {
+                    "method": "source-pdf-reconciliation",
+                    "confidence": "high",
+                    "evidence": patch.get("evidence") or evidence,
+                }
+            )
+            if changed:
+                audit["counts"]["source_rows_reconciled"] += 1
+            break
+
+
 def prompt_extras(extras: Any) -> dict[str, Any]:
     if not isinstance(extras, dict):
         return {}
@@ -582,6 +646,7 @@ def recover_machine_fields(
 def deterministic_cleanup(
     source_records: list[dict[str, Any]],
     legacy_results: dict[str, dict[str, Any]],
+    source_corrections: dict[str, Any] | None = None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     records = copy.deepcopy(source_records)
     audit: dict[str, Any] = {
@@ -596,6 +661,12 @@ def deterministic_cleanup(
         if record.get("doc_type") != "results_table":
             continue
         sha = record_sha(record, record_index)
+        apply_source_corrections(
+            record,
+            sha,
+            source_corrections or {},
+            audit,
+        )
         legacy = legacy_results.get(sha)
         existing_record_curation = record.get("curation") or {}
         already_curated = existing_record_curation.get("version") == CURATION_VERSION
@@ -882,7 +953,10 @@ def row_review_prompt(
         "addresses, or extraction debris. Use not_awarded only when the source explicitly "
         "shows rejection, withdrawal, cancellation, or another explicit non-award. Use "
         "keep_award only when no field needs correction; OCR or column repairs require "
-        "repair_award. Use unresolved when evidence is insufficient. "
+        "repair_award. Applicant or production-company data may legitimately be unavailable; "
+        "a project title paired with a positive amount in an official approved-project table "
+        "is sufficient award evidence. Use unresolved when title or award evidence is "
+        "insufficient, not merely because an applicant is missing. "
         "If fragments are merged, select one target row_id and list all superseded row IDs in "
         "merge_row_ids. Currency and amount must be source currency, not converted EUR. "
         "Return only schema-compliant JSON.\n\n"
@@ -1182,6 +1256,12 @@ def review_rows_with_haiku(
         sha = record_sha(record, record_index)
         for start in range(0, len(rows), max(1, batch_size)):
             row_batch = rows[start : start + max(1, batch_size)]
+            if retry_failed:
+                row_batch = [
+                    row for row in row_batch if row.get("funding_status") == "unresolved"
+                ]
+                if not row_batch:
+                    continue
             prompt = row_review_prompt(
                 record_index,
                 record,
@@ -1194,7 +1274,7 @@ def review_rows_with_haiku(
                 (cached.get("batches") or {}).get(prompt_hash) if cached else None
             )
             if cached_batch and not (
-                retry_failed and cached_batch.get("status") == "failed"
+                retry_failed and cached_batch.get("status") in {"failed", "partial"}
             ):
                 continue
             candidate_reasons = {
@@ -1314,14 +1394,20 @@ def title_supported_by_raw(title: str, raw_text: str) -> bool:
 def decision_is_applicable(
     decision: dict[str, Any],
     record: dict[str, Any],
+    row: dict[str, Any] | None = None,
 ) -> bool:
     confidence = decision.get("confidence")
     if confidence == "high":
         return True
-    if confidence != "medium" or decision.get("action") != "repair_award":
+    if confidence != "medium" or decision.get("action") not in {
+        "keep_award",
+        "repair_award",
+    }:
         return False
-    title = decision.get("canonical_title")
+    title = decision.get("canonical_title") or (row or {}).get("project_title")
     amount = decision.get("approved_amount")
+    if not isinstance(amount, (int, float)):
+        amount = row_amount(row or {})
     raw_text = str(record.get("raw_text") or "")
     return (
         isinstance(title, str)
@@ -1436,7 +1522,7 @@ def apply_row_reviews(
                     }
                 )
                 continue
-            if not decision_is_applicable(decision, record):
+            if not decision_is_applicable(decision, record, row):
                 row["funding_status"] = "unresolved"
                 continue
             action = decision.get("action")
@@ -1454,6 +1540,13 @@ def apply_row_reviews(
                     "reviewed_reasons": sorted(reviewed_reasons.get(row_id, set())),
                 }
             )
+            if action == "keep_award" and (
+                not str(row.get("project_title") or "").strip()
+                or row_amount(row) is None
+                or row_amount(row) <= 0
+                or not row.get("currency")
+            ):
+                action = "repair_award"
             if action == "artifact":
                 removed_ids.add(row_id)
                 audit["counts"]["haiku_artifacts"] = (
@@ -1706,6 +1799,7 @@ def review_families_with_haiku(
     cache_path: Path,
     batch_size: int = 20,
     retry_failed: bool = False,
+    jobs: int = 1,
 ) -> int:
     candidates = family_candidates(records)
     pending = []
@@ -1724,47 +1818,56 @@ def review_families_with_haiku(
             )
         )
     completed = 0
-    for prompt_hash, prompt, candidate_ids in pending:
-        decision, meta = run_claude_structured(prompt, FAMILY_REVIEW_SCHEMA)
-        returned_ids = [
-            item.get("candidate_id")
-            for item in (decision or {}).get("groups") or []
-            if isinstance(item.get("candidate_id"), str)
-        ]
-        if decision and (
-            len(returned_ids) != len(set(returned_ids))
-            or set(returned_ids) != set(candidate_ids)
-        ):
-            decision = None
-            meta = {
-                "error": "structured decision did not cover exactly the candidate families",
-                "expected_groups": len(candidate_ids),
-                "returned_groups": len(set(returned_ids)),
-            }
-        cache["calls"].append(
-            {
-                "kind": "family_review",
-                "prompt_hash": prompt_hash,
-                "at": utc_now(),
-                **meta,
-            }
-        )
-        if decision:
-            cache["family_reviews"][prompt_hash] = {
-                "status": "ok",
-                "decision": decision,
-                "reviewed_at": utc_now(),
-            }
-        else:
-            cache["family_reviews"][prompt_hash] = {
-                "status": "failed",
-                "candidate_ids": candidate_ids,
-                "error": meta.get("error") or "unknown review failure",
-                "reviewed_at": utc_now(),
-            }
-        completed += 1
-        write_json(cache_path, cache)
-        print(f"family review {completed}/{len(pending)}", flush=True)
+    with ThreadPoolExecutor(max_workers=max(1, jobs)) as pool:
+        futures = {
+            pool.submit(run_claude_structured, prompt, FAMILY_REVIEW_SCHEMA): (
+                prompt_hash,
+                candidate_ids,
+            )
+            for prompt_hash, prompt, candidate_ids in pending
+        }
+        for future in as_completed(futures):
+            prompt_hash, candidate_ids = futures[future]
+            decision, meta = future.result()
+            returned_ids = [
+                item.get("candidate_id")
+                for item in (decision or {}).get("groups") or []
+                if isinstance(item.get("candidate_id"), str)
+            ]
+            if decision and (
+                len(returned_ids) != len(set(returned_ids))
+                or set(returned_ids) != set(candidate_ids)
+            ):
+                decision = None
+                meta = {
+                    "error": "structured decision did not cover exactly the candidate families",
+                    "expected_groups": len(candidate_ids),
+                    "returned_groups": len(set(returned_ids)),
+                }
+            cache["calls"].append(
+                {
+                    "kind": "family_review",
+                    "prompt_hash": prompt_hash,
+                    "at": utc_now(),
+                    **meta,
+                }
+            )
+            if decision:
+                cache["family_reviews"][prompt_hash] = {
+                    "status": "ok",
+                    "decision": decision,
+                    "reviewed_at": utc_now(),
+                }
+            else:
+                cache["family_reviews"][prompt_hash] = {
+                    "status": "failed",
+                    "candidate_ids": candidate_ids,
+                    "error": meta.get("error") or "unknown review failure",
+                    "reviewed_at": utc_now(),
+                }
+            completed += 1
+            write_json(cache_path, cache)
+            print(f"family review {completed}/{len(pending)}", flush=True)
     return completed
 
 
@@ -2074,6 +2177,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--data", type=Path, default=DATA_PATH)
     parser.add_argument("--cache", type=Path, default=CACHE_PATH)
     parser.add_argument("--audit", type=Path, default=AUDIT_PATH)
+    parser.add_argument(
+        "--source-corrections",
+        type=Path,
+        default=SOURCE_CORRECTIONS_PATH,
+        help="Versioned primary-source corrections for known extraction defects.",
+    )
     parser.add_argument("--legacy-results", type=Path, default=LEGACY_RESULTS_PATH)
     parser.add_argument(
         "--claude-sessions",
@@ -2126,13 +2235,18 @@ def main() -> int:
         print("data.json must be an array of extraction records", file=sys.stderr)
         return 2
     legacy_results = load_legacy_results(args.legacy_results)
+    source_corrections = load_json(args.source_corrections, {})
     cache = load_cache(args.cache)
     if args.recover_sessions:
         recovered = recover_row_reviews_from_sessions(cache, args.claude_sessions)
         write_json(args.cache, cache)
         print(f"recovered {recovered} row-review batches from Claude sessions")
 
-    records, audit = deterministic_cleanup(source_records, legacy_results)
+    records, audit = deterministic_cleanup(
+        source_records,
+        legacy_results,
+        source_corrections,
+    )
     apply_row_reviews(records, cache, audit)
 
     if args.review:
@@ -2146,7 +2260,11 @@ def main() -> int:
                 retry_failed=args.retry_failed,
                 batch_size=args.row_batch_size,
             )
-        records, audit = deterministic_cleanup(source_records, legacy_results)
+        records, audit = deterministic_cleanup(
+            source_records,
+            legacy_results,
+            source_corrections,
+        )
         apply_row_reviews(records, cache, audit)
         if not args.skip_family_review:
             review_families_with_haiku(
@@ -2154,6 +2272,7 @@ def main() -> int:
                 cache,
                 cache_path=args.cache,
                 retry_failed=args.retry_failed,
+                jobs=args.jobs,
             )
 
     family_meta = assign_families(records, cache)
