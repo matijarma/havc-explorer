@@ -273,6 +273,7 @@
     },
     'helper.tip.open_store': { en: 'Open in Chrome Web Store', hr: 'Otvori u Chrome Web Storeu' },
     'helper.tip.store_aria': { en: 'Open HAVC Companion in Chrome Web Store', hr: 'Otvori HAVC asistent u Chrome Web Storeu' },
+    'repo.open_aria': { en: 'Open GitHub repository', hr: 'Otvori GitHub repozitorij' },
     'boot.loading_registry': { en: 'loading registry…', hr: 'učitavanje registra…' },
     'boot.load_data_error': { en: 'failed to load data.json — see console', hr: 'učitavanje data.json nije uspjelo — pogledaj konzolu' },
 
@@ -324,6 +325,7 @@
   const UNATTRIBUTED_KEY = '__unattributed__';
   const SIZE_BUCKETS = [0, 1000, 5000, 20000, 50000, 100000, 250000, 500000, 1000000, Infinity];
   const HAVC_HELPER_STORE_URL = 'https://chromewebstore.google.com/detail/havc-companion-%E2%80%94-javni-po/jjfmjbmebnljefefcgfdjljenilgmfpg';
+  const HAVC_REPO_URL = 'https://github.com/matijarma/havc-explorer';
 
   // ═══ 2. Data loader + indexers ══════════════════════════════════════
   let DATA = null;
@@ -1827,6 +1829,16 @@
             }),
           ]) : el('div', { class: 'search-spacer' }),
           el('div', { class: 'toolbar' }, [
+            el('a', {
+              class: 'mode-toggle repo-link-btn',
+              href: HAVC_REPO_URL,
+              target: '_blank',
+              rel: 'noopener noreferrer',
+              title: t('repo.open_aria', lang),
+              'aria-label': t('repo.open_aria', lang),
+            }, [
+              fa('fa-brands fa-github'),
+            ]),
             el('div', { class: 'helper-tip-wrap' }, [
               el('button', {
                 class: 'mode-toggle helper-tip-btn',
