@@ -457,6 +457,25 @@ def mark_change(
     return True
 
 
+def dedupe_curation_changes(row: dict[str, Any]) -> None:
+    curation = row.get("curation")
+    if not isinstance(curation, dict):
+        return
+    changes = curation.get("changes")
+    if not isinstance(changes, list):
+        return
+    unique = []
+    seen = set()
+    for change in changes:
+        fingerprint = canonical_json(change)
+        if fingerprint in seen:
+            continue
+        seen.add(fingerprint)
+        unique.append(change)
+    if len(unique) != len(changes):
+        curation["changes"] = unique
+
+
 def apply_source_corrections(
     record: dict[str, Any],
     source_sha: str,
@@ -683,6 +702,7 @@ def deterministic_cleanup(
                 occurrence = id_occurrences[original_signature]
                 id_occurrences[original_signature] += 1
                 row["row_id"] = stable_row_id(sha, section_index, row, occurrence)
+                dedupe_curation_changes(row)
 
                 extras = row.get("extras") or {}
                 flag = extras.get("flag")
@@ -705,7 +725,8 @@ def deterministic_cleanup(
                     audit["counts"]["removed_artifact"] += 1
                     continue
 
-                recover_machine_fields(row, section, audit)
+                if not already_curated:
+                    recover_machine_fields(row, section, audit)
                 cleaned_title = clean_bullet_prefix(row.get("project_title"))
                 if cleaned_title != row.get("project_title"):
                     if mark_change(
