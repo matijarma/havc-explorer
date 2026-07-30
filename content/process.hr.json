@@ -3,7 +3,7 @@
     "kicker": "Proces",
     "headline": "Kako su neuredni PDF-ovi postali upotrebljiv javni registar",
     "subhead": {
-      "text": "Ova stranica prvo objasnjava proces jednostavnim jezikom, a zatim pokazuje tehnicki dokaz: skripte, izvjestaje, promptove i iteracijske tocke.",
+      "text": "Ova stranica najprije objašnjava proces jednostavnim jezikom, a zatim prikazuje tehnički dokaz: skripte, izvještaje, promptove i točke iteracije.",
       "sources": [
         {
           "label": "dash/content/process.hr.json",
@@ -116,12 +116,12 @@
           "klasifikator → usmjerava svaki PDF",
           "ekstraktori: tablice / obrazloženja / OCR",
           "amount_parser.py · normalizira decimale i valute",
-          "Claude + Codex audit i repair petlje"
+          "Claude + Codex audit i petlje popravaka"
         ],
         "output": "dataset/master.json · 14 MB · 989 zapisa · 10.388 redaka · obrazloženja, ljudi, identitet projekta"
       },
       "what": {
-        "text": "Era 3 podijelila je posao na dva sloja: deterministicko usmjeravanje i LLM ekstrakcijsko/popravne prolaze. Svaki prolaz ostavlja audit artefakt, pa su popravci eksplicitni.",
+        "text": "Era 3 podijelila je posao na dva sloja: determinističko usmjeravanje i LLM prolaze za ekstrakciju i popravke. Svaki prolaz ostavlja audit artefakt, pa su promjene eksplicitne.",
         "sources": [
           {
             "label": "havc_pipeline/classify.py",
@@ -142,7 +142,7 @@
       },
       "why_good": [
         {
-          "text": "Provjerljiv lanac: PDF -> ekstrakcija -> izvjestaj popravka -> azurirani zapis.",
+          "text": "Provjerljiv lanac: PDF -> ekstrakcija -> izvještaj popravka -> ažurirani zapis.",
           "sources": [
             {
               "label": "dataset/report.md",
@@ -167,7 +167,7 @@
           ]
         },
         {
-          "text": "Greske su vidljive, ne tihe. Svaki rizicni prolaz ostavio je strojno citljiv trag.",
+          "text": "Greške su vidljive, ne tihe. Svaki rizični prolaz ostavio je strojno čitljiv trag.",
           "sources": [
             {
               "label": "dataset/_bogus_rows_drop_report.md",
@@ -188,7 +188,7 @@
         },
         "Sloj keširanja čini pipeline nastavljivim. Ponovne ekstrakcije su besplatne.",
         "Hvata ono što je Era 2 ispustila: obrazloženja žirija, ljude, identitet projekta kroz rokove, ukupno po sjednici.",
-        "Brojevi se preispituju. Samo pass amount-repair pregledao je 116 sumnjivih redaka, od kojih je 37 potvrdio ili popravio."
+        "Brojevi se preispituju. Samo prolaz amount-repair pregledao je 116 sumnjivih redaka, od kojih je 37 potvrdio ili popravio."
       ],
       "why_limited": [
         {
@@ -207,7 +207,7 @@
           ]
         },
         {
-          "text": "Staticni tekst brzo zastarijeva ako kljucni brojevi nisu racunani iz live skupa.",
+          "text": "Statični tekst brzo zastarijeva ako ključni brojevi nisu izračunani iz živog skupa podataka.",
           "sources": [
             {
               "label": "dash/havc/data.json",
@@ -270,9 +270,9 @@
       ],
       "deep_dive": {
         "kicker": "Era 3 - detaljno",
-        "headline": "Od namjere do skupa podataka, kroz tocke iteracije",
+        "headline": "Od namjere do skupa podataka kroz točke iteracije",
         "subhead": {
-          "text": "Ovaj dio prikazuje operativnu istinu kronoloski: sto je puklo, sto je promijenjeno i koji je dokaz ostao nakon svakog prolaza.",
+          "text": "Ovaj dio kronološki prikazuje operativnu stvarnost: što je puklo, što je promijenjeno i koji je dokaz ostao nakon svakog prolaza.",
           "sources": [
             {
               "label": ".codex/history.jsonl",
@@ -310,7 +310,7 @@
               "w": 170,
               "h": 56,
               "kind": "algo",
-              "label": "Pass 0 · klasifikator"
+              "label": "Prolaz 0 · klasifikator"
             },
             {
               "id": "extract_t",
@@ -319,7 +319,7 @@
               "w": 220,
               "h": 56,
               "kind": "llm",
-              "label": "Pass 1 · ekstrakcija tablica"
+              "label": "Prolaz 1 · ekstrakcija tablica"
             },
             {
               "id": "extract_n",
@@ -328,7 +328,7 @@
               "w": 220,
               "h": 56,
               "kind": "llm",
-              "label": "Pass 2 · obrazloženja + odluke"
+              "label": "Prolaz 2 · obrazloženja + odluke"
             },
             {
               "id": "store",
@@ -355,7 +355,7 @@
               "w": 232,
               "h": 48,
               "kind": "llm",
-              "label": "Pass 3 · backfill izgubljenih tablica"
+              "label": "Prolaz 3 · povratno hvatanje propuštenih tablica"
             },
             {
               "id": "pass4",
@@ -364,7 +364,7 @@
               "w": 232,
               "h": 48,
               "kind": "algo",
-              "label": "Pass 4 · izbacivanje lažnih redaka"
+              "label": "Prolaz 4 · izbacivanje lažnih redaka"
             },
             {
               "id": "pass5",
@@ -373,7 +373,7 @@
               "w": 232,
               "h": 48,
               "kind": "hybrid",
-              "label": "Pass 5 · trijaža + popravak iznosa"
+              "label": "Prolaz 5 · trijaža + popravak iznosa"
             },
             {
               "id": "pass6",
@@ -382,7 +382,7 @@
               "w": 232,
               "h": 48,
               "kind": "llm",
-              "label": "Pass 6 · backfill ljudi ×418"
+              "label": "Prolaz 6 · povratna dopuna polja ljudi ×418"
             },
             {
               "id": "pass7",
@@ -391,7 +391,7 @@
               "w": 232,
               "h": 48,
               "kind": "llm",
-              "label": "Pass 7 · čišćenje polja producenta"
+              "label": "Prolaz 7 · čišćenje polja producenta"
             },
             {
               "id": "pass8",
@@ -400,7 +400,7 @@
               "w": 232,
               "h": 48,
               "kind": "hybrid",
-              "label": "Pass 8 · klasteri + kanonska imena"
+              "label": "Prolaz 8 · klasteri + kanonska imena"
             },
             {
               "id": "pass9",
@@ -409,7 +409,7 @@
               "w": 232,
               "h": 48,
               "kind": "llm",
-              "label": "Pass 9 · dedup bez URL-a (Codex audit)"
+              "label": "Prolaz 9 · dedup bez URL-a (Codex audit)"
             },
             {
               "id": "parity",
@@ -552,12 +552,12 @@
             {
               "label": "Dokumenata bez URL-a",
               "value": "18",
-              "note": "49 duplikata izbačeno · 78 obilježeno orphan"
+              "note": "49 duplikata izbačeno · 78 označeno kao bez para"
             },
             {
               "label": "Pregledanih sumnjivih iznosa",
               "value": "116",
-              "note": "37 popravljeno · 80 needs_review"
+              "note": "37 popravljeno · 80 označeno za ručnu provjeru (`needs_review`)"
             },
             {
               "label": "Lažnih redaka izbačeno",
@@ -576,7 +576,7 @@
             }
           ],
           "tokens_footnote": "Procjena reda veličine. 542 ekstrakcije tablica × ~8k ulaznih tokena PDF-a + ~1,5k izlaznih ≈ 5,1 M; 418 batcheva ljudi × ~7k ulaz + ~1,5k izlaz ≈ 3,6 M; 196 + 240 kandidata producenta × ~2k tokena ≈ 0,9 M; obrazloženja/odluke i Codex audit dodaju ~0,5 M. U svibanjskim JSONL sesijama nema pouzdanih `usage` blokova za točan zbroj.",
-          "as_of": "Snapshot metrike nize: stanje na 20. svibnja 2026. (report artefakti).",
+          "as_of": "Presjek metrika niže: stanje na 20. svibnja 2026. (izvještajni artefakti).",
           "sources": [
             {
               "label": "dataset/report.md",
@@ -608,36 +608,36 @@
         "passes": [
           {
             "id": "pass-classifier",
-            "ordinal": "Pass 0",
+            "ordinal": "Prolaz 0",
             "kind": "algo",
-            "title": "Document classifier",
-            "engine": "havc_pipeline/classify.py · regex over filename + first-page text",
-            "what": "Every PDF in the corpus first runs through a deterministic classifier that decides where to route it: results_table, narrative, decision, regulation, admin, or non_financing. Pure regex; no LLM. The verdict gates whether a PDF gets a paid extraction.",
-            "input": "PDF bytes — decoded filename + first-page text dump",
+            "title": "Klasifikator dokumenata",
+            "engine": "havc_pipeline/classify.py · regularni izrazi nad nazivom datoteke i tekstom prve stranice",
+            "what": "Svaki PDF u korpusu najprije prolazi kroz deterministički klasifikator koji odlučuje kamo ga usmjeriti: results_table, narrative, decision, regulation, admin ili non_financing. Samo regularni izrazi; bez LLM-a. Ta odluka određuje ide li dokument u plaćenu ekstrakciju.",
+            "input": "Bajtovi PDF-a — dekodirani naziv datoteke i izdvojeni tekst prve stranice",
             "output": "{ doc_type, confidence, signals[], page_count, text_extractable }",
             "prompt_excerpt": {
-              "caption": "havc_pipeline/classify.py — FILENAME_PATTERNS (excerpt)",
+              "caption": "havc_pipeline/classify.py — FILENAME_PATTERNS (isječak)",
               "body": "(\"narrative\", re.compile(r\"obrazloz|obrazlozenje\"), 60),\n(\"decision\",  re.compile(r\"^odluka[\\s_].*av|odluka.av.vijeca\"), 60),\n(\"regulation\", re.compile(r\"pravilnik|statut|plan.rashoda|bilanca|biljeske|obveze|zakon|nacrt|plan.nabave|program.drzavne|program.rada|godisnj.*plan|godisnj.*program\"), 50),\n(\"admin\", re.compile(r\"^cv_|natjecaj.*ravnatelj|natjecaj.*savjetnik|natjecaj.*voditelj|natjecaj.*ured|^scan_|ponuda.hpb\"), 50),\n(\"results_table\", re.compile(r\"rezultati|^rpr|^rsc|jp.distribucija|festivali|koprodukcij|^proizvodnja|^razvoj|komplementarne|media.matching|covid|medjunarodna\"), 40),\n(\"non_financing\", re.compile(r\"about.circle|talents.sarajevo|^revija.umas|^festival|^ekran|hrvatsko.drustvo|^urti|veliko.natjecanje|filmovi|^plan.regulacije\"), 35),"
             },
             "io_example": {
-              "caption": "Three real PDFs, three verdicts",
+              "caption": "Tri stvarna PDF-a, tri odluke klasifikatora",
               "expected": "rezultati MANJINSKE KOPRODUKCIJE - 4. rok 2025.pdf → results_table\nobrazlozenje_manjinske_25052016.pdf            → narrative\nPravilnik o provedbi postupka jednostavne nabave 2023.pdf → regulation",
               "received": "results_table · confidence=high · signals=[fn_results_table, content_amount, content_header]\nnarrative     · confidence=high · signals=[fn_narrative, content_narrative]\nregulation    · confidence=high · signals=[fn_regulation]"
             },
             "metrics": [
               {
-                "label": "PDFs classified",
+                "label": "Klasificiranih PDF-ova",
                 "value": "≈ 1.100"
               },
               {
-                "label": "Doc types",
+                "label": "Vrste dokumenata",
                 "value": "6",
                 "note": "results_table · narrative · decision · regulation · admin · non_financing"
               },
               {
-                "label": "LLM calls",
+                "label": "LLM pozivi",
                 "value": "0",
-                "note": "100% deterministic"
+                "note": "100 % deterministički"
               }
             ],
             "artifacts": [
@@ -653,33 +653,33 @@
           },
           {
             "id": "pass-table-extract",
-            "ordinal": "Pass 1",
+            "ordinal": "Prolaz 1",
             "kind": "llm",
-            "title": "Results-table extraction",
-            "engine": "havc_pipeline/extract_table.py · Claude vision · emit_results_table tool",
-            "what": "For every PDF classified as results_table, Claude reads it as an image and emits sections + rows via a strict tool schema. The system prompt is the longest and most prescriptive in the pipeline: ten numbered rules covering row capture, diacritics, Croatian decimal convention, HRK/EUR currency, multi-section layouts, column mapping, and how to handle the UKUPNO totals line.",
-            "input": "One PDF + classifier verdict = results_table",
+            "title": "Ekstrakcija tablica rezultata",
+            "engine": "havc_pipeline/extract_table.py · Claude Vision · alat emit_results_table",
+            "what": "Za svaki PDF klasificiran kao results_table, Claude ga čita kao sliku i emitira sekcije i retke kroz strogu shemu alata. Sustavni prompt je najduži i najpropisaniji u cijelom pipelineu: deset numeriranih pravila pokriva hvatanje redaka, dijakritiku, hrvatski decimalni zapis, valutu HRK/EUR, višesekcijske rasporede, mapiranje stupaca i obradu retka UKUPNO.",
+            "input": "Jedan PDF + odluka klasifikatora = results_table",
             "output": "{ document, sections[ { section_label, columns, rows[ { project_title, production_company, applicant, director, writer, original_author, category, approved_amount_text, approved_amount, currency, extras } ] } ], totals }",
             "prompt_excerpt": {
-              "caption": "havc_pipeline/prompts.py — RESULTS_TABLE_SYSTEM_PROMPT, rules 1–4",
-              "body": "1. CAPTURE EVERY ROW. Even if a row has missing fields, include it. Never drop a row because the layout is awkward.\n\n2. PRESERVE CROATIAN DIACRITICS exactly: ć, č, š, ž, đ, Ć, Č, Š, Ž, Đ. Never replace them with ?, c, z, etc.\n\n3. AMOUNT FORMAT. Croatian decimal convention uses `.` as thousands separator and `,` as decimal.\n   - `19.000,00`   → approved_amount=19000.0\n   - `1.234.567,89` → approved_amount=1234567.89\n   - `345,00`      → approved_amount=345.0\n\n4. CURRENCY. Croatia adopted the euro on 2023-01-01.\n   - Earlier PDFs use kn (Croatian kuna): currency=\"HRK\".\n   - Later PDFs use € (euro): currency=\"EUR\".\n   - Set both document.currency and per-row currency."
+              "caption": "havc_pipeline/prompts.py — RESULTS_TABLE_SYSTEM_PROMPT, pravila 1–4",
+              "body": "1. UHVATI SVAKI REDAK. Čak i ako redak ima prazna polja, uključi ga. Nikad ne odbaci redak zato što je raspored nezgodan.\n\n2. OČUVAJ HRVATSKU DIJAKRITIKU točno: ć, č, š, ž, đ, Ć, Č, Š, Ž, Đ. Nikad je ne zamjenjuj znakovima ?, c, z itd.\n\n3. FORMAT IZNOSA. Hrvatska decimalna konvencija koristi `.` kao razdjelnik tisućica i `,` kao decimalni znak.\n   - `19.000,00`   → approved_amount=19000.0\n   - `1.234.567,89` → approved_amount=1234567.89\n   - `345,00`      → approved_amount=345.0\n\n4. VALUTA. Hrvatska je uvela euro 2023-01-01.\n   - Stariji PDF-ovi koriste kn (hrvatska kuna): currency=\"HRK\".\n   - Noviji PDF-ovi koriste € (euro): currency=\"EUR\".\n   - Postavi i document.currency i valutu po retku."
             },
             "io_example": {
-              "caption": "rezultati komplementarne 2021.pdf — one row through the tool call",
-              "expected": "{\n  \"project_title\": \"<filmsko/AV događanje>\",\n  \"production_company\": \"<entity>\",\n  \"approved_amount_text\": \"10.000,00\",   // VERBATIM\n  \"approved_amount\": 10000.0,           // Croatian-parsed\n  \"currency\": \"HRK\"\n}",
-              "received": "{\n  \"project_title\": \"Dalmatia Film Festival\",\n  \"production_company\": \"Festival mediteranskog filma Split\",\n  \"approved_amount_text\": \"10.000,00\",\n  \"approved_amount\": 10000.0,\n  \"currency\": \"HRK\"\n}\n// → €1,327 after HRK→EUR normalisation (Pass 5 will revisit suspicious zeros in the same PDF)"
+              "caption": "rezultati komplementarne 2021.pdf — jedan redak kroz poziv alata",
+              "expected": "{\n  \"project_title\": \"<filmsko/AV događanje>\",\n  \"production_company\": \"<entity>\",\n  \"approved_amount_text\": \"10.000,00\",   // VERBATIM\n  \"approved_amount\": 10000.0,           // parsirano po hrvatskim pravilima\n  \"currency\": \"HRK\"\n}",
+              "received": "{\n  \"project_title\": \"Dalmatia Film Festival\",\n  \"production_company\": \"Festival mediteranskog filma Split\",\n  \"approved_amount_text\": \"10.000,00\",\n  \"approved_amount\": 10000.0,\n  \"currency\": \"HRK\"\n}\n// → €1,327 nakon normalizacije HRK→EUR (Prolaz 5 ponovno provjerava sumnjive nule u istom PDF-u)"
             },
             "metrics": [
               {
-                "label": "results_table records",
+                "label": "Zapisa results_table",
                 "value": "542"
               },
               {
-                "label": "diacritics preserved",
+                "label": "Očuvana dijakritika",
                 "value": "100%"
               },
               {
-                "label": "system-prompt rules",
+                "label": "Pravila u sistemskom promptu",
                 "value": "10"
               }
             ],
@@ -700,35 +700,35 @@
           },
           {
             "id": "pass-narrative",
-            "ordinal": "Pass 2",
+            "ordinal": "Prolaz 2",
             "kind": "llm",
-            "title": "Narrative + decision extraction",
-            "engine": "havc_pipeline/extract_narrative.py · emit_narrative_metadata tool",
-            "what": "Obrazloženja (jury rationale documents) and single-project odluka decisions are prose, not tables. Claude reads them and emits: which call + year + rok the document covers, which project titles are mentioned, and a 1–2 sentence Croatian summary. This is the data behind the dashboard's 'Discussed, never funded' lens.",
-            "input": "One PDF + classifier verdict = narrative | decision",
+            "title": "Ekstrakcija obrazloženja i odluka",
+            "engine": "havc_pipeline/extract_narrative.py · alat emit_narrative_metadata",
+            "what": "Obrazloženja žirija i pojedinačne odluke o projektu prozni su dokumenti, a ne tablice. Claude iz njih emitira: koji su poziv, godina i rok obuhvaćeni dokumentom, koji su naslovi projekata spomenuti te sažetak od 1–2 rečenice na hrvatskom. To je osnova za prikaz na nadzornoj ploči „Spominjani, ne financirani”.",
+            "input": "Jedan PDF + odluka klasifikatora = narrative | decision",
             "output": "{ program_type, year, rok, referenced_projects[], summary }",
             "prompt_excerpt": {
               "caption": "havc_pipeline/prompts.py — NARRATIVE_SYSTEM_PROMPT",
-              "body": "You read short text from HAVC PDFs (Croatian audiovisual centre) and extract metadata. These are either narrative justifications (obrazloženja) by artistic advisors, or decisions (odluke) about funding lists.\n\nCall `emit_narrative_metadata` exactly once with:\n- program_type: closest enum match or null if unclear\n- year:        4-digit year of the call/decision, or null\n- rok:         \"N. rok\" or null\n- referenced_projects: array of project titles mentioned in the text (deduplicated, in order of appearance, exact diacritics preserved)\n- summary:     1-2 sentence Croatian summary of what the document says\n\nPreserve Croatian diacritics. Do not invent project titles."
+              "body": "Čitaš kratki tekst iz HAVC PDF-ova i izdvajaš metapodatke. Dokumenti su ili narativna obrazloženja umjetničkih savjetnika ili odluke o listama financiranja.\n\n`emit_narrative_metadata` pozivaš točno jednom s poljima:\n- program_type: najbliže poklapanje enum vrijednosti ili null ako nije jasno\n- year:        četveroznamenkasta godina poziva/odluke ili null\n- rok:         \"N. rok\" ili null\n- referenced_projects: niz naslova projekata spomenutih u tekstu (bez duplikata, redoslijed pojavljivanja, očuvana dijakritika)\n- summary:     sažetak u 1–2 rečenice na hrvatskom\n\nSačuvaj hrvatsku dijakritiku. Ne izmišljaj naslove projekata."
             },
             "io_example": {
-              "caption": "obrazlozenje_manjinske_25052016.pdf — extracted metadata",
-              "expected": "{\n  \"program_type\": \"manjinske_koprodukcije\",\n  \"year\":         2016,\n  \"rok\":          \"2. rok\",\n  \"referenced_projects\": [\"…\", \"…\", \"…\"],\n  \"summary\":      \"<1–2 sentence Croatian summary>\"\n}",
+              "caption": "obrazlozenje_manjinske_25052016.pdf — izdvojeni metapodaci",
+              "expected": "{\n  \"program_type\": \"manjinske_koprodukcije\",\n  \"year\":         2016,\n  \"rok\":          \"2. rok\",\n  \"referenced_projects\": [\"…\", \"…\", \"…\"],\n  \"summary\":      \"<sažetak na hrvatskom u 1–2 rečenice>\"\n}",
               "received": "{\n  \"program_type\": \"manjinske_koprodukcije\",\n  \"year\":         2016,\n  \"rok\":          \"2. rok\",\n  \"referenced_projects\": [\"…12 titles…\"],\n  \"summary\":      \"Umjetničko vijeće HAVC-a obrazlaže odluku o dodjeli sredstava za manjinske koprodukcije u drugom roku 2016.\"\n}"
             },
             "metrics": [
               {
-                "label": "narrative targets",
+                "label": "Ciljanih dokumenata obrazloženja",
                 "value": "268"
               },
               {
-                "label": "extracted ok",
+                "label": "Uspješno izdvojeno",
                 "value": "267"
               },
               {
-                "label": "failed",
+                "label": "Neuspješno",
                 "value": "1",
-                "note": "single corrupted PDF"
+                "note": "jedan oštećeni PDF"
               }
             ],
             "artifacts": [
@@ -748,31 +748,31 @@
           },
           {
             "id": "pass-missing-results",
-            "ordinal": "Pass 3",
+            "ordinal": "Prolaz 3",
             "kind": "llm",
-            "title": "Missing-results backfill",
-            "engine": "missing-results-backfill extractor channel · re-uses Pass 1's table prompt",
-            "what": "Some obrazloženja close with a small awarded-projects table; the classifier sent them to narrative, so Pass 1 never saw them. A scan over the dataset surfaces these candidates and re-extracts them with the table prompt, tagged with extractor=\"missing-results-backfill\" so they're distinguishable in master.json. Cached extractions are not re-billed.",
-            "input": "PDFs flagged by the post-Pass-2 scan as carrying a missed table",
-            "output": "results_table records with source.extractor=\"missing-results-backfill\"",
+            "title": "Povratna dopuna propuštenih rezultata",
+            "engine": "kanal ekstraktora missing-results-backfill · ponovno koristi tablični prompt iz Prolaza 1",
+            "what": "Neka obrazloženja završavaju malom tablicom odobrenih projekata; klasifikator ih je usmjerio u narrative, pa ih Prolaz 1 nije vidio. Sken nad skupom podataka nalazi te kandidate i ponovno ih izvlači tabličnim promptom, uz oznaku extractor=\"missing-results-backfill\" kako bi ostali razlikovni u master.json. Keširani izlazi se ne naplaćuju ponovno.",
+            "input": "PDF-ovi koje je naknadni sken nakon Prolaza 2 označio kao nositelje propuštene tablice",
+            "output": "results_table zapisi sa source.extractor=\"missing-results-backfill\"",
             "prompt_excerpt": {
-              "caption": "Re-uses Pass 1's RESULTS_TABLE_SYSTEM_PROMPT verbatim",
-              "body": "// Same ten rules as Pass 1. The only thing that changes is the extractor channel\n// recorded in source.extractor — so audit reports can tell us whether a row\n// came from the planned route or from a backfill.\n"
+              "caption": "Doslovno ponovno korištenje RESULTS_TABLE_SYSTEM_PROMPT-a iz Prolaza 1",
+              "body": "// Ista pravila kao u Prolazu 1. Jedino se mijenja kanal ekstraktora\n// zabilježen u source.extractor — tako audit izvještaji mogu razlučiti je li redak\n// došao planiranom rutom ili kroz povratnu dopunu.\n"
             },
             "io_example": {
-              "caption": "2013 Razvoj scenarija TV pojedinačna djela.pdf — initially classified narrative",
-              "expected": "Pass 2 returns:\n  referenced_projects: [...]\n  // no rows, no amounts — but the PDF actually has a 2-row awards table at the bottom",
-              "received": "Pass 3 re-extracts with the table prompt:\n  sections: [{ rows: [ { project_title, applicant, approved_amount: …, currency: \"HRK\" }, … ] }]\n  source.extractor: \"missing-results-backfill\""
+              "caption": "2013 Razvoj scenarija TV pojedinačna djela.pdf — početno klasificiran kao narrative",
+              "expected": "Prolaz 2 vraća:\n  referenced_projects: [...]\n  // bez redaka i bez iznosa — iako PDF na dnu ima tablicu s 2 retka dodjela",
+              "received": "Prolaz 3 ponovno pokreće ekstrakciju tabličnim promptom:\n  sections: [{ rows: [ { project_title, applicant, approved_amount: …, currency: \"HRK\" }, … ] }]\n  source.extractor: \"missing-results-backfill\""
             },
             "metrics": [
               {
-                "label": "PDFs re-extracted",
+                "label": "Ponovno ekstrahiranih PDF-ova",
                 "value": "≈ 30",
-                "note": "visible as `missing-results-backfill` in normalize-plan.md"
+                "note": "vidljivo kao `missing-results-backfill` u normalize-plan.md"
               },
               {
-                "label": "Cached, no re-bill",
-                "value": "yes"
+                "label": "Keširano, bez ponovne naplate",
+                "value": "da"
               }
             ],
             "artifacts": [
@@ -788,33 +788,33 @@
           },
           {
             "id": "pass-bogus-drop",
-            "ordinal": "Pass 4",
+            "ordinal": "Prolaz 4",
             "kind": "algo",
-            "title": "Drop bogus rows",
-            "engine": "heuristic Python pass over master.json — no LLM",
-            "what": "Some extracted rows are clearly not real funding decisions: 'Stavka' placeholder rows leaking from TV development PDFs, HAVC's own postal address parsed as a project title, komplementarne section headers ('filmski festivali i druge audiovizualne manifestacije') that the table parser pulled from a heading row into a project_title cell. A categorical filter tags each with a reason code and removes them.",
-            "input": "All rows in master.json",
-            "output": "rows minus 139 dropped rows + a report keyed by reason code",
+            "title": "Izbacivanje lažnih redaka",
+            "engine": "heuristički Python prolaz nad master.json — bez LLM-a",
+            "what": "Dio ekstrahiranih redaka očito nisu stvarne odluke o financiranju: zamjenski retci „Stavka” iz TV razvojnih PDF-ova, HAVC-ova poštanska adresa parsirana kao naslov projekta te zaglavlja sekcija komplementarnih programa koja su završila u ćeliji project_title. Kategorijski filter ih označava kodom razloga i uklanja.",
+            "input": "Svi redci u master.json",
+            "output": "redci umanjeni za 139 odbačenih + izvještaj grupiran po kodu razloga",
             "prompt_excerpt": {
-              "caption": "Reason codes used by the bogus-row classifier (excerpt)",
-              "body": "[stavka_generic_no_amount]   — title is the literal string 'Stavka' with no amount (TV-development placeholder)\n[havc_address]               — title contains HAVC's postal address ('Trg Josipa Jurja Strossmayera 4 | 10000 Zagreb | Croatia Tel')\n[category_header_bare_count] — title is a komplementarne section header that leaked from a heading row\n                                ('filmski festivali i druge audiovizualne manifestacije',\n                                 'izdavaštvo u području audiovizualnih djelatnosti',\n                                 'programi audiovizualnih udruga i organizacija',\n                                 'programi stručnog usavršavanja')\n"
+              "caption": "Kodovi razloga koje koristi klasifikator lažnih redaka (isječak)",
+              "body": "[stavka_generic_no_amount]   — title je doslovni string 'Stavka' bez iznosa (zamjenski redak iz TV razvoja)\n[havc_address]               — title sadrži HAVC-ovu poštansku adresu ('Trg Josipa Jurja Strossmayera 4 | 10000 Zagreb | Croatia Tel')\n[category_header_bare_count] — title je zaglavlje sekcije komplementarnih programa koje je procurilo iz retka zaglavlja\n                                ('filmski festivali i druge audiovizualne manifestacije',\n                                 'izdavaštvo u području audiovizualnih djelatnosti',\n                                 'programi audiovizualnih udruga i organizacija',\n                                 'programi stručnog usavršavanja')\n"
             },
             "io_example": {
-              "caption": "Three real drops (one per reason code) from _bogus_rows_drop_report.md",
-              "expected": "Title looks structurally row-shaped, but is not a project.",
-              "received": "[stavka_generic_no_amount]   RPRSERTV_2021_2rok_9IX2021_WEB.pdf            title='Stavka'                                                  → dropped\n[havc_address]               REZULTATI_PRO_VIDEOIGRE_2024.pdf              title='Trg Josipa Jurja Strossmayera 4 | 10000 Zagreb | Croatia Tel' → dropped\n[category_header_bare_count] odobreni projekti komplementarne.pdf           title='filmski festivali i druge audiovizualne manifestacije'    → dropped"
+              "caption": "Tri stvarna odbačena retka (po jedan za svaki kod razloga) iz _bogus_rows_drop_report.md",
+              "expected": "Naslov izgleda kao redak tablice, ali nije projekt.",
+              "received": "[stavka_generic_no_amount]   RPRSERTV_2021_2rok_9IX2021_WEB.pdf            title='Stavka'                                                  → odbačeno\n[havc_address]               REZULTATI_PRO_VIDEOIGRE_2024.pdf              title='Trg Josipa Jurja Strossmayera 4 | 10000 Zagreb | Croatia Tel' → odbačeno\n[category_header_bare_count] odobreni projekti komplementarne.pdf           title='filmski festivali i druge audiovizualne manifestacije'    → odbačeno"
             },
             "metrics": [
               {
-                "label": "Rows dropped",
+                "label": "Izbačenih redaka",
                 "value": "139"
               },
               {
-                "label": "Records touched",
+                "label": "Zahvaćenih zapisa",
                 "value": "46"
               },
               {
-                "label": "Distinct reason codes",
+                "label": "Različitih kodova razloga",
                 "value": "3+",
                 "note": "stavka_generic_no_amount · havc_address · category_header_bare_count · …"
               }
@@ -828,35 +828,35 @@
           },
           {
             "id": "pass-amount-repair",
-            "ordinal": "Pass 5",
+            "ordinal": "Prolaz 5",
             "kind": "hybrid",
-            "title": "Amount triage + repair",
-            "engine": "havc_pipeline/amount_parser.py + Pass A survey + Pass B repair · algorithmic with LLM-assisted neighbourhood inspection",
-            "what": "The amount parser handles Croatian decimal/thousands conventions, but a long tail of PDFs has OCR drift — '0.000,00' parsed as 0.0, spaced letters in titles ('Dalmatia F ilm F estival'), pre-2023 amounts ambiguously denominated. Pass A surveys every amount string and flags suspects. Pass B re-reads each suspect against the raw_text neighbourhood and either repairs the amount or stamps it `needs_review` for human inspection.",
-            "input": "All amount cells in master.json",
-            "output": "Pass A: 116 suspects · Pass B: 37 repaired + 80 needs_review",
+            "title": "Trijaža i popravak iznosa",
+            "engine": "havc_pipeline/amount_parser.py + Prolaz A pregled + Prolaz B popravak · algoritamski prolaz uz LLM pomoć pri čitanju susjednog teksta",
+            "what": "Parser iznosa pokriva hrvatske decimalne i tisućične konvencije, ali dugi rep PDF-ova ima OCR šum — „0.000,00” parsirano kao 0.0, razmaknuta slova u naslovima i dvosmislene pred-2023 valute. Prolaz A pregledava svaki string iznosa i označava sumnjive slučajeve. Prolaz B ponovno čita kontekst u raw_text i ili popravlja iznos ili ga označava `needs_review` za ručnu provjeru.",
+            "input": "Sve ćelije iznosa u master.json",
+            "output": "Prolaz A: 116 sumnjivih · Prolaz B: 37 popravljeno + 80 `needs_review`",
             "prompt_excerpt": {
-              "caption": "Repair-decision tags used in _amount_repair_report.md",
-              "body": "tag             meaning\n--------------- ---------------------------------------------------------\nrepaired        amount was confidently fixed from a neighbouring string\nneeds_review    amount could not be fixed unambiguously — flagged for human\ncroatian_std    repair confidence track: Croatian decimal convention applied\nhigh / medium / low   confidence of the neighbourhood read"
+              "caption": "Oznake odluke o popravku iz _amount_repair_report.md",
+              "body": "tag             značenje\n--------------- ---------------------------------------------------------\nrepaired        iznos je pouzdano popravljen iz susjednog stringa\nneeds_review    iznos se nije mogao jednoznačno popraviti — označeno za ručnu provjeru\ncroatian_std    trag pouzdanosti popravka: primijenjena hrvatska decimalna konvencija\nhigh / medium / low   razina pouzdanosti čitanja susjednog teksta"
             },
             "io_example": {
-              "caption": "rezultati komplementarne 2021.pdf — Pass B in action",
-              "expected": "Pass A flags row 4 as suspect: current=0.0 ('0.000,00').\nPass B should inspect the raw_text and either repair or mark needs_review.",
-              "received": "[repaired]    rn=4   Autonomni kulturni centar    old=0.0 → new=20000.0 (croatian_std, high, €2,654)\n[repaired]    rn=9   Dalmatia Film Festival       old=0.0 → new=10000.0 (croatian_std, high, €1,327)\n[repaired]    rn=10  Festival mediteranskog filma old=0.0 → new=10000.0 (croatian_std, high, €1,327)\n[needs_review] rn=22 Mladi mladima — poticanje…   current=0.0 ('0.000,00')   // amount illegible in PDF"
+              "caption": "rezultati komplementarne 2021.pdf — Prolaz B u radu",
+              "expected": "Prolaz A označava redak 4 kao sumnjiv: current=0.0 ('0.000,00').\nProlaz B treba pročitati raw_text i ili popraviti ili označiti `needs_review`.",
+              "received": "[repaired]    rn=4   Autonomni kulturni centar    old=0.0 → new=20000.0 (croatian_std, high, €2,654)\n[repaired]    rn=9   Dalmatia Film Festival       old=0.0 → new=10000.0 (croatian_std, high, €1,327)\n[repaired]    rn=10  Festival mediteranskog filma old=0.0 → new=10000.0 (croatian_std, high, €1,327)\n[needs_review] rn=22 Mladi mladima — poticanje…   current=0.0 ('0.000,00')   // iznos je nečitljiv u PDF-u"
             },
             "metrics": [
               {
-                "label": "Suspects inspected",
+                "label": "Pregledanih sumnjivih",
                 "value": "116"
               },
               {
-                "label": "Repaired",
+                "label": "Popravljeno",
                 "value": "37"
               },
               {
-                "label": "Needs review",
+                "label": "Za ručnu provjeru",
                 "value": "80",
-                "note": "still flagged in master.json — surfaced on the dashboard"
+                "note": "i dalje označeno u master.json — prikazano na nadzornoj ploči"
               }
             ],
             "artifacts": [
@@ -876,37 +876,37 @@
           },
           {
             "id": "pass-people-backfill",
-            "ordinal": "Pass 6",
+            "ordinal": "Prolaz 6",
             "kind": "llm",
-            "title": "Director / writer / original-author backfill",
-            "engine": "_director_collect.py → 418 batches → Claude subagents (one batch each) → _director_apply.py",
-            "what": "Most early results_table records had blank director / writer / original_author fields because pre-2014 PDFs listed those names in narrative paragraphs adjacent to the table, not as columns. The collect script slices each record into a per-record JSON batch containing the rows and the full raw_text, dispatches it to a Claude subagent with a tightly-scoped prompt, and the subagent emits exactly one decision per row. Apply merges those decisions back into master.json.",
-            "input": "418 per-record batches; each carries rows + raw_text",
-            "output": "418 decision JSON files; merged into master.json by _director_apply.py",
+            "title": "Povratna dopuna polja redatelj / scenarist / autor predloška",
+            "engine": "_director_collect.py → 418 paketa → Claude podagenti (po jedan paket) → _director_apply.py",
+            "what": "Većina ranih results_table zapisa imala je prazna polja director / writer / original_author jer su stariji PDF-ovi (prije 2014.) ta imena navodili u odlomcima uz tablicu, a ne u stupcima. Skripta za prikupljanje reže svaki zapis u zaseban JSON paket s recima i punim raw_text, šalje ga Claude podagentu s usko definiranim promptom, a podagent vraća točno jednu odluku po retku. Skripta za primjenu potom te odluke spaja natrag u master.json.",
+            "input": "418 paketa po zapisu; svaki sadrži retke i raw_text",
+            "output": "418 JSON datoteka odluka; spojeno u master.json kroz _director_apply.py",
             "prompt_excerpt": {
-              "caption": "dataset/_director_prompt.md — column-name candidates the subagent searches raw_text for",
-              "body": "Extract from adjacent columns when present:\n\n- director column candidates:\n    REDATELJ · REDATELJ/ICA · Redatelj/-ica · Redateljica · Režija\n- writer column candidates:\n    SCENARIST/ICA · Scenarist/-ica · Scenaristica · Scenarij\n- original-author column candidates:\n    AUTOR IZVORNOG PREDLOŠKA · IZVORNI PREDLOŽAK · Prema romanu · prema priči · prema noveli · prema djelu\n\nIf a current field is already non-null, prefer returning null for that field unless the PDF clearly shows a better canonical value.\nPreserve Croatian diacritics exactly (č ć š ž đ Č Ć Š Ž Đ)."
+              "caption": "dataset/_director_prompt.md — kandidati naziva stupaca koje podagent traži u raw_text",
+              "body": "Izdvoji iz susjednih stupaca kada postoje:\n\n- kandidati stupca director:\n    REDATELJ · REDATELJ/ICA · Redatelj/-ica · Redateljica · Režija\n- kandidati stupca writer:\n    SCENARIST/ICA · Scenarist/-ica · Scenaristica · Scenarij\n- kandidati stupca original_author:\n    AUTOR IZVORNOG PREDLOŠKA · IZVORNI PREDLOŽAK · Prema romanu · prema priči · prema noveli · prema djelu\n\nAko je trenutačno polje već različito od null, vrati null za to polje osim ako PDF jasno pokazuje bolju kanonsku vrijednost.\nDijakritiku očuvaj točno (č ć š ž đ Č Ć Š Ž Đ)."
             },
             "io_example": {
-              "caption": "One row from batch 099840fa — AV proizvodnja 2010.pdf",
-              "expected": "// per the schema in _director_prompt.md\n{\n  \"section_idx\": 0,\n  \"row_idx\": 7,\n  \"director\": \"<name or null>\",\n  \"writer\":  \"<name or null>\",\n  \"original_author\": \"<name or null>\",\n  \"confidence\": \"high\" | \"medium\" | \"low\",\n  \"reasoning\": \"<one short sentence>\"\n}",
-              "received": "{\n  \"section_idx\": 0,\n  \"row_idx\": 7,\n  \"director\":        null,        // not present in raw_text\n  \"writer\":          null,        // ditto\n  \"original_author\": \"prema noveli Slavka Mihalića\",\n  \"confidence\":      \"medium\",\n  \"reasoning\":       \"raw_text contains 'prema noveli Slavka Mihalića' two lines below the project title.\"\n}"
+              "caption": "Jedan redak iz paketa 099840fa — AV proizvodnja 2010.pdf",
+              "expected": "// prema shemi u _director_prompt.md\n{\n  \"section_idx\": 0,\n  \"row_idx\": 7,\n  \"director\": \"<name or null>\",\n  \"writer\":  \"<name or null>\",\n  \"original_author\": \"<name or null>\",\n  \"confidence\": \"high\" | \"medium\" | \"low\",\n  \"reasoning\": \"<jedna kratka rečenica>\"\n}",
+              "received": "{\n  \"section_idx\": 0,\n  \"row_idx\": 7,\n  \"director\":        null,        // nije prisutno u raw_text\n  \"writer\":          null,        // isto\n  \"original_author\": \"prema noveli Slavka Mihalića\",\n  \"confidence\":      \"medium\",\n  \"reasoning\":       \"raw_text sadrži 'prema noveli Slavka Mihalića' dva retka ispod naslova projekta.\"\n}"
             },
             "metrics": [
               {
-                "label": "Batches dispatched",
+                "label": "Poslanih paketa",
                 "value": "418"
               },
               {
-                "label": "Records skipped (no creator cols)",
+                "label": "Preskočenih zapisa (nema autorskih stupaca)",
                 "value": "15"
               },
               {
-                "label": "Records skipped (wrong programme)",
+                "label": "Preskočenih zapisa (pogrešan program)",
                 "value": "106"
               },
               {
-                "label": "Records skipped (no missing rows)",
+                "label": "Preskočenih zapisa (nema praznih redaka)",
                 "value": "3"
               }
             ],
@@ -931,37 +931,37 @@
           },
           {
             "id": "pass-producer-pollution",
-            "ordinal": "Pass 7",
+            "ordinal": "Prolaz 7",
             "kind": "llm",
-            "title": "Producer-field pollution sweep",
+            "title": "Čišćenje onečišćenja u polju producenta",
             "engine": "_producer_pollution_collect.py → Claude → _producer_pollution_apply.py",
-            "what": "The production_company and applicant columns sometimes contain pollution that the table extractor copied from adjacent cells: section labels, totals rows, descriptive sentences leaked from project_title or raw_text. A regex pre-classifier emits 196 candidates with a bucket hint (amount_shaped, header_or_category, sentence_like); Claude makes the final drop / keep / replace call.",
-            "input": "196 candidate (record, row, field) tuples with current value + bucket hint",
-            "output": "196 decisions: 170 drop · 26 keep · 0 replace",
+            "what": "Stupci `production_company` i `applicant` ponekad sadrže onečišćenja koja je tablični ekstraktor pokupio iz susjednih ćelija: nazive sekcija, retke ukupnog zbroja ili opisne rečenice prelivene iz `project_title`/`raw_text`. Regex pred-klasifikator daje 196 kandidata s oznakom skupine (amount_shaped, header_or_category, sentence_like), a Claude donosi završnu odluku drop / keep / replace.",
+            "input": "196 kandidata (zapis, redak, polje) s trenutačnom vrijednošću i oznakom skupine (bucket)",
+            "output": "196 odluka: 170 drop · 26 keep · 0 replace",
             "prompt_excerpt": {
-              "caption": "dataset/_producer_pollution_prompt.md — decision policy (excerpt)",
-              "body": "bucket: \"amount_shaped\"      → almost always drop. Amounts never belong in a producer field.\n\nbucket: \"header_or_category\":\n  - \"PRODUCENT\" literal                       → drop (column header)\n  - \"filmski festivali...\", \"izdavaštvo...\"   → drop (komplementarne sub-programme labels)\n  - \"Produkcija ...\", \"Projekt ...\" + name    → keep\n  - \"Dugometra*\", \"Animirani\" standalone      → drop (category header)\n\nbucket: \"sentence_like\":\n  - Starts with \"Sudjelovanje\", \"Predstavljanje\", \"U produkciji\" → drop (project description leaked from title)\n  - Contains unambiguous \"Producent: X\" or \"u produkciji X-a\"    → replace with X"
+              "caption": "dataset/_producer_pollution_prompt.md — pravila odluke (isječak)",
+              "body": "bucket: \"amount_shaped\"      → gotovo uvijek drop. Iznosi ne pripadaju polju producenta.\n\nbucket: \"header_or_category\":\n  - \"PRODUCENT\" doslovno                      → drop (zaglavlje stupca)\n  - \"filmski festivali...\", \"izdavaštvo...\"   → drop (oznake potprograma komplementarnih djelatnosti)\n  - \"Produkcija ...\", \"Projekt ...\" + name    → keep\n  - \"Dugometra*\", \"Animirani\" kao samostalno  → drop (kategorijsko zaglavlje)\n\nbucket: \"sentence_like\":\n  - Počinje s \"Sudjelovanje\", \"Predstavljanje\", \"U produkciji\" → drop (opis projekta procurio iz naslova)\n  - Sadrži nedvosmisleno \"Producent: X\" ili \"u produkciji X-a\" → zamijeni s X"
             },
             "io_example": {
-              "caption": "Three real candidates, three verdicts",
-              "expected": "Each candidate gets exactly one of drop / keep / replace, with reasoning.",
-              "received": "current_value=\"PRODUCENT\"                       bucket=header_or_category → drop     reasoning=\"column header leaked into producer cell\"\ncurrent_value=\"Sudjelovanje filma U Šumi na…\" bucket=sentence_like       → drop     reasoning=\"project description, not a producer\"\ncurrent_value=\"Produkcija Živa d.o.o.\"          bucket=header_or_category → keep     reasoning=\"legitimate producer despite matching 'Produkcija' prefix\""
+              "caption": "Tri stvarna kandidata, tri odluke",
+              "expected": "Svaki kandidat dobiva točno jednu odluku: drop / keep / replace, uz obrazloženje.",
+              "received": "current_value=\"PRODUCENT\"                       bucket=header_or_category → drop     reasoning=\"zaglavlje stupca procurilo u ćeliju producenta\"\ncurrent_value=\"Sudjelovanje filma U Šumi na…\" bucket=sentence_like       → drop     reasoning=\"opis projekta, nije producent\"\ncurrent_value=\"Produkcija Živa d.o.o.\"          bucket=header_or_category → keep     reasoning=\"legitiman producent unatoč prefiksu 'Produkcija'\""
             },
             "metrics": [
               {
-                "label": "Candidates",
+                "label": "Kandidata",
                 "value": "196"
               },
               {
-                "label": "drop",
+                "label": "drop odluka",
                 "value": "170"
               },
               {
-                "label": "keep",
+                "label": "keep odluka",
                 "value": "26"
               },
               {
-                "label": "replace",
+                "label": "replace odluka",
                 "value": "0"
               }
             ],
@@ -978,41 +978,41 @@
           },
           {
             "id": "pass-producer-cluster",
-            "ordinal": "Pass 8",
+            "ordinal": "Prolaz 8",
             "kind": "hybrid",
-            "title": "Producer cluster + canonical",
-            "engine": "_producer_cluster_collect.py (algo) → _producer_cluster_prompt.md (Claude) → _producer_cluster_apply.py",
-            "what": "After Pass 7 stripped pollution, ~700 unique producer-name strings remained — but many were OCR variants of the same legal entity: 'Nukleus film d. o. o.', 'Nukleus Film d.o.o.', 'NUKLEUS FILM d.o.o.'. A diacritic-stripped, suffix-stripped, alphanum-only normaliser collapsed them into 240 clusters. Claude then picks a single canonical name per cluster — preferring the d.o.o. suffix, mixed case, no spurious spaces — and can split a cluster if the normaliser over-collapsed two distinct entities into one bucket.",
-            "input": "240 clusters of variant strings, with occurrence counts",
-            "output": "Per cluster: canonical_name + per-member mapping (with optional owner_split)",
+            "title": "Klasteriranje producenata i kanonsko ime",
+            "engine": "_producer_cluster_collect.py (algoritamski) → _producer_cluster_prompt.md (Claude) → _producer_cluster_apply.py",
+            "what": "Nakon čišćenja u Prolazu 7 ostalo je oko 700 jedinstvenih naziva producenata, ali mnogi su OCR varijante iste pravne osobe: 'Nukleus film d. o. o.', 'Nukleus Film d.o.o.', 'NUKLEUS FILM d.o.o.'. Normalizator bez dijakritike, bez sufiksa i s alfanumeričnim sažimanjem grupirao ih je u 240 klastera. Claude zatim bira jedno kanonsko ime po klasteru — preferira d.o.o. sufiks, mješoviti zapis velikih/malih slova i uklanja suvišne razmake — te po potrebi može razdvojiti preširoko spojen klaster.",
+            "input": "240 klastera varijanti naziva s brojem pojavljivanja",
+            "output": "Po klasteru: canonical_name + mapiranje svakog člana (uz opcionalni owner_split)",
             "prompt_excerpt": {
-              "caption": "dataset/_producer_cluster_prompt.md — canonical-name selection rules",
-              "body": "1. Prefer the form with d.o.o. / d.d. / j.d.o.o. suffix if any variant has it.\n   Example: 'Kinorama d.o.o.' over 'Kinorama' or 'KINORAMA'.\n2. Prefer normal mixed-case over ALL CAPS or lowercase.\n   Example: 'Restart' over 'RESTART'.\n3. Drop spurious spaces in the legal suffix: 'Kinorama d .o.o.' → 'Kinorama d.o.o.'.\n4. Strip ' / <owner-name>' suffix: 'Kinorama d.o.o. / Lado Skorin' →\n   canonical 'Kinorama d.o.o.', owner 'Lado Skorin' as owner_split.\n5. Single-letter typos / OCR splits: 'Nukleus film d. o. o.', 'Nukleus film d.o.o',\n   'Nukleus Film d.o.o.' → canonical 'Nukleus Film d.o.o.'.\n6. Resolve case to Title Case proper-noun casing."
+              "caption": "dataset/_producer_cluster_prompt.md — pravila odabira kanonskog naziva",
+              "body": "1. Prednost daj varijanti s d.o.o. / d.d. / j.d.o.o. sufiksom ako ga bilo koja varijanta ima.\n   Primjer: 'Kinorama d.o.o.' prije 'Kinorama' ili 'KINORAMA'.\n2. Prednost daj uobičajenom mješovitom zapisu velikih/malih slova pred ALL CAPS ili sve malim slovima.\n   Primjer: 'Restart' prije 'RESTART'.\n3. Ukloni suvišne razmake u pravnom sufiksu: 'Kinorama d .o.o.' → 'Kinorama d.o.o.'.\n4. Ukloni sufiks ' / <ime-vlasnika>': 'Kinorama d.o.o. / Lado Skorin' →\n   kanonski naziv 'Kinorama d.o.o.', vlasnik 'Lado Skorin' kao owner_split.\n5. Ispravi tipfelere jednog znaka / OCR razdvajanja: 'Nukleus film d. o. o.', 'Nukleus film d.o.o',\n   'Nukleus Film d.o.o.' → kanonski naziv 'Nukleus Film d.o.o.'.\n6. Uskladi zapis vlastitih imena u pravilni naslovni oblik."
             },
             "io_example": {
-              "caption": "One real cluster decision",
-              "expected": "{\n  \"cluster_id\": <int>,\n  \"canonical_name\": \"<chosen canonical>\",\n  \"members\": [ { \"value\": \"<variant>\", \"canonical_name\": \"<same as canonical>\", \"owner_split\": null }, ... ],\n  \"reasoning\": \"<one short sentence>\"\n}",
-              "received": "{\n  \"cluster_id\": 117,\n  \"canonical_name\": \"Nukleus Film d.o.o.\",\n  \"members\": [\n    { \"value\": \"Nukleus film d. o. o.\", \"canonical_name\": \"Nukleus Film d.o.o.\", \"owner_split\": null },\n    { \"value\": \"Nukleus film d.o.o\",   \"canonical_name\": \"Nukleus Film d.o.o.\", \"owner_split\": null },\n    { \"value\": \"NUKLEUS FILM d.o.o.\",  \"canonical_name\": \"Nukleus Film d.o.o.\", \"owner_split\": null },\n    { \"value\": \"Nukleus Film d.o.o.\",  \"canonical_name\": \"Nukleus Film d.o.o.\", \"owner_split\": null }\n  ],\n  \"reasoning\": \"All four variants are OCR/spacing variants of the same d.o.o.; mixed-case form chosen per rule 2.\"\n}"
+              "caption": "Jedna stvarna odluka klastera",
+              "expected": "{\n  \"cluster_id\": <int>,\n  \"canonical_name\": \"<chosen canonical>\",\n  \"members\": [ { \"value\": \"<variant>\", \"canonical_name\": \"<same as canonical>\", \"owner_split\": null }, ... ],\n  \"reasoning\": \"<jedna kratka rečenica>\"\n}",
+              "received": "{\n  \"cluster_id\": 117,\n  \"canonical_name\": \"Nukleus Film d.o.o.\",\n  \"members\": [\n    { \"value\": \"Nukleus film d. o. o.\", \"canonical_name\": \"Nukleus Film d.o.o.\", \"owner_split\": null },\n    { \"value\": \"Nukleus film d.o.o\",   \"canonical_name\": \"Nukleus Film d.o.o.\", \"owner_split\": null },\n    { \"value\": \"NUKLEUS FILM d.o.o.\",  \"canonical_name\": \"Nukleus Film d.o.o.\", \"owner_split\": null },\n    { \"value\": \"Nukleus Film d.o.o.\",  \"canonical_name\": \"Nukleus Film d.o.o.\", \"owner_split\": null }\n  ],\n  \"reasoning\": \"Sve četiri varijante su OCR/razmak varijante istog d.o.o.; mješoviti zapis odabran je po pravilu 2.\"\n}"
             },
             "metrics": [
               {
-                "label": "Clusters",
+                "label": "Klastera",
                 "value": "240"
               },
               {
-                "label": "Variant remappings",
+                "label": "Preslikavanja varijanti",
                 "value": "62"
               },
               {
-                "label": "Rows touched (production_company)",
+                "label": "Zahvaćeni redci (production_company)",
                 "value": "232"
               },
               {
-                "label": "Rows touched (applicant)",
+                "label": "Zahvaćeni redci (applicant)",
                 "value": "232"
               },
               {
-                "label": "Total row writes",
+                "label": "Ukupno upisa po redcima",
                 "value": "464"
               }
             ],
@@ -1033,25 +1033,25 @@
           },
           {
             "id": "pass-urlless-dedup",
-            "ordinal": "Pass 9",
+            "ordinal": "Prolaz 9",
             "kind": "llm",
-            "title": "URL-less dedup audit (Codex)",
-            "engine": "normalize_pass.py (deterministic twin-match plan) → codex_prompt.md (Codex CLI verifies) → apply",
-            "what": "18 results_table records had no source.source_url. Most turned out to be duplicates of urlful records (the missing-results-backfill extractor sometimes re-extracted from a renamed copy of a PDF already in the corpus). A deterministic pre-pass finds twin rows by (normTitle, approved_amount, program_type) and proposes drop_row / flag_row decisions per row. Codex CLI then verifies the proposals against the raw_text of both sides and writes a final decision JSON.",
-            "input": "18 urlless docs + the 524 urlful docs they might be duplicates of",
-            "output": "Per-doc classification: drop_doc | partial | flag_doc · per-row: drop_row | flag_row",
+            "title": "Audit deduplikacije zapisa bez URL-a (Codex)",
+            "engine": "normalize_pass.py (deterministički plan uparivanja blizanaca) → codex_prompt.md (Codex CLI provjera) → apply",
+            "what": "Osamnaest results_table zapisa nije imalo source.source_url. Većina se pokazala kao duplikat zapisa koji URL imaju (ekstraktor missing-results-backfill ponekad je ponovno izvukao podatke iz preimenovane kopije PDF-a koji je već bio u korpusu). Deterministički pred-prolaz nalazi blizanačke retke po (normTitle, approved_amount, program_type) i predlaže odluke drop_row / flag_row po retku. Codex CLI zatim provjerava prijedloge na raw_text obje strane i zapisuje konačnu JSON odluku.",
+            "input": "18 dokumenata bez URL-a + 524 dokumenta s URL-om koji mogu biti duplikati",
+            "output": "Klasifikacija po dokumentu: drop_doc | partial | flag_doc · po retku: drop_row | flag_row",
             "prompt_excerpt": {
-              "caption": "dash/havc/codex_prompt.md — verification task (excerpt)",
-              "body": "For each urlless doc, verify per-row decisions:\n\n1. For each drop_row: confirm the twin is genuine — same project, same round,\n   same funding decision (not just a coincidental amount/title collision\n   across different rounds).\n2. For each flag_row: confirm no twin was missed due to spelling variants\n   (diacritics encoded as `_`, abbreviated names, rounding of amounts, mojibake).\n   If you find a missed twin, change the row to drop_row and add the twin sha\n   to matched_twins.\n\nBe conservative: when in doubt, keep flag_row rather than risk dropping a\nlegitimate funding decision."
+              "caption": "dash/havc/codex_prompt.md — zadatak provjere (isječak)",
+              "body": "Za svaki dokument bez URL-a provjeri odluke po retku:\n\n1. Za svaki drop_row potvrdi da je blizanac stvaran — isti projekt, isti rok,\n   ista odluka o financiranju (a ne slučajno podudaranje naslova/iznosa u različitim rokovima).\n2. Za svaki flag_row potvrdi da nije propušten blizanac zbog varijanti pisanja\n   (dijakritika zapisana kao `_`, skraćeni nazivi, zaokruživanje iznosa, mojibake).\n   Ako pronađeš propušteni blizanac, promijeni redak u drop_row i dodaj twin sha\n   u matched_twins.\n\nBudi konzervativan: kad postoji sumnja, zadrži flag_row umjesto rizika da izbaciš legitimnu odluku o financiranju."
             },
             "io_example": {
-              "caption": "Two real per-doc verdicts from normalize-plan.md",
-              "expected": "Per-doc: drop_doc (all rows duplicate), partial (some rows duplicate), or flag_doc (no rows duplicate).",
-              "received": "drop_doc    Rezultati JP koprodukcije rok 3110.pdf                       3/3 rows have exact twins in urlful 73ba096f → drop all three rows.\nflag_doc    FESTIVALI I KAT_DUGI 2014_web.pdf                              0/15 rows have twins → keep all 15, stamp source_url_missing=true.\npartial     30_AV proizvodnja – kratkometražni igrani – 1. ROK 07.04.2020. 18/33 rows duplicate → drop those 18, keep the other 15 as flag_row."
+              "caption": "Dvije stvarne odluke po dokumentu iz normalize-plan.md",
+              "expected": "Po dokumentu: drop_doc (svi redci su duplikati), partial (dio redaka je duplikat) ili flag_doc (nijedan redak nije duplikat).",
+              "received": "drop_doc    Rezultati JP koprodukcije rok 3110.pdf                       3/3 retka imaju točne blizance u dokumentu s URL-om 73ba096f → odbaci sva tri retka.\nflag_doc    FESTIVALI I KAT_DUGI 2014_web.pdf                              0/15 redaka ima blizance → zadrži svih 15, označi source_url_missing=true.\npartial     30_AV proizvodnja – kratkometražni igrani – 1. ROK 07.04.2020. 18/33 redaka su duplikati → odbaci tih 18, preostalih 15 zadrži kao flag_row."
             },
             "metrics": [
               {
-                "label": "URL-less docs",
+                "label": "Dokumenti bez URL-a",
                 "value": "18"
               },
               {
@@ -1067,11 +1067,11 @@
                 "value": "10"
               },
               {
-                "label": "Duplicate rows dropped",
+                "label": "Odbačeni duplikatni redci",
                 "value": "49"
               },
               {
-                "label": "Orphan rows flagged",
+                "label": "Označeni redci bez para",
                 "value": "78"
               }
             ],
@@ -1096,9 +1096,9 @@
           }
         ],
         "plain_guide": {
-          "title": "Vodic jednostavnim jezikom",
+          "title": "Vodič jednostavnim jezikom",
           "intro": {
-            "text": "Ako zanemarimo implementacijske detalje, projekt je napravio cetiri stvari: razvrstao dokumente, izvukao strukturu, detektirao lose retke/iznose i iterativno popravljao uz audit trag.",
+            "text": "Ako zanemarimo implementacijske detalje, projekt je napravio četiri stvari: razvrstao dokumente, izvukao strukturu, detektirao loše retke i iznose te iterativno popravljao uz audit trag.",
             "sources": [
               {
                 "label": "havc_pipeline/classify.py",
@@ -1124,9 +1124,9 @@
           },
           "items": [
             {
-              "title": "1. Prvo razvrstaj, pa tek onda izvlaci",
+              "title": "1. Najprije razvrstaj, tek onda izvlači",
               "body": {
-                "text": "Svaki PDF je klasificiran prije bilo kakvog placenog extraction poziva. To je sprijecilo slucajno rutiranje i olaksalo kasniji audit.",
+                "text": "Svaki PDF klasificiran je prije bilo kakvog plaćenog poziva ekstrakcije. Time je spriječeno slučajno usmjeravanje i olakšan kasniji audit.",
                 "sources": [
                   {
                     "label": "havc_pipeline/classify.py",
@@ -1139,7 +1139,7 @@
             {
               "title": "2. Sve sumnjivo ostaje vidljivo",
               "body": {
-                "text": "Izbaceni retci, popravljeni iznosi i nerijeseni rubni slucajevi zapisani su u izvjestaje, a ne sakriveni u komentarima.",
+                "text": "Izbačeni retci, popravljeni iznosi i neriješeni rubni slučajevi zapisani su u izvještajima, a ne sakriveni u komentarima.",
                 "sources": [
                   {
                     "label": "dataset/_bogus_rows_drop_report.md",
@@ -1157,7 +1157,7 @@
             {
               "title": "3. Popravci u malim petljama",
               "body": {
-                "text": "Umjesto jednog velikog prepisivanja, skup je korigiran prolaz po prolaz: backfill, trijaza iznosa, ljudi, normalizacija producenata, dedup bez URL-a.",
+                "text": "Umjesto jednog velikog prepisivanja, skup je korigiran prolaz po prolaz: povratna dopuna, trijaža iznosa, dopuna polja ljudi, normalizacija producenata i deduplikacija zapisa bez URL-a.",
                 "sources": [
                   {
                     "label": "dataset/_backfill_report.md",
@@ -1187,7 +1187,7 @@
         "timeline": {
           "title": "Vremenska linija iteracija",
           "intro": {
-            "text": "Isjecci nize su sanitizirani sazeci iz povijesti asistentskih sesija i lokalnih artefakata. Pokazuju namjeru i konkretne promjene bez osjetljivih metapodataka.",
+            "text": "Isječci niže su sanitizirani sažeci iz povijesti asistentskih sesija i lokalnih artefakata. Pokazuju namjeru i konkretne promjene bez osjetljivih metapodataka.",
             "sources": [
               {
                 "label": ".codex/history.jsonl",
@@ -1205,9 +1205,9 @@
             {
               "id": "cp-0",
               "date": "16. svibnja 2026.",
-              "title": "Pocetni klasifikator i ugovor rutiranja",
+              "title": "Početni klasifikator i ugovor usmjeravanja",
               "summary": {
-                "text": "Pocetni zahtjev bio je potpuni parity nad svim objavljenim HAVC PDF-ovima, uz deterministicko usmjeravanje prije ekstrakcije.",
+                "text": "Početni zahtjev bio je puni paritet nad svim objavljenim HAVC PDF-ovima, uz determinističko usmjeravanje prije ekstrakcije.",
                 "sources": [
                   {
                     "label": ".claude/history.jsonl",
@@ -1225,7 +1225,7 @@
               "decision_label": "Odluka",
               "result_label": "Ishod",
               "problem": {
-                "text": "Mjesavina tipova PDF-ova (rezultati, obrazlozenja, admin) cinila je naivni one-pass pristup bucnim.",
+                "text": "Mješavina tipova PDF-ova (rezultati, obrazloženja, admin) činila je naivni one-pass pristup bučnim.",
                 "sources": [
                   {
                     "label": "havc_pipeline/classify.py",
@@ -1235,7 +1235,7 @@
                 ]
               },
               "decision": {
-                "text": "Prvo routing po klasifikatoru, zatim specijalizirani ekstraktori samo gdje trebaju.",
+                "text": "Najprije usmjeravanje klasifikatorom, zatim specijalizirani ekstraktori samo ondje gdje trebaju.",
                 "sources": [
                   {
                     "label": "havc_pipeline/classify.py",
@@ -1250,7 +1250,7 @@
                 ]
               },
               "result": {
-                "text": "Stabilan ulaz za sve kasnije prolaze i jasnija atribucija gresaka.",
+                "text": "Stabilan ulaz za sve kasnije prolaze i jasnija atribucija grešaka.",
                 "sources": [
                   {
                     "label": "dataset/report.md",
@@ -1261,9 +1261,9 @@
               },
               "delta_metrics": [
                 {
-                  "label": "Routanih PDF-ova",
+                  "label": "Usmjerenih PDF-ova",
                   "value": "~1,100",
-                  "note": "jedan deterministicki prolaz"
+                  "note": "jedan deterministički prolaz"
                 },
                 {
                   "label": "Tipova dokumenata",
@@ -1271,8 +1271,8 @@
                 }
               ],
               "excerpt_compact": {
-                "caption": "Sanitizirani isjecak",
-                "body": "Cilj: \"100% parity iz PDF-ova, ponovljivo kad dodu novi fajlovi.\"\nAkcija: klasifikator -> usmjeravanje ekstraktora umjesto jednog generickog parsera.",
+                "caption": "Sanitizirani isječak",
+                "body": "Cilj: \"100 % pariteta iz PDF-ova, ponovljivo kad dođu nove datoteke.\"\nAkcija: klasifikator -> usmjeravanje ekstraktora umjesto jednog generičkog parsera.",
                 "sources": [
                   {
                     "label": ".claude/history.jsonl",
@@ -1287,9 +1287,9 @@
                 ]
               },
               "excerpt_more": {
-                "toggle_label": "Prikazi vise konteksta",
-                "caption": "Sto se promijenilo zatim",
-                "body": "Nakon rutiranja, logika ekstrakcije podijeljena je na tablice i obrazlozenja, sto je kasnije omogucilo backfill promasenih tablica.",
+                "toggle_label": "Prikaži više konteksta",
+                "caption": "Što se zatim promijenilo",
+                "body": "Nakon usmjeravanja, logika ekstrakcije podijeljena je na tablice i obrazloženja, što je kasnije omogućilo povratnu dopunu propuštenih tablica.",
                 "sources": [
                   {
                     "label": "havc_pipeline/prompts.py",
@@ -1319,9 +1319,9 @@
             {
               "id": "cp-1",
               "date": "17. svibnja 2026.",
-              "title": "Backfill petlja za promasene rezultate i obrazlozenja",
+              "title": "Petlja povratne dopune za propuštene rezultate i obrazloženja",
               "summary": {
-                "text": "Post-ekstrakcijski scanovi nasli su slucajeve gdje podaci postoje u PDF-u, ali nisu uhvaceni u prvom rutiranju.",
+                "text": "Postekstrakcijski skenovi našli su slučajeve gdje podaci postoje u PDF-u, ali nisu uhvaćeni u prvom usmjeravanju.",
                 "sources": [
                   {
                     "label": "dataset/_backfill_report.md",
@@ -1334,7 +1334,7 @@
               "decision_label": "Odluka",
               "result_label": "Ishod",
               "problem": {
-                "text": "Neki dokumenti klasificirani kao narrative ipak su sadrzavali tablice odluka.",
+                "text": "Neki dokumenti klasificirani kao „narrative” ipak su sadržavali tablice odluka.",
                 "sources": [
                   {
                     "label": "dataset/_backfill_report.md",
@@ -1344,7 +1344,7 @@
                 ]
               },
               "decision": {
-                "text": "Pokrenut je poseban backfill prolaz i oznacen extractor kanal po zapisu.",
+                "text": "Pokrenut je poseban prolaz povratne dopune i označen kanal ekstraktora po zapisu.",
                 "sources": [
                   {
                     "label": "dataset/_backfill_report.md",
@@ -1359,7 +1359,7 @@
                 ]
               },
               "result": {
-                "text": "Propustene odluke su vracene bez prepisivanja ranijih prolaza.",
+                "text": "Propuštene odluke vraćene su bez prepisivanja ranijih prolaza.",
                 "sources": [
                   {
                     "label": "dataset/_backfill_report.md",
@@ -1370,18 +1370,18 @@
               },
               "delta_metrics": [
                 {
-                  "label": "Backfill target",
+                  "label": "Cilj povratne dopune",
                   "value": "426",
-                  "note": "promoted/staged u reportu"
+                  "note": "promoted/staged u izvještaju"
                 },
                 {
-                  "label": "Reuse cachea",
+                  "label": "Ponovna uporaba keša",
                   "value": "da"
                 }
               ],
               "excerpt_compact": {
-                "caption": "Sanitizirani isjecak",
-                "body": "Namjera: \"Ako tablica postoji bilo gdje u PDF-u, mora postojati i u skupu.\"\nAkcija: dodan missing-results kanal i re-run samo oznacenih fajlova.",
+                "caption": "Sanitizirani isječak",
+                "body": "Namjera: \"Ako tablica postoji bilo gdje u PDF-u, mora postojati i u skupu.\"\nAkcija: dodan missing-results kanal i ponovno pokretanje samo označenih datoteka.",
                 "sources": [
                   {
                     "label": ".codex/history.jsonl",
@@ -1396,9 +1396,9 @@
                 ]
               },
               "excerpt_more": {
-                "toggle_label": "Prikazi vise konteksta",
-                "caption": "Audit ponasanje",
-                "body": "Backfill retci ostaju trasabilni kroz source.extractor pa kasnija normalizacija moze odvojiti planiranu i naknadnu ekstrakciju.",
+                "toggle_label": "Prikaži više konteksta",
+                "caption": "Audit ponašanje",
+                "body": "Retci iz povratne dopune ostaju trasabilni kroz source.extractor pa kasnija normalizacija može odvojiti planiranu i naknadnu ekstrakciju.",
                 "sources": [
                   {
                     "label": "dataset/_backfill_report.md",
@@ -1423,9 +1423,9 @@
             {
               "id": "cp-2",
               "date": "17. svibnja 2026.",
-              "title": "Filter laznih redaka i trijaza iznosa",
+              "title": "Filter lažnih redaka i trijaža iznosa",
               "summary": {
-                "text": "Nakon boljeg coveragea, quality prolazi uklonili su lazne retke i istrazili sumnjive stringove iznosa.",
+                "text": "Nakon bolje pokrivenosti, kontrolni prolazi uklonili su lažne retke i istražili sumnjive stringove iznosa.",
                 "sources": [
                   {
                     "label": "dataset/_bogus_rows_drop_report.md",
@@ -1458,7 +1458,7 @@
                 ]
               },
               "decision": {
-                "text": "Deterministicki reason kodovi za drop + trijaza sumnjivih iznosa iz tekstualnog susjedstva.",
+                "text": "Deterministički kodovi razloga za drop + trijaža sumnjivih iznosa iz tekstualnog susjedstva.",
                 "sources": [
                   {
                     "label": "dataset/_bogus_rows_drop_report.md",
@@ -1473,7 +1473,7 @@
                 ]
               },
               "result": {
-                "text": "Retci su ili izbaceni uz reason code ili zadrzani s eksplicitnom oznakom needs_review.",
+                "text": "Retci su ili izbačeni uz kod razloga ili zadržani s eksplicitnom oznakom `needs_review`.",
                 "sources": [
                   {
                     "label": "dataset/_bogus_rows_drop_report.md",
@@ -1489,7 +1489,7 @@
               },
               "delta_metrics": [
                 {
-                  "label": "Izbaceno redaka",
+                  "label": "Izbačeno redaka",
                   "value": "139",
                   "note": "u 46 zapisa"
                 },
@@ -1503,8 +1503,8 @@
                 }
               ],
               "excerpt_compact": {
-                "caption": "Sanitizirani isjecak",
-                "body": "Nalaz: \"Stavka/adresa/kategorijska zaglavlja tretiraju se kao projekti.\"\nAkcija: reason-coded drop pass prije downstream analitike.",
+                "caption": "Sanitizirani isječak",
+                "body": "Nalaz: \"Stavka/adresa/kategorijska zaglavlja tretiraju se kao projekti.\"\nAkcija: reason-coded drop prolaz prije nizvodne analitike.",
                 "sources": [
                   {
                     "label": ".codex/history.jsonl",
@@ -1519,9 +1519,9 @@
                 ]
               },
               "excerpt_more": {
-                "toggle_label": "Prikazi vise konteksta",
+                "toggle_label": "Prikaži više konteksta",
                 "caption": "Disciplina popravka",
-                "body": "Kad je confidence bio nizak, redak je ostajao i bio oznacen, umjesto prisilnog \"ispravljanja\".",
+                "body": "Kad je razina pouzdanosti bila niska, redak je ostajao i bio označen, umjesto prisilnog \"ispravljanja\".",
                 "sources": [
                   {
                     "label": "dataset/_amount_repair_report.md",
@@ -1546,9 +1546,9 @@
             {
               "id": "cp-3",
               "date": "18. svibnja 2026.",
-              "title": "Ljudi polja i normalizacija producenata",
+              "title": "Polja ljudi i normalizacija producenata",
               "summary": {
-                "text": "Identity polja bila su nedosljedna, pa su posebni prolazi popunili autore i normalizirali nazive producenata.",
+                "text": "Polja identiteta bila su nedosljedna, pa su posebni prolazi popunili autore i normalizirali nazive producenata.",
                 "sources": [
                   {
                     "label": "dataset/_director_apply_audit.md",
@@ -1581,7 +1581,7 @@
                 ]
               },
               "decision": {
-                "text": "Dispatch per-record batcheva za ljude + klasteriranje producer varijanti u kanonske vrijednosti.",
+                "text": "Slanje paketa po zapisu za polja ljudi + klasteriranje varijanti producenata u kanonske vrijednosti.",
                 "sources": [
                   {
                     "label": "dataset/_director_apply_audit.md",
@@ -1596,7 +1596,7 @@
                 ]
               },
               "result": {
-                "text": "Velik dio people polja je popunjen, a producer/applicant vrijednosti postale su stabilnije.",
+                "text": "Velik dio polja ljudi je popunjen, a vrijednosti producenta i prijavitelja postale su stabilnije.",
                 "sources": [
                   {
                     "label": "dataset/_director_apply_audit.md",
@@ -1612,21 +1612,21 @@
               },
               "delta_metrics": [
                 {
-                  "label": "People batch",
+                  "label": "Batch-evi ljudi",
                   "value": "418"
                 },
                 {
-                  "label": "People popune",
+                  "label": "Popune polja ljudi",
                   "value": "2253"
                 },
                 {
-                  "label": "Producer remap",
+                  "label": "Preslikavanja producenata",
                   "value": "62"
                 }
               ],
               "excerpt_compact": {
-                "caption": "Sanitizirani isjecak",
-                "body": "Namjera: \"Ista tvrtka ne smije zivjeti kao cetiri OCR varijante.\"\nAkcija: klaster + kanonsko mapiranje s audit izlazom.",
+                "caption": "Sanitizirani isječak",
+                "body": "Namjera: \"Ista tvrtka ne smije živjeti kao četiri OCR varijante.\"\nAkcija: klaster + kanonsko mapiranje s audit izlazom.",
                 "sources": [
                   {
                     "label": ".codex/history.jsonl",
@@ -1641,9 +1641,9 @@
                 ]
               },
               "excerpt_more": {
-                "toggle_label": "Prikazi vise konteksta",
-                "caption": "Pattern povratnih petlji",
-                "body": "Collect -> dispatch -> apply -> verify petlje drzale su svaku transformaciju uskom i reverzibilnom.",
+                "toggle_label": "Prikaži više konteksta",
+                "caption": "Uzorak povratnih petlji",
+                "body": "Collect -> dispatch -> apply -> verify petlje držale su svaku transformaciju uskom i reverzibilnom.",
                 "sources": [
                   {
                     "label": "dataset/_director_apply_audit.md",
@@ -1673,9 +1673,9 @@
             {
               "id": "cp-4",
               "date": "20. svibnja 2026.",
-              "title": "Dedup bez URL-a i dashboard normalizacija",
+              "title": "Deduplikacija bez URL-a i normalizacija nadzorne ploče",
               "summary": {
-                "text": "Zavrsna normalizacija ciljala je dokumente bez source URL-a i sudare duplih redaka prije dashboard isporuke.",
+                "text": "Završna normalizacija ciljala je dokumente bez source URL-a i sudare duplih redaka prije isporuke nadzorne ploče.",
                 "sources": [
                   {
                     "label": "dash/havc/normalize-plan.md",
@@ -1693,7 +1693,7 @@
               "decision_label": "Odluka",
               "result_label": "Ishod",
               "problem": {
-                "text": "Dio zapisa nije imao source URL i djelomicno je duplicirao retke s URL-backed zapisima.",
+                "text": "Dio zapisa nije imao source URL i djelomično je duplicirao retke sa zapisima koji imaju URL.",
                 "sources": [
                   {
                     "label": "dash/havc/normalize-plan.md",
@@ -1703,7 +1703,7 @@
                 ]
               },
               "decision": {
-                "text": "Deterministicki twin plan + Codex audit verifikacija prije svake row-level odluke.",
+                "text": "Deterministički twin plan + Codex audit provjera prije svake odluke po retku.",
                 "sources": [
                   {
                     "label": "dash/havc/normalize-plan.md",
@@ -1718,7 +1718,7 @@
                 ]
               },
               "result": {
-                "text": "Duplikati su izbaceni konzervativno, a nerijeseni retci zadrzani i oznaceni.",
+                "text": "Duplikati su izbačeni konzervativno, a neriješeni retci zadržani i označeni.",
                 "sources": [
                   {
                     "label": "dash/havc/normalize-plan.md",
@@ -1733,17 +1733,17 @@
                   "value": "18"
                 },
                 {
-                  "label": "Duplikata redaka izbaceno",
+                  "label": "Duplikata redaka izbačeno",
                   "value": "49"
                 },
                 {
-                  "label": "Orphan redaka oznaceno",
+                  "label": "Orphan redaka označeno",
                   "value": "78"
                 }
               ],
               "excerpt_compact": {
-                "caption": "Sanitizirani isjecak",
-                "body": "Pravilo: \"Kad postoji sumnja, zadrzi i oznaci, ne brisi.\"\nAkcija: verifikacija row-level podudaranja prije svake odluke o brisanju.",
+                "caption": "Sanitizirani isječak",
+                "body": "Pravilo: \"Kad postoji sumnja, zadrži i označi, ne briši.\"\nAkcija: provjera podudaranja po retku prije svake odluke o brisanju.",
                 "sources": [
                   {
                     "label": "dash/havc/normalize-plan.md",
@@ -1758,9 +1758,9 @@
                 ]
               },
               "excerpt_more": {
-                "toggle_label": "Prikazi vise konteksta",
-                "caption": "Ogranicenje isporuke",
-                "body": "Ovaj pass balansirao je cistocu i trasabilnost: svaka drop odluka ostala je vezana uz plan + audit artefakt.",
+                "toggle_label": "Prikaži više konteksta",
+                "caption": "Ograničenje isporuke",
+                "body": "Ovaj prolaz balansirao je čistoću i trasabilnost: svaka drop odluka ostala je vezana uz plan i audit artefakt.",
                 "sources": [
                   {
                     "label": "dash/havc/normalize-plan.md",
@@ -1784,7 +1784,7 @@
             }
           ]
         },
-        "technical_title": "Tehnicki dodatak (detalji po passu)"
+        "technical_title": "Tehnički dodatak (detalji po prolazu)"
       }
     }
   ],
@@ -1837,7 +1837,7 @@
     ]
   },
   "footnote": {
-    "text": "Sve tvrdnje na ovoj stranici imaju uporiste u lokalnim artefaktima u D:\\scratch\\havc\\. Live kartice se racunaju iz trenutno ucitanog dashboard data payloada.",
+    "text": "Sve tvrdnje na ovoj stranici imaju uporište u lokalnim artefaktima u D:\\scratch\\havc\\. Žive kartice računaju se iz trenutno učitanog skupa podataka nadzorne ploče.",
     "sources": [
       {
         "label": "dash/content/process.hr.json",
@@ -1852,11 +1852,11 @@
     ]
   },
   "live_facts": {
-    "title": "Live presjek (racuna se pri ucitavanju)",
-    "subtitle": "Ove kartice racunaju se iz trenutno ucitanog dashboard skupa podataka, pa ostaju uskladene s aktivnim payloadom umjesto da ovise o zastarjelom statickom broju.",
+    "title": "Živi presjek (računa se pri učitavanju)",
+    "subtitle": "Ove kartice računaju se iz trenutno učitanog skupa podataka nadzorne ploče, pa ostaju usklađene s aktivnim skupom umjesto da ovise o zastarjelom statičkom broju.",
     "items": [
       {
-        "label": "Trenutno ucitanih zapisa",
+        "label": "Trenutno učitanih zapisa",
         "data_key": "record_count",
         "format": "int",
         "sources": [
@@ -1892,7 +1892,7 @@
         ]
       },
       {
-        "label": "Obrazlozenja",
+        "label": "Obrazloženja",
         "data_key": "narrative_count",
         "format": "int",
         "sources": [
@@ -1944,7 +1944,7 @@
         ]
       },
       {
-        "label": "HRK->EUR tecaj",
+        "label": "HRK->EUR tečaj",
         "data_key": "hrk_to_eur",
         "sources": [
           {
@@ -1955,6 +1955,6 @@
         ]
       }
     ],
-    "footnote": "Povijesne metrike prolaza nize su zamrznuti snapshoti iz izvjestaja iz svibnja 2026. Gornje live kartice racunaju se u runtimeu iz ucitanog data JSON-a."
+    "footnote": "Povijesne metrike prolaza niže su zamrznuti presjeci iz izvještaja iz svibnja 2026. Gornje žive kartice računaju se tijekom izvođenja iz učitanog JSON skupa podataka."
   }
 }
