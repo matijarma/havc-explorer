@@ -280,10 +280,23 @@ def restore_evidence_diacritics(candidate: Any, evidence: Any) -> Any:
             key=lambda value: (
                 sum(ch in HR_DIACRITICS for ch in value),
                 -abs(len(value) - len(word)),
+                -sum(
+                    left.isupper() != right.isupper()
+                    for left, right in zip(value, word)
+                    if left.isalpha() and right.isalpha()
+                ),
+                value.casefold(),
+                value,
             ),
         )
         if sum(ch in HR_DIACRITICS for ch in best) <= current_count:
             return word
+        if word.islower():
+            return best.lower()
+        if word.isupper():
+            return best.upper()
+        if word.istitle():
+            return best[:1].upper() + best[1:].lower()
         return best
 
     return UNICODE_WORD_RE.sub(restore, candidate)
@@ -1905,6 +1918,7 @@ def family_review_decisions(cache: dict[str, Any]) -> dict[str, dict[str, Any]]:
 def assign_families(
     records: list[dict[str, Any]],
     cache: dict[str, Any],
+    source_corrections: dict[str, Any] | None = None,
 ) -> dict[str, dict[str, Any]]:
     rows_by_norm: dict[str, list[dict[str, Any]]] = defaultdict(list)
     all_rows: dict[str, dict[str, Any]] = {}
@@ -1955,6 +1969,40 @@ def assign_families(
                 "confidence": "high",
                 "reason": decision.get("reason"),
                 "candidate_id": candidate["candidate_id"],
+            }
+
+    for override in (source_corrections or {}).get("family_overrides") or []:
+        title = str(override.get("family_title") or "").strip()
+        patterns = [
+            re.compile(pattern, re.I)
+            for pattern in override.get("title_patterns") or []
+            if isinstance(pattern, str) and pattern
+        ]
+        if not title or not patterns:
+            continue
+        matched = [
+            row
+            for row in all_rows.values()
+            if row.get("funding_status") == "awarded"
+            and any(
+                pattern.fullmatch(str(row.get("project_title") or "").strip())
+                for pattern in patterns
+            )
+        ]
+        if len(matched) < 2:
+            continue
+        override_id = str(override.get("id") or title)
+        family_id = "pf_" + sha12("override|" + override_id)
+        family_meta[family_id] = {"title": title, "awarded": True}
+        for row in matched:
+            row["project_family_id"] = family_id
+            row["project_family_title"] = title
+            row.setdefault("curation", {})["family"] = {
+                "method": "source-family-override",
+                "confidence": "high",
+                "reason": override.get("reason")
+                or "Verified recurring series with title-order variation.",
+                "override_id": override_id,
             }
 
     awarded_aliases: dict[str, set[str]] = defaultdict(set)
@@ -2296,7 +2344,7 @@ def main() -> int:
                 jobs=args.jobs,
             )
 
-    family_meta = assign_families(records, cache)
+    family_meta = assign_families(records, cache, source_corrections)
     link_event_projects(records, family_meta)
     validation = validate_curated_records(records)
     final_audit = build_audit(audit, validation, cache, args.data)
