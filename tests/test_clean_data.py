@@ -117,6 +117,32 @@ def test_deterministic_cleanup_is_stable_after_first_curation():
     assert first == second
 
 
+def test_existing_curation_change_log_is_deduplicated():
+    duplicate = {
+        "field": "project_title",
+        "from": "F ilm",
+        "to": "Film",
+        "reason": "haiku_source_reconciliation",
+        "method": "claude-haiku",
+    }
+    source = result_record(
+        [
+            row(
+                "Film",
+                1000,
+                curation={"changes": [duplicate, duplicate]},
+            )
+        ]
+    )
+    source["curation"] = {"version": clean_data.CURATION_VERSION}
+
+    cleaned, _ = clean_data.deterministic_cleanup([source], {})
+
+    assert cleaned[0]["sections"][0]["rows"][0]["curation"]["changes"] == [
+        duplicate
+    ]
+
+
 def test_machine_recovers_shifted_project_and_applicant_columns():
     records = [
         result_record(
