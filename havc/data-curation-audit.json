@@ -1,0 +1,3191 @@
+{
+  "version": "2.0",
+  "generated_at": "2026-07-30T17:26:00Z",
+  "input": "D:\\scratch\\havc\\dash\\havc\\data.json",
+  "input_sha256": "99791e2c43b102b51f541cacb0fd2a8beab505676e9d9dc81ba3160bdd2a6004",
+  "counts": {
+    "titles_recovered": 212,
+    "source_documents_reconciled": 1,
+    "haiku_repairs": 620,
+    "haiku_not_awarded": 1
+  },
+  "validation": {
+    "summary": {
+      "status_awarded": 9542,
+      "awarded_eur_equivalent": 164886104.13,
+      "status_not_awarded": 1
+    },
+    "errors": []
+  },
+  "haiku": {
+    "row_reviews": 175,
+    "family_review_batches": 18,
+    "calls": [
+      {
+        "kind": "row_review",
+        "source_sha": "05f2386a2812d49200f10067feccaf5bdbab957f2085987d63d857a3902caa48",
+        "prompt_hash": "05364f011d82",
+        "at": "2026-07-30T15:57:50Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.036413,
+        "duration_ms": 18110,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "0283e61744e08be3a35d4111818242ea86e7b40dfa57d27b9ef5bbabc5cd5247",
+        "prompt_hash": "ac8799b3591a",
+        "at": "2026-07-30T15:57:53Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.039058,
+        "duration_ms": 20387,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "073417f222036b02e62a3b950bd95bd008670212bded791548e2979d531c8c6f",
+        "prompt_hash": "811c7dea63d8",
+        "at": "2026-07-30T15:57:57Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.043801,
+        "duration_ms": 24796,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "076131cb1e602d877a26f5bce7e542ce2e392f8f3c1b92b7a70c8ece670de1fb",
+        "prompt_hash": "74fca9caa354",
+        "at": "2026-07-30T15:58:11Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.047571,
+        "duration_ms": 39114,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "0a3e5387e57d2ea376c9d79ef5e08fbe6d7776da07c4c17cd594f0668f67fba9",
+        "prompt_hash": "ab3e2a8cefc8",
+        "at": "2026-07-30T15:58:17Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.033790999999999995,
+        "duration_ms": 21525,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "08b78bf79df2c4d26002d7e2545faff4008171869e9d92c9b7be6d93aa589891",
+        "prompt_hash": "34fd281cc0d3",
+        "at": "2026-07-30T15:58:17Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.037420999999999996,
+        "duration_ms": 24062,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "0bba1db25176fc580329b6eea54cd6313302734038a5b778916406a64e180d07",
+        "prompt_hash": "e348247f154c",
+        "at": "2026-07-30T15:58:24Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.019385,
+        "duration_ms": 22012,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "0c36024ea15321be66b67a2d213c18118fa5049c8b6fa5e82208f37b27107b71",
+        "prompt_hash": "173a9339ec27",
+        "at": "2026-07-30T15:58:34Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.017784,
+        "duration_ms": 17020,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "14f05313978ca5ca629eb8b916b63b5043bd67770174002384902860e4b67868",
+        "prompt_hash": "bc730968bf4b",
+        "at": "2026-07-30T15:58:42Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.011316,
+        "duration_ms": 12087,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "0e245e156d33aca8005230b16fdea0723649beb8467fca596a265160ad2e993a",
+        "prompt_hash": "b77c34810e08",
+        "at": "2026-07-30T15:58:44Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.022341,
+        "duration_ms": 20594,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "0cb8e4f29aad23256ca80f10cb0c905535440d4506bd5e33a8cc6783aec5e44a",
+        "prompt_hash": "38f66b37804d",
+        "at": "2026-07-30T15:58:51Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.029073,
+        "duration_ms": 27839,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "1b0001c142df5b41d1f5d65321055cf166cc89e13490886f6afcbbc154243f18",
+        "prompt_hash": "d121eb0610ce",
+        "at": "2026-07-30T15:59:03Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.01281,
+        "duration_ms": 11362,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "17ee5b47977ae61108bcc0635176cdc2d93d7a3563ab9386a9aa25bb4b74afef",
+        "prompt_hash": "8532a1acd3b8",
+        "at": "2026-07-30T15:59:03Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.014791,
+        "duration_ms": 13869,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "151d8da60ab65a0575b750c8a49aec53cb27d48e6163d92a44f87fb8d6b3f7e1",
+        "prompt_hash": "420760b61d24",
+        "at": "2026-07-30T15:59:07Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.027003,
+        "duration_ms": 25823,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "1d21dc8e47c66659bd236a304fc97715410bd7ba9ec410daf6b38b5a3e191081",
+        "prompt_hash": "2f39c68945a4",
+        "at": "2026-07-30T15:59:16Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0193,
+        "duration_ms": 17159,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "215cbfe1ae247bdd49e308436d6dc47a7b36ed6b817523665540966203a31e60",
+        "prompt_hash": "2a663e697dde",
+        "at": "2026-07-30T15:59:29Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.031396,
+        "duration_ms": 20649,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+        "prompt_hash": "b5617a5480dd",
+        "at": "2026-07-30T15:59:29Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "21638d08942266428e612244b9a2392310278d0dbdb8fdf1506121e82507ec43",
+        "prompt_hash": "636617a44bef",
+        "at": "2026-07-30T15:59:29Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.019917,
+        "duration_ms": 19063,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "22afc39ebadaec89e12a4bc4fc2bb8e518c1a1c8fcf8af280127fc9ad3c8c986",
+        "prompt_hash": "b550438940dd",
+        "at": "2026-07-30T15:59:30Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.02243,
+        "duration_ms": 11687,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "1f277ba1b6fc4a1b5b0eb7f6da827fa5fe1d1a3f9c9de9d8cef1be5a0af827bf",
+        "prompt_hash": "b1183615fdef",
+        "at": "2026-07-30T15:59:33Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.023659,
+        "duration_ms": 25128,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+        "prompt_hash": "b5617a5480dd",
+        "at": "2026-07-30T16:00:29Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "24bc26ee04b9d7a4464fcdc01c26c2b56472be65874e4ead3231349321671379",
+        "prompt_hash": "bc8434e32b61",
+        "at": "2026-07-30T16:00:47Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.012420999999999998,
+        "duration_ms": 12263,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "076131cb1e602d877a26f5bce7e542ce2e392f8f3c1b92b7a70c8ece670de1fb",
+        "prompt_hash": "e60f8df393b6",
+        "at": "2026-07-30T16:00:52Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.016359,
+        "duration_ms": 17580,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "21638d08942266428e612244b9a2392310278d0dbdb8fdf1506121e82507ec43",
+        "prompt_hash": "e52772bd0569",
+        "at": "2026-07-30T16:00:54Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.018353,
+        "duration_ms": 19282,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "2505e7c5adae80d3f061395ba6cfae5b019d516a98d7d87788f9a8049828b1ec",
+        "prompt_hash": "7644af54aa0a",
+        "at": "2026-07-30T16:00:55Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.01736,
+        "duration_ms": 20003,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "27194daaad0bb670cc07242f01f416697ed71cf6d0b89f1f604e89f4179ccf63",
+        "prompt_hash": "d115484249ab",
+        "at": "2026-07-30T16:01:07Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.01599,
+        "duration_ms": 16671,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "2bc766a080d72391e4ffaa3a772728dab950d630d8b5efdc6facb2a4d9002441",
+        "prompt_hash": "a62a398b4cfd",
+        "at": "2026-07-30T16:01:12Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.014322,
+        "duration_ms": 13146,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "2a564809efddf2853bd5fd3d699405523083e079bc4c096ab77456b442f447ec",
+        "prompt_hash": "0413e5350e42",
+        "at": "2026-07-30T16:01:12Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.019333,
+        "duration_ms": 14557,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "2a46097e97d41c87507884fec516caaf639813918f6a3308b92c33039fb5406c",
+        "prompt_hash": "dc7563758270",
+        "at": "2026-07-30T16:01:17Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.02433,
+        "duration_ms": 22165,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "339c60bee9802f8df3763e2d4975fe0b80d606329e91f3f147cb62a961387a63",
+        "prompt_hash": "2bc435d5b262",
+        "at": "2026-07-30T16:01:30Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.011119,
+        "duration_ms": 13703,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+        "prompt_hash": "4d47cd37ae81",
+        "at": "2026-07-30T16:01:31Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.028288,
+        "duration_ms": 21417,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "309fc79a4a977803589e32f07f67f30be1c669f1147512cd2db5dd7f78a37689",
+        "prompt_hash": "fbc6ff2d97f2",
+        "at": "2026-07-30T16:01:37Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.026876,
+        "duration_ms": 21611,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "357d0c1fd352fe777d56fe6baf45750a6fc7b5e45c2fdf662250e43e42bc4c80",
+        "prompt_hash": "e887cbcb352b",
+        "at": "2026-07-30T16:01:40Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.023878,
+        "duration_ms": 19218,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "35fa23913c1a048cb968989eee1887e16c9c10b9991dd4fe8b06ecdcd792054f",
+        "prompt_hash": "4d84d2c06e24",
+        "at": "2026-07-30T16:01:46Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.012924000000000001,
+        "duration_ms": 11863,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "3623bbba70075febc4f7a95a2c7783d0190b6071e5a3aea20b936de837615064",
+        "prompt_hash": "be879f08aa7a",
+        "at": "2026-07-30T16:01:54Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.012917999999999999,
+        "duration_ms": 13089,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "35f4cf5a2da14c48acd9138027d2d9d65560012737643f55fbfdc9ecfe228829",
+        "prompt_hash": "d0d0c9683e2c",
+        "at": "2026-07-30T16:02:01Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.028297000000000003,
+        "duration_ms": 28931,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "3631797f7f6a254d5aa9385c9d18806ecba63eab53e2f2d51a76c0251d6fa8e5",
+        "prompt_hash": "1fad14e84176",
+        "at": "2026-07-30T16:02:04Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.021562,
+        "duration_ms": 20754,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "36c0aba52ed0dfaa60a6c93c1b98bf1cd776c25fec5973f8ad9372b33cb6beca",
+        "prompt_hash": "a4ed20d14296",
+        "at": "2026-07-30T16:02:04Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.016075,
+        "duration_ms": 14726,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "377bb6c5d0128b5857e30878087d8255f3c64899956bf32256686708831ca577",
+        "prompt_hash": "61d367156117",
+        "at": "2026-07-30T16:02:16Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.016029,
+        "duration_ms": 19580,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "37cb659023f09b2bd026fb658a8e3efdb7573220be73dea1c93a53295ec4c062",
+        "prompt_hash": "63cc35b6c081",
+        "at": "2026-07-30T16:02:33Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.036604,
+        "duration_ms": 28585,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+        "prompt_hash": "b5617a5480dd",
+        "at": "2026-07-30T16:03:17Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "38c9d1ecba0eb521f4d462cfbcdbed375925d8c58d9899bf3ef9e1a47ba5feea",
+        "prompt_hash": "692980f15821",
+        "at": "2026-07-30T16:03:35Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.013825,
+        "duration_ms": 12524,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "076131cb1e602d877a26f5bce7e542ce2e392f8f3c1b92b7a70c8ece670de1fb",
+        "prompt_hash": "09fe46c8c501",
+        "at": "2026-07-30T16:03:38Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.019095,
+        "duration_ms": 16134,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "39dbb586b1405b14b7ace9b965cc08a0eec8032b586064ecd24496d8a76929b2",
+        "prompt_hash": "c8539f27e648",
+        "at": "2026-07-30T16:03:40Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.015712,
+        "duration_ms": 17997,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "21638d08942266428e612244b9a2392310278d0dbdb8fdf1506121e82507ec43",
+        "prompt_hash": "636617a44bef",
+        "at": "2026-07-30T16:03:43Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0121355,
+        "duration_ms": 20356,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "3b54d2995f1469360ee02fa79623f85935354a5c0c8c005939fe9e8d5b2e8b18",
+        "prompt_hash": "92f8fcc62e6f",
+        "at": "2026-07-30T16:03:53Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.014134,
+        "duration_ms": 15545,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "3bf75143028ea560488087f27c9c5cf29cdefb9821ed56c1708dd815570c1606",
+        "prompt_hash": "1f29be375ab7",
+        "at": "2026-07-30T16:04:02Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.017113,
+        "duration_ms": 18131,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "3b610783052177fd74ff17b1d33602af6a655111eed21c70a91781de9ebb63f7",
+        "prompt_hash": "791c38ad0061",
+        "at": "2026-07-30T16:04:05Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.019051,
+        "duration_ms": 22796,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "3c5f015bf1548b333b928cc6af1eedb04ed8234040bcfcda4b625ab6be330abf",
+        "prompt_hash": "439866eb889a",
+        "at": "2026-07-30T16:04:13Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.020336,
+        "duration_ms": 27311,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "3cfd8a8061e2e7b31a6c21e264f9873af0825264d4de0a5aefc7c66152b72c18",
+        "prompt_hash": "b9f0ce678372",
+        "at": "2026-07-30T16:04:22Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.019235000000000002,
+        "duration_ms": 17525,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "3c6a7da12281d968e69c85bb4bf907fea48d75e33e8693fc92a336be124375fe",
+        "prompt_hash": "0913ae00eafb",
+        "at": "2026-07-30T16:04:25Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.021644,
+        "duration_ms": 28784,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "3d0786f6c42df490b9105ed7a50fd339a05600f9db991b0dc214b88f7aa994b5",
+        "prompt_hash": "7d7193e41e50",
+        "at": "2026-07-30T16:04:28Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.021519,
+        "duration_ms": 20356,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "3d0e2d9596c408567e133a078758d057421093e16a927143ca92e5f65a6d5f93",
+        "prompt_hash": "13975ab03824",
+        "at": "2026-07-30T16:04:38Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.018562000000000002,
+        "duration_ms": 21223,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "3d6cdda1498533195184f8aa58676714bac900eef0b70266511f1d2a95579cb8",
+        "prompt_hash": "2e51928afd12",
+        "at": "2026-07-30T16:04:46Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.029433,
+        "duration_ms": 21730,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "460030110c4b4dd9605ceb9df8b8f18032770adc98fff1913c8f9902acf517dc",
+        "prompt_hash": "453c6b8bfc94",
+        "at": "2026-07-30T16:04:56Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.017726,
+        "duration_ms": 15453,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "46bd5db053d0be07a9a84164069d87e2bebada0c8493269b78f1d89f096b40f7",
+        "prompt_hash": "5fb1248d4bed",
+        "at": "2026-07-30T16:05:06Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.016631,
+        "duration_ms": 17179,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "3eca8650a8278bb9c39158f34e9bf31f8928dba3df5b1ff45307c8c4ea67d448",
+        "prompt_hash": "420db11dd06f",
+        "at": "2026-07-30T16:05:14Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.049995,
+        "duration_ms": 45801,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "41fc74fff4c55a9c7f8b93e0eff1ccd405d60fdc7cd07d302a5860d93833e18b",
+        "prompt_hash": "1325f69a3a89",
+        "at": "2026-07-30T16:05:20Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.061659000000000005,
+        "duration_ms": 48169,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "47bf7ae6831b9d721c33db389bd6275d0f5e2abe3e7ee00da1ace44755ceca06",
+        "prompt_hash": "ceb49713d100",
+        "at": "2026-07-30T16:05:20Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.02136,
+        "duration_ms": 20871,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "4875bc3458c2e9cb2eed6ef220b1c58ef3c7b31c8ce8dee7f6a07f383ce6b1cf",
+        "prompt_hash": "281d4b62a707",
+        "at": "2026-07-30T16:05:40Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.022958,
+        "duration_ms": 31110,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+        "prompt_hash": "b5617a5480dd",
+        "at": "2026-07-30T16:06:20Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "21638d08942266428e612244b9a2392310278d0dbdb8fdf1506121e82507ec43",
+        "prompt_hash": "e52772bd0569",
+        "at": "2026-07-30T16:06:41Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.009450299999999998,
+        "duration_ms": 16568,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "46bd5db053d0be07a9a84164069d87e2bebada0c8493269b78f1d89f096b40f7",
+        "prompt_hash": "a548966c41a3",
+        "at": "2026-07-30T16:06:42Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.016454,
+        "duration_ms": 17199,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "4a5de666bf53d1f55e8a1441d53141d5b353b016a1f3c4b13c7dd9c30d016550",
+        "prompt_hash": "503e95407c62",
+        "at": "2026-07-30T16:06:43Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.022098,
+        "duration_ms": 18551,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "076131cb1e602d877a26f5bce7e542ce2e392f8f3c1b92b7a70c8ece670de1fb",
+        "prompt_hash": "e60f8df393b6",
+        "at": "2026-07-30T16:06:45Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.011960099999999998,
+        "duration_ms": 20340,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "4c420d143bb57329a9bf0db1329dfa67601321ff3bd354e7a6e28a4e813e4fe6",
+        "prompt_hash": "febe1e29da13",
+        "at": "2026-07-30T16:07:01Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.014796,
+        "duration_ms": 15803,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "4c0831a9d2fe4abf44cd7911994fcc90d801e4b02861080d69d2a11b6122645d",
+        "prompt_hash": "0ef5c5e3fc03",
+        "at": "2026-07-30T16:07:03Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.021958,
+        "duration_ms": 19088,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "52c526d8767d481214cf7649e3645934b7483021f78bcac40d01286c886f2a38",
+        "prompt_hash": "dbe124cd6bc1",
+        "at": "2026-07-30T16:07:08Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.021683,
+        "duration_ms": 18667,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "54a487f5411f3ca5227e1cf98d265a6332aafff0e5ac44fac3246d3f0e086098",
+        "prompt_hash": "68d492accb45",
+        "at": "2026-07-30T16:07:18Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.015908,
+        "duration_ms": 13269,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "4d1c9602e57d87b2d85b4f8cb0cbc149db59c3b02e9e8a803f377928ecc6fac9",
+        "prompt_hash": "bc34a58aa971",
+        "at": "2026-07-30T16:07:21Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.073555,
+        "duration_ms": 33492,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d02e3dcd3d4fab20e833c6656e4fc41434150c64d2887d911922b5a530b1b16",
+        "prompt_hash": "f3c065a4f5a6",
+        "at": "2026-07-30T16:07:21Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "584689976c743985d3442a587af3f497237e7e8c0714d4885727c2523a8a0ad2",
+        "prompt_hash": "3de644449695",
+        "at": "2026-07-30T16:07:26Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.017211,
+        "duration_ms": 15755,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5599dc5962440572b332a4a68c37bb392f87ea66799ecb19d9b0f92cfc5dc9f6",
+        "prompt_hash": "ef29c615bdc4",
+        "at": "2026-07-30T16:07:26Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.018668999999999998,
+        "duration_ms": 20087,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5e88156861db15ac2b48537682e7e25bb3ede72fd0278fa285bfd1bab74cf291",
+        "prompt_hash": "c6de93313fca",
+        "at": "2026-07-30T16:07:42Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.011948,
+        "duration_ms": 11695,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "587c29b334ba90e739169f3b7b6fad2fbe4238aa5f87fdaf62cbbfd3bd38b798",
+        "prompt_hash": "d80b54b041e0",
+        "at": "2026-07-30T16:07:43Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.018867000000000002,
+        "duration_ms": 21753,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d350dfefd0397a61c4900c1a15040e42fabc8755229319206f1a93f6715ac2a",
+        "prompt_hash": "53999352eed4",
+        "at": "2026-07-30T16:07:49Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.019752,
+        "duration_ms": 25279,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "6a31130edc5874bb1981c42cd20cad7d3e4f3006c6502a845f898e56e2f15e00",
+        "prompt_hash": "c89de51bf3cb",
+        "at": "2026-07-30T16:07:54Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.025537000000000004,
+        "duration_ms": 24067,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "705de51931d80a693c2d3595e566f7085119fbe8285c1baec0f20d9f56713f38",
+        "prompt_hash": "4d3b663bd766",
+        "at": "2026-07-30T16:08:04Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.017156,
+        "duration_ms": 17518,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "70451ae332888a14a20ff3a6452e8e2cbf9e7a50c9d0dd0e97801c5e4baf3d38",
+        "prompt_hash": "9729d7e9fecd",
+        "at": "2026-07-30T16:08:04Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.016341,
+        "duration_ms": 19240,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "71ee8b55a898b19deb06639e4630975a48a9a422678523db7baa1f7a234d624e",
+        "prompt_hash": "64affd945878",
+        "at": "2026-07-30T16:08:06Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.019202999999999998,
+        "duration_ms": 13793,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+        "prompt_hash": "b5617a5480dd",
+        "at": "2026-07-30T16:08:52Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d02e3dcd3d4fab20e833c6656e4fc41434150c64d2887d911922b5a530b1b16",
+        "prompt_hash": "f3c065a4f5a6",
+        "at": "2026-07-30T16:08:52Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d350dfefd0397a61c4900c1a15040e42fabc8755229319206f1a93f6715ac2a",
+        "prompt_hash": "f8d60a057920",
+        "at": "2026-07-30T16:09:08Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.013035,
+        "duration_ms": 11267,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "21638d08942266428e612244b9a2392310278d0dbdb8fdf1506121e82507ec43",
+        "prompt_hash": "636617a44bef",
+        "at": "2026-07-30T16:09:10Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0095105,
+        "duration_ms": 13708,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "076131cb1e602d877a26f5bce7e542ce2e392f8f3c1b92b7a70c8ece670de1fb",
+        "prompt_hash": "09fe46c8c501",
+        "at": "2026-07-30T16:09:17Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0156089,
+        "duration_ms": 20154,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "46bd5db053d0be07a9a84164069d87e2bebada0c8493269b78f1d89f096b40f7",
+        "prompt_hash": "5fb1248d4bed",
+        "at": "2026-07-30T16:09:28Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0203552,
+        "duration_ms": 31249,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "7224b0a52ec46d47933a4fa30bbba30b049b72d88a65360b44c84975a5f48b2f",
+        "prompt_hash": "c4fa87a7debd",
+        "at": "2026-07-30T16:09:31Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.026806999999999997,
+        "duration_ms": 20313,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "760a087ee7161b307fbfaed1f55826929e5d2f64a8b95559e88216df47063081",
+        "prompt_hash": "68feab15babc",
+        "at": "2026-07-30T16:09:36Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.016597,
+        "duration_ms": 16096,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "74bf49420f25085b07c0166f3d180a1a5db35485a7158cc16bbc763100ebbb62",
+        "prompt_hash": "8ce9fb12a3a5",
+        "at": "2026-07-30T16:09:38Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.020634,
+        "duration_ms": 24694,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "76daa0dfc2ae9e77587b9a3c26cab35a020d1614509c0430fd6b819017fc65b8",
+        "prompt_hash": "c16cba0e34da",
+        "at": "2026-07-30T16:09:46Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.015595999999999999,
+        "duration_ms": 15046,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "77c3166dab73613d3f96d22fd7ef61d8ce02f6ff3678a10631e407ea74ef81aa",
+        "prompt_hash": "256de8b4e019",
+        "at": "2026-07-30T16:09:52Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.023142000000000003,
+        "duration_ms": 17940,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "798055adc4a5d2ed16172d9146ae6d0a7bc73f267956587a241e51c998d4765e",
+        "prompt_hash": "d0fd4b7783d9",
+        "at": "2026-07-30T16:09:54Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.015635,
+        "duration_ms": 13706,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "79672909f90f2f7379766e4523477b885f3c1d2fdeef590345acb8b9b64deb8a",
+        "prompt_hash": "1357ccc708ff",
+        "at": "2026-07-30T16:09:59Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.020087999999999998,
+        "duration_ms": 20507,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "7ad53cea29d045ed236c1834454ef8a72da5608c325b7c9c94a70ee68dee3411",
+        "prompt_hash": "b6cce8661a05",
+        "at": "2026-07-30T16:10:08Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.022889,
+        "duration_ms": 12894,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "7e7eff170c37e168f82b0cac80804dbf044203a16c6802fdf78a51b5d2c9ec4c",
+        "prompt_hash": "e612ffbbb4ec",
+        "at": "2026-07-30T16:10:10Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.011767,
+        "duration_ms": 12332,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "7a07fe4a3d17ed00397b8b11af53abc0a230db0247d40820ebf7526472e6f9bc",
+        "prompt_hash": "c3a9e7e8f959",
+        "at": "2026-07-30T16:10:12Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.020585,
+        "duration_ms": 23084,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "7e9cf051aab29058e72058fb3cc9d78977ea7c0d282c60da87c5eb6cfb8f93d4",
+        "prompt_hash": "f515df2316ec",
+        "at": "2026-07-30T16:10:17Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.015338,
+        "duration_ms": 15459,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "8547c39ba94fb89bf67812ed03ced35264aa7777c821869d6f98389cf05110aa",
+        "prompt_hash": "d15b8608a9c5",
+        "at": "2026-07-30T16:10:35Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.01737,
+        "duration_ms": 19238,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "800b73a7c987ea092e11e0b4c925b52185a0152847841f626bafb0324d7f7f47",
+        "prompt_hash": "a76932e70118",
+        "at": "2026-07-30T16:10:40Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.022043,
+        "duration_ms": 29895,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "82b95b135a4dd93d5753587aff75c23f7544f5c7a12fab113daad73b942423ad",
+        "prompt_hash": "c1170ad0848c",
+        "at": "2026-07-30T16:10:42Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.023943,
+        "duration_ms": 27993,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+        "prompt_hash": "b5617a5480dd",
+        "at": "2026-07-30T16:12:15Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d02e3dcd3d4fab20e833c6656e4fc41434150c64d2887d911922b5a530b1b16",
+        "prompt_hash": "f3c065a4f5a6",
+        "at": "2026-07-30T16:12:15Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d350dfefd0397a61c4900c1a15040e42fabc8755229319206f1a93f6715ac2a",
+        "prompt_hash": "53999352eed4",
+        "at": "2026-07-30T16:12:32Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.008510499999999999,
+        "duration_ms": 13139,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "21638d08942266428e612244b9a2392310278d0dbdb8fdf1506121e82507ec43",
+        "prompt_hash": "e52772bd0569",
+        "at": "2026-07-30T16:12:34Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0092403,
+        "duration_ms": 15089,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "46bd5db053d0be07a9a84164069d87e2bebada0c8493269b78f1d89f096b40f7",
+        "prompt_hash": "a548966c41a3",
+        "at": "2026-07-30T16:12:38Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.013109599999999999,
+        "duration_ms": 18665,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "076131cb1e602d877a26f5bce7e542ce2e392f8f3c1b92b7a70c8ece670de1fb",
+        "prompt_hash": "e60f8df393b6",
+        "at": "2026-07-30T16:12:39Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.011520099999999998,
+        "duration_ms": 19619,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "85efeda5bcb48502c8c00ad93a5d899c930f57b171b05e8688ec60c4261239e5",
+        "prompt_hash": "b391f697b4aa",
+        "at": "2026-07-30T16:12:58Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.019524,
+        "duration_ms": 21255,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "85b852acdff17446b8c189baa4e4bae71c84eb7e935caf89333afee1cf0d65f7",
+        "prompt_hash": "4570aa3d1300",
+        "at": "2026-07-30T16:13:03Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.028443,
+        "duration_ms": 27889,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "868593354c21cf9e53a24128f212a3b55751b05af5855c2cd7fefaf4e57899b2",
+        "prompt_hash": "3aec8fc97994",
+        "at": "2026-07-30T16:13:06Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.019937999999999997,
+        "duration_ms": 25350,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "88c3c4eb3ec61cbc6d22f9100b8cae1e8a7a638ff92cc31c6a4ccfe80ba8e5c6",
+        "prompt_hash": "a653e0307716",
+        "at": "2026-07-30T16:13:08Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.026223,
+        "duration_ms": 26069,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "8d9b60734b836dca2f957508df912a9c09826c8caaf3226e2937701941b908c7",
+        "prompt_hash": "c21372a91149",
+        "at": "2026-07-30T16:13:27Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0181382,
+        "duration_ms": 20879,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "8b035ba1c447a43dfb387252469619e64cc13223dac542b30f369f1e0ee8aa78",
+        "prompt_hash": "786167ee70b5",
+        "at": "2026-07-30T16:13:29Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.023431,
+        "duration_ms": 27369,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "8e25badc30f3bd3d3426c7f89894c98ad74bf2fb1d656c1a04130db3fcca5175",
+        "prompt_hash": "e5780b52d352",
+        "at": "2026-07-30T16:13:36Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.02309,
+        "duration_ms": 26933,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "8f69aa2dcfdbeeb11b553a90a36ccf07be89acfd98fc26d5eb1fef43b8360e92",
+        "prompt_hash": "34eb273cea66",
+        "at": "2026-07-30T16:13:41Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.032176,
+        "duration_ms": 29219,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "90515bd107f59002f048a4843086d0edbc21e1500a67dbf0e6b1c91002e021ef",
+        "prompt_hash": "664501f4251e",
+        "at": "2026-07-30T16:13:48Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.01838,
+        "duration_ms": 17884,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9331d62bc8d50d589d3372fcc2d33b24e77f6514646ec1d8975f367806b49d2b",
+        "prompt_hash": "4b3ae4ae22ad",
+        "at": "2026-07-30T16:13:53Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.020484000000000002,
+        "duration_ms": 20223,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9558631bcd02b7b56951d548b99c288876decf0436d28502d9979d3a315dfbd8",
+        "prompt_hash": "b418b6ce5328",
+        "at": "2026-07-30T16:14:01Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.022252,
+        "duration_ms": 22300,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "980366dd60724f25eefae343e0309f1816d6299eddc432b1b6407f1119cbad95",
+        "prompt_hash": "2a53dc5feb5e",
+        "at": "2026-07-30T16:14:07Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.022272,
+        "duration_ms": 23101,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9cbc3dcaaeccd339d976c975f477267f1ea9a79fd18d0e2dec496e843cdfc385",
+        "prompt_hash": "4fe718ebed87",
+        "at": "2026-07-30T16:14:17Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.025423,
+        "duration_ms": 20900,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9c1264031c8bfd76a98acec0f8b3195e4e806185395387df2d4f8f2f94c9bb6d",
+        "prompt_hash": "21cd799b01c5",
+        "at": "2026-07-30T16:14:17Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.036179,
+        "duration_ms": 26080,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d02e3dcd3d4fab20e833c6656e4fc41434150c64d2887d911922b5a530b1b16",
+        "prompt_hash": "f3c065a4f5a6",
+        "at": "2026-07-30T16:14:59Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9e6c9027a0b2c35bf21680ff7b9d311a1cfee169eb6811c86dd0f31b109fd1a2",
+        "prompt_hash": "4b7f6364d712",
+        "at": "2026-07-30T16:14:59Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+        "prompt_hash": "b5617a5480dd",
+        "at": "2026-07-30T16:14:59Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9f9e6b971a7f8255ec1f05cc62317020f91f2ab3cc490b3ac1f9e75f6c6cc51f",
+        "prompt_hash": "d65577e77d5e",
+        "at": "2026-07-30T16:15:16Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.013571999999999999,
+        "duration_ms": 12884,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9f5d366de2c92e77e2b46aef147952d1c509607a99d15e5ff004074baaf62149",
+        "prompt_hash": "9fdc3e8932e9",
+        "at": "2026-07-30T16:15:23Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.025015000000000003,
+        "duration_ms": 19941,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "a0ac56f625da62ad7d144c1c6281f655f5d6148b47d9a3af071d72f40eadc857",
+        "prompt_hash": "72849e881e9b",
+        "at": "2026-07-30T16:15:26Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.022821,
+        "duration_ms": 22893,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9f37f7ce10df18a3b2c082c02954cececd556c37a3cf0509c71c368a21e904ff",
+        "prompt_hash": "27bca8a37d63",
+        "at": "2026-07-30T16:15:38Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.028508000000000002,
+        "duration_ms": 34954,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "a3e0c7cfd33550ae011dccc49572b1fd1b8138ec17a9f8b4d4c5fb7194243ab4",
+        "prompt_hash": "bfd927f4cd28",
+        "at": "2026-07-30T16:15:41Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.014948,
+        "duration_ms": 14432,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "a225d54dff67b71217c2075b453340ff433d99da7e6df22cb4064a9236dc459b",
+        "prompt_hash": "37161fcdacf3",
+        "at": "2026-07-30T16:15:43Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.028437,
+        "duration_ms": 23388,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "a40a00b1ed4f1debe82d46f75c223732fde3f211cb66e9761de75235d6790982",
+        "prompt_hash": "ce26a475c9ba",
+        "at": "2026-07-30T16:15:51Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.023275999999999998,
+        "duration_ms": 21823,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "aa040000cc386bdfee33d4ad9c61e8fd8b9f1036bb0d0d494bb27d295fe1dbc5",
+        "prompt_hash": "ab23473538b9",
+        "at": "2026-07-30T16:15:51Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "a92a213c967fbca20e6f46c4a497af76a07cbafa162f9160d72e971339fc73ab",
+        "prompt_hash": "83f870a7f8a8",
+        "at": "2026-07-30T16:16:05Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.018257000000000002,
+        "duration_ms": 19063,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "a78ddd73cda05e56c3605395155ea5630eaf2b17fa2a1f4468fba8fded7778b4",
+        "prompt_hash": "4139535164a9",
+        "at": "2026-07-30T16:16:08Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.018123,
+        "duration_ms": 24112,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "aa5cdb9fd83755dccec86d56284f14a45bc9bed4f292069b28ab8ed3193271f7",
+        "prompt_hash": "ede89e218c95",
+        "at": "2026-07-30T16:16:17Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.019524,
+        "duration_ms": 22604,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "a74b1a0fbd78a6eb3f3b2823bb7d563790a25ecbdc6085760ce85f2e91f625c2",
+        "prompt_hash": "087455e97014",
+        "at": "2026-07-30T16:16:23Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.048716999999999996,
+        "duration_ms": 42224,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "ac631a35e69eca49b5ef46fbaa12f592a9603e8affe11be77fd118a62fb4b90d",
+        "prompt_hash": "a0bdf0696429",
+        "at": "2026-07-30T16:16:24Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.012212999999999998,
+        "duration_ms": 11809,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "abbb6bb14e4335eb8adf521823e37a0de951587d90fc8c5819efd29bd7f8ea19",
+        "prompt_hash": "6f109a7850af",
+        "at": "2026-07-30T16:16:27Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.015813,
+        "duration_ms": 17809,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "b272ae74fcb98fdff47238312b79d2ad9eccddc2b0bc78120f80d0c0599b6b15",
+        "prompt_hash": "07a4806faf9e",
+        "at": "2026-07-30T16:16:41Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.017322999999999998,
+        "duration_ms": 20145,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "b42db05656fd34071130cd873ca291abf12e9978f09e80598f51164818e52780",
+        "prompt_hash": "a661eb9b5801",
+        "at": "2026-07-30T16:16:48Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.025867,
+        "duration_ms": 20071,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "b3e23d784aed797b7bdd351ee1b5744201ce25dc24daf7d3cd88f02f7fff359c",
+        "prompt_hash": "ca48025b6cb6",
+        "at": "2026-07-30T16:16:50Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.019268,
+        "duration_ms": 22584,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+        "prompt_hash": "b5617a5480dd",
+        "at": "2026-07-30T16:17:26Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d02e3dcd3d4fab20e833c6656e4fc41434150c64d2887d911922b5a530b1b16",
+        "prompt_hash": "f3c065a4f5a6",
+        "at": "2026-07-30T16:17:26Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9e6c9027a0b2c35bf21680ff7b9d311a1cfee169eb6811c86dd0f31b109fd1a2",
+        "prompt_hash": "4b7f6364d712",
+        "at": "2026-07-30T16:17:26Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "aa040000cc386bdfee33d4ad9c61e8fd8b9f1036bb0d0d494bb27d295fe1dbc5",
+        "prompt_hash": "ab23473538b9",
+        "at": "2026-07-30T16:17:26Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "b676cd7a6c1a852f4b1a05b56948cba188483db86654cf953f4fe34287f8d2f9",
+        "prompt_hash": "d4039b6fe316",
+        "at": "2026-07-30T16:17:52Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.033108,
+        "duration_ms": 21724,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "b7b46cca6aeda7d7562a74b46fd373dccd7192ff12b07b0c2d631dbc4239dbce",
+        "prompt_hash": "73b3747d17a2",
+        "at": "2026-07-30T16:17:53Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.017477,
+        "duration_ms": 21940,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9f5d366de2c92e77e2b46aef147952d1c509607a99d15e5ff004074baaf62149",
+        "prompt_hash": "3295a77ec3b6",
+        "at": "2026-07-30T16:18:04Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.026253000000000002,
+        "duration_ms": 33259,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "b4621e273ff3a4c2e8a25df97f605a75f34064a7c62718e1e78318cbb2dcf6a9",
+        "prompt_hash": "7403aa1b193f",
+        "at": "2026-07-30T16:18:10Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.039834999999999995,
+        "duration_ms": 39428,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "b82bf0c364089eb863c90e359590fe2798466e9d446996f2ece7b47ba80ad3ea",
+        "prompt_hash": "14ac09b4f673",
+        "at": "2026-07-30T16:18:19Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.021197,
+        "duration_ms": 22813,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "bbf07de78a84e8d41536cdf4a8d29d7b2b7df8532c3907c151591793de839d9b",
+        "prompt_hash": "6ecfd7b28b35",
+        "at": "2026-07-30T16:18:22Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.019393,
+        "duration_ms": 25969,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "bf969988197d240ce3bc68b7c71bf0209fcb027e2397071146d90a30249449da",
+        "prompt_hash": "3f06fd94df8a",
+        "at": "2026-07-30T16:18:34Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.021766999999999998,
+        "duration_ms": 24736,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "c050edaa6571d8b9e4a7a5374345d8c143aea7c13850913cd577f54574bd7a4e",
+        "prompt_hash": "ad417b7e7f33",
+        "at": "2026-07-30T16:18:35Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.024597,
+        "duration_ms": 20534,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "c3d8fb667af55f817628db50c246e28246201c08106c8a3e36276b520142e85f",
+        "prompt_hash": "98a654cb0a8d",
+        "at": "2026-07-30T16:18:42Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.016534,
+        "duration_ms": 17567,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "c44d25d4ba2e06c83aadf543c0ec79dcebe6d9455b64dae3372bee94a5f283f4",
+        "prompt_hash": "5769f5770352",
+        "at": "2026-07-30T16:18:45Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.01736,
+        "duration_ms": 16869,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "ca8aa7ea2bcceb32d89717ac9b1f79b1aa4d68c2507ce84df9995a06534b0d51",
+        "prompt_hash": "17351ffe0642",
+        "at": "2026-07-30T16:18:59Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.018312000000000002,
+        "duration_ms": 17938,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "cb5eed0c9d6223e8246925c45b6507e7a6f20c726fa6b61ed9ee5f04b0ee2d04",
+        "prompt_hash": "b5ca03e0c5a3",
+        "at": "2026-07-30T16:19:02Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.016643,
+        "duration_ms": 19787,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "cc5215dccc81b5d6aaef58d0ec040eac0ff99b17e73e8e0479370bc23397972b",
+        "prompt_hash": "d56375618a62",
+        "at": "2026-07-30T16:19:03Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.015418000000000001,
+        "duration_ms": 13568,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "ce28e23369e0acf9dbc1d90f5c9b282e82cd12daa5b3ec0a0442724df1be039e",
+        "prompt_hash": "414976d56140",
+        "at": "2026-07-30T16:19:06Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.012083999999999998,
+        "duration_ms": 12140,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "ce4622d92f7d5a1773f38feb2d89cbf3db15bfd8269bc7dfbe5f38fc6205171e",
+        "prompt_hash": "1069c087d45e",
+        "at": "2026-07-30T16:19:27Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.020307,
+        "duration_ms": 19675,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "ce369d8672a9666d2386b40b8db2033dce763dcc1ddc57eefd2cb54b016f45b1",
+        "prompt_hash": "3dcfdb164a15",
+        "at": "2026-07-30T16:19:30Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.039208,
+        "duration_ms": 25350,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+        "prompt_hash": "b5617a5480dd",
+        "at": "2026-07-30T16:20:19Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "aa040000cc386bdfee33d4ad9c61e8fd8b9f1036bb0d0d494bb27d295fe1dbc5",
+        "prompt_hash": "ab23473538b9",
+        "at": "2026-07-30T16:20:19Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d02e3dcd3d4fab20e833c6656e4fc41434150c64d2887d911922b5a530b1b16",
+        "prompt_hash": "f3c065a4f5a6",
+        "at": "2026-07-30T16:20:19Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9e6c9027a0b2c35bf21680ff7b9d311a1cfee169eb6811c86dd0f31b109fd1a2",
+        "prompt_hash": "4b7f6364d712",
+        "at": "2026-07-30T16:20:19Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "cefc722676353d104fb327e4516be412841b973ae3f07e3edaaf00a0dfff5deb",
+        "prompt_hash": "7ddb2620a2ed",
+        "at": "2026-07-30T16:20:37Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.024534,
+        "duration_ms": 13414,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "cebc650928951260784e037df3012324f94de718ffb61d9f3db47128d9f21a02",
+        "prompt_hash": "516d625ab160",
+        "at": "2026-07-30T16:20:41Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.014828000000000001,
+        "duration_ms": 17348,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "ce4622d92f7d5a1773f38feb2d89cbf3db15bfd8269bc7dfbe5f38fc6205171e",
+        "prompt_hash": "8ef88e1f488f",
+        "at": "2026-07-30T16:20:44Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.018861,
+        "duration_ms": 20888,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "ce369d8672a9666d2386b40b8db2033dce763dcc1ddc57eefd2cb54b016f45b1",
+        "prompt_hash": "80f90ac9493c",
+        "at": "2026-07-30T16:20:54Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.039500999999999994,
+        "duration_ms": 30096,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "d3a9b5159b13bbe09929330ed35b31f16abb43106a24d6cde8d4b265e52bf690",
+        "prompt_hash": "140dd2d22df1",
+        "at": "2026-07-30T16:20:59Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.016917,
+        "duration_ms": 19036,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "d4ec85f06b4646fe415d88b490004baf607a97945dfd6a0d8d471cc4605a9218",
+        "prompt_hash": "ead133335ef5",
+        "at": "2026-07-30T16:21:08Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.025859,
+        "duration_ms": 24611,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "d84267b227ba60ece7ffc1a24a95c55232410b5cf07fcec0731d26590ee768bd",
+        "prompt_hash": "1c7edbedb728",
+        "at": "2026-07-30T16:21:13Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0201,
+        "duration_ms": 24089,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "dce642963f649ac8f734e5625a47e417dd48a7f9a4a73313b4523dee509ca3e9",
+        "prompt_hash": "acdc882435cd",
+        "at": "2026-07-30T16:21:13Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "d851c13e49c6900a5eab8ba70b60f8c13a28643e7ee004e8c0cb5b230824725f",
+        "prompt_hash": "2e245632d3f5",
+        "at": "2026-07-30T16:21:13Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.017725,
+        "duration_ms": 15091,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "dc6a1ea70c6abb643a22168e1a40af5e484033d7672549dfc7fb001c3f776d1f",
+        "prompt_hash": "a991f68d674f",
+        "at": "2026-07-30T16:21:25Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.014410999999999998,
+        "duration_ms": 13135,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "dd02966477e6efce072dacc78b50fe197fc16949243e3c46aa5bb28e6e00d5f8",
+        "prompt_hash": "24083bc4684f",
+        "at": "2026-07-30T16:21:42Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.033846,
+        "duration_ms": 24177,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "e152a58758a9b157209e9193877a4077d319613fc281bd46808196bbcfdaba07",
+        "prompt_hash": "0a8754f484a3",
+        "at": "2026-07-30T16:21:53Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.02766,
+        "duration_ms": 25649,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "de1cc257804de1b62d02acb3db022d67085969df0d3806a4ca8975514b748089",
+        "prompt_hash": "395760e24d8d",
+        "at": "2026-07-30T16:22:00Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.054273,
+        "duration_ms": 42280,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "dbbf0e88999143e2fb292caf5aa4e2d08e7a5ba3f0fe5b6098753efa6f833225",
+        "prompt_hash": "345743438b90",
+        "at": "2026-07-30T16:22:07Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.063899,
+        "duration_ms": 64238,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "e1e82f94e26e236f3a5b1db60bd2f9d2272e0cae09f6ce08177204a3d22f4868",
+        "prompt_hash": "deba480c87cb",
+        "at": "2026-07-30T16:22:09Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.041663599999999995,
+        "duration_ms": 23759,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "e2158aa6fc19a27180dbdc036e08ca134595113b71959cdbf244469b3db2be6f",
+        "prompt_hash": "a16da73d7ff2",
+        "at": "2026-07-30T16:22:10Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.020531,
+        "duration_ms": 12416,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+        "prompt_hash": "b5617a5480dd",
+        "at": "2026-07-30T16:23:07Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9e6c9027a0b2c35bf21680ff7b9d311a1cfee169eb6811c86dd0f31b109fd1a2",
+        "prompt_hash": "4b7f6364d712",
+        "at": "2026-07-30T16:23:07Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "aa040000cc386bdfee33d4ad9c61e8fd8b9f1036bb0d0d494bb27d295fe1dbc5",
+        "prompt_hash": "ab23473538b9",
+        "at": "2026-07-30T16:23:07Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d02e3dcd3d4fab20e833c6656e4fc41434150c64d2887d911922b5a530b1b16",
+        "prompt_hash": "f3c065a4f5a6",
+        "at": "2026-07-30T16:23:07Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "cefc722676353d104fb327e4516be412841b973ae3f07e3edaaf00a0dfff5deb",
+        "prompt_hash": "c3e44cf1668a",
+        "at": "2026-07-30T16:23:27Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.024311,
+        "duration_ms": 14299,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "dce642963f649ac8f734e5625a47e417dd48a7f9a4a73313b4523dee509ca3e9",
+        "prompt_hash": "acdc882435cd",
+        "at": "2026-07-30T16:23:27Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "d3a9b5159b13bbe09929330ed35b31f16abb43106a24d6cde8d4b265e52bf690",
+        "prompt_hash": "4350c3d6d339",
+        "at": "2026-07-30T16:23:34Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.016619,
+        "duration_ms": 20510,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "ce4622d92f7d5a1773f38feb2d89cbf3db15bfd8269bc7dfbe5f38fc6205171e",
+        "prompt_hash": "35452e55c27b",
+        "at": "2026-07-30T16:23:35Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.019469,
+        "duration_ms": 22021,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "d4ec85f06b4646fe415d88b490004baf607a97945dfd6a0d8d471cc4605a9218",
+        "prompt_hash": "d1cf8504cd07",
+        "at": "2026-07-30T16:23:42Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.024757,
+        "duration_ms": 29492,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "de1cc257804de1b62d02acb3db022d67085969df0d3806a4ca8975514b748089",
+        "prompt_hash": "7b836941572f",
+        "at": "2026-07-30T16:23:48Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.035592,
+        "duration_ms": 16504,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "e9dac72becaa7e70a0fa8db264a2e47c34c841ab60b61554f433463d12ad48c1",
+        "prompt_hash": "20202304dd03",
+        "at": "2026-07-30T16:23:52Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.034822,
+        "duration_ms": 12900,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "e9a7f444df6e4330a0ef9d2782c560c4b4d74430faa9b23e2f5f1eaca62694bb",
+        "prompt_hash": "e4c0cec10f54",
+        "at": "2026-07-30T16:23:58Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.029025000000000002,
+        "duration_ms": 20367,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "e9df347557dd4a8498afa87f6733246323f889e659b5ad6add68b24d1e3d039b",
+        "prompt_hash": "7666143260be",
+        "at": "2026-07-30T16:23:59Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.013568,
+        "duration_ms": 11967,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "efdb72089680b0b3ff3b6ccec1f8edeb062b99d9708f4c32fd97b1ed4c57617e",
+        "prompt_hash": "a684b684225e",
+        "at": "2026-07-30T16:23:59Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "eccf0748bf0ff73bc61e6b65351fddca2f5832e0f52d1b1cc6171e86710b9b8f",
+        "prompt_hash": "698ebfec0501",
+        "at": "2026-07-30T16:24:11Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.015194,
+        "duration_ms": 19110,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "ee81a323a946fec93f3c25f29a8d0c0217dac9c75c3967b098e1b65687a52a06",
+        "prompt_hash": "44233a5b85cf",
+        "at": "2026-07-30T16:24:18Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.035364,
+        "duration_ms": 19687,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "f19d7bc3de84e8022696e69e4725a2d73db76f702a4759d6ed4c91d5e859c681",
+        "prompt_hash": "d6d3c4001f95",
+        "at": "2026-07-30T16:24:21Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.018370699999999997,
+        "duration_ms": 18066,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "ef45d4706bbe47bf2ca2552f3152787b2225db3ab665ea62dc825996455416a3",
+        "prompt_hash": "8a1cf878f5a7",
+        "at": "2026-07-30T16:24:24Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0289217,
+        "duration_ms": 21048,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "f520cd2a333e88b5ffa234ce918f7915826d4144aa100511a16ee19e0fad3c9e",
+        "prompt_hash": "0901a5cfa2fa",
+        "at": "2026-07-30T16:24:36Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0211937,
+        "duration_ms": 21447,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "fa0f1e2b19fb413e2821e18e42a8c261d9d0a8c3d2c4602a7b84ade883b89066",
+        "prompt_hash": "d2eecc3dc7f0",
+        "at": "2026-07-30T16:24:49Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0215557,
+        "duration_ms": 27748,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+        "prompt_hash": "b5617a5480dd",
+        "at": "2026-07-30T16:25:30Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d02e3dcd3d4fab20e833c6656e4fc41434150c64d2887d911922b5a530b1b16",
+        "prompt_hash": "f3c065a4f5a6",
+        "at": "2026-07-30T16:25:30Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9e6c9027a0b2c35bf21680ff7b9d311a1cfee169eb6811c86dd0f31b109fd1a2",
+        "prompt_hash": "4b7f6364d712",
+        "at": "2026-07-30T16:25:30Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "aa040000cc386bdfee33d4ad9c61e8fd8b9f1036bb0d0d494bb27d295fe1dbc5",
+        "prompt_hash": "ab23473538b9",
+        "at": "2026-07-30T16:25:30Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "efdb72089680b0b3ff3b6ccec1f8edeb062b99d9708f4c32fd97b1ed4c57617e",
+        "prompt_hash": "a684b684225e",
+        "at": "2026-07-30T16:25:30Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "dce642963f649ac8f734e5625a47e417dd48a7f9a4a73313b4523dee509ca3e9",
+        "prompt_hash": "acdc882435cd",
+        "at": "2026-07-30T16:25:30Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "d4ec85f06b4646fe415d88b490004baf607a97945dfd6a0d8d471cc4605a9218",
+        "prompt_hash": "911c12e12bb0",
+        "at": "2026-07-30T16:25:57Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.034466,
+        "duration_ms": 24290,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+        "prompt_hash": "b5617a5480dd",
+        "at": "2026-07-30T16:26:37Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9e6c9027a0b2c35bf21680ff7b9d311a1cfee169eb6811c86dd0f31b109fd1a2",
+        "prompt_hash": "4b7f6364d712",
+        "at": "2026-07-30T16:26:37Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d02e3dcd3d4fab20e833c6656e4fc41434150c64d2887d911922b5a530b1b16",
+        "prompt_hash": "f3c065a4f5a6",
+        "at": "2026-07-30T16:26:37Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "aa040000cc386bdfee33d4ad9c61e8fd8b9f1036bb0d0d494bb27d295fe1dbc5",
+        "prompt_hash": "ab23473538b9",
+        "at": "2026-07-30T16:26:37Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "efdb72089680b0b3ff3b6ccec1f8edeb062b99d9708f4c32fd97b1ed4c57617e",
+        "prompt_hash": "a684b684225e",
+        "at": "2026-07-30T16:26:37Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "dce642963f649ac8f734e5625a47e417dd48a7f9a4a73313b4523dee509ca3e9",
+        "prompt_hash": "acdc882435cd",
+        "at": "2026-07-30T16:26:37Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "aa040000cc386bdfee33d4ad9c61e8fd8b9f1036bb0d0d494bb27d295fe1dbc5",
+        "prompt_hash": "ab23473538b9",
+        "at": "2026-07-30T16:28:10Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+        "prompt_hash": "b5617a5480dd",
+        "at": "2026-07-30T16:28:10Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d02e3dcd3d4fab20e833c6656e4fc41434150c64d2887d911922b5a530b1b16",
+        "prompt_hash": "f3c065a4f5a6",
+        "at": "2026-07-30T16:28:10Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9e6c9027a0b2c35bf21680ff7b9d311a1cfee169eb6811c86dd0f31b109fd1a2",
+        "prompt_hash": "4b7f6364d712",
+        "at": "2026-07-30T16:28:10Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "dce642963f649ac8f734e5625a47e417dd48a7f9a4a73313b4523dee509ca3e9",
+        "prompt_hash": "acdc882435cd",
+        "at": "2026-07-30T16:28:10Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "efdb72089680b0b3ff3b6ccec1f8edeb062b99d9708f4c32fd97b1ed4c57617e",
+        "prompt_hash": "a684b684225e",
+        "at": "2026-07-30T16:28:10Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "de1cc257804de1b62d02acb3db022d67085969df0d3806a4ca8975514b748089",
+        "prompt_hash": "a721df575450",
+        "at": "2026-07-30T16:28:33Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0377462,
+        "duration_ms": 20093,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+        "prompt_hash": "b5617a5480dd",
+        "at": "2026-07-30T16:29:12Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d02e3dcd3d4fab20e833c6656e4fc41434150c64d2887d911922b5a530b1b16",
+        "prompt_hash": "f3c065a4f5a6",
+        "at": "2026-07-30T16:29:12Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9e6c9027a0b2c35bf21680ff7b9d311a1cfee169eb6811c86dd0f31b109fd1a2",
+        "prompt_hash": "4b7f6364d712",
+        "at": "2026-07-30T16:29:12Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "aa040000cc386bdfee33d4ad9c61e8fd8b9f1036bb0d0d494bb27d295fe1dbc5",
+        "prompt_hash": "ab23473538b9",
+        "at": "2026-07-30T16:29:12Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "dce642963f649ac8f734e5625a47e417dd48a7f9a4a73313b4523dee509ca3e9",
+        "prompt_hash": "acdc882435cd",
+        "at": "2026-07-30T16:29:12Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "efdb72089680b0b3ff3b6ccec1f8edeb062b99d9708f4c32fd97b1ed4c57617e",
+        "prompt_hash": "a684b684225e",
+        "at": "2026-07-30T16:29:12Z",
+        "error": "[WinError 206] The filename or extension is too long"
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "086c7aa34c49ae2f0a198ae4335e1d01b76d2654526e66530497a6bfa965901c",
+        "prompt_hash": "2e291591516a",
+        "at": "2026-07-30T16:39:46Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.03921,
+        "duration_ms": 18621,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "054dc2e06d0dc1e3b67fb03ed57145a7435fdb4e58cfeb5483aaeca87557bded",
+        "prompt_hash": "6099884001f7",
+        "at": "2026-07-30T16:40:14Z",
+        "error": "structured decision did not cover exactly the candidate rows",
+        "expected_rows": 30,
+        "returned_rows": 29
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "0a3e5387e57d2ea376c9d79ef5e08fbe6d7776da07c4c17cd594f0668f67fba9",
+        "prompt_hash": "fc33f1776bb0",
+        "at": "2026-07-30T16:40:15Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.044842999999999994,
+        "duration_ms": 26460,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "054dc2e06d0dc1e3b67fb03ed57145a7435fdb4e58cfeb5483aaeca87557bded",
+        "prompt_hash": "faee6735456e",
+        "at": "2026-07-30T16:40:16Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.09834330000000001,
+        "duration_ms": 49295,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "14429948f40ec2fca2962acd89f8f70ec6ec12c0c34ce9e79457d1ab4d10d659",
+        "prompt_hash": "c8e6c285eeee",
+        "at": "2026-07-30T16:41:09Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.08651700000000001,
+        "duration_ms": 48635,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "054dc2e06d0dc1e3b67fb03ed57145a7435fdb4e58cfeb5483aaeca87557bded",
+        "prompt_hash": "bba1a48e84bb",
+        "at": "2026-07-30T16:41:10Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.24638169999999998,
+        "duration_ms": 102839,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "14429948f40ec2fca2962acd89f8f70ec6ec12c0c34ce9e79457d1ab4d10d659",
+        "prompt_hash": "b7557bc7ff6a",
+        "at": "2026-07-30T16:41:11Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.090591,
+        "duration_ms": 53145,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "227cb046fac00315a0843604d5da965bd4ac8c123f01f47d3603efa981205a62",
+        "prompt_hash": "be24b8b1bfb7",
+        "at": "2026-07-30T16:41:35Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.019806400000000002,
+        "duration_ms": 19952,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "14429948f40ec2fca2962acd89f8f70ec6ec12c0c34ce9e79457d1ab4d10d659",
+        "prompt_hash": "91ddaf086d55",
+        "at": "2026-07-30T16:41:42Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.047533399999999996,
+        "duration_ms": 26744,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+        "prompt_hash": "2da5ebf9873b",
+        "at": "2026-07-30T16:42:26Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0606324,
+        "duration_ms": 46495,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "14429948f40ec2fca2962acd89f8f70ec6ec12c0c34ce9e79457d1ab4d10d659",
+        "prompt_hash": "9499028ac64b",
+        "at": "2026-07-30T16:42:27Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.113017,
+        "duration_ms": 74443,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "26ba9713bb510c34cd730891e29106bcf195d5dacaae6af26fa1a295d4f8b238",
+        "prompt_hash": "8affa9f1114c",
+        "at": "2026-07-30T16:42:34Z",
+        "error": "structured decision did not cover exactly the candidate rows",
+        "expected_rows": 22,
+        "returned_rows": 23
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "14429948f40ec2fca2962acd89f8f70ec6ec12c0c34ce9e79457d1ab4d10d659",
+        "prompt_hash": "56e8402624ef",
+        "at": "2026-07-30T16:42:42Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.14849,
+        "duration_ms": 142594,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "3c5f015bf1548b333b928cc6af1eedb04ed8234040bcfcda4b625ab6be330abf",
+        "prompt_hash": "80a2dfe7660b",
+        "at": "2026-07-30T16:42:51Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0128867,
+        "duration_ms": 14433,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "3623bbba70075febc4f7a95a2c7783d0190b6071e5a3aea20b936de837615064",
+        "prompt_hash": "666b69528ecb",
+        "at": "2026-07-30T16:42:57Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.028245700000000002,
+        "duration_ms": 26451,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "303c88ead46737eb11612e116f3f3eebf9d18c961415050edb857ee72001e2fa",
+        "prompt_hash": "ff4e9717c1ef",
+        "at": "2026-07-30T16:43:09Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.053000000000000005,
+        "duration_ms": 39044,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "46bd5db053d0be07a9a84164069d87e2bebada0c8493269b78f1d89f096b40f7",
+        "prompt_hash": "56d9c2739e5d",
+        "at": "2026-07-30T16:43:12Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0163547,
+        "duration_ms": 18160,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "43eb4681a89e769c3111113ec070249a90d44815e117c05498e02d147a4b8ad0",
+        "prompt_hash": "080dadf0c5bd",
+        "at": "2026-07-30T16:43:14Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0330227,
+        "duration_ms": 28527,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "4967c2477492ddb5992a911b68d046d2f53861d097d15a6c4dd60e24d0e68c88",
+        "prompt_hash": "3d0449c1cc25",
+        "at": "2026-07-30T16:43:18Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.017442700000000002,
+        "duration_ms": 17858,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d350dfefd0397a61c4900c1a15040e42fabc8755229319206f1a93f6715ac2a",
+        "prompt_hash": "4173119ead39",
+        "at": "2026-07-30T16:43:35Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.015866699999999997,
+        "duration_ms": 16577,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5599dc5962440572b332a4a68c37bb392f87ea66799ecb19d9b0f92cfc5dc9f6",
+        "prompt_hash": "6bcceeccb49d",
+        "at": "2026-07-30T16:43:36Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0217117,
+        "duration_ms": 24416,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "642d7b6d9f024266ba2e2b317400d9d5f4b7a37ce73c63775f380bd358ffdacf",
+        "prompt_hash": "de52a7ac106b",
+        "at": "2026-07-30T16:43:55Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0250627,
+        "duration_ms": 32416,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "6a31130edc5874bb1981c42cd20cad7d3e4f3006c6502a845f898e56e2f15e00",
+        "prompt_hash": "7bab4d716f82",
+        "at": "2026-07-30T16:43:56Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0189627,
+        "duration_ms": 17837,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "77c3166dab73613d3f96d22fd7ef61d8ce02f6ff3678a10631e407ea74ef81aa",
+        "prompt_hash": "db736e74dee4",
+        "at": "2026-07-30T16:44:07Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0281357,
+        "duration_ms": 27510,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "85b852acdff17446b8c189baa4e4bae71c84eb7e935caf89333afee1cf0d65f7",
+        "prompt_hash": "94fbeea9764f",
+        "at": "2026-07-30T16:44:24Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0229787,
+        "duration_ms": 25046,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d02e3dcd3d4fab20e833c6656e4fc41434150c64d2887d911922b5a530b1b16",
+        "prompt_hash": "b8ac0a869fa9",
+        "at": "2026-07-30T16:44:29Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0827427,
+        "duration_ms": 73095,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "79672909f90f2f7379766e4523477b885f3c1d2fdeef590345acb8b9b64deb8a",
+        "prompt_hash": "d1d285b82bb5",
+        "at": "2026-07-30T16:44:31Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0279697,
+        "duration_ms": 32863,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "8b0cec02e76a7c1102c14ff12a117bcf37d804c28a303f2d96750c1503ec2e68",
+        "prompt_hash": "1c1cc9c6a962",
+        "at": "2026-07-30T16:45:33Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.12036870000000001,
+        "duration_ms": 66062,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "8b0cec02e76a7c1102c14ff12a117bcf37d804c28a303f2d96750c1503ec2e68",
+        "prompt_hash": "53a77a433447",
+        "at": "2026-07-30T16:45:59Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.134689,
+        "duration_ms": 83691,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "8b0cec02e76a7c1102c14ff12a117bcf37d804c28a303f2d96750c1503ec2e68",
+        "prompt_hash": "d349a436780a",
+        "at": "2026-07-30T16:46:33Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.05689179999999999,
+        "duration_ms": 30471,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "8b0cec02e76a7c1102c14ff12a117bcf37d804c28a303f2d96750c1503ec2e68",
+        "prompt_hash": "6da4a3b4a290",
+        "at": "2026-07-30T16:46:36Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.10894480000000001,
+        "duration_ms": 59109,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "8b0cec02e76a7c1102c14ff12a117bcf37d804c28a303f2d96750c1503ec2e68",
+        "prompt_hash": "64f5c9de20ff",
+        "at": "2026-07-30T16:46:38Z",
+        "error": "structured decision did not cover exactly the candidate rows",
+        "expected_rows": 30,
+        "returned_rows": 29
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "8b0cec02e76a7c1102c14ff12a117bcf37d804c28a303f2d96750c1503ec2e68",
+        "prompt_hash": "aca8f286dc63",
+        "at": "2026-07-30T16:47:20Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.30271170000000003,
+        "duration_ms": 189943,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "8cbe484df404312c3159398fd2475d435c62c08e52cdc6f272fdefeb6938e7bc",
+        "prompt_hash": "c058d3ea8b39",
+        "at": "2026-07-30T16:47:26Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.05111240000000001,
+        "duration_ms": 41617,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9331d62bc8d50d589d3372fcc2d33b24e77f6514646ec1d8975f367806b49d2b",
+        "prompt_hash": "ed41c8f59d83",
+        "at": "2026-07-30T16:48:07Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0467354,
+        "duration_ms": 42983,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9e6c9027a0b2c35bf21680ff7b9d311a1cfee169eb6811c86dd0f31b109fd1a2",
+        "prompt_hash": "67e95357bf5a",
+        "at": "2026-07-30T16:48:27Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0454874,
+        "duration_ms": 17525,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9331d62bc8d50d589d3372fcc2d33b24e77f6514646ec1d8975f367806b49d2b",
+        "prompt_hash": "8a5d56e78ffa",
+        "at": "2026-07-30T16:48:43Z",
+        "error": "structured decision did not cover exactly the candidate rows",
+        "expected_rows": 30,
+        "returned_rows": 32
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9e5a52b4d6c1c5ba5f9c7d20bd633333805055765b3a3ef08e03b14e3b474ed0",
+        "prompt_hash": "1a74d0441e5a",
+        "at": "2026-07-30T16:48:47Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.06803540000000001,
+        "duration_ms": 76945,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "8cbe484df404312c3159398fd2475d435c62c08e52cdc6f272fdefeb6938e7bc",
+        "prompt_hash": "cec5ac5e1d75",
+        "at": "2026-07-30T16:48:47Z",
+        "error": "structured decision did not cover exactly the candidate rows",
+        "expected_rows": 30,
+        "returned_rows": 32
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9f5d366de2c92e77e2b46aef147952d1c509607a99d15e5ff004074baaf62149",
+        "prompt_hash": "3639c30fbac5",
+        "at": "2026-07-30T16:48:48Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.025373399999999997,
+        "duration_ms": 16962,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "a13338c1dfd283b250204fc059833524fad855b09058c38cbee141ddffe4b76b",
+        "prompt_hash": "c386b523900b",
+        "at": "2026-07-30T16:48:59Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.013621399999999999,
+        "duration_ms": 13063,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "a7e82f6d03bb8a69d5553e2a4da2e9f644ee8bb67856b79ca6d278b3ace84052",
+        "prompt_hash": "aae4f2625771",
+        "at": "2026-07-30T16:49:14Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0168764,
+        "duration_ms": 19604,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "a4f2903079028cf8b7aaf0579c4f24a25f5c92055d80e8034ea2a6831ba768e4",
+        "prompt_hash": "a6e8bd0c35a4",
+        "at": "2026-07-30T16:49:19Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.021797399999999998,
+        "duration_ms": 25076,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "a9e4c6b4c6176c6e30e3fd9d8cce7c9e17b9fa6852812829a0cd811845d4ce5e",
+        "prompt_hash": "4523a4a5f10e",
+        "at": "2026-07-30T16:49:33Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0359344,
+        "duration_ms": 29338,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "ae739a9a66177cca7f06cd3563e27123bb12e46b96b28613bfdff2d170f449b3",
+        "prompt_hash": "2170d000b6e5",
+        "at": "2026-07-30T16:49:49Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.031984399999999996,
+        "duration_ms": 23603,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "ce369d8672a9666d2386b40b8db2033dce763dcc1ddc57eefd2cb54b016f45b1",
+        "prompt_hash": "2e8da25c2eb8",
+        "at": "2026-07-30T16:50:10Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0332654,
+        "duration_ms": 17190,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "b42db05656fd34071130cd873ca291abf12e9978f09e80598f51164818e52780",
+        "prompt_hash": "21d4ac3daf15",
+        "at": "2026-07-30T16:50:16Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0570774,
+        "duration_ms": 39754,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "a31d93032bb546ed55595a5104924eeeb0009bbc6c4a3bf1449af960ad621c1e",
+        "prompt_hash": "4c6937a93b77",
+        "at": "2026-07-30T16:50:21Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.08259440000000001,
+        "duration_ms": 87612,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "d3a9b5159b13bbe09929330ed35b31f16abb43106a24d6cde8d4b265e52bf690",
+        "prompt_hash": "b4099faf3dbd",
+        "at": "2026-07-30T16:50:31Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.015170399999999999,
+        "duration_ms": 11728,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "ce4622d92f7d5a1773f38feb2d89cbf3db15bfd8269bc7dfbe5f38fc6205171e",
+        "prompt_hash": "bbb4e858cb2b",
+        "at": "2026-07-30T16:50:43Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0251654,
+        "duration_ms": 28661,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "d4ec85f06b4646fe415d88b490004baf607a97945dfd6a0d8d471cc4605a9218",
+        "prompt_hash": "236ca3e7c90f",
+        "at": "2026-07-30T16:50:49Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0253124,
+        "duration_ms": 24629,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "dce642963f649ac8f734e5625a47e417dd48a7f9a4a73313b4523dee509ca3e9",
+        "prompt_hash": "515bfdb86eaa",
+        "at": "2026-07-30T16:51:04Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0597574,
+        "duration_ms": 29384,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "aa040000cc386bdfee33d4ad9c61e8fd8b9f1036bb0d0d494bb27d295fe1dbc5",
+        "prompt_hash": "5627e1109319",
+        "at": "2026-07-30T16:51:06Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.11626539999999999,
+        "duration_ms": 107904,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "dd02966477e6efce072dacc78b50fe197fc16949243e3c46aa5bb28e6e00d5f8",
+        "prompt_hash": "6533e62cec0b",
+        "at": "2026-07-30T16:51:21Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.040500400000000006,
+        "duration_ms": 35166,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "ddedef0080d4ba6b4f551be419bd9281e6ff3870128e2792bf4b1470b6fc2365",
+        "prompt_hash": "b66605c62759",
+        "at": "2026-07-30T16:51:29Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0285254,
+        "duration_ms": 21410,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "ecbecf633a7b66c1da6e12444cc123194acb96bb2e965951d1c5e9bba487bab4",
+        "prompt_hash": "02febd065890",
+        "at": "2026-07-30T16:51:58Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.06574640000000001,
+        "duration_ms": 48057,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "efdb72089680b0b3ff3b6ccec1f8edeb062b99d9708f4c32fd97b1ed4c57617e",
+        "prompt_hash": "6289e76f641c",
+        "at": "2026-07-30T16:52:41Z",
+        "error": "structured decision did not cover exactly the candidate rows",
+        "expected_rows": 30,
+        "returned_rows": 30
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "ddedef0080d4ba6b4f551be419bd9281e6ff3870128e2792bf4b1470b6fc2365",
+        "prompt_hash": "699db923a868",
+        "at": "2026-07-30T16:52:49Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.1257444,
+        "duration_ms": 116733,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "efdb72089680b0b3ff3b6ccec1f8edeb062b99d9708f4c32fd97b1ed4c57617e",
+        "prompt_hash": "77e0e468367b",
+        "at": "2026-07-30T16:53:26Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.14878740000000001,
+        "duration_ms": 121043,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "efdb72089680b0b3ff3b6ccec1f8edeb062b99d9708f4c32fd97b1ed4c57617e",
+        "prompt_hash": "8b1d7f689b22",
+        "at": "2026-07-30T16:53:44Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.1081873,
+        "duration_ms": 50554,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "efdb72089680b0b3ff3b6ccec1f8edeb062b99d9708f4c32fd97b1ed4c57617e",
+        "prompt_hash": "1cdb0dc74028",
+        "at": "2026-07-30T16:53:49Z",
+        "error": "structured decision did not cover exactly the candidate rows",
+        "expected_rows": 30,
+        "returned_rows": 30
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "efdb72089680b0b3ff3b6ccec1f8edeb062b99d9708f4c32fd97b1ed4c57617e",
+        "prompt_hash": "b9fac786adc0",
+        "at": "2026-07-30T16:53:56Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.15461439999999999,
+        "duration_ms": 115199,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "efdb72089680b0b3ff3b6ccec1f8edeb062b99d9708f4c32fd97b1ed4c57617e",
+        "prompt_hash": "180f9ffd36f1",
+        "at": "2026-07-30T16:54:13Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0642353,
+        "duration_ms": 26408,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "efdb72089680b0b3ff3b6ccec1f8edeb062b99d9708f4c32fd97b1ed4c57617e",
+        "prompt_hash": "17f9df23c2d0",
+        "at": "2026-07-30T16:54:25Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.11257630000000002,
+        "duration_ms": 55653,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "f520cd2a333e88b5ffa234ce918f7915826d4144aa100511a16ee19e0fad3c9e",
+        "prompt_hash": "a4dd8e6930cc",
+        "at": "2026-07-30T16:55:55Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.1168393,
+        "duration_ms": 122788,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "fea2c70d237f0047e65b652fdb25d0c9300e45f74482f7221e33212cab0c88e8",
+        "prompt_hash": "a38e67f6512b",
+        "at": "2026-07-30T16:56:15Z",
+        "error": "structured decision did not cover exactly the candidate rows",
+        "expected_rows": 20,
+        "returned_rows": 21
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+        "prompt_hash": "742ea564cfbf",
+        "at": "2026-07-30T16:58:35Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "054dc2e06d0dc1e3b67fb03ed57145a7435fdb4e58cfeb5483aaeca87557bded",
+        "prompt_hash": "f91149bff097",
+        "at": "2026-07-30T16:58:36Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "26ba9713bb510c34cd730891e29106bcf195d5dacaae6af26fa1a295d4f8b238",
+        "prompt_hash": "1dd21827dbfc",
+        "at": "2026-07-30T16:58:36Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "3c5f015bf1548b333b928cc6af1eedb04ed8234040bcfcda4b625ab6be330abf",
+        "prompt_hash": "a500d0e917bd",
+        "at": "2026-07-30T16:58:36Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d02e3dcd3d4fab20e833c6656e4fc41434150c64d2887d911922b5a530b1b16",
+        "prompt_hash": "7edd2fce052b",
+        "at": "2026-07-30T16:58:51Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d350dfefd0397a61c4900c1a15040e42fabc8755229319206f1a93f6715ac2a",
+        "prompt_hash": "82d9fb210540",
+        "at": "2026-07-30T16:58:51Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "8b0cec02e76a7c1102c14ff12a117bcf37d804c28a303f2d96750c1503ec2e68",
+        "prompt_hash": "1455e0023a0c",
+        "at": "2026-07-30T16:58:51Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "8cbe484df404312c3159398fd2475d435c62c08e52cdc6f272fdefeb6938e7bc",
+        "prompt_hash": "f9f72b593a66",
+        "at": "2026-07-30T16:58:52Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "d4ec85f06b4646fe415d88b490004baf607a97945dfd6a0d8d471cc4605a9218",
+        "prompt_hash": "41ce9bbc53cd",
+        "at": "2026-07-30T16:59:06Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "ce369d8672a9666d2386b40b8db2033dce763dcc1ddc57eefd2cb54b016f45b1",
+        "prompt_hash": "65014be82e6d",
+        "at": "2026-07-30T16:59:07Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9331d62bc8d50d589d3372fcc2d33b24e77f6514646ec1d8975f367806b49d2b",
+        "prompt_hash": "fd1782eb941a",
+        "at": "2026-07-30T16:59:07Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "dce642963f649ac8f734e5625a47e417dd48a7f9a4a73313b4523dee509ca3e9",
+        "prompt_hash": "e619866cee4b",
+        "at": "2026-07-30T16:59:07Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "efdb72089680b0b3ff3b6ccec1f8edeb062b99d9708f4c32fd97b1ed4c57617e",
+        "prompt_hash": "a3509a2e66f4",
+        "at": "2026-07-30T16:59:22Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "efdb72089680b0b3ff3b6ccec1f8edeb062b99d9708f4c32fd97b1ed4c57617e",
+        "prompt_hash": "178adcd2ec1a",
+        "at": "2026-07-30T16:59:23Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "fea2c70d237f0047e65b652fdb25d0c9300e45f74482f7221e33212cab0c88e8",
+        "prompt_hash": "f9a8f2d5f66b",
+        "at": "2026-07-30T16:59:23Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "dd02966477e6efce072dacc78b50fe197fc16949243e3c46aa5bb28e6e00d5f8",
+        "prompt_hash": "e2ee467f0b08",
+        "at": "2026-07-30T16:59:23Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "5d02e3dcd3d4fab20e833c6656e4fc41434150c64d2887d911922b5a530b1b16",
+        "prompt_hash": "7edd2fce052b",
+        "at": "2026-07-30T17:04:22Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "26ba9713bb510c34cd730891e29106bcf195d5dacaae6af26fa1a295d4f8b238",
+        "prompt_hash": "1dd21827dbfc",
+        "at": "2026-07-30T17:04:22Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+        "prompt_hash": "742ea564cfbf",
+        "at": "2026-07-30T17:04:22Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "054dc2e06d0dc1e3b67fb03ed57145a7435fdb4e58cfeb5483aaeca87557bded",
+        "prompt_hash": "f91149bff097",
+        "at": "2026-07-30T17:04:22Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "8b0cec02e76a7c1102c14ff12a117bcf37d804c28a303f2d96750c1503ec2e68",
+        "prompt_hash": "1455e0023a0c",
+        "at": "2026-07-30T17:04:36Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "dce642963f649ac8f734e5625a47e417dd48a7f9a4a73313b4523dee509ca3e9",
+        "prompt_hash": "e619866cee4b",
+        "at": "2026-07-30T17:04:36Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "9331d62bc8d50d589d3372fcc2d33b24e77f6514646ec1d8975f367806b49d2b",
+        "prompt_hash": "fd1782eb941a",
+        "at": "2026-07-30T17:04:36Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "8cbe484df404312c3159398fd2475d435c62c08e52cdc6f272fdefeb6938e7bc",
+        "prompt_hash": "f9f72b593a66",
+        "at": "2026-07-30T17:04:37Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "fea2c70d237f0047e65b652fdb25d0c9300e45f74482f7221e33212cab0c88e8",
+        "prompt_hash": "f9a8f2d5f66b",
+        "at": "2026-07-30T17:04:50Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "efdb72089680b0b3ff3b6ccec1f8edeb062b99d9708f4c32fd97b1ed4c57617e",
+        "prompt_hash": "a3509a2e66f4",
+        "at": "2026-07-30T17:04:50Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "efdb72089680b0b3ff3b6ccec1f8edeb062b99d9708f4c32fd97b1ed4c57617e",
+        "prompt_hash": "178adcd2ec1a",
+        "at": "2026-07-30T17:04:50Z",
+        "error": "claude exit 1",
+        "attempts": 2
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "054dc2e06d0dc1e3b67fb03ed57145a7435fdb4e58cfeb5483aaeca87557bded",
+        "prompt_hash": "5fae00624b7d",
+        "at": "2026-07-30T17:17:05Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.070063,
+        "duration_ms": 31524,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+        "prompt_hash": "7072edca3904",
+        "at": "2026-07-30T17:17:19Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.073892,
+        "duration_ms": 44877,
+        "attempt": 1
+      },
+      {
+        "kind": "row_review",
+        "source_sha": "8b0cec02e76a7c1102c14ff12a117bcf37d804c28a303f2d96750c1503ec2e68",
+        "prompt_hash": "ca9cfd53405c",
+        "at": "2026-07-30T17:17:31Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.085289,
+        "duration_ms": 57446,
+        "attempt": 1
+      },
+      {
+        "kind": "family_review",
+        "prompt_hash": "e637b70a14a3",
+        "at": "2026-07-30T17:20:03Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.052801,
+        "duration_ms": 31938,
+        "attempt": 1
+      },
+      {
+        "kind": "family_review",
+        "prompt_hash": "7378eed82eca",
+        "at": "2026-07-30T17:20:05Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.056558,
+        "duration_ms": 33792,
+        "attempt": 1
+      },
+      {
+        "kind": "family_review",
+        "prompt_hash": "d1b03192afa5",
+        "at": "2026-07-30T17:20:06Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.05362599999999999,
+        "duration_ms": 33968,
+        "attempt": 1
+      },
+      {
+        "kind": "family_review",
+        "prompt_hash": "06a68f03ba61",
+        "at": "2026-07-30T17:20:15Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.060461,
+        "duration_ms": 42901,
+        "attempt": 1
+      },
+      {
+        "kind": "family_review",
+        "prompt_hash": "8eb87e832bdf",
+        "at": "2026-07-30T17:20:46Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0417321,
+        "duration_ms": 37167,
+        "attempt": 1
+      },
+      {
+        "kind": "family_review",
+        "prompt_hash": "8912af863844",
+        "at": "2026-07-30T17:20:54Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0511211,
+        "duration_ms": 44118,
+        "attempt": 1
+      },
+      {
+        "kind": "family_review",
+        "prompt_hash": "684db41ebbef",
+        "at": "2026-07-30T17:20:55Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0431951,
+        "duration_ms": 34108,
+        "attempt": 1
+      },
+      {
+        "kind": "family_review",
+        "prompt_hash": "20501a2cfb39",
+        "at": "2026-07-30T17:21:06Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.05177910000000001,
+        "duration_ms": 59524,
+        "attempt": 1
+      },
+      {
+        "kind": "family_review",
+        "prompt_hash": "4aaa51149c7d",
+        "at": "2026-07-30T17:21:38Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0459311,
+        "duration_ms": 40736,
+        "attempt": 1
+      },
+      {
+        "kind": "family_review",
+        "prompt_hash": "64a656b37647",
+        "at": "2026-07-30T17:21:41Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0588891,
+        "duration_ms": 50689,
+        "attempt": 1
+      },
+      {
+        "kind": "family_review",
+        "prompt_hash": "0d10b55ad138",
+        "at": "2026-07-30T17:21:42Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0485481,
+        "duration_ms": 43820,
+        "attempt": 1
+      },
+      {
+        "kind": "family_review",
+        "prompt_hash": "728e6e3c59fe",
+        "at": "2026-07-30T17:21:46Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.055671,
+        "duration_ms": 36607,
+        "attempt": 1
+      },
+      {
+        "kind": "family_review",
+        "prompt_hash": "ef48716f4c17",
+        "at": "2026-07-30T17:22:22Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.042706100000000004,
+        "duration_ms": 40424,
+        "attempt": 1
+      },
+      {
+        "kind": "family_review",
+        "prompt_hash": "b0b7b07fb267",
+        "at": "2026-07-30T17:22:24Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.045156100000000005,
+        "duration_ms": 34307,
+        "attempt": 1
+      },
+      {
+        "kind": "family_review",
+        "prompt_hash": "ec42492b383a",
+        "at": "2026-07-30T17:22:32Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0472341,
+        "duration_ms": 47861,
+        "attempt": 1
+      },
+      {
+        "kind": "family_review",
+        "prompt_hash": "1f00a5b6f760",
+        "at": "2026-07-30T17:22:33Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0457621,
+        "duration_ms": 47258,
+        "attempt": 1
+      },
+      {
+        "kind": "family_review",
+        "prompt_hash": "3b39473b9c10",
+        "at": "2026-07-30T17:23:02Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.0314571,
+        "duration_ms": 35367,
+        "attempt": 1
+      },
+      {
+        "kind": "family_review",
+        "prompt_hash": "2f3869bb2086",
+        "at": "2026-07-30T17:23:11Z",
+        "model": "claude-haiku-4-5-20251001",
+        "cost_usd": 0.055757100000000004,
+        "duration_ms": 46532,
+        "attempt": 1
+      }
+    ]
+  },
+  "removed": []
+}
