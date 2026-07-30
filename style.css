@@ -1368,6 +1368,21 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   color: var(--red);
   font-size: 11px;
 }
+.repo-link-btn {
+  padding: 4px 9px;
+  min-width: 30px;
+  justify-content: center;
+  color: var(--paper-dim);
+}
+.repo-link-btn i {
+  color: var(--paper-dim);
+  font-size: 13px;
+  transition: color 140ms ease;
+}
+.repo-link-btn:hover i,
+.repo-link-btn:focus-visible i {
+  color: var(--paper);
+}
 .mode-toggle-k {
   font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
