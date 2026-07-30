@@ -175,6 +175,198 @@
     'analytics.note.pre2009': { en: 'Rows exist before 2009 (earliest detected year is 2008).', hr: 'Postoje redci prije 2009. (najranija pronadena godina je 2008.).' },
     'analytics.note.current': { en: '{year} is likely partial (in-year data snapshot).', hr: '{year} je vjerojatno parcijalna godina (presjek usred godine).' },
     'analytics.note.stable':  { en: 'No special year-window caveats detected.', hr: 'Nema posebnih napomena za vremenski raspon.' },
+    'analytics.studio.subtitle': {
+      en: 'Contextual analysis with a like-for-like registry benchmark',
+      hr: 'Kontekstualna analiza s usporedivom referentnom vrijednošću registra',
+    },
+    'analytics.loading': {
+      en: 'Calculating this view from the registry…',
+      hr: 'Izračunavam ovaj prikaz iz registra…',
+    },
+    'analytics.context.current': { en: 'Current scope', hr: 'Trenutačni opseg' },
+    'analytics.context.benchmark': { en: 'Registry benchmark', hr: 'Referentni registar' },
+    'analytics.context.global': { en: 'All registry records', hr: 'Svi zapisi registra' },
+    'analytics.context.same_period': {
+      en: 'All registry records in the same time window',
+      hr: 'Svi zapisi registra u istom vremenskom rasponu',
+    },
+    'analytics.context.search': { en: 'search “{q}”', hr: 'pretraga „{q}”' },
+    'analytics.context.scopes': { en: '{n} active scopes', hr: '{n} aktivnih opsega' },
+    'analytics.context.filters': { en: '{n} active filters', hr: '{n} aktivnih filtara' },
+    'analytics.chapter.overview': { en: 'Overview', hr: 'Pregled' },
+    'analytics.chapter.time': { en: 'Time', hr: 'Vrijeme' },
+    'analytics.chapter.distribution': { en: 'Award distribution', hr: 'Raspodjela potpora' },
+    'analytics.chapter.mix': { en: 'Programme mix', hr: 'Struktura programa' },
+    'analytics.chapter.concentration': { en: 'Recipient concentration', hr: 'Koncentracija korisnika' },
+    'analytics.chapter.lifecycles': { en: 'Project lifecycles', hr: 'Životni ciklusi projekata' },
+    'analytics.chapter.methodology': { en: 'Data & methodology', hr: 'Podaci i metodologija' },
+    'analytics.overview.diagnosis': { en: 'What distinguishes this scope', hr: 'Što izdvaja ovaj opseg' },
+    'analytics.overview.findings': { en: 'Key registry findings', hr: 'Ključni nalazi registra' },
+    'analytics.overview.no_difference': {
+      en: 'This is the complete benchmark population. The notes below describe the registry itself.',
+      hr: 'Ovo je cijela referentna populacija. Napomene u nastavku opisuju sam registar.',
+    },
+    'analytics.metric.repeat': { en: 'Multi-decision projects', hr: 'Projekti s više odluka' },
+    'analytics.metric.gini': { en: 'Recipient Gini', hr: 'Gini korisnika' },
+    'analytics.metric.not_available': { en: 'not available', hr: 'nije dostupno' },
+    'analytics.metric.vs_benchmark': { en: 'vs benchmark', hr: 'prema referentnoj vrijednosti' },
+    'analytics.finding.scopeShare': {
+      en: 'This scope contains {amount} of recorded funding and {rows} of decisions in the same time window.',
+      hr: 'Ovaj opseg sadrži {amount} zabilježenih sredstava i {rows} odluka u istom vremenskom rasponu.',
+    },
+    'analytics.finding.medianRatio.up': {
+      en: 'Its typical award is {ratio}× the registry median ({current} vs {benchmark}).',
+      hr: 'Tipična potpora je {ratio}× veća od medijana registra ({current} prema {benchmark}).',
+    },
+    'analytics.finding.medianRatio.down': {
+      en: 'Its typical award is {ratio}× the registry median ({current} vs {benchmark}).',
+      hr: 'Tipična potpora iznosi {ratio}× medijana registra ({current} prema {benchmark}).',
+    },
+    'analytics.finding.repeatDelta': {
+      en: 'Projects receive multiple recorded decisions {direction} often here ({current} vs {benchmark}).',
+      hr: 'Projekti ovdje dobivaju više zabilježenih odluka {direction} često ({current} prema {benchmark}).',
+    },
+    'analytics.finding.direction.more': { en: 'more', hr: 'češće' },
+    'analytics.finding.direction.less': { en: 'less', hr: 'rjeđe' },
+    'analytics.finding.concentrationDelta': {
+      en: 'Attributed funding is {direction} concentrated than the benchmark (Gini {current} vs {benchmark}).',
+      hr: 'Pripisana sredstva su {direction} koncentrirana od referentne vrijednosti (Gini {current} prema {benchmark}).',
+    },
+    'analytics.finding.concentration.more': { en: 'more', hr: 'više' },
+    'analytics.finding.concentration.less': { en: 'less', hr: 'manje' },
+    'analytics.finding.programmeOverindex': {
+      en: '{programme} is over-represented by {delta} percentage points in this scope.',
+      hr: '{programme} je u ovom opsegu zastupljeniji za {delta} postotnih bodova.',
+    },
+    'analytics.finding.latestChange': {
+      en: 'The latest complete year, {year}, changed {percent} from {previousYear}.',
+      hr: 'Posljednja potpuna godina, {year}., promijenila se {percent} u odnosu na {previousYear}.',
+    },
+    'analytics.finding.distributionSkew': {
+      en: 'The mean award is {ratio}× the median, showing how strongly large awards pull the average upward.',
+      hr: 'Prosječna potpora je {ratio}× veća od medijana, što pokazuje koliko velike potpore podižu prosjek.',
+    },
+    'analytics.finding.leadingProgramme': {
+      en: '{programme} accounts for {share} of recorded funding.',
+      hr: '{programme} čini {share} zabilježenih sredstava.',
+    },
+    'analytics.selection.label': { en: 'Selected segment', hr: 'Odabrani segment' },
+    'analytics.selection.show': { en: 'Show these records', hr: 'Prikaži ove zapise' },
+    'analytics.selection.clear': { en: 'Clear selection', hr: 'Očisti odabir' },
+    'analytics.selection.project_hint': {
+      en: 'Choose an individual project below to continue in the registry.',
+      hr: 'Odaberi pojedinačni projekt u nastavku za nastavak u registru.',
+    },
+    'analytics.series.current': { en: 'Current scope', hr: 'Trenutačni opseg' },
+    'analytics.series.benchmark': { en: 'Registry benchmark', hr: 'Referentni registar' },
+    'analytics.table.open': { en: 'Show exact data table', hr: 'Prikaži tablicu točnih podataka' },
+    'analytics.control.amount': { en: 'Amount', hr: 'Iznos' },
+    'analytics.control.count': { en: 'Decisions', hr: 'Odluke' },
+    'analytics.control.median': { en: 'Median', hr: 'Medijan' },
+    'analytics.control.programmes': { en: 'Programmes', hr: 'Programi' },
+    'analytics.control.categories': { en: 'Categories', hr: 'Kategorije' },
+    'analytics.control.rounds': { en: 'Rounds', hr: 'Rokovi' },
+    'analytics.time.title': { en: 'Funding through time', hr: 'Financiranje kroz vrijeme' },
+    'analytics.time.note': {
+      en: 'The benchmark keeps the same time window while removing programme, category, round, search, and entity scopes.',
+      hr: 'Referentna vrijednost zadržava isti vremenski raspon, a uklanja program, kategoriju, rok, pretragu i opsege subjekata.',
+    },
+    'analytics.time.partial': { en: '{year} is a partial year.', hr: '{year}. je djelomična godina.' },
+    'analytics.distribution.title': { en: 'How award sizes are distributed', hr: 'Kako su raspoređene veličine potpora' },
+    'analytics.distribution.note': {
+      en: 'Positive recorded amounts only. Select a band to inspect its records.',
+      hr: 'Samo pozitivni zabilježeni iznosi. Odaberi raspon za pregled zapisa.',
+    },
+    'analytics.distribution.percentiles': { en: 'Percentile ledger', hr: 'Pregled percentila' },
+    'analytics.distribution.p25': { en: 'P25', hr: 'P25' },
+    'analytics.distribution.p50': { en: 'Median', hr: 'Medijan' },
+    'analytics.distribution.p75': { en: 'P75', hr: 'P75' },
+    'analytics.distribution.p90': { en: 'P90', hr: 'P90' },
+    'analytics.distribution.p95': { en: 'P95', hr: 'P95' },
+    'analytics.distribution.p99': { en: 'P99', hr: 'P99' },
+    'analytics.mix.title': { en: 'Where the money sits', hr: 'Gdje se sredstva nalaze' },
+    'analytics.mix.heatmap': { en: 'Programme activity by year', hr: 'Aktivnost programa po godini' },
+    'analytics.mix.other': { en: 'Other / unattributed', hr: 'Ostalo / nepripisano' },
+    'analytics.concentration.title': { en: 'How attributed funding is distributed', hr: 'Kako su raspoređena pripisana sredstva' },
+    'analytics.concentration.definition': {
+      en: 'Recipient = recorded production company; otherwise recorded applicant. Concentration uses attributed funding as its denominator.',
+      hr: 'Korisnik = zabilježena produkcijska kuća; u suprotnom zabilježeni prijavitelj. Koncentracija koristi pripisana sredstva kao nazivnik.',
+    },
+    'analytics.concentration.coverage': {
+      en: '{amount} of funding value and {rows} of decisions have an attributable recipient.',
+      hr: '{amount} vrijednosti sredstava i {rows} odluka imaju pripisivog korisnika.',
+    },
+    'analytics.concentration.unavailable': {
+      en: 'Concentration is withheld because this scope has fewer than 10 recipients or less than 60% attributed funding coverage.',
+      hr: 'Koncentracija se ne prikazuje jer opseg ima manje od 10 korisnika ili manje od 60% pokrivenosti pripisanim sredstvima.',
+    },
+    'analytics.concentration.lorenz': { en: 'Lorenz curve', hr: 'Lorenzova krivulja' },
+    'analytics.concentration.top_shares': { en: 'Share held by top recipients', hr: 'Udio najvećih korisnika' },
+    'analytics.concentration.recipients': { en: 'Recipients', hr: 'Korisnici' },
+    'analytics.concentration.top_recipients': { en: 'Largest attributed recipients', hr: 'Najveći pripisani korisnici' },
+    'analytics.concentration.pareto': {
+      en: '{n} recipients account for half of attributed funding.',
+      hr: '{n} korisnika čini polovicu pripisanih sredstava.',
+    },
+    'analytics.lifecycle.title': { en: 'How projects move through recorded support', hr: 'Kako se projekti kreću kroz zabilježenu potporu' },
+    'analytics.lifecycle.multi_programme': { en: 'Projects in multiple programmes', hr: 'Projekti u više programa' },
+    'analytics.lifecycle.duration': { en: 'Median observed duration', hr: 'Medijan zabilježenog trajanja' },
+    'analytics.lifecycle.years': { en: '{n} years', hr: '{n} godina' },
+    'analytics.lifecycle.transitions': { en: 'Observed stage pathways', hr: 'Zabilježeni prijelazi faza' },
+    'analytics.lifecycle.note': {
+      en: 'These are observed links between funded records, not application conversion or success rates.',
+      hr: 'Ovo su zabilježene veze među financiranim zapisima, a ne stope prolaza prijava ili uspješnosti.',
+    },
+    'analytics.lifecycle.projects': { en: '{n} matching projects', hr: '{n} odgovarajućih projekata' },
+    'analytics.stage.script': { en: 'Script', hr: 'Scenarij' },
+    'analytics.stage.development': { en: 'Development', hr: 'Razvoj' },
+    'analytics.stage.production': { en: 'Production', hr: 'Proizvodnja' },
+    'analytics.stage.distribution': { en: 'Distribution', hr: 'Distribucija' },
+    'analytics.stage.other': { en: 'Other support', hr: 'Ostala potpora' },
+    'analytics.data.title': { en: 'What the dataset can support', hr: 'Što skup podataka može pouzdano prikazati' },
+    'analytics.data.field': { en: 'Field', hr: 'Polje' },
+    'analytics.data.rows': { en: 'Decision coverage', hr: 'Pokrivenost odluka' },
+    'analytics.data.amount': { en: 'Funding-value coverage', hr: 'Pokrivenost vrijednosti sredstava' },
+    'analytics.data.sources': { en: 'Source and audit coverage', hr: 'Pokrivenost izvora i provjere' },
+    'analytics.data.formulas': { en: 'Definitions and formulas', hr: 'Definicije i formule' },
+    'analytics.data.limitations': { en: 'Important limitations', hr: 'Važna ograničenja' },
+    'analytics.data.no_acceptance': {
+      en: 'Application acceptance rates are not calculated because non-award records are incomplete.',
+      hr: 'Stope prolaza prijava ne izračunavaju se jer zapisi o neodobrenim prijavama nisu potpuni.',
+    },
+    'analytics.data.creator_sparse': {
+      en: 'Director, writer, and narrative fields are incomplete. Their coverage is shown before any interpretation.',
+      hr: 'Polja redatelja, scenarista i obrazloženja nisu potpuna. Pokrivenost se prikazuje prije svake interpretacije.',
+    },
+    'analytics.data.currency': {
+      en: 'HRK amounts use the fixed conversion 1 EUR = {rate} HRK. Values are nominal and not inflation-adjusted.',
+      hr: 'Iznosi u HRK koriste fiksni tečaj 1 EUR = {rate} HRK. Vrijednosti su nominalne i nisu prilagođene inflaciji.',
+    },
+    'analytics.data.source_urls': {
+      en: '{found} of {total} result documents have a canonical HAVC source URL.',
+      hr: '{found} od {total} dokumenata rezultata ima kanonski HAVC izvorni URL.',
+    },
+    'analytics.data.audit': {
+      en: 'Automated official-total checks: {pass} pass, {warn} warnings, {fail} failures.',
+      hr: 'Automatske provjere službenih zbrojeva: {pass} prolazi, {warn} upozorenja, {fail} pogrešaka.',
+    },
+    'analytics.data.formula.median': {
+      en: 'Median: the middle positive award after sorting amounts.',
+      hr: 'Medijan: srednja pozitivna potpora nakon sortiranja iznosa.',
+    },
+    'analytics.data.formula.gini': {
+      en: 'Gini: inequality across cumulative attributed funding per recipient, from 0% equal to 100% maximally concentrated.',
+      hr: 'Gini: nejednakost kumulativnih pripisanih sredstava po korisniku, od 0% jednakosti do 100% maksimalne koncentracije.',
+    },
+    'analytics.data.formula.lifecycle': {
+      en: 'Lifecycle: records sharing one normalized project family, ordered by year and mapped to broad support stages.',
+      hr: 'Životni ciklus: zapisi iste normalizirane projektne porodice, poredani po godini i mapirani u široke faze potpore.',
+    },
+    'analytics.empty.title': { en: 'No records in this scope', hr: 'Nema zapisa u ovom opsegu' },
+    'analytics.empty.body': {
+      en: 'Close analytics and remove a filter or scope to restore a measurable population.',
+      hr: 'Zatvori analitiku i ukloni filtar ili opseg kako bi se vratila mjerljiva populacija.',
+    },
 
     'timeline.projects.title': {
       en: 'Project funding timeline',
@@ -224,6 +416,7 @@
     'scope.kind.program':   { en: 'programme', hr: 'program' },
     'scope.kind.cat':       { en: 'category',  hr: 'kategorija' },
     'scope.kind.rok':       { en: 'round',     hr: 'rok' },
+    'scope.kind.recipient': { en: 'recipient', hr: 'korisnik' },
     'scope.kind.sizeBand':  { en: 'amount',    hr: 'iznos' },
     'scope.kind.project':   { en: 'project',   hr: 'projekt' },
 
@@ -2455,6 +2648,13 @@
         case 'producer':  if (r.producer  !== s.value) return false; break;
         case 'director':  if (r.director  !== s.value) return false; break;
         case 'writer':    if (r.writer    !== s.value) return false; break;
+        case 'recipient': {
+          const recipient = window.SredstvaAnalytics
+            ? window.SredstvaAnalytics.recipientForRow(r)
+            : (r.producer || r.applicant || null);
+          if (recipient !== s.value) return false;
+          break;
+        }
         case 'year':      if (r.year      !== s.value) return false; break;
         case 'program':   if (r.program   !== s.value) return false; break;
         case 'cat':       if (r.cat_type  !== s.value) return false; break;
@@ -3955,7 +4155,7 @@
   }
 
   // ═══ 13. Analytics modal ════════════════════════════════════════════
-  function mountAnalyticsModal() {
+  function mountAnalyticsModalLegacy() {
     let host = null;
     let keyHandler = null;
 
@@ -4224,6 +4424,35 @@
   }
 
   // ═══ 14. Unfunded mentions modal ════════════════════════════════════
+  function mountAnalyticsModal() {
+    if (typeof window.createSredstvaAnalyticsStudio !== 'function') {
+      console.error('analytics-studio.js did not load');
+      return;
+    }
+    const controller = window.createSredstvaAnalyticsStudio({
+      Analytics: window.SredstvaAnalytics,
+      getData: () => DATA,
+      getSanityReport: () => SANITY_REPORT,
+      state,
+      subscribe: on,
+      setShowAnalytics,
+      setSelectedYear,
+      addScope,
+      applyFilters,
+      t,
+      el,
+      fa,
+      formatAmount,
+      formatPercent,
+      bandLabel,
+      asObject,
+      toFiniteInt,
+      HRK_TO_EUR,
+      SIZE_BUCKETS,
+    });
+    controller.sync();
+  }
+
   function mountUnfundedModal() {
     let host = null;
     function close() { setShowUnfunded(false); }
