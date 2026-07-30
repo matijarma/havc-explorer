@@ -42,7 +42,7 @@ same dataset (a compact index built from `web/havc/data.json`).
 
 - Source: `../chromeext/` — see its `README.md`.
 - Store submission materials: `../store/`.
-- **Chrome Web Store:** _link coming once published_ <!-- TODO: add the Web Store URL here -->
+- **Chrome Web Store:** https://chromewebstore.google.com/detail/havc-companion-%E2%80%94-javni-po/jjfmjbmebnljefefcgfdjljenilgmfpg
 
 ## Data provenance ⚠️
 
