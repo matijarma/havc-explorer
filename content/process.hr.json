@@ -1786,6 +1786,119 @@
         },
         "technical_title": "Tehnički dodatak (detalji po prolazu)"
       }
+    },
+    {
+      "id": "era4",
+      "label": "Era 4",
+      "dates": "30. srpnja 2026.",
+      "title": "Provjera, kuriranje i identitet ponavljajućih projekata",
+      "system": {
+        "input": "12.845 izvučenih redaka rezultata uz ranije parity i audit dokaze",
+        "process": [
+          "determinističko čišćenje i stabilni ID-jevi redaka",
+          "strukturirana Haiku prosudba uz keširani oporavak",
+          "registar ispravaka provjerenih u izvornim PDF-ovima",
+          "pregled porodica ponavljajućih projekata",
+          "eksplicitni statusi financiranja i idempotentna validacija"
+        ],
+        "output": "9.543 retka rezultata · 9.542 provjerene potpore · 1 eksplicitna ne-dodjela · 0 neriješenih"
+      },
+      "what": {
+        "text": "Završni sloj kuriranja prestao je tretirati svaki izvučeni redak kao dodijeljenu potporu. Deterministička pravila uklonila su poznate artefakte i vratila pomaknuta polja; Haiku je prosuđivao nejasne retke uz okolnu tablicu i izvorni tekst; izravne provjere PDF-ova zapisane su kao eksplicitni ispravci. Godišnja izdanja povezana su u stabilne porodice projekata, a izvorni naslov svakog izdanja ostao je dostupan u vremenskim crtama.",
+        "sources": [
+          {
+            "label": "dash/havc/clean_data.py",
+            "kind": "code",
+            "stamp": "2026-07-30"
+          },
+          {
+            "label": "dash/havc/data-curation-audit.json",
+            "kind": "report",
+            "stamp": "2026-07-30"
+          }
+        ]
+      },
+      "why_good": [
+        {
+          "text": "Oblik naslova sam po sebi nikada ne odlučuje valjanost. Brojčani, citirani, kratki i neobični kreativni naslovi ostaju valjani kada ih izvor potvrđuje.",
+          "sources": [
+            {
+              "label": "dash/havc/data-curation-decisions.json",
+              "kind": "data",
+              "stamp": "2026-07-30"
+            }
+          ]
+        },
+        {
+          "text": "U zbrojeve i zadani prikaz ulaze samo provjerene potpore. Eksplicitne ne-dodjele ostaju dostupne u prikazu nefinanciranih projekata.",
+          "sources": [
+            {
+              "label": "dash/havc/data-curation-audit.json",
+              "kind": "report",
+              "stamp": "2026-07-30"
+            }
+          ]
+        },
+        "Keširane odluke i bajtno idempotentan izlaz čine završni prolaz ponovljivim bez ponovnog plaćanja već dovršenih pregleda.",
+        "Porodice projekata rješavaju rascjepkanost godišnjih izdanja bez brisanja objavljenog naslova pojedinog izdanja."
+      ],
+      "why_limited": [
+        "Novi HAVC-ovi rasporedi i dalje mogu zahtijevati usko pravilo ispravka izvora ili klasifikatora.",
+        "Nedovršeni pregledi ovise o dostupnosti modela, ali dovršene odluke i oporavljene sesije ostaju keširane.",
+        "Iznimke za porodice namjerno su konzervativne; povezani, ali različiti programi ostaju odvojeni."
+      ],
+      "artifacts": [
+        {
+          "kind": "metric",
+          "label": "Redaka prije kuriranja",
+          "value": "12.845"
+        },
+        {
+          "kind": "metric",
+          "label": "Provjerenih potpora",
+          "value": "9.542"
+        },
+        {
+          "kind": "metric",
+          "label": "Eksplicitnih ne-dodjela",
+          "value": "1"
+        },
+        {
+          "kind": "metric",
+          "label": "Neriješenih redaka",
+          "value": "0"
+        },
+        {
+          "kind": "metric",
+          "label": "Primijenjenih Haiku popravaka",
+          "value": "620"
+        },
+        {
+          "kind": "metric",
+          "label": "Pregledanih kandidata porodica",
+          "value": "353"
+        },
+        {
+          "kind": "file",
+          "path": "dash/havc/clean_data.py",
+          "note": "Determinističko čišćenje, strukturirani pregled, dodjela porodica i validacija"
+        },
+        {
+          "kind": "file",
+          "path": "dash/havc/source-corrections.json",
+          "note": "Verzionirani ispravci provjereni izravno u izvornim PDF-ovima"
+        },
+        {
+          "kind": "file",
+          "path": "dash/havc/data-curation-decisions.json",
+          "note": "Keširane odluke o retcima i porodicama"
+        },
+        {
+          "kind": "file",
+          "path": "dash/havc/data-curation-audit.json",
+          "note": "Završni zbrojevi statusa, potvrde poziva modela i rezultat validacije"
+        }
+      ]
     }
   ],
   "comparison": {
@@ -1796,43 +1909,50 @@
         "metric": "Strukturiran izlaz",
         "era1": "Ne",
         "era2": "Djelomično — samo tablice",
-        "era3": "Da — zapisi + obrazloženja + ljudi"
+        "era3": "Da — zapisi + obrazloženja + ljudi",
+        "era4": "Da — provjereni statusi + porodice projekata"
       },
       {
         "metric": "Pokrivenost odluka",
         "era1": "Samo retrieval",
         "era2": "Većina tabličnih redaka",
-        "era3": "Cijeli korpus"
+        "era3": "Cijeli korpus",
+        "era4": "Kurirani retci rezultata; nejasni retci isključeni"
       },
       {
         "metric": "Hvata obrazloženje žirija",
         "era1": "Ne",
         "era2": "Ne",
-        "era3": "Da"
+        "era3": "Da",
+        "era4": "Sačuvano i povezano s provjerenim porodicama"
       },
       {
         "metric": "Identitet projekta kroz rokove",
         "era1": "Ne",
         "era2": "Ne",
-        "era3": "Da — naslov normaliziran preko dokumenata"
+        "era3": "Da — naslov normaliziran preko dokumenata",
+        "era4": "Stabilni ID-jevi porodica; naslovi izdanja sačuvani"
       },
       {
         "metric": "Auditabilnost po zapisu",
         "era1": "Ne",
         "era2": "CSV redak → izvorni PDF",
-        "era3": "Polje → sirovi tekst → stranica → razina sigurnosti"
+        "era3": "Polje → sirovi tekst → stranica → razina sigurnosti",
+        "era4": "Odluka o retku → dokaz → keš → završna validacija"
       },
       {
         "metric": "Nastavljivost",
         "era1": "—",
         "era2": "Ručno ponovno pokretanje",
-        "era3": "Da — kešira se"
+        "era3": "Da — kešira se",
+        "era4": "Da — keširano i bajtno idempotentno"
       },
       {
         "metric": "Vrijeme postavljanja",
         "era1": "Minute",
         "era2": "Vikend",
-        "era3": "48 sati teške iteracije"
+        "era3": "48 sati teške iteracije",
+        "era4": "Jedan usmjereni završni prolaz kuriranja"
       }
     ]
   },
@@ -1842,7 +1962,7 @@
       {
         "label": "dash/content/process.hr.json",
         "kind": "content",
-        "stamp": "2026-05-23"
+        "stamp": "2026-07-30"
       },
       {
         "label": "dash/havc/data.json",
@@ -1868,8 +1988,32 @@
         ]
       },
       {
-        "label": "Trenutno redaka financiranja",
-        "data_key": "row_count",
+        "label": "Provjerene potpore",
+        "data_key": "awarded_count",
+        "format": "int",
+        "sources": [
+          {
+            "label": "dash/havc/data.json",
+            "kind": "data",
+            "stamp": "live"
+          }
+        ]
+      },
+      {
+        "label": "Eksplicitne ne-dodjele",
+        "data_key": "not_awarded_count",
+        "format": "int",
+        "sources": [
+          {
+            "label": "dash/havc/data.json",
+            "kind": "data",
+            "stamp": "live"
+          }
+        ]
+      },
+      {
+        "label": "Porodice projekata",
+        "data_key": "project_family_count",
         "format": "int",
         "sources": [
           {
@@ -1955,6 +2099,6 @@
         ]
       }
     ],
-    "footnote": "Povijesne metrike prolaza niže su zamrznuti presjeci iz izvještaja iz svibnja 2026. Gornje žive kartice računaju se tijekom izvođenja iz učitanog JSON skupa podataka."
+    "footnote": "Metrike Era 1–3 zamrznuti su presjeci iz izvještaja iz svibnja 2026. Era 4 bilježi završno srpanjsko kuriranje. Gornje žive kartice računaju se tijekom izvođenja iz učitanog JSON skupa podataka."
   }
 }
