@@ -390,6 +390,62 @@
             ]
           },
           "reviewed_at": "2026-07-30T15:58:17Z"
+        },
+        "fc33f1776bb0": {
+          "candidate_reasons": {
+            "0a3e5387:s2:b8800a52301f": [
+              "ocr_letter_spacing"
+            ],
+            "0a3e5387:s2:20bb9ef2cf93": [
+              "ocr_letter_spacing"
+            ],
+            "0a3e5387:s2:f9f2509ac0ba": [
+              "ocr_letter_spacing"
+            ]
+          },
+          "reviewed_at": "2026-07-30T16:40:15Z",
+          "status": "ok",
+          "decision": {
+            "doc_sha": "0a3e5387e57d2ea376c9d79ef5e08fbe6d7776da07c4c17cd594f0668f67fba9",
+            "decisions": [
+              {
+                "row_id": "0a3e5387:s2:b8800a52301f",
+                "action": "keep_award",
+                "canonical_title": "U mom svijetu, gdje mi je lijepo",
+                "applicant": "Wolfgang i Dolly d.o.o.",
+                "production_company": "Wolfgang i Dolly d.o.o.",
+                "approved_amount": 250000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Verified in source row 5 (dugometražni dokumentarni filmovi). Title, applicant/producer, and amount (250.000,00 HRK) all match source. OCR letter-spacing artifact corrected."
+              },
+              {
+                "row_id": "0a3e5387:s2:20bb9ef2cf93",
+                "action": "keep_award",
+                "canonical_title": "Glavu dole ruke na leđa",
+                "applicant": "Amico studio d.o.o.",
+                "production_company": "Amico studio d.o.o.",
+                "approved_amount": 200000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Verified in source row 6 (dugometražni dokumentarni filmovi). Title, applicant/producer, and amount (200.000,00 HRK) all match source. OCR spacing corrected in both applicant name and title."
+              },
+              {
+                "row_id": "0a3e5387:s2:f9f2509ac0ba",
+                "action": "repair_award",
+                "canonical_title": "Ti koja imaš nevinije ruke",
+                "applicant": "Društvo prijatelja prirodnih ljepota Slunja i Rastoka",
+                "production_company": "Društvo prijatelja prirodnih ljepota Slunja i Rastoka",
+                "approved_amount": 105000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Verified in source row 7 (dugometražni dokumentarni filmovi). Flattened-table extraction error: production company name incorrectly placed in project_title field. Title restored from extras col_2, applicant/producer from project_title. Amount (105.000,00 HRK) confirmed. OCR spacing corrected throughout."
+              }
+            ]
+          }
         }
       }
     },
@@ -6348,6 +6404,463 @@
           }
         }
       }
+    },
+    "054dc2e06d0dc1e3b67fb03ed57145a7435fdb4e58cfeb5483aaeca87557bded": {
+      "batches": {
+        "6099884001f7": {
+          "candidate_reasons": {
+            "054dc2e0:s4:0dd3e23f4353": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s4:1111d78bfce1": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s4:6eda5782fb69": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s4:9733440b5ad5": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s4:420a66ac5637": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s4:ddb08387ced1": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s4:6ebc45646063": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s4:9da18943a075": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s4:d8686b28a393": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s4:39321c5d4e3c": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s4:d33b2419bad3": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s4:b07beef9e812": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s6:3866703e918f": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s6:004713b10b1b": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s6:4545a2dff077": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s6:09f14671602f": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s6:a12ec46a70fe": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s6:6fe9e9c5806a": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s6:1a12323a87b3": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s6:8534588f9579": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s7:f99956a0ab13": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s7:f2ade6ec349b": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s7:0618574ddbbb": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s7:67e0016de0a9": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s7:d3717cbff8d7": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s7:469a734584fa": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s7:ef9f0e6a3b28": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s7:553bc005300f": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s7:957cfc7f16a6": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s7:58469ef812a7": [
+              "ocr_letter_spacing"
+            ]
+          },
+          "reviewed_at": "2026-07-30T16:40:14Z",
+          "status": "failed",
+          "error": "structured decision did not cover exactly the candidate rows"
+        },
+        "faee6735456e": {
+          "candidate_reasons": {
+            "054dc2e0:s7:97a89e0203ad": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s7:5c34f2fc4cfc": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s9:86fbe30b32ec": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s9:ecc470ad26cc": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s9:30327fa502a7": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s9:d1fd7249c0f5": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s10:50640eadf989": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s10:937180e786e0": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s10:028a4997212f": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s10:5b4b0d2ea10c": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s10:028fb71387eb": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s10:288412ee89c0": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s12:af5c82df5ee9": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s12:a6168b535cfd": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s12:d94b8021dc56": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s12:ac127bc09cb3": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s12:4b0c29cbf553": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s12:21fcda1e151f": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s12:0857873dac3e": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s13:de8c478aa788": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s13:47f05ff48197": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s13:9dd57d3c0183": [
+              "ocr_letter_spacing"
+            ],
+            "054dc2e0:s13:4b835b5c0e38": [
+              "ocr_letter_spacing"
+            ]
+          },
+          "reviewed_at": "2026-07-30T16:40:16Z",
+          "status": "ok",
+          "decision": {
+            "doc_sha": "054dc2e06d0dc1e3b67fb03ed57145a7435fdb4e58cfeb5483aaeca87557bded",
+            "decisions": [
+              {
+                "row_id": "054dc2e0:s7:97a89e0203ad",
+                "action": "repair_award",
+                "canonical_title": "Program redovnih djelatnosti hrvatske udruge producenata za 2019. godinu",
+                "applicant": "Hrvatska udruga producenata",
+                "production_company": "Hrvatska udruga producenata",
+                "approved_amount": 115000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 7, row 13. Applicant name confirmed. Amount 115.000,00 HRK present. OCR spacing errors in title: 'r edovnih d jelatnosti H rvatske u druge' corrected to 'redovnih djelatnosti Hrvatske udruge'."
+              },
+              {
+                "row_id": "054dc2e0:s7:5c34f2fc4cfc",
+                "action": "repair_award",
+                "canonical_title": "Koordinacijske i poticajne funkcije HFS-a",
+                "applicant": "Hrvatski filmski savez - HFS",
+                "production_company": "Hrvatski filmski savez - HFS",
+                "approved_amount": 90000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 7, row 14. Amount 90.000,00 HRK. OCR spacing errors corrected: 'p oticajne f unkcije H FS-a' → 'poticajne funkcije HFS-a'."
+              },
+              {
+                "row_id": "054dc2e0:s9:86fbe30b32ec",
+                "action": "repair_award",
+                "canonical_title": "Distribucija i promocija filmova 2019.",
+                "applicant": "Bonobostudio d.o.o.",
+                "production_company": "Bonobostudio d.o.o.",
+                "approved_amount": 45000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 9, row 1. Amount 45.000,00 HRK. OCR spacing: 'p romocija f ilmova' corrected to 'promocija filmova'."
+              },
+              {
+                "row_id": "054dc2e0:s9:ecc470ad26cc",
+                "action": "repair_award",
+                "canonical_title": "Factum distribucija - redovna, online i novi distribucijski kanali",
+                "applicant": "Factum",
+                "production_company": "Factum",
+                "approved_amount": 12000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 9, row 2. Amount 12.000,00 HRK. OCR spacing corrected: 'd istribucija - r edovna, o nline i n ovi distribucijski k anali' → proper spacing."
+              },
+              {
+                "row_id": "054dc2e0:s9:30327fa502a7",
+                "action": "repair_award",
+                "canonical_title": "Izdavaštvo i distribucija hrvatskih dokumentaraca u 2019. godini",
+                "applicant": "Restart",
+                "production_company": "Restart",
+                "approved_amount": 15000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 9, row 3. Amount 15.000,00 HRK. OCR spacing: 'd istribucija h rvatskih d okumentaraca' corrected."
+              },
+              {
+                "row_id": "054dc2e0:s9:d1fd7249c0f5",
+                "action": "repair_award",
+                "canonical_title": "Međunarodna festivalska distribucija 2019",
+                "applicant": "Ustanova Zagreb film",
+                "production_company": "Ustanova Zagreb film",
+                "approved_amount": 30000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 9, row 5. Amount 30.000,00 HRK. OCR spacing: 'f estivalska d istribucija' corrected."
+              },
+              {
+                "row_id": "054dc2e0:s10:50640eadf989",
+                "action": "repair_award",
+                "canonical_title": "AVANTURA MATCHMAKING FORUM PULA - 2 / 2018",
+                "applicant": "Avantura d.o.o.",
+                "production_company": "Avantura d.o.o.",
+                "approved_amount": 30000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 10, row 2. Amount 30.000,00 HRK. OCR spacing: 'M ATCHMAKING F ORUM' corrected to single capitals, proper spacing."
+              },
+              {
+                "row_id": "054dc2e0:s10:937180e786e0",
+                "action": "repair_award",
+                "canonical_title": "Scenaristički program \"Branko Bauer\" 2019.",
+                "applicant": "Društvo hrvatskih filmskih redatelja",
+                "production_company": "Društvo hrvatskih filmskih redatelja",
+                "approved_amount": 20000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 10, row 3. Amount 20.000,00 HRK. OCR spacing: 'p rogram \\\" B ranko B auer\\\"' corrected."
+              },
+              {
+                "row_id": "054dc2e0:s10:028a4997212f",
+                "action": "repair_award",
+                "canonical_title": "Masterclass by Duart - casting radionica vrhunske casting direktorice Tusse Lande",
+                "applicant": "Duart j.d.o.o.",
+                "production_company": "Duart j.d.o.o.",
+                "approved_amount": 10000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 10, row 4. Amount 10.000,00 HRK. OCR spacing: 'b y D uart - c asting r adionica' and 'T usse L ande' corrected."
+              },
+              {
+                "row_id": "054dc2e0:s10:5b4b0d2ea10c",
+                "action": "repair_award",
+                "canonical_title": "eQuinoxe – 24. Intl. Screenwriter Workshops & Master Class",
+                "applicant": "eQuinoxe Europe - Verein zur Förderung der Filmkunst e.V.",
+                "production_company": "eQuinoxe Europe - Verein zur Förderung der Filmkunst e.V.",
+                "approved_amount": 75000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 10, row 5. Amount 75.000,00 HRK. OCR spacing: '2 4. I ntl. S creenwriter W orkshops & M aster C lass' corrected."
+              },
+              {
+                "row_id": "054dc2e0:s10:028fb71387eb",
+                "action": "repair_award",
+                "canonical_title": "21. Škola medijske kulture Dr. Ante Peterlić",
+                "applicant": "Hrvatski filmski savez - HFS",
+                "production_company": "Hrvatski filmski savez - HFS",
+                "approved_amount": 240000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 10, row 7. Amount 240.000,00 HRK. OCR spacing: 'Š kola m edijske k ulture D r. A nte P eterlić' corrected."
+              },
+              {
+                "row_id": "054dc2e0:s10:288412ee89c0",
+                "action": "repair_award",
+                "canonical_title": "Scenaristička platforma Palunko, 17. sezona",
+                "applicant": "Hrvatski filmski savez - HFS",
+                "production_company": "Hrvatski filmski savez - HFS",
+                "approved_amount": 50000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 10, row 8. Amount 50.000,00 HRK. OCR spacing: 'p latforma P alunko, 1 7. s ezona' corrected."
+              },
+              {
+                "row_id": "054dc2e0:s12:af5c82df5ee9",
+                "action": "repair_award",
+                "canonical_title": "VHS 2019: AMATERSKO AUDIOVIZUALNO STVARALAŠTVO KAO BAŠTINA U JAVNOM PROSTORU",
+                "applicant": "KA-MATRIX - Udruga za društveni razvoj",
+                "production_company": "KA-MATRIX - Udruga za društveni razvoj",
+                "approved_amount": 5000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 12, row 2. Amount 5.000,00 HRK. OCR spacing: 'A MATERSKO A UDIOVIZUALNO S TVARA LAŠTVO K AO B AŠTINA U J AVNOM P ROSTORU' corrected."
+              },
+              {
+                "row_id": "054dc2e0:s12:a6168b535cfd",
+                "action": "repair_award",
+                "canonical_title": "FILMSKI PROGRAM - ULICA PRETKINJA",
+                "applicant": "Lokalna baza za osvježavanje kulture - BLOK",
+                "production_company": "Lokalna baza za osvježavanje kulture - BLOK",
+                "approved_amount": 7000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 12, row 4. Amount 7.000,00 HRK. OCR spacing: 'P ROGRAM - U LICA P RETKINJA' corrected."
+              },
+              {
+                "row_id": "054dc2e0:s12:d94b8021dc56",
+                "action": "repair_award",
+                "canonical_title": "Razmišljaj filmom u 2019. godini",
+                "applicant": "Restart",
+                "production_company": "Restart",
+                "approved_amount": 17000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 12, row 7. Amount 17.000,00 HRK. OCR spacing: 'f ilmom u 2 019. g odini' corrected."
+              },
+              {
+                "row_id": "054dc2e0:s12:ac127bc09cb3",
+                "action": "repair_award",
+                "canonical_title": "FILM KAO SLIKA DOGAĐAJA: VIZUALNI OBRAT ŽIVOTA Međunarodni interdisciplinarni znanstveni skup",
+                "applicant": "Udruga Bijeli val",
+                "production_company": "Udruga Bijeli val",
+                "approved_amount": 20000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 12, row 11. Amount 20.000,00 HRK. OCR spacing: 'S LIKA D OGAĐAJA: V IZUALNI O BRAT Ž IVOTA M eđunarodni i nterdisciplinarni z nanstveni s kup' corrected."
+              },
+              {
+                "row_id": "054dc2e0:s12:4b0c29cbf553",
+                "action": "repair_award",
+                "canonical_title": "Kinematografije otpora – izložba fotografija i video-radova Bouchre Khalili",
+                "applicant": "Udruga Bijeli val",
+                "production_company": "Udruga Bijeli val",
+                "approved_amount": 10000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 12, row 12. Amount 10.000,00 HRK. OCR spacing: 'o tpora – i zložba f otografija i v ideo-radova B ouchre K halili' corrected."
+              },
+              {
+                "row_id": "054dc2e0:s12:21fcda1e151f",
+                "action": "repair_award",
+                "canonical_title": "Zvuk hrvatskog filma: Filmska glazba Alfi Kabilja",
+                "applicant": "Udruga Jučer, danas, sutra - platforma za audiovizualna istraživanja",
+                "production_company": "Udruga Jučer, danas, sutra - platforma za audiovizualna istraživanja",
+                "approved_amount": 30000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 12, row 13. Amount 30.000,00 HRK. OCR spacing: 'h rvatskog f ilma: F ilmska g lazba A lfi K abilja' corrected."
+              },
+              {
+                "row_id": "054dc2e0:s12:0857873dac3e",
+                "action": "repair_award",
+                "canonical_title": "Mnemosyne:: Jasenovac na filmu",
+                "applicant": "Udruga za interdisciplinarna i interkulturalna istraživanja",
+                "production_company": "Udruga za interdisciplinarna i interkulturalna istraživanja",
+                "approved_amount": 10000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 12, row 14. Amount 10.000,00 HRK. OCR spacing: 'J asenovac n a f ilmu' corrected."
+              },
+              {
+                "row_id": "054dc2e0:s13:de8c478aa788",
+                "action": "repair_award",
+                "canonical_title": "Filmski i video arhiv Hrvatskog filmskog saveza u 2019. godini",
+                "applicant": "Hrvatski filmski savez - HFS",
+                "production_company": "Hrvatski filmski savez - HFS",
+                "approved_amount": 160000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 13, row 1. Amount 160.000,00 HRK. OCR spacing: 'i v ideo a rhiv H rvatskog f ilmskog s aveza u 2019. g odini' corrected."
+              },
+              {
+                "row_id": "054dc2e0:s13:47f05ff48197",
+                "action": "repair_award",
+                "canonical_title": "Program digitalizacije, restauracije i kopiranja autorskih filmova Ivana Faktora",
+                "applicant": "Hrvatski filmski savez - HFS",
+                "production_company": "Hrvatski filmski savez - HFS",
+                "approved_amount": 100000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 13, row 2. Amount 100.000,00 HRK. OCR spacing: 'd igitalizacije, r estauracije i k opiranja a utorskih f ilmova I vana F aktora' corrected."
+              },
+              {
+                "row_id": "054dc2e0:s13:9dd57d3c0183",
+                "action": "repair_award",
+                "canonical_title": "Digitalna restauracija filmova Tatjane Ivančić",
+                "applicant": "Kinoklub Zagreb",
+                "production_company": "Kinoklub Zagreb",
+                "approved_amount": 100000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 13, row 4. Amount 100.000,00 HRK. OCR spacing: 'r estauracija f ilmova T atjane I vančić' corrected."
+              },
+              {
+                "row_id": "054dc2e0:s13:4b835b5c0e38",
+                "action": "repair_award",
+                "canonical_title": "Restauracija i digitalizacija filmova Ustanove Zagreb film",
+                "applicant": "Ustanova Zagreb film",
+                "production_company": "Ustanova Zagreb film",
+                "approved_amount": 60000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Source document section 13, row 5. Amount 60.000,00 HRK. OCR spacing: 'i d igitalizacija f ilmova U stanove Z agreb f ilm' corrected."
+              }
+            ]
+          }
+        }
+      }
     }
   },
   "family_reviews": {},
@@ -8464,6 +8977,35 @@
       "model": "claude-haiku-4-5-20251001",
       "cost_usd": 0.03921,
       "duration_ms": 18621,
+      "attempt": 1
+    },
+    {
+      "kind": "row_review",
+      "source_sha": "054dc2e06d0dc1e3b67fb03ed57145a7435fdb4e58cfeb5483aaeca87557bded",
+      "prompt_hash": "6099884001f7",
+      "at": "2026-07-30T16:40:14Z",
+      "error": "structured decision did not cover exactly the candidate rows",
+      "expected_rows": 30,
+      "returned_rows": 29
+    },
+    {
+      "kind": "row_review",
+      "source_sha": "0a3e5387e57d2ea376c9d79ef5e08fbe6d7776da07c4c17cd594f0668f67fba9",
+      "prompt_hash": "fc33f1776bb0",
+      "at": "2026-07-30T16:40:15Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.044842999999999994,
+      "duration_ms": 26460,
+      "attempt": 1
+    },
+    {
+      "kind": "row_review",
+      "source_sha": "054dc2e06d0dc1e3b67fb03ed57145a7435fdb4e58cfeb5483aaeca87557bded",
+      "prompt_hash": "faee6735456e",
+      "at": "2026-07-30T16:40:16Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.09834330000000001,
+      "duration_ms": 49295,
       "attempt": 1
     }
   ]
