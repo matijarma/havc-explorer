@@ -1185,26 +1185,6 @@
     return acc;
   }
 
-  function dashboardYearBounds() {
-    const ys = DATA && DATA.facets && Array.isArray(DATA.facets.years) ? DATA.facets.years : null;
-    if (!ys || ys.length === 0) return null;
-    return [ys[0], ys[ys.length - 1]];
-  }
-
-  function countActiveFilters() {
-    const f = state.filters;
-    let n = 0;
-    const yrBounds = dashboardYearBounds();
-    if (f.yearRange && yrBounds &&
-        (f.yearRange[0] !== yrBounds[0] || f.yearRange[1] !== yrBounds[1])) n++;
-    if (f.selectedYear != null) n++;
-    if (f.programs.size > 0) n++;
-    if (f.cats.size > 0) n++;
-    if (f.roks.size > 0) n++;
-    if (f.q && f.q.trim()) n++;
-    return n;
-  }
-
   // ═══ 3. State + observer ════════════════════════════════════════════
   const state = {
     filters: {
@@ -1776,7 +1756,6 @@
     function render() {
       const lang = state.lang;
       const isDash = state.view === 'dashboard';
-      const filterCount = isDash ? countActiveFilters() : 0;
       const nextLang = lang === 'hr' ? 'en' : 'hr';
       const activeEl = document.activeElement;
       const hadSearchFocus = Boolean(
@@ -1871,21 +1850,6 @@
                 }, [t('helper.tip.open_store', lang)]),
               ]) : null,
             ]),
-            isDash ? el('button', {
-              class: 'mode-toggle mobile-filter-toggle' +
-                (state.mobileFiltersOpen ? ' is-open' : '') +
-                (filterCount > 0 ? ' has-active' : ''),
-              type: 'button',
-              title: t('facet.filters', lang),
-              'aria-label': `${t('facet.filters', lang)}${filterCount > 0 ? ` (${filterCount})` : ''}`,
-              'aria-controls': 'rail',
-              'aria-expanded': state.mobileFiltersOpen ? 'true' : 'false',
-              onclick: () => setMobileFiltersOpen(!state.mobileFiltersOpen),
-            }, [
-              fa(state.mobileFiltersOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-sliders'),
-              el('span', { class: 'mode-toggle-k', text: t('facet.filters', lang) }),
-              filterCount > 0 ? el('span', { class: 'mobile-filter-count mono', text: String(filterCount) }) : null,
-            ]) : null,
             el('button', {
               class: 'mode-toggle mode-toggle-lang',
               type: 'button',
