@@ -70,7 +70,11 @@
     'facet.filters':  { en: 'Filters',        hr: 'Filtri' },
     'facet.all':      { en: 'all',            hr: 'sve' },
     'facet.reset':    { en: 'Reset',          hr: 'Poništi' },
-    'facet.copy':     { en: 'Copy share-link',hr: 'Kopiraj link' },
+    'share.label':    { en: 'Share view', hr: 'Podijeli prikaz' },
+    'share.copied':   { en: 'Link copied', hr: 'Poveznica kopirana' },
+    'share.failed':   { en: 'Copy failed', hr: 'Kopiranje nije uspjelo' },
+    'share.aria':     { en: 'Copy a link to the current view', hr: 'Kopiraj poveznicu na trenutačni prikaz' },
+    'wordmark.home':  { en: 'Reset and return to the registry home', hr: 'Poništi prikaz i vrati se na početak registra' },
     'facet.currency_note': { en: '1 € = {rate} kn (fixed, ECB)', hr: '1 € = {rate} kn (fiksno, ESB)' },
     'facet.unfunded.label': { en: 'Discussed, never funded', hr: 'Spominjani, ne financirani' },
     'facet.unfunded.sub':   { en: 'mentions and explicit non-awards without a verified award',
@@ -1481,6 +1485,7 @@
     state.expandedKey = state.expandedKey === key ? null : key;
     state.expandedRoundIds = new Set();
     state.expandedMentions = false;
+    schedulePersist();
     fire('expanded');
   }
   function toggleRoundExpanded(id) {
@@ -1521,6 +1526,7 @@
   }
   function setHideUnattributed(v) {
     state.hideUnattributed = v;
+    schedulePersist();
     fire(['hideUnattributed', 'filters']);
   }
   function setShowUnfunded(v) {
@@ -1587,22 +1593,9 @@
     document.body.classList.add('view-' + next);
     fire('view');
   }
-  function readViewFromHash() {
-    const h = (location.hash || '').replace(/^#\/?/, '');
-    if (h === 'about') return 'about';
-    if (h === 'process') return 'process';
-    return 'dashboard';
-  }
-  function syncViewFromHash() {
-    setView(readViewFromHash());
-  }
   function navigateView(view) {
-    const path = view === 'dashboard' ? '#/' : ('#/' + view);
-    if (location.hash !== path) {
-      location.hash = path;        // fires hashchange → syncViewFromHash → setView
-    } else {
-      setView(view);                // already there; still toggle in case of programmatic call
-    }
+    setView(view);
+    schedulePersist();
   }
 
   function scopesEqual(a, b) {
@@ -1659,13 +1652,18 @@
     return true;
   }
 
-  // ═══ 4. URL ↔ state ════════════════════════════════════════════════
+  // ═══ 4. Clean URL + explicit share state ════════════════════════════
   let persistTimer = null;
+  function cleanAppUrl() {
+    try {
+      history.replaceState(null, '', new URL('/', location.origin));
+    } catch (_) {}
+  }
   function schedulePersist() {
     clearTimeout(persistTimer);
-    persistTimer = setTimeout(persistToHash, 500);
+    persistTimer = setTimeout(cleanAppUrl, 120);
   }
-  function persistToHash() {
+  function buildShareUrl() {
     try {
       const f = state.filters;
       const payload = {
@@ -1680,18 +1678,26 @@
         hu: state.hideUnattributed ? 1 : 0,
         sy: f.selectedYear,
         so: state.sort,
+        v: state.view,
       };
       const enc = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
-      const u = new URL(location.href);
+      const u = new URL('/', location.origin);
       u.searchParams.set('f', enc);
-      history.replaceState(null, '', u);
-    } catch (_) {}
+      return u;
+    } catch (_) {
+      return new URL('/', location.origin);
+    }
   }
-  function readFromHash() {
+  function readSharedState() {
     try {
       const u = new URL(location.href);
       const f = u.searchParams.get('f');
-      if (!f) return;
+      const legacyView = (u.hash || '').replace(/^#\/?/, '');
+      if (!f) {
+        if (legacyView === 'about' || legacyView === 'process') state.view = legacyView;
+        cleanAppUrl();
+        return;
+      }
       const payload = JSON.parse(decodeURIComponent(escape(atob(f))));
       if (payload.y) state.filters.yearRange = payload.y;
       if (Array.isArray(payload.p)) state.filters.programs = new Set(payload.p);
@@ -1723,7 +1729,41 @@
       } else {
         state.sort = defaultSortFor(state.groupBy);
       }
-    } catch (_) {}
+      if (payload.v === 'about' || payload.v === 'process' || payload.v === 'dashboard') {
+        state.view = payload.v;
+      } else if (legacyView === 'about' || legacyView === 'process') {
+        state.view = legacyView;
+      }
+    } catch (_) {
+      // Invalid or stale share state should never strand the user on a noisy URL.
+    } finally {
+      cleanAppUrl();
+    }
+  }
+
+  async function copyShareUrl() {
+    const shareUrl = buildShareUrl();
+    history.replaceState(null, '', shareUrl);
+    const text = shareUrl.href;
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const helper = document.createElement('textarea');
+        helper.value = text;
+        helper.setAttribute('readonly', '');
+        helper.style.position = 'fixed';
+        helper.style.opacity = '0';
+        document.body.appendChild(helper);
+        helper.select();
+        const copied = document.execCommand('copy');
+        helper.remove();
+        if (!copied) throw new Error('copy command failed');
+      }
+      return true;
+    } catch (_) {
+      return false;
+    }
   }
 
   // ═══ 5. Atoms ═══════════════════════════════════════════════════════
@@ -1926,6 +1966,21 @@
   function mountTopbar(root) {
     const VIEW_TABS = ['dashboard', 'about', 'process'];
     let searchDraft = state.filters.q || '';
+    let shareStatus = 'idle';
+    let shareTimer = null;
+
+    async function shareCurrentView() {
+      clearTimeout(shareTimer);
+      shareStatus = (await copyShareUrl()) ? 'copied' : 'failed';
+      render();
+      const button = root.querySelector('.share-view-btn');
+      if (button) button.focus();
+      shareTimer = setTimeout(() => {
+        shareStatus = 'idle';
+        cleanAppUrl();
+        render();
+      }, 2200);
+    }
 
     const onDocPointerDown = (e) => {
       if (!state.showHelperTip) return;
@@ -1983,7 +2038,12 @@
           : 'fa-solid fa-circle-half-stroke';
       root.replaceChildren(
         el('div', { class: 'topbar-row' }, [
-          el('div', { class: 'wordmark' }, [
+          el('a', {
+            class: 'wordmark',
+            href: '/',
+            title: t('wordmark.home', lang),
+            'aria-label': t('wordmark.home', lang),
+          }, [
             t('app.name', lang),
             el('span', { class: 'dot', text: '·' }),
           ]),
@@ -2009,6 +2069,25 @@
             }),
           ]) : el('div', { class: 'search-spacer' }),
           el('div', { class: 'toolbar' }, [
+            el('button', {
+              class: 'mode-toggle share-view-btn' + (shareStatus === 'copied' ? ' is-copied' : '') + (shareStatus === 'failed' ? ' is-failed' : ''),
+              type: 'button',
+              title: t(shareStatus === 'copied' ? 'share.copied' : shareStatus === 'failed' ? 'share.failed' : 'share.aria', lang),
+              'aria-label': t(shareStatus === 'copied' ? 'share.copied' : shareStatus === 'failed' ? 'share.failed' : 'share.aria', lang),
+              'aria-live': 'polite',
+              'aria-atomic': 'true',
+              onclick: shareCurrentView,
+            }, [
+              fa(shareStatus === 'copied'
+                ? 'fa-solid fa-check'
+                : shareStatus === 'failed'
+                  ? 'fa-solid fa-triangle-exclamation'
+                  : 'fa-solid fa-share-nodes'),
+              el('span', {
+                class: 'share-view-label',
+                text: t(shareStatus === 'copied' ? 'share.copied' : shareStatus === 'failed' ? 'share.failed' : 'share.label', lang),
+              }),
+            ]),
             showMobileFilterToggle ? el('button', {
               class: 'mode-toggle mobile-filter-toggle' + (state.mobileFiltersOpen ? ' is-open' : ''),
               type: 'button',
@@ -2350,16 +2429,6 @@
             }, [
               fa('fa-solid fa-rotate-left', 'icon-left'),
               t('facet.reset', lang),
-            ]),
-            el('button', {
-              class: 'btn mono',
-              onclick: () => {
-                persistToHash();
-                navigator.clipboard.writeText(location.href);
-              },
-            }, [
-              fa('fa-solid fa-link', 'icon-left'),
-              t('facet.copy', lang),
             ]),
           ]),
           unfundedBlock,
@@ -5149,7 +5218,7 @@
     document.body.classList.add('theme-' + state.theme);
     document.body.classList.remove('mobile-filters-open');
     document.body.classList.toggle('is-mobile', isMobile());
-    state.view = readViewFromHash();
+    state.view = 'dashboard';
     document.body.classList.add('view-' + state.view);
 
     const app = document.getElementById('app');
@@ -5168,7 +5237,9 @@
       return;
     }
 
-    readFromHash();
+    readSharedState();
+    document.body.classList.remove('view-dashboard', 'view-about', 'view-process');
+    document.body.classList.add('view-' + state.view);
 
     if (!state.filters.yearRange) {
       state.filters.yearRange = [DATA.facets.years[0], DATA.facets.years[DATA.facets.years.length - 1]];
@@ -5217,7 +5288,6 @@
 
     applyViewVisibility();
     on('view', applyViewVisibility);
-    window.addEventListener('hashchange', syncViewFromHash);
   }
 
   document.addEventListener('DOMContentLoaded', boot);

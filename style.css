@@ -167,9 +167,21 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
 }
 .search-spacer { flex: 1; max-width: 640px; }
 .wordmark {
+  display: inline-flex;
+  align-items: baseline;
   font-family: 'Bricolage Grotesque', system-ui, sans-serif;
   font-weight: 800; font-size: 22px; letter-spacing: -0.025em;
   color: var(--paper); white-space: nowrap;
+  border-radius: 2px;
+  text-decoration: none;
+}
+.wordmark:hover {
+  color: var(--paper);
+  text-decoration: none;
+}
+.wordmark:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
 }
 .wordmark .dot { color: var(--red); }
 .wordmark-sub {
@@ -1559,6 +1571,34 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
   color: var(--red);
   font-size: 11px;
 }
+.share-view-btn {
+  border-color: var(--red);
+  background: var(--red-soft);
+  padding-inline: 12px;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+.share-view-btn:hover,
+.share-view-btn:focus-visible {
+  border-color: var(--red);
+  background: color-mix(in oklab, var(--red-soft) 62%, var(--red));
+}
+.share-view-btn .share-view-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.share-view-btn.is-copied {
+  background: var(--red);
+  border-color: var(--red);
+  color: #f4ede2;
+}
+.share-view-btn.is-copied i { color: #f4ede2; }
+.share-view-btn.is-failed {
+  border-color: var(--red);
+  color: var(--red);
+  background: transparent;
+}
 .repo-link-btn {
   padding: 4px 9px;
   min-width: 30px;
@@ -1887,11 +1927,13 @@ a:hover { text-decoration: underline; text-decoration-style: dotted; text-underl
     justify-content: center;
   }
   .helper-tip-btn,
+  .share-view-btn,
   .mode-toggle-lang,
   .mode-toggle-theme {
     min-width: 36px;
     justify-content: center;
   }
+  .share-view-btn .share-view-label { display: none; }
   .helper-tip-btn .mode-toggle-k,
   .mode-toggle-lang .mode-toggle-k,
   .mode-toggle-theme .mode-toggle-k,
