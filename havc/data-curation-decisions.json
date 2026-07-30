@@ -10499,6 +10499,33 @@
             "5eddc73e-3784-4e20-b1cf-bda2f2df1d21.jsonl"
           ],
           "recovered_from_session": "5eddc73e-3784-4e20-b1cf-bda2f2df1d21.jsonl"
+        },
+        "5fae00624b7d": {
+          "candidate_reasons": {
+            "054dc2e0:s6:8534588f9579": [
+              "ocr_letter_spacing",
+              "unresolved_status"
+            ]
+          },
+          "reviewed_at": "2026-07-30T17:17:05Z",
+          "status": "ok",
+          "decision": {
+            "doc_sha": "054dc2e06d0dc1e3b67fb03ed57145a7435fdb4e58cfeb5483aaeca87557bded",
+            "decisions": [
+              {
+                "row_id": "054dc2e0:s6:8534588f9579",
+                "action": "repair_award",
+                "canonical_title": "Biti ili ne biti - filmske karikature Nedeljka Dragića",
+                "applicant": "Vedis d.o.o.",
+                "production_company": "Vedis d.o.o.",
+                "approved_amount": 20000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Row 15 in official approved projects list (section: izdavaštvo u području audiovizualnih djelatnosti). Source document confirms: applicant Vedis d.o.o., title 'Biti ili ne biti - filmske karikature Nedeljka Dragića', approved amount 20.000,00 HRK. OCR spacing errors within title words (i li→ili, n e b iti→ne biti, f ilmske→filmske, k arikature→karikature, N edeljka D ragića→Nedeljka Dragića) require correction; all other fields verified in source."
+              }
+            ]
+          }
         }
       }
     },
@@ -12731,6 +12758,33 @@
             "137c2a44-80e1-4383-ab1b-427135fcaecb.jsonl"
           ],
           "recovered_from_session": "137c2a44-80e1-4383-ab1b-427135fcaecb.jsonl"
+        },
+        "7072edca3904": {
+          "candidate_reasons": {
+            "23670f10:s0:6d19859fe82d": [
+              "fragment_or_artifact_title",
+              "unresolved_status"
+            ]
+          },
+          "reviewed_at": "2026-07-30T17:17:19Z",
+          "status": "ok",
+          "decision": {
+            "doc_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+            "decisions": [
+              {
+                "row_id": "23670f10:s0:6d19859fe82d",
+                "action": "keep_award",
+                "canonical_title": "365/7",
+                "applicant": null,
+                "production_company": null,
+                "approved_amount": 4850,
+                "currency": "EUR",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Row 58 in official approved projects list ('popis odobrenih projekata') from Croatian Audiovisual Council 6th session (30.12.2024). Numeric project titles are legitimate per audit instructions and not rejected by shape. Award evidence (title + positive EUR amount in official approved-project table) sufficient despite missing applicant."
+              }
+            ]
+          }
         }
       }
     },
@@ -16541,6 +16595,49 @@
             "f1ff3972-5154-4c5e-ac55-56d7b3126c97.jsonl"
           ],
           "recovered_from_session": "f1ff3972-5154-4c5e-ac55-56d7b3126c97.jsonl"
+        },
+        "ca9cfd53405c": {
+          "candidate_reasons": {
+            "8b0cec02:s4:8df3273306ac": [
+              "ocr_letter_spacing",
+              "unresolved_status"
+            ],
+            "8b0cec02:s4:6df415450ec0": [
+              "ocr_letter_spacing",
+              "unresolved_status"
+            ]
+          },
+          "reviewed_at": "2026-07-30T17:17:31Z",
+          "status": "ok",
+          "decision": {
+            "doc_sha": "8b0cec02e76a7c1102c14ff12a117bcf37d804c28a303f2d96750c1503ec2e68",
+            "decisions": [
+              {
+                "row_id": "8b0cec02:s4:8df3273306ac",
+                "action": "repair_award",
+                "canonical_title": "Dalmatia Film Festival",
+                "applicant": null,
+                "production_company": null,
+                "approved_amount": 20000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "OCR spacing errors corrected: 'Dalmatia F ilm F estival' → 'Dalmatia Film Festival'. Positive funding amount (20,000 HRK) is supported in official complementary film festival funding table (2018). Applicant information missing but acceptable per guidelines—project title paired with positive amount in approved-projects table constitutes sufficient award evidence."
+              },
+              {
+                "row_id": "8b0cec02:s4:6df415450ec0",
+                "action": "repair_award",
+                "canonical_title": "12. Vukovar Film Festival - festival podunavskih zemalja i Edukativni programi 12. Vukovar Film Festivala",
+                "applicant": "Discovery d.o.o.",
+                "production_company": null,
+                "approved_amount": 300000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Multiple OCR corrections applied: spacing in 'F ilm' → 'Film', 'f estival' → 'festival', character split 'z emalja' → 'zemalja', spacing 'p rogrami' → 'programi', split digits '1 2' → '12', applicant spacing 'Discovery d .o.o.' → 'Discovery d.o.o.'. Positive funding amount (300,000 HRK) supported in official complementary film festival funding table (2018). Applicant clearly identified."
+              }
+            ]
+          }
         }
       }
     },
@@ -24354,7 +24451,2623 @@
       }
     }
   },
-  "family_reviews": {},
+  "family_reviews": {
+    "e637b70a14a3": {
+      "status": "ok",
+      "decision": {
+        "groups": [
+          {
+            "candidate_id": "fc_00f1cbd2caf3",
+            "merge": true,
+            "family_title": "Filmske radionice za djecu i mlade",
+            "confidence": "high",
+            "reason": "Editions 14–18 (2022–2026), identical distinctive title across all entries, consistent category/program classification"
+          },
+          {
+            "candidate_id": "fc_028dc438de15",
+            "merge": true,
+            "family_title": "Tuškanac u gostima",
+            "confidence": "high",
+            "reason": "Distinctive title repeated in 2025–2026 entries with consistent program/category context"
+          },
+          {
+            "candidate_id": "fc_033467c0b021",
+            "merge": true,
+            "family_title": "Gastro Film Fest",
+            "confidence": "high",
+            "reason": "Edition 10–23 (2012–2025), clear annual festival with consistent distinctive title, organized by Video klub Mursa (with minor entity variations), category consistently 'filmski festivali i druge audiovizualne manifestacije'"
+          },
+          {
+            "candidate_id": "fc_04611cca1337",
+            "merge": true,
+            "family_title": "Program rada Jedine solucije, udruge za audiovizualnu umjetnost",
+            "confidence": "high",
+            "reason": "Entries 2022–2026, identical distinctive title and wording across all years, consistent program classification and organizing entity"
+          },
+          {
+            "candidate_id": "fc_0473c7ae5ce9",
+            "merge": true,
+            "family_title": "Program redovite djelatnosti DHFR",
+            "confidence": "high",
+            "reason": "Identical wording structure across 2016–2017 entries, consistent entity 'Društvo hrvatskih filmskih redatelja', category 'programi audiovizualnih udruga i organizacija'"
+          },
+          {
+            "candidate_id": "fc_0512cbae7481",
+            "merge": true,
+            "family_title": "Motovun Film Festival",
+            "confidence": "high",
+            "reason": "Entries 2009–2025 with numbered editions (11–15 visible), consistent distinctive title despite minor entity name variations, consistent festival category across all years"
+          },
+          {
+            "candidate_id": "fc_0535ce98d3ef",
+            "merge": true,
+            "family_title": "NOIR Festival",
+            "confidence": "high",
+            "reason": "Consistent distinctive title in 2014–2015, same organizing entity, same category throughout"
+          },
+          {
+            "candidate_id": "fc_05cc79793629",
+            "merge": true,
+            "family_title": "Revija filmova za djecu",
+            "confidence": "high",
+            "reason": "Editions 10–14 (2022–2026), consistent distinctive title and 'filmski festivali i druge audiovizualne manifestacije' category, same organizing entity Centar za kulturu Čakovec"
+          },
+          {
+            "candidate_id": "fc_070eb59bdb9c",
+            "merge": true,
+            "family_title": "Radionica stop-trik animacije See/Touch/Try – Darda",
+            "confidence": "high",
+            "reason": "Identical title across 2023–2026, consistent program and category classification throughout"
+          },
+          {
+            "candidate_id": "fc_0759334fb3a9",
+            "merge": true,
+            "family_title": "Scenaristički program Zora Dirnbach",
+            "confidence": "high",
+            "reason": "Consistent distinctive title across 2021–2026, uniform category 'programi stručnog usavršavanja i/ili edukacije', clear recurring program"
+          },
+          {
+            "candidate_id": "fc_082ea3eea661",
+            "merge": true,
+            "family_title": "Lovely Days",
+            "confidence": "high",
+            "reason": "Identical distinctive title in both 2023–2024 entries, consistent program classification"
+          },
+          {
+            "candidate_id": "fc_09044bc0c4f5",
+            "merge": true,
+            "family_title": "Animafest PRO",
+            "confidence": "high",
+            "reason": "Entries 2021–2026, consistent distinctive title, same category 'programi stručnog usavršavanja i/ili edukacije', same organizing entity Hulahop d.o.o. (when present)"
+          },
+          {
+            "candidate_id": "fc_09d12d1021a6",
+            "merge": true,
+            "family_title": "Sedmi kontinent u bolnicama",
+            "confidence": "high",
+            "reason": "Same distinctive program concept ('Sedmi kontinent u bolnicama') in 2020 and 2025 entries, identical category 'djelatnosti razvijanja audiovizualne kulture', same organizing entity"
+          },
+          {
+            "candidate_id": "fc_09ef8e56c9b8",
+            "merge": true,
+            "family_title": "Kinoprikazivačka djelatnost POUMAR-a – Kina Nova Gradiška",
+            "confidence": "high",
+            "reason": "Same distinctive title structure and wording in both 2023–2024 entries, consistent program classification"
+          },
+          {
+            "candidate_id": "fc_0b2c27b15a46",
+            "merge": true,
+            "family_title": "DOKUart – međunarodni festival profesionalnog dokumentarnog filma",
+            "confidence": "high",
+            "reason": "Numbered editions (16–17) in 2021–2022, identical distinctive wording, same organizing entity 'Udruga za promicanje kulture Dokuart'"
+          },
+          {
+            "candidate_id": "fc_0bdb32d4e1bc",
+            "merge": true,
+            "family_title": "Filo playlista dokumentarista",
+            "confidence": "high",
+            "reason": "Identical distinctive title in both 2022–2023 entries, consistent program classification, same organizing entity Udruga Filmaktiv"
+          },
+          {
+            "candidate_id": "fc_0df4d5ed71a6",
+            "merge": true,
+            "family_title": "Mali DOKUart – DOKUradionica i nacionalni natječaj za najbolji dokumentarni film osnovnoškolaca",
+            "confidence": "high",
+            "reason": "Numbered editions (13–14) in 2020–2021, same distinctive title structure, organizing entity 'Udruga za promicanje kulture Dokuart'"
+          },
+          {
+            "candidate_id": "fc_0e53c77aa3ff",
+            "merge": true,
+            "family_title": "Edukativni program i produkcija Kino kluba Split",
+            "confidence": "high",
+            "reason": "Consistent distinctive title across 2019–2022, same organizing entity 'Kino klub Split', same program category"
+          },
+          {
+            "candidate_id": "fc_0f4d910d34b3",
+            "merge": true,
+            "family_title": "Redovni program Hrvatskog kaskaderskog društva",
+            "confidence": "high",
+            "reason": "Entries 2017–2026, consistent distinctive title, same organizing entity 'Hrvatsko kaskadersko društvo', consistent category 'programi audiovizualnih udruga i organizacija'"
+          },
+          {
+            "candidate_id": "fc_0fe26a71f98c",
+            "merge": true,
+            "family_title": "Filmski i video arhiv Hrvatskog filmskog saveza",
+            "confidence": "high",
+            "reason": "Entries 2018–2026, identical distinctive wording, same organizing entity 'Hrvatski filmski savez', consistent archival category across all years"
+          }
+        ]
+      },
+      "reviewed_at": "2026-07-30T17:20:03Z"
+    },
+    "7378eed82eca": {
+      "status": "ok",
+      "decision": {
+        "groups": [
+          {
+            "candidate_id": "fc_106ba86edf2f",
+            "merge": true,
+            "family_title": "Redovita programska djelatnost",
+            "confidence": "high",
+            "reason": "Recurring annual program from Foto kino video klub Zaprešić (with occasional entries from other organizations in the same category). Consistent title and category across 2010-2026 editions."
+          },
+          {
+            "candidate_id": "fc_121bc815384b",
+            "merge": true,
+            "family_title": "One Take Film Festival",
+            "confidence": "high",
+            "reason": "Numbered festival editions (12th, 13th detected) with consistent distinctive name. Clear recurring festival pattern 2010-2023."
+          },
+          {
+            "candidate_id": "fc_1248519ae564",
+            "merge": true,
+            "family_title": "Opuzen Film Festival",
+            "confidence": "high",
+            "reason": "Numbered editions (3rd, 4th, 6th) organized by Udruga Akulturacija with consistent distinctive name across 2012-2016."
+          },
+          {
+            "candidate_id": "fc_1261d96367fc",
+            "merge": true,
+            "family_title": "Vox Feminae Festival",
+            "confidence": "high",
+            "reason": "Consistent distinctive name and category (filmski festivali) across 2022-2026 annual editions."
+          },
+          {
+            "candidate_id": "fc_12fc51639e92",
+            "merge": true,
+            "family_title": "Filmski program manifestacije Dani kršćanske kulture",
+            "confidence": "high",
+            "reason": "Consistent distinctive compound title and Verbum d.o.o. entity across 2017-2020 editions."
+          },
+          {
+            "candidate_id": "fc_1385cd034eb5",
+            "merge": true,
+            "family_title": "Redovita djelatnost Filmskog centra mladih Šibenik",
+            "confidence": "high",
+            "reason": "Recurring annual activity with consistent wording from same organization, 2023-2026."
+          },
+          {
+            "candidate_id": "fc_138b8efa6c08",
+            "merge": true,
+            "family_title": "Program redovite djelatnosti Društva hrvatskih filmskih redatelja",
+            "confidence": "high",
+            "reason": "Consistent title and organization (Društvo hrvatskih filmskih redatelja) across 2019-2021 annual editions."
+          },
+          {
+            "candidate_id": "fc_1414df917048",
+            "merge": true,
+            "family_title": "Pansinijevi dani",
+            "confidence": "high",
+            "reason": "Consistent distinctive name and category (proučavanje i kritičko vrednovanje audiovizualnih djelatnosti) across 2024-2026."
+          },
+          {
+            "candidate_id": "fc_143e7e4b6c18",
+            "merge": true,
+            "family_title": "Hitchcock Nights",
+            "confidence": "high",
+            "reason": "Distinctive name from same organizer (Zajednica udruga Centar nezavisne kulture) across 2025-2026."
+          },
+          {
+            "candidate_id": "fc_14422878e927",
+            "merge": true,
+            "family_title": "Motion filmska radionica",
+            "confidence": "high",
+            "reason": "Numbered workshop editions (4th, 5th) from Motion/Filmska udruga Motion across 2018-2019."
+          },
+          {
+            "candidate_id": "fc_14c8143cdf4a",
+            "merge": true,
+            "family_title": "KIKI – međunarodni festival dječjeg filma",
+            "confidence": "high",
+            "reason": "Numbered international festival editions (8th-15th) organized by GOKUL with consistent distinctive name across 2020-2026."
+          },
+          {
+            "candidate_id": "fc_151f7a1d66c2",
+            "merge": true,
+            "family_title": "Revija hrvatskog filmskog i videostvaralaštva",
+            "confidence": "high",
+            "reason": "Numbered review editions (41st-43rd) organized by Hrvatski filmski savez across 2009-2011."
+          },
+          {
+            "candidate_id": "fc_15bb3343cbed",
+            "merge": true,
+            "family_title": "Ljetne filmske radionice",
+            "confidence": "high",
+            "reason": "Numbered workshop editions (10th-22nd) with consistent name and category across 2014-2026."
+          },
+          {
+            "candidate_id": "fc_16d3d4c30272",
+            "merge": true,
+            "family_title": "Redovna djelatnost Kinokluba Karlovac",
+            "confidence": "high",
+            "reason": "Recurring annual activity with consistent wording from Kinoklub Karlovac across 2016-2025."
+          },
+          {
+            "candidate_id": "fc_16ed9f1aeeea",
+            "merge": true,
+            "family_title": "Kino Buzet",
+            "confidence": "high",
+            "reason": "Consistent distinctive name across 2021-2026 annual editions."
+          },
+          {
+            "candidate_id": "fc_18ae5e618b0a",
+            "merge": true,
+            "family_title": "Program redovite djelatnosti DHFR-a",
+            "confidence": "high",
+            "reason": "Consistent title and organization (Društvo hrvatskih filmskih redatelja) across 2022-2024 annual editions."
+          },
+          {
+            "candidate_id": "fc_192b4cce01b1",
+            "merge": true,
+            "family_title": "Redovita programska djelatnost udruge Blank",
+            "confidence": "high",
+            "reason": "Consistent distinctive compound title from Udruga Blank with same wording despite year gap (2017, 2023)."
+          },
+          {
+            "candidate_id": "fc_19dbd77bf423",
+            "merge": true,
+            "family_title": "Zimska i ljetna filmska radionica djece i mladeži",
+            "confidence": "high",
+            "reason": "Consistent distinctive name and organization (Foto kino video klub Zaprešić) across 2014-2015."
+          },
+          {
+            "candidate_id": "fc_1a8b8b6801b1",
+            "merge": true,
+            "family_title": "Fantastic Zagreb Film Festival",
+            "confidence": "high",
+            "reason": "Numbered festival editions (5th-16th) with consistent distinctive name across 2012-2026. Distinct from other Zagreb film festivals per instructions."
+          },
+          {
+            "candidate_id": "fc_1a9daa6072bc",
+            "merge": true,
+            "family_title": "Nova škola dokumentarnog filma",
+            "confidence": "high",
+            "reason": "Consistent distinctive name with edition numbering (3rd noted) across 2020-2023."
+          }
+        ]
+      },
+      "reviewed_at": "2026-07-30T17:20:05Z"
+    },
+    "d1b03192afa5": {
+      "status": "ok",
+      "decision": {
+        "groups": [
+          {
+            "candidate_id": "fc_2e88d54a8dc8",
+            "merge": true,
+            "family_title": "Trash Film Festival - međunarodni festival niskobuđetnih filmova",
+            "confidence": "high",
+            "reason": "Numbered editions (14–15) with identical title structure, same organizer (Udruga Trash), same category and program. Clear recurring festival."
+          },
+          {
+            "candidate_id": "fc_302b69a26456",
+            "merge": true,
+            "family_title": "Opuzenska filmska škola",
+            "confidence": "high",
+            "reason": "Identical title across years 2013–2016, same program code. Entity variations (Ustanova Opuzen film festival / Udruga Akulturacija) reflect likely reorganization, not distinct projects."
+          },
+          {
+            "candidate_id": "fc_30f201165d5b",
+            "merge": true,
+            "family_title": "Vukovar Film Festival - festival podunavskih zemalja",
+            "confidence": "high",
+            "reason": "Numbered editions (14–16) with consistent title, same organizer (Discovery d.o.o.), same category and program. Clear annual film festival."
+          },
+          {
+            "candidate_id": "fc_311dcd3b4a32",
+            "merge": true,
+            "family_title": "Međunarodni znanstveni skup o animiranom filmu Animafest Scanner",
+            "confidence": "high",
+            "reason": "Identical title, same organizer (Hulahop d.o.o.), same category. Two consecutive years (2015–2016) with no distinguishing variations."
+          },
+          {
+            "candidate_id": "fc_32124707744d",
+            "merge": true,
+            "family_title": "Kino Europa - programi",
+            "confidence": "high",
+            "reason": "Same title base ('Kino Europa') and organizer (Umjetnička organizacija Zagreb Film Festival), same category and program across consecutive years (2010–2011)."
+          },
+          {
+            "candidate_id": "fc_325e73990d90",
+            "merge": true,
+            "family_title": "AM Centar - godišnje aktivnosti",
+            "confidence": "high",
+            "reason": "Identical title structure ('godišnje aktivnosti'), same organizer, same category. Annual reporting of same entity's activities."
+          },
+          {
+            "candidate_id": "fc_34469a451082",
+            "merge": true,
+            "family_title": "Ljetno kino",
+            "confidence": "high",
+            "reason": "Identical title across years (2017–2026), same organizer (Pučko otvoreno učilište u Pazinu / Centar za kulturu i obrazovanje Pazin), same category. Entity name change reflects municipal reorganization, not program change."
+          },
+          {
+            "candidate_id": "fc_34ae65ed5de9",
+            "merge": true,
+            "family_title": "Kino djelatnost POUMAR",
+            "confidence": "high",
+            "reason": "Identical title base ('Kino djelatnost POUMAR'), same organizer across consecutive years (2019–2020), same program."
+          },
+          {
+            "candidate_id": "fc_3563590e6228",
+            "merge": true,
+            "family_title": "Filmski Uskrs i Vaskrs",
+            "confidence": "high",
+            "reason": "Identical title across 10 entries spanning 2014–2026, same organizer (Kinoklub Karlovac), same category and program. Long-running annual event with consistent branding."
+          },
+          {
+            "candidate_id": "fc_3578cbf8b23e",
+            "merge": true,
+            "family_title": "Scenaristički program \"Branko Bauer\"",
+            "confidence": "high",
+            "reason": "Identical title and category across years 2023–2026, same program type. Entity variations (null, Društvo hrvatskih filmskih autora i producenata, Društvo hrvatskih filmskih redatelja) reflect administrative or organizational changes, not program identity."
+          },
+          {
+            "candidate_id": "fc_35b1e63b5192",
+            "merge": true,
+            "family_title": "Cherry Pop Film Festival",
+            "confidence": "high",
+            "reason": "Clearly numbered editions (2, 3, 4, 5), same organizer (Akademski filmski klub), same category. Discrete annual or biennial festival."
+          },
+          {
+            "candidate_id": "fc_35facbcb8e54",
+            "merge": true,
+            "family_title": "Art kino",
+            "confidence": "high",
+            "reason": "Identical title across 6 entries (2014–2021), same organizer (GFR film-video), same category and program. Recurring cinema activity."
+          },
+          {
+            "candidate_id": "fc_36227e28f7fb",
+            "merge": true,
+            "family_title": "Supetar Super Film Festival",
+            "confidence": "high",
+            "reason": "Numbered edition identified (3rd, 2011), same organizer (Udruga Super Supetar) and category across years 2010–2015. Clear recurring festival."
+          },
+          {
+            "candidate_id": "fc_3825dbc89aeb",
+            "merge": true,
+            "family_title": "Brač Film Festival",
+            "confidence": "high",
+            "reason": "Numbered editions (6–12) plus unnumbered entries across 2016–2026, same organizer (Udruga Globe Media), same category. Long-running annual festival with consistent identity."
+          },
+          {
+            "candidate_id": "fc_38635f898400",
+            "merge": true,
+            "family_title": "Uhvati film",
+            "confidence": "high",
+            "reason": "Identical title across 4 entries (2016–2021), same organizer (Udruga građana Spirit), same category. Recurring film event."
+          },
+          {
+            "candidate_id": "fc_38a132233a6d",
+            "merge": true,
+            "family_title": "Filmbook by KIC",
+            "confidence": "high",
+            "reason": "Identical title across consecutive years (2025–2026), same category. No conflicting organizer or program data."
+          },
+          {
+            "candidate_id": "fc_3b089d77cc4f",
+            "merge": true,
+            "family_title": "Vox Feminae filmski festival",
+            "confidence": "high",
+            "reason": "Identical title across 3 entries (2019–2021), same organizer (Prostor rodne i medijske kulture K-zona), same category. Recurring festival."
+          },
+          {
+            "candidate_id": "fc_3bae636c3e89",
+            "merge": true,
+            "family_title": "Noć hrvatskog filma i novih medija",
+            "confidence": "high",
+            "reason": "Identical title across 5 entries (2016–2020), same organizer (Noć hrvatskog filma i novih medija, U.O.), same category. Annual recurring event."
+          },
+          {
+            "candidate_id": "fc_3d706d61bb36",
+            "merge": true,
+            "family_title": "Program FAGEP-a",
+            "confidence": "high",
+            "reason": "Identical title and category across consecutive years (2012–2013), same organizer (Filmska autorska grupa Enthusia Planck). Recurring annual program."
+          },
+          {
+            "candidate_id": "fc_3dc48bc64e22",
+            "merge": true,
+            "family_title": "Digitalna filmska naSTAVa",
+            "confidence": "high",
+            "reason": "Identical title across 5 entries (2021–2026), same category, same program base. Organizer variations (null / Hrvatski filmski savez) reflect administrative context, not program change. Recurring annual activity."
+          }
+        ]
+      },
+      "reviewed_at": "2026-07-30T17:20:06Z"
+    },
+    "06a68f03ba61": {
+      "status": "ok",
+      "decision": {
+        "groups": [
+          {
+            "candidate_id": "fc_1ad2a4be7c4c",
+            "merge": true,
+            "family_title": "Program rada FFVAL-a",
+            "confidence": "high",
+            "reason": "Consistent entity (Foto film video amateri Luke), distinctive acronym FFVAL, clear annual editions 2016–2021 with identical title structure."
+          },
+          {
+            "candidate_id": "fc_1c5f476a1596",
+            "merge": true,
+            "family_title": "TV Burza",
+            "confidence": "high",
+            "reason": "Distinctive name repeated across 4 consecutive years (2023–2026), consistent program category, clear annual editions."
+          },
+          {
+            "candidate_id": "fc_1ca6916c5b1a",
+            "merge": true,
+            "family_title": "Dokukino program",
+            "confidence": "high",
+            "reason": "Consistent distinctive title across 6 years (2020–2026), consistent category (audiovizualna kultura), clear annual program structure."
+          },
+          {
+            "candidate_id": "fc_1ddae2d87b84",
+            "merge": true,
+            "family_title": "Inkluzivne projekcije i panel rasprave",
+            "confidence": "high",
+            "reason": "Same entity (Alternator), identical title concept across 2018–2019, consistent category and program type."
+          },
+          {
+            "candidate_id": "fc_1f6981c30735",
+            "merge": true,
+            "family_title": "Program rada",
+            "confidence": "high",
+            "reason": "Consistent entity (Filmsko-kreativni studio Vanima), recurring annual program 2020–2026, identical title pattern."
+          },
+          {
+            "candidate_id": "fc_1fd95628e940",
+            "merge": true,
+            "family_title": "Filmska edukacija mladih",
+            "confidence": "high",
+            "reason": "Consistent entity (GFR film-video), distinctive title across 2016–2026 with multiple edition years, clear annual program."
+          },
+          {
+            "candidate_id": "fc_21916fe18e73",
+            "merge": true,
+            "family_title": "Cinemaniac: Misliti film",
+            "confidence": "medium",
+            "reason": "Consistent core concept (Cinemaniac + Misliti film) across 2013–2023, but entity varies and one entity has OCR spacing errors; core title remains distinctive."
+          },
+          {
+            "candidate_id": "fc_22c1afe7527f",
+            "merge": true,
+            "family_title": "Filmska početnica - predškolski i osnovnoškolski program",
+            "confidence": "high",
+            "reason": "Consistent entity (Restart), identical program description across 2017–2021, same category and program type."
+          },
+          {
+            "candidate_id": "fc_241c54cfa618",
+            "merge": true,
+            "family_title": "Program redovnih aktivnosti HDNP-a",
+            "confidence": "high",
+            "reason": "Distinctive acronym HDNP, consistent title structure across 2022–2026, clear annual editions."
+          },
+          {
+            "candidate_id": "fc_24cd9a838d10",
+            "merge": true,
+            "family_title": "Kino Trešnja",
+            "confidence": "medium",
+            "reason": "Consistent name across 2024–2026 (appearing to describe the same cinema/venue), but only 2 entries and unclear whether this is a program or venue listing."
+          },
+          {
+            "candidate_id": "fc_2644eb2b028a",
+            "merge": true,
+            "family_title": "Postira Seaside Film Festival",
+            "confidence": "high",
+            "reason": "Consistent entity (Udruga Lanterna Magica), numbered festival editions (7th–14th) spanning 2014–2024, distinctive festival name."
+          },
+          {
+            "candidate_id": "fc_269635f51b3e",
+            "merge": true,
+            "family_title": "Edukativni program U Fokusu: izgradnja lika u dokumentarnom filmu",
+            "confidence": "high",
+            "reason": "Consistent entity (Fantastično dobra institucija - Fade In), identical program concept across 2015–2019, same category."
+          },
+          {
+            "candidate_id": "fc_285210b0ef83",
+            "merge": true,
+            "family_title": "Ljetna škola filma Gunja i edukacija članova",
+            "confidence": "high",
+            "reason": "Consistent entity (MMC SKIG), numbered editions (8th–12th) across 2017–2021, identical program concept."
+          },
+          {
+            "candidate_id": "fc_296151bac02c",
+            "merge": true,
+            "family_title": "Splitski filmski festival",
+            "confidence": "medium",
+            "reason": "Consistent entity (Međunarodni festival novog filma), same festival concept across 2016–2018, but only 2 entries and alternate naming variant."
+          },
+          {
+            "candidate_id": "fc_2a74f68a2648",
+            "merge": true,
+            "family_title": "Liburnia uplovljava",
+            "confidence": "high",
+            "reason": "Distinctive consistent title across 6 consecutive years (2021–2026), same category, clear annual program."
+          },
+          {
+            "candidate_id": "fc_2b7254f07993",
+            "merge": true,
+            "family_title": "Godišnji program Filmska RUNDA",
+            "confidence": "high",
+            "reason": "Consistent entity (Teatar to go, U.O.), identical title pattern across 2017–2020, same category and program type."
+          },
+          {
+            "candidate_id": "fc_2b8cfdfefb86",
+            "merge": true,
+            "family_title": "Zaštita i restauracija audiovizualnog gradiva",
+            "confidence": "high",
+            "reason": "Consistent entity (Hrvatski državni arhiv - Hrvatska kinoteka), identical program concept across 2009–2012, same specialized category."
+          },
+          {
+            "candidate_id": "fc_2ba5b29c3180",
+            "merge": true,
+            "family_title": "Vukovar Film Festival",
+            "confidence": "high",
+            "reason": "Consistent entity (Discovery d.o.o.), numbered festival editions (6th–7th), same festival category."
+          },
+          {
+            "candidate_id": "fc_2cde74b2ea0e",
+            "merge": true,
+            "family_title": "Dani hrvatskog filma \"Ivo Gregurević\"",
+            "confidence": "medium",
+            "reason": "Consistent distinctive title across 2023–2025 (one entry with edition number 30th), but no entity context and minimal category data."
+          },
+          {
+            "candidate_id": "fc_2e8631eeef17",
+            "merge": true,
+            "family_title": "Dodatna iz filma",
+            "confidence": "low",
+            "reason": "Minimal title ('Additional from film'), only 2 entries (2024–2025), inconsistent entity, suggests generic supplementary listings rather than a named recurring program."
+          }
+        ]
+      },
+      "reviewed_at": "2026-07-30T17:20:15Z"
+    },
+    "8eb87e832bdf": {
+      "status": "ok",
+      "decision": {
+        "groups": [
+          {
+            "candidate_id": "fc_51ba0eb749db",
+            "merge": true,
+            "family_title": "Hrvatski festival jednominutnih filmova",
+            "confidence": "high",
+            "reason": "Numbered editions 18-30 across 2010-2022 with consistent organizers (Hrvatski filmski savez, GFR film-video) and stable category. Clear annual recurring festival."
+          },
+          {
+            "candidate_id": "fc_5311f62eed57",
+            "merge": true,
+            "family_title": "Apox Film Festival",
+            "confidence": "high",
+            "reason": "Consistent distinctive naming across editions with Udruga Relive as organizer. Numbered edition 6 (2025) and prior years confirm recurring annual festival."
+          },
+          {
+            "candidate_id": "fc_534e2bfdb972",
+            "merge": true,
+            "family_title": "Revija hrvatskog filmskog stvaralaštva",
+            "confidence": "high",
+            "reason": "Numbered editions 46-58 spanning 2014-2026 with stable organizer (Hrvatski filmski savez). Distinctive wording consistent across all entries."
+          },
+          {
+            "candidate_id": "fc_53583579f8da",
+            "merge": true,
+            "family_title": "Filmska RUNDA",
+            "confidence": "high",
+            "reason": "Numbered editions (9, 11) with consistent organizer Teatar to go across 2021-2026. Clear recurring program with annual iterations."
+          },
+          {
+            "candidate_id": "fc_54097a698ef9",
+            "merge": true,
+            "family_title": "Art Kino Arsen – redovni filmski program Kuće umjetnosti Arsen",
+            "confidence": "high",
+            "reason": "Consistent distinctive wording across 2025-2026 entries describing the same ongoing regular film program of an arts venue."
+          },
+          {
+            "candidate_id": "fc_546a91aaec0b",
+            "merge": true,
+            "family_title": "25 FPS Internacionalni festival eksperimentalnog filma i videa",
+            "confidence": "high",
+            "reason": "Numbered editions 5-7 (2009-2011) with stable organizer '25 FPS, udruga za audiovizualna istraživanja'. Single festival with distinct editions."
+          },
+          {
+            "candidate_id": "fc_561cc8f0f8b9",
+            "merge": true,
+            "family_title": "Revija hrvatskoga filmskog i videostvaralastva djece",
+            "confidence": "high",
+            "reason": "Numbered editions 47-49 (2009-2011) with consistent organizer Hrvatski filmski savez. Distinct children's film review with clear annual editions."
+          },
+          {
+            "candidate_id": "fc_56f041168633",
+            "merge": true,
+            "family_title": "Program treniranja Hrvatskog kaskaderskog društva",
+            "confidence": "high",
+            "reason": "Two entries (2013-2014) from same organizer describing annual training program. Same entity and consistent program type across years."
+          },
+          {
+            "candidate_id": "fc_57484c5db7a6",
+            "merge": true,
+            "family_title": "SEFF - Smaragdni Eco Film Festival",
+            "confidence": "high",
+            "reason": "Numbered editions 9-12 (2016-2019) with stable organizer Ekološko kulturna scena EKS. Clear annual environmental film festival."
+          },
+          {
+            "candidate_id": "fc_57910005c54f",
+            "merge": true,
+            "family_title": "DOKUart filmski program",
+            "confidence": "high",
+            "reason": "Consistent program name across 2010-2013 entries. Same organizer (Udruga za promicanje kulture DOKUart) running recurring annual program."
+          },
+          {
+            "candidate_id": "fc_5821040e3720",
+            "merge": true,
+            "family_title": "Cjelogodišnji program Kina Gorica",
+            "confidence": "high",
+            "reason": "Four consecutive annual entries (2023-2026) with identical structure. Annual full-year cinema program with stable distinctive wording."
+          },
+          {
+            "candidate_id": "fc_58a04a9fdded",
+            "merge": true,
+            "family_title": "Stručno usavršavanje djelatnika Hrvatske kinoteke",
+            "confidence": "high",
+            "reason": "Entries from 2009-2011 with consistent organizer Hrvatski državni arhiv - Hrvatska kinoteka. Recurring annual professional development program."
+          },
+          {
+            "candidate_id": "fc_59b65640a88a",
+            "merge": true,
+            "family_title": "Animafin - festival animacije za djecu i mlade",
+            "confidence": "high",
+            "reason": "Three consecutive entries (2022-2024) with organizer Luma film. Consistent distinctive naming and annual festival for children and youth animation."
+          },
+          {
+            "candidate_id": "fc_5af1807c7c68",
+            "merge": true,
+            "family_title": "Gledamo dokumentarce, pravimo dokumentarce - edukacijski program Liburnia Film Festivala",
+            "confidence": "high",
+            "reason": "Consistent wording across 2016-2020 entries from Udruga Liburnia film festival. Recurring educational documentary workshop program."
+          },
+          {
+            "candidate_id": "fc_5b04ee0ad6d4",
+            "merge": true,
+            "family_title": "Samo nebo nam je granica",
+            "confidence": "high",
+            "reason": "Three consecutive entries (2020-2022) with same organizer Udruga Bacači sjenki. Single recurring program across annual editions."
+          },
+          {
+            "candidate_id": "fc_5b72f2fe08b3",
+            "merge": true,
+            "family_title": "Kultni ponedjeljak",
+            "confidence": "high",
+            "reason": "Three entries (2019-2023) with consistent program name from Pučko otvoreno učilište Poreč. Clear recurring cultural program."
+          },
+          {
+            "candidate_id": "fc_5b8612d1893a",
+            "merge": true,
+            "family_title": "Redovna djelatnost udruge Izvan fokusa",
+            "confidence": "medium",
+            "reason": "Two entries (2016-2017) from same organizer. Annual regular activity reporting of media/culture association rather than distinct project."
+          },
+          {
+            "candidate_id": "fc_5e5552ebddd4",
+            "merge": true,
+            "family_title": "Lego radionica – od kockica do animiranog filma",
+            "confidence": "high",
+            "reason": "Two entries (2024, 2026) with same organizer Autorski studio. Recurring annual LEGO workshop for animation creation."
+          },
+          {
+            "candidate_id": "fc_5ed22eecb997",
+            "merge": true,
+            "family_title": "Izrazi se filmom",
+            "confidence": "high",
+            "reason": "Four entries (2019-2026) with consistent program name and organizer Tvornica Umjetnosti - TUM. Clear recurring annual film expression program."
+          },
+          {
+            "candidate_id": "fc_603cd0198a0d",
+            "merge": true,
+            "family_title": "Vukovar Film Festival - Dunavska scenaristička radionica",
+            "confidence": "high",
+            "reason": "Two consecutive entries (2021-2022, editions 15-16) from Discovery d.o.o. Recurring annual screenwriting workshop of Vukovar Film Festival."
+          }
+        ]
+      },
+      "reviewed_at": "2026-07-30T17:20:46Z"
+    },
+    "8912af863844": {
+      "status": "ok",
+      "decision": {
+        "groups": [
+          {
+            "candidate_id": "fc_60c6d16ac7cd",
+            "merge": true,
+            "family_title": "Hall of Fame",
+            "confidence": "high",
+            "reason": "Seven consecutive years (2020–2026) with identical format 'Hall of Fame u [YEAR]. godini'. Consistent organizer (Restart), category, and program. Clear recurring annual event."
+          },
+          {
+            "candidate_id": "fc_61805c624fce",
+            "merge": true,
+            "family_title": "Film svima",
+            "confidence": "high",
+            "reason": "Four editions across years (2017, 2019, 2023, 2024) with consistent title format and organizer (Udruga Filmaktiv). Distinctive branding of a recurring program."
+          },
+          {
+            "candidate_id": "fc_62131b197472",
+            "merge": true,
+            "family_title": "Hall of Fame: Vodič kroz povijest dokumentarnog filma",
+            "confidence": "high",
+            "reason": "Three editions (2013–2016) with consistent wording and specific subtitle about documentary film history. Always organized by Restart. Distinct from generic 'Hall of Fame' due to specialized focus."
+          },
+          {
+            "candidate_id": "fc_62c3791ceb24",
+            "merge": true,
+            "family_title": "Restart Laboratorij",
+            "confidence": "high",
+            "reason": "Ten editions spanning 2014–2026 with consistent format 'Restart Laboratorij u [YEAR]. godini'. Organized by Restart, consistent program category. Clear recurring training/workshop series."
+          },
+          {
+            "candidate_id": "fc_64132e0c76b1",
+            "merge": true,
+            "family_title": "Međunarodna radionica animiranog filma",
+            "confidence": "high",
+            "reason": "Ten numbered editions (9th–17th) across 2018–2026, with consistent organizer (Ustanova Zagreb film/Supertoon). Clear numbered recurring international workshop."
+          },
+          {
+            "candidate_id": "fc_6427d2f03cc2",
+            "merge": true,
+            "family_title": "Izdavaštvo i distribucija hrvatskih dokumentarnih filmova u regiji",
+            "confidence": "high",
+            "reason": "Two consecutive years (2020–2021) with nearly identical titles. Organized by Restart, same category. Recurring program focused on documentary distribution."
+          },
+          {
+            "candidate_id": "fc_64565b462d7e",
+            "merge": true,
+            "family_title": "Distribucija i promocija filmova",
+            "confidence": "high",
+            "reason": "Five consecutive years (2015–2019) with consistent format. Same organizer (Bonobostudio d.o.o.), category, and program. Clear recurring annual activity."
+          },
+          {
+            "candidate_id": "fc_647c48d7c25f",
+            "merge": true,
+            "family_title": "Godina kina Urania",
+            "confidence": "high",
+            "reason": "Six entries (2013–2025) recording anniversary years of the same cinema (100th, 107th, 109th, 110th, 111th, 113th). Organized by Kinematografi Osijek. Single recurring anniversary series."
+          },
+          {
+            "candidate_id": "fc_64da2cb7df20",
+            "merge": true,
+            "family_title": "Scenaristički program \"Branko Bauer\"",
+            "confidence": "high",
+            "reason": "Fourteen editions spanning 2010–2019 with consistent title format and naming. Always organized by Društvo hrvatskih filmskih redatelja. Clear recurring annual screenwriting program."
+          },
+          {
+            "candidate_id": "fc_651abf14d610",
+            "merge": true,
+            "family_title": "Kratki, animirani i eksperimentalni film u medijima",
+            "confidence": "high",
+            "reason": "Three editions (2017–2024) with identical or near-identical titles. Organized by Udruga Vizkultura. Recurring program with stable branding."
+          },
+          {
+            "candidate_id": "fc_654321d26ea8",
+            "merge": true,
+            "family_title": "Godina kinematografije u Slatini",
+            "confidence": "high",
+            "reason": "Three entries (2021–2026) recording anniversary years of the same cinema (101st, 105th, 115th). Organized by Pučko otvoreno učilište Slatina. Single recurring anniversary series."
+          },
+          {
+            "candidate_id": "fc_67fd490e45db",
+            "merge": true,
+            "family_title": "Queer MoMenti",
+            "confidence": "high",
+            "reason": "Eleven editions across 2013–2026 with consistent title and organizer (Udruga Domino). Minor case variations ('MoMenti', 'momenti') reflect same program. Distinctive branding of recurring cultural event."
+          },
+          {
+            "candidate_id": "fc_698476200457",
+            "merge": false,
+            "family_title": null,
+            "confidence": "high",
+            "reason": "Multiple distinct organizations' annual work programs: Hrvatska udruga filmskih snimatelja, Vanima, Filmsko-kreativni studio Vanima. Generic title 'Program rada za [YEAR]. godinu' refers to different entities. Do not merge separate institutional annual reports."
+          },
+          {
+            "candidate_id": "fc_6b14ed53da85",
+            "merge": true,
+            "family_title": "Animation Shots",
+            "confidence": "high",
+            "reason": "Eight editions spanning 2017–2026 with consistent branding. Organized by Otompotom/Supertoon. Clear recurring animation event series."
+          },
+          {
+            "candidate_id": "fc_6bcc0526fca7",
+            "merge": true,
+            "family_title": "Kinoprikazivačka djelatnost kina \"30. svibnja\" Daruvar",
+            "confidence": "high",
+            "reason": "Four consecutive years (2017–2020) with identical descriptive title. Same organizer (Pučko otvoreno učilište Daruvar). Cinema's regular screening activity across multiple years."
+          },
+          {
+            "candidate_id": "fc_6c1f1c6c715f",
+            "merge": true,
+            "family_title": "ZagrebDox – Međunarodni festival dokumentarnog filma",
+            "confidence": "high",
+            "reason": "Fifteen numbered editions (5th–22nd) spanning 2009–2026. Organized by Factum. Clear numbered international documentary film festival with consistent identity."
+          },
+          {
+            "candidate_id": "fc_6c971242e2af",
+            "merge": true,
+            "family_title": "Mali DOKUart – DOKUradionica s nacionalnim natječajem za najbolji dokumentarac osnovnoškolaca",
+            "confidence": "high",
+            "reason": "Three numbered editions (4th, 7th, 8th) across 2011–2015. Organized by Udruga za promicanje kulture Dokuart. Clear numbered recurring workshop/competition series."
+          },
+          {
+            "candidate_id": "fc_6cc76dcc8ecf",
+            "merge": true,
+            "family_title": "FROOOM! Interdisciplinarni filmski program",
+            "confidence": "high",
+            "reason": "Two consecutive years (2019–2020) with identical program content and organizer (Udruga Bacači sjenki). Recurring film/media literacy program for youth."
+          },
+          {
+            "candidate_id": "fc_6cd4cb24cfed",
+            "merge": true,
+            "family_title": "Razgovor počinje filmom",
+            "confidence": "high",
+            "reason": "Seven consecutive years (2020–2026) with consistent title format. Organized by Udruga Alternator. Clear recurring annual program."
+          },
+          {
+            "candidate_id": "fc_6eddf56bcedc",
+            "merge": true,
+            "family_title": "Djelatnosti Društva hrvatskih filmskih montažera",
+            "confidence": "high",
+            "reason": "Four consecutive years (2023–2026) with consistent format 'Djelatnosti... u [YEAR]. godini'. Same organizer (Društvo hrvatskih filmskih montažera). Annual activities of a professional society."
+          }
+        ]
+      },
+      "reviewed_at": "2026-07-30T17:20:54Z"
+    },
+    "684db41ebbef": {
+      "status": "ok",
+      "decision": {
+        "groups": [
+          {
+            "candidate_id": "fc_6f7a792fa863",
+            "merge": true,
+            "family_title": "Festivalska distribucija",
+            "confidence": "high",
+            "reason": "Identical entity (Ustanova Zagreb film), category, and program across consecutive years (2016-2017). Consistent distinctive wording; year is only variable."
+          },
+          {
+            "candidate_id": "fc_6fad1ea980fc",
+            "merge": true,
+            "family_title": "Specijalizirane radionice Kino kluba Split",
+            "confidence": "high",
+            "reason": "Same entity and organization (Kino klub Split), same program type, consistent naming across years despite gap in data (2012, 2016)."
+          },
+          {
+            "candidate_id": "fc_70d9d7c18b23",
+            "merge": true,
+            "family_title": "Edukativni program i produkcija Kino kluba Split",
+            "confidence": "high",
+            "reason": "Consecutive years (2023-2024) with identical program name and organization. Year-based variation only."
+          },
+          {
+            "candidate_id": "fc_70e3a605bb0e",
+            "merge": true,
+            "family_title": "Škola dokumentarnog filma",
+            "confidence": "high",
+            "reason": "Nine entries spanning 2014-2024 with consistent entity (Restart for most), identical program naming, and clear annual recurrence. Distinctive wording remains stable."
+          },
+          {
+            "candidate_id": "fc_70f49ffbc75a",
+            "merge": true,
+            "family_title": "Redovan rad udruge MMC SKIG i edukacija članova",
+            "confidence": "high",
+            "reason": "Three consecutive years (2023-2025) with identical program name and category. Consistent ongoing organizational activity."
+          },
+          {
+            "candidate_id": "fc_71a6230987cd",
+            "merge": true,
+            "family_title": "Cinehill - Međunarodni filmski festival",
+            "confidence": "high",
+            "reason": "International film festival with distinctive name appearing in consecutive years (2025-2026) in same category. Clear recurring event."
+          },
+          {
+            "candidate_id": "fc_71b829f6a532",
+            "merge": true,
+            "family_title": "Pašmanske filmske večeri",
+            "confidence": "high",
+            "reason": "Numbered editions (6th-14th) spanning 2012-2020 with consistent entity (primarily Filmaparat d.o.o. and Udruga pasmanske mladeži Dica), identical category, and distinctive festival name."
+          },
+          {
+            "candidate_id": "fc_71c2beb37cf9",
+            "merge": true,
+            "family_title": "Redovita djelatnost Društva hrvatskih filmskih redatelja",
+            "confidence": "high",
+            "reason": "Same organization (Society of Croatian Film Directors) with identical program name across years (2012, 2026). Consistent wording for recurring organizational activity."
+          },
+          {
+            "candidate_id": "fc_72c7ec6d010b",
+            "merge": true,
+            "family_title": "Godišnji program Kina Samobor",
+            "confidence": "high",
+            "reason": "Three consecutive years (2024-2026) with identical program name. Same category and consistent annual program designation."
+          },
+          {
+            "candidate_id": "fc_72fe3bdba90b",
+            "merge": true,
+            "family_title": "qFest - Filmske projekcije",
+            "confidence": "high",
+            "reason": "Four entries (2018-2019, 2023-2024) with consistent entity (queerANarchive), same category, and distinctive festival name. qFEST/qFest naming variant is minor."
+          },
+          {
+            "candidate_id": "fc_74ecfbbe0743",
+            "merge": true,
+            "family_title": "Dani hrvatskog filma",
+            "confidence": "high",
+            "reason": "Sixteen entries with numbered editions (18th-35th) spanning 2009-2026. Consistent festival name, category, and distinctive wording across multiple organizers. Major recurring national festival."
+          },
+          {
+            "candidate_id": "fc_74f191419b2e",
+            "merge": true,
+            "family_title": "Festival kaskaderstva - 3, 2, 1 akcija!",
+            "confidence": "high",
+            "reason": "Festival appearing in consecutive years (2025-2026) with title including edition number. Same category and consistent naming."
+          },
+          {
+            "candidate_id": "fc_7599822be3d3",
+            "merge": true,
+            "family_title": "DOKUart EDU - Radionica za dokumentarni film",
+            "confidence": "high",
+            "reason": "Four consecutive years (2023-2026) with identical program name and category. Clear annual educational workshop recurrence."
+          },
+          {
+            "candidate_id": "fc_75c0af641a9e",
+            "merge": true,
+            "family_title": "Radionice Kinokluba Zagreb",
+            "confidence": "high",
+            "reason": "Six entries across 2019-2026 with same entity (Kinoklub Zagreb) and consistent naming. Clear annual workshop program."
+          },
+          {
+            "candidate_id": "fc_762d71ee71d3",
+            "merge": true,
+            "family_title": "Razmišljaj filmom",
+            "confidence": "high",
+            "reason": "Nine entries spanning 2018-2026 with consistent entity (Restart for most) and identical program name. Distinctive wording across all years."
+          },
+          {
+            "candidate_id": "fc_76406b2b92d0",
+            "merge": true,
+            "family_title": "VAFI - Međunarodni festival animiranog filma djece i mladih Varaždin",
+            "confidence": "high",
+            "reason": "Numbered editions (2nd-8th) spanning 2010-2017 with same entity (Filmsko-kreativni studio Vanima), same category, and consistent distinctive festival name."
+          },
+          {
+            "candidate_id": "fc_774586b03c9c",
+            "merge": true,
+            "family_title": "Ljetna škola filma Šipan",
+            "confidence": "high",
+            "reason": "Twelve entries with numbered editions spanning 2010-2026, same entity (Škola filma Šipan), consistent naming. Clear annual summer film school program."
+          },
+          {
+            "candidate_id": "fc_78e778c25eb1",
+            "merge": true,
+            "family_title": "Pulica u Kaputu",
+            "confidence": "high",
+            "reason": "Numbered editions (5th-9th) across 2019-2024 with consistent entity (Javna ustanova Pula film festival) and category. Distinctive festival name throughout."
+          },
+          {
+            "candidate_id": "fc_78fd28947ed7",
+            "merge": true,
+            "family_title": "Program specijalističkih radionica \"Ono k'o Zoran Tadić\"",
+            "confidence": "high",
+            "reason": "Three entries (2017, 2018, 2021) with same entity (Autorski studio-fotografija, film, video) and identical program name. Consistent distinctive wording."
+          },
+          {
+            "candidate_id": "fc_7972b4366857",
+            "merge": true,
+            "family_title": "Obrazovni programi u kinu Tuškanac za djecu i mlade - Filmska nastava",
+            "confidence": "high",
+            "reason": "Three consecutive years (2024-2026) with identical program name and category. Same location-based educational program recurrence."
+          }
+        ]
+      },
+      "reviewed_at": "2026-07-30T17:20:55Z"
+    },
+    "20501a2cfb39": {
+      "status": "ok",
+      "decision": {
+        "groups": [
+          {
+            "candidate_id": "fc_3e44cfa572a4",
+            "merge": true,
+            "family_title": "Jubilarna Ljetna škola filma Šipan",
+            "confidence": "high",
+            "reason": "Consistent distinctive title and organizing entity (Škola filma Šipan). Clear edition numbering (15th, 20th) across years indicates a coherent recurring annual school."
+          },
+          {
+            "candidate_id": "fc_42bf10ede82d",
+            "merge": true,
+            "family_title": "Festival europskog filma",
+            "confidence": "high",
+            "reason": "Identical festival name across entries with explicit edition numbering (14th edition). No entity conflicts, consistent categorization as festival."
+          },
+          {
+            "candidate_id": "fc_430996f96657",
+            "merge": true,
+            "family_title": "Redovna djelatnost Škole animiranog filma Čakovec",
+            "confidence": "high",
+            "reason": "Same organization (Škola animiranog filma Čakovec) across all years (2018-2021). Consistent wording pattern for regular annual activities with same category context."
+          },
+          {
+            "candidate_id": "fc_4318ff3d531e",
+            "merge": true,
+            "family_title": "Revija hrvatskog filma kratke forme - 240 sekundi hrvatskog filma",
+            "confidence": "high",
+            "reason": "Consistent distinctive title and organizing entity (Autorski studio-fotografija, film, video). Clear edition numbering (13th, 14th, 15th) across consecutive years demonstrates recurring annual event."
+          },
+          {
+            "candidate_id": "fc_43972ee14a82",
+            "merge": true,
+            "family_title": "Redovita djelatnost udruge Dokumetar",
+            "confidence": "high",
+            "reason": "Identical organization (Dokumetar explicitly named, year-to-year consistency). Same program format for regular annual activities with consistent categorization."
+          },
+          {
+            "candidate_id": "fc_4464d25a52f9",
+            "merge": true,
+            "family_title": "Festival o pravima djece",
+            "confidence": "high",
+            "reason": "Consistent distinctive festival title across all years (2012-2017). Organizing entity consistent (Alternator with minor naming variations; same organization). Demonstrates annual recurring festival structure."
+          },
+          {
+            "candidate_id": "fc_44b886dc3935",
+            "merge": true,
+            "family_title": "Program redovnih djelatnosti Hrvatske udruge producenata",
+            "confidence": "high",
+            "reason": "Same organization across years with identical category and program structure. Consistent wording for annual regular activities program of the same association."
+          },
+          {
+            "candidate_id": "fc_45872476e4d7",
+            "merge": true,
+            "family_title": "Zimske i ljetne filmske radionice djece i mladeži",
+            "confidence": "high",
+            "reason": "Consistent distinctive title across years 2022-2026. Same category (cultural activities development). Coherent naming pattern indicates single recurring annual program regardless of entity variations."
+          },
+          {
+            "candidate_id": "fc_45af45188d72",
+            "merge": true,
+            "family_title": "Filmski festival glumca",
+            "confidence": "high",
+            "reason": "Consistent festival title and organizing entity (Asser Savus). Clear sequential edition numbering (4th through 10th) across years 2020-2026 demonstrates coherent recurring festival."
+          },
+          {
+            "candidate_id": "fc_45d854eee744",
+            "merge": true,
+            "family_title": "Škola u kinu",
+            "confidence": "high",
+            "reason": "Consistent distinctive title and organizing entity (Art-kino) across years 2021-2026. Same category context and structured annual program format."
+          },
+          {
+            "candidate_id": "fc_4725168a993e",
+            "merge": true,
+            "family_title": "Škola dokumentarnog filma",
+            "confidence": "medium",
+            "reason": "Consistent distinctive title across entries, but organizing entity changes over time (RESTART 2010-2013, Filmaktiv 2021, null 2025-2026). Could indicate institutional evolution or separate programs with identical name. Merging based on distinctive title and category consistency, but entity changes create organizational ambiguity."
+          },
+          {
+            "candidate_id": "fc_4971f41f0c43",
+            "merge": true,
+            "family_title": "Program MM centra",
+            "confidence": "medium",
+            "reason": "Consistent distinctive title and organizing entity (Student Center Zagreb) across available years (2009-2013). Older historical data with time gaps, but consistent entity and naming suggest same program. Confidence reduced due to temporal distance and lack of recent documentation."
+          },
+          {
+            "candidate_id": "fc_497eaaa95872",
+            "merge": true,
+            "family_title": "Film svima svugdje",
+            "confidence": "high",
+            "reason": "Consistent distinctive title across consecutive years (2023-2025). Same category classification. Year-to-year consistency indicates coherent recurring program."
+          },
+          {
+            "candidate_id": "fc_4a8bae11bd6f",
+            "merge": true,
+            "family_title": "Škola animiranog filma Pula",
+            "confidence": "high",
+            "reason": "Consistent distinctive title and organizing entity (Pulska filmska tvornica). Clear edition numbering (8th and 10th) indicates recurring numbered film school."
+          },
+          {
+            "candidate_id": "fc_4b0562edc585",
+            "merge": true,
+            "family_title": "Filmski programi kina Tuškanac",
+            "confidence": "high",
+            "reason": "Consistent distinctive title and organizing entity (Hrvatski filmski savez - HFS) across years 2019-2024. Same category context indicates coherent cinema programming series."
+          },
+          {
+            "candidate_id": "fc_4b1589f98e27",
+            "merge": true,
+            "family_title": "Vladimir Skate Film Festival",
+            "confidence": "high",
+            "reason": "Consistent distinctive festival title and organizing entity (Skateboard klub August Šenoa). Clear edition numbering (7th and 9th) indicates recurring numbered festival."
+          },
+          {
+            "candidate_id": "fc_4d15c89c92de",
+            "merge": true,
+            "family_title": "Međunarodni studentski filmski festival STIFF",
+            "confidence": "high",
+            "reason": "Consistent distinctive festival name and organizing entity (Udruga Filmaktiv) across years 2015-2026. Clear sequential edition numbering (8th through 13th) with comprehensive year-to-year documentation demonstrates single recurring international student film festival."
+          },
+          {
+            "candidate_id": "fc_4e3581572a40",
+            "merge": true,
+            "family_title": "ARTERIA - Tjedan filma o umjetnicima",
+            "confidence": "high",
+            "reason": "Consistent distinctive festival title and organizing entity (Kulturno informativni centar). Clear edition numbering (3rd and 4th) indicates recurring annual event series."
+          },
+          {
+            "candidate_id": "fc_4ea6ecaf016d",
+            "merge": true,
+            "family_title": "FROOOM - program filmskog i interdisciplinarnog obrazovanja",
+            "confidence": "high",
+            "reason": "Consistent distinctive program title and organizing entity (Udruga Bacački sjenki) across consecutive years (2014-2015). Same category and structure indicate recurring educational program."
+          },
+          {
+            "candidate_id": "fc_4f03f9b1445d",
+            "merge": true,
+            "family_title": "F.R.K.A. - Filmska revija Akademije dramske umjetnosti",
+            "confidence": "high",
+            "reason": "Consistent distinctive title and organizing entity (Akademija dramske umjetnosti). Clear edition numbering (10th and 12th) indicates recurring annual film review of the academy."
+          }
+        ]
+      },
+      "reviewed_at": "2026-07-30T17:21:06Z"
+    },
+    "4aaa51149c7d": {
+      "status": "ok",
+      "decision": {
+        "groups": [
+          {
+            "candidate_id": "fc_84d5e4c8b5bb",
+            "merge": true,
+            "family_title": "Festival prava djece",
+            "confidence": "high",
+            "reason": "Consecutive editions (11th-17th, 2018-2025) with consistent organizer (Alternator), category, and program type. Clear edition numbering indicates annual recurring festival."
+          },
+          {
+            "candidate_id": "fc_8561b6dab71e",
+            "merge": true,
+            "family_title": "Betina Film Festival",
+            "confidence": "high",
+            "reason": "Same distinctive name, organizer (Mirage kreativni studio), and categorization across 2019 and 2021 editions."
+          },
+          {
+            "candidate_id": "fc_85a13eb9a7df",
+            "merge": true,
+            "family_title": "Zagreb Film Festival",
+            "confidence": "high",
+            "reason": "Sequential editions spanning 2009-2025 (7th-23rd edition) with consistent organizer (Umjetnička organizacija Zagreb Film Festival) and film festival categorization."
+          },
+          {
+            "candidate_id": "fc_87c90a8665ab",
+            "merge": true,
+            "family_title": "Godišnji program Kinoteke Zlatna vrata",
+            "confidence": "high",
+            "reason": "Same distinctive name and organizer (Centar za kulturu Zlatna vrata) across 2023 and 2026. Annual program structure."
+          },
+          {
+            "candidate_id": "fc_8805bf75e12b",
+            "merge": true,
+            "family_title": "Radionica dokumentarnog filma za profesore",
+            "confidence": "medium",
+            "reason": "Consistent title and organizer (Kinoklub Karlovac) across 2017 and 2022, but sparse representation (5-year gap) makes confidence lower."
+          },
+          {
+            "candidate_id": "fc_8bf995da7007",
+            "merge": true,
+            "family_title": "MARS Festival",
+            "confidence": "high",
+            "reason": "Consistent name and organizer (Mljetski Avanturistički Robinzonski Savez - MARS) across three consecutive editions 2023-2026."
+          },
+          {
+            "candidate_id": "fc_8c1b03e8716c",
+            "merge": true,
+            "family_title": "Mikro-škola medijske kulture",
+            "confidence": "high",
+            "reason": "Strong continuity from 2013-2026 (5th-18th edition) with consistent organizer (Foto-kino klub Baranja film) and clear edition numbering."
+          },
+          {
+            "candidate_id": "fc_8c44517698f5",
+            "merge": true,
+            "family_title": "Festival Novih",
+            "confidence": "high",
+            "reason": "Same distinctive name across 2013-2017 editions with consistent organizer (Udruga SB Film variants) indicating recurring annual festival."
+          },
+          {
+            "candidate_id": "fc_8c89a08203f0",
+            "merge": true,
+            "family_title": "Festival Kratkog Metra Novigrad",
+            "confidence": "medium",
+            "reason": "Consistent distinctive name across 2023 and 2025, but limited instances and two-year gap reduce confidence."
+          },
+          {
+            "candidate_id": "fc_8d7974e325d8",
+            "merge": true,
+            "family_title": "Festival prava djece - Prilagodba filmova za osobe s oštećenjem sluha i vida",
+            "confidence": "medium",
+            "reason": "Distinct program component focused on film adaptation accessibility services (2018-2020). Related to but distinct from main Festival prava djece."
+          },
+          {
+            "candidate_id": "fc_8d8d1cf5deb8",
+            "merge": true,
+            "family_title": "Program redovne djelatnosti Hrvatskog društva filmskih kritičara",
+            "confidence": "medium",
+            "reason": "Consistent title and organizer (Hrvatsko društvo filmskih kritičara) across 2017-2018, but only two instances available."
+          },
+          {
+            "candidate_id": "fc_8dda8527ca08",
+            "merge": true,
+            "family_title": "Masterclass program",
+            "confidence": "medium",
+            "reason": "Consistent generic title with organizer (Restart) across 2021-2026, but title is non-distinctive and could conflate with other masterclass initiatives."
+          },
+          {
+            "candidate_id": "fc_8e46e4ff78af",
+            "merge": true,
+            "family_title": "Redovita djelatnost Kinokluba Karlovac",
+            "confidence": "medium",
+            "reason": "Same organizer and title across 2012-2013, but generic program description and limited data points."
+          },
+          {
+            "candidate_id": "fc_8e47516a44f3",
+            "merge": true,
+            "family_title": "Festivalska distribucija",
+            "confidence": "medium",
+            "reason": "Consistent name with organizer (Ustanova Zagreb film) across 2015-2026, but generic title suggests this may be ongoing activity rather than distinct annual event."
+          },
+          {
+            "candidate_id": "fc_8ea3edb84f7b",
+            "merge": true,
+            "family_title": "Porečdox - međunarodni festival dokumentarnog filma",
+            "confidence": "high",
+            "reason": "Sequential editions 2015-2026 (5th-16th edition) with consistent organizer (Pučko otvoreno učilište Poreč) and distinctive name."
+          },
+          {
+            "candidate_id": "fc_903188ce8971",
+            "merge": true,
+            "family_title": "ZagrebDox Pro",
+            "confidence": "high",
+            "reason": "Strong continuity 2009-2026 with consistent organizer (Factum) and distinctive branded name. Clear professional training program identity."
+          },
+          {
+            "candidate_id": "fc_91700986e32e",
+            "merge": true,
+            "family_title": "Masterclass - svjetski dokumentaristi u Hrvatskoj",
+            "confidence": "medium",
+            "reason": "Specific distinctive focus (world documentarians) with consistent organizer (Restart) across 2017-2018, but limited instances."
+          },
+          {
+            "candidate_id": "fc_91ba467a5e76",
+            "merge": true,
+            "family_title": "DOKUart EDU",
+            "confidence": "medium",
+            "reason": "Consistent name and structure across 2024-2025, but only two instances limit confidence in recurring pattern."
+          },
+          {
+            "candidate_id": "fc_91d8601fa769",
+            "merge": true,
+            "family_title": "Green Room Cinema",
+            "confidence": "high",
+            "reason": "Strong continuity 2012-2025 with consistent organizer (GOKUL) and distinctive branded name across multiple editions."
+          },
+          {
+            "candidate_id": "fc_92262fc3ddcb",
+            "merge": true,
+            "family_title": "Festival hrvatskih katoličkih filmova Trsat",
+            "confidence": "high",
+            "reason": "Sequential editions (6th-7th, 2015-2016) with consistent organizer (Istra film) and distinctive thematic focus (Catholic films)."
+          }
+        ]
+      },
+      "reviewed_at": "2026-07-30T17:21:38Z"
+    },
+    "64a656b37647": {
+      "status": "ok",
+      "decision": {
+        "groups": [
+          {
+            "candidate_id": "fc_7b4f99fd3e31",
+            "merge": true,
+            "family_title": "Razgovori s autorima u Dokukinu",
+            "confidence": "high",
+            "reason": "Identical entity (Restart), category, and program. Consistent distinctive wording with only year variation across 2009–2016."
+          },
+          {
+            "candidate_id": "fc_7b682ac18a25",
+            "merge": false,
+            "family_title": null,
+            "confidence": "high",
+            "reason": "Generic label 'Redovita programska djelatnost' applied to different organizations (5 in 2009, 2–3 in 2010). Not a single recurring project but a classification of separate ongoing programs by distinct entities."
+          },
+          {
+            "candidate_id": "fc_7b9e10c084ff",
+            "merge": true,
+            "family_title": "DOKUart - Dani dokumentarnog filma",
+            "confidence": "high",
+            "reason": "Clear edition numbering (4th–13th), consistent organizer (Udruga za promicanje kulture Dokuart), and distinctive wording across 10 years (2009–2018)."
+          },
+          {
+            "candidate_id": "fc_7b9e37bcbd25",
+            "merge": true,
+            "family_title": "Kino-Point",
+            "confidence": "high",
+            "reason": "Consistent distinctive wording across 7 years (2019–2026) with stable entity and category when specified."
+          },
+          {
+            "candidate_id": "fc_7c2ee716527a",
+            "merge": true,
+            "family_title": "Filmski programi u Mikro-kinu",
+            "confidence": "high",
+            "reason": "Identical program name with consistent entity (Foto-kino klub Baranja film) and category across 13 years (2009–2026)."
+          },
+          {
+            "candidate_id": "fc_7ce159db0667",
+            "merge": true,
+            "family_title": "Program Filmskog studija Medika",
+            "confidence": "high",
+            "reason": "Consistent entity (Autonomni kulturni centar), category, and distinctive wording across 5 recent years (2021–2026)."
+          },
+          {
+            "candidate_id": "fc_7db388778179",
+            "merge": true,
+            "family_title": "DOKUart - međunarodni festival dokumentarnog filma",
+            "confidence": "medium",
+            "reason": "Clear edition numbering (18th, 21st) and consistent organizer (Udruga za promicanje kulture Dokuart). Distinct from 'Dani dokumentarnog filma' by subtitle specifying international festival format."
+          },
+          {
+            "candidate_id": "fc_7dde8c52399b",
+            "merge": true,
+            "family_title": "qRadionice (audiovizualni programi)",
+            "confidence": "medium",
+            "reason": "Distinctive wording 'qRADIONICE' with subcategory across 2 years (2019, 2023). Entity present only in first row; limited data but title consistent."
+          },
+          {
+            "candidate_id": "fc_7df0b276e13a",
+            "merge": true,
+            "family_title": "Revija UMAS",
+            "confidence": "medium",
+            "reason": "Consistent distinctive wording across 2 recent years (2023–2025). Entity varies but title and category alignment support single recurring project."
+          },
+          {
+            "candidate_id": "fc_7ed2d25870bb",
+            "merge": true,
+            "family_title": "Trash Film Festival",
+            "confidence": "high",
+            "reason": "Clear edition numbering (12th–18th), consistent organizer (Udruga Trash), and distinctive wording across 6 occurrences (2011–2023)."
+          },
+          {
+            "candidate_id": "fc_7fe92ca0c37a",
+            "merge": true,
+            "family_title": "Animafin u zajednici",
+            "confidence": "medium",
+            "reason": "Consistent distinctive wording across 2 recent years (2024–2026). No entity specified and limited data, but title pattern is unambiguous."
+          },
+          {
+            "candidate_id": "fc_8072ec454506",
+            "merge": true,
+            "family_title": "VAFI & RAFI - internacionalni festival animiranog filma djece i mladih",
+            "confidence": "high",
+            "reason": "Clear edition numbering (12th–17th), consistent entity (Filmsko-kreativni studio Vanima), and distinctive compound title across 6 years (2021–2026)."
+          },
+          {
+            "candidate_id": "fc_807992937679",
+            "merge": true,
+            "family_title": "Tabor Film Festival - međunarodni festival kratkometražnog filma",
+            "confidence": "high",
+            "reason": "Clear edition numbering (12th–13th), consistent entity (GOKUL), and distinctive international short-film festival subtitle."
+          },
+          {
+            "candidate_id": "fc_807c2cea9516",
+            "merge": true,
+            "family_title": "Škola igranog filma",
+            "confidence": "high",
+            "reason": "Consistent distinctive wording across 4 years (2021–2026) with stable category when specified."
+          },
+          {
+            "candidate_id": "fc_80e79e9b6172",
+            "merge": true,
+            "family_title": "Godišnji program - Posebni programi",
+            "confidence": "medium",
+            "reason": "Consistent wording pattern across 2 consecutive recent years (2025–2026) with distinctive subprogram classification."
+          },
+          {
+            "candidate_id": "fc_819f8419e9b4",
+            "merge": true,
+            "family_title": "Radionice \"Ono k'o… Zoran Tadić\"",
+            "confidence": "high",
+            "reason": "Distinctive wording with person honorific across 3 consecutive recent years (2024–2026); consistent entity and category."
+          },
+          {
+            "candidate_id": "fc_82a615cb0912",
+            "merge": true,
+            "family_title": "Radionica animiranog filma \"Mali grad Agram\" i Radionica igranog filma \"Mali grad Agram\"",
+            "confidence": "high",
+            "reason": "Consistent compound title (paired workshops) with same entity (Udruga Mali grad) across 4 years (2020–2025)."
+          },
+          {
+            "candidate_id": "fc_82f647cb3d99",
+            "merge": true,
+            "family_title": "Škola medijske kulture Dr. Ante Peterlić",
+            "confidence": "high",
+            "reason": "Clear edition numbering (11th–28th), consistent entity (Hrvatski filmski savez), and distinctive wording with person honorific across 17 years (2009–2026)."
+          },
+          {
+            "candidate_id": "fc_840859f6bb28",
+            "merge": true,
+            "family_title": "Radionica stop-trik animacije See/Touch/Try – Ljeto",
+            "confidence": "medium",
+            "reason": "Distinctive wording with consistent entity (Video klub Mursa) and seasonal specification (Ljeto/Summer) across 2 years (2018–2019)."
+          },
+          {
+            "candidate_id": "fc_84d0aeaa8391",
+            "merge": true,
+            "family_title": "Program rada MMC SKIG",
+            "confidence": "medium",
+            "reason": "Consistent entity (Multimedijalni centar Studio kreativnih ideja Gunja) and wording pattern across 2 consecutive years (2012–2013)."
+          }
+        ]
+      },
+      "reviewed_at": "2026-07-30T17:21:41Z"
+    },
+    "0d10b55ad138": {
+      "status": "ok",
+      "decision": {
+        "groups": [
+          {
+            "candidate_id": "fc_92aeadd113d7",
+            "merge": true,
+            "family_title": "Festival prava djece - prilagodbe filmova za gluhe i slijepe osobe",
+            "confidence": "high",
+            "reason": "Clear recurring annual festival with sequential edition numbers (13-17). Consistent entity, program category, and distinctive title structure across 2021-2025."
+          },
+          {
+            "candidate_id": "fc_9318378a8469",
+            "merge": true,
+            "family_title": "Međunarodni dan animacije",
+            "confidence": "high",
+            "reason": "Recurring annual international event organized by ASIFA Hrvatske across 2021-2026. Consistent categorization and entity."
+          },
+          {
+            "candidate_id": "fc_93310db7351e",
+            "merge": true,
+            "family_title": "Kino mreža - Programi u godini",
+            "confidence": "high",
+            "reason": "Recurring annual program from Hrvatska mreža neovisnih kinoprikazivača (2015-2017). Consistent title structure and entity."
+          },
+          {
+            "candidate_id": "fc_93bbd454d81a",
+            "merge": true,
+            "family_title": "Zimske i ljetne filmske radionice",
+            "confidence": "high",
+            "reason": "Recurring annual workshops from Foto kino video klub Zaprešić (2019-2021). Consistent title and organizer."
+          },
+          {
+            "candidate_id": "fc_940e015845c5",
+            "merge": true,
+            "family_title": "Godišnji program Art-kina za godinu",
+            "confidence": "high",
+            "reason": "Clear recurring annual program (2020-2026) with consistent title structure and primary entity Art-kino."
+          },
+          {
+            "candidate_id": "fc_9469fddad9c1",
+            "merge": true,
+            "family_title": "Primijenjeni video",
+            "confidence": "high",
+            "reason": "Recurring annual program (2015-2026, scattered years) primarily by Udruga Filmaktiv. Consistent distinctive title."
+          },
+          {
+            "candidate_id": "fc_948475d344a2",
+            "merge": true,
+            "family_title": "Vukovar Film Festival - radionica Jednominutni film u jednom kadru",
+            "confidence": "high",
+            "reason": "Recurring festival edition with sequential numbering (15th, 16th). Same organizer Discovery d.o.o. and distinctive workshop focus."
+          },
+          {
+            "candidate_id": "fc_95b815b61988",
+            "merge": true,
+            "family_title": "Program projekcija",
+            "confidence": "medium",
+            "reason": "Both entries from Kino klub Split with identical title structure. Limited data (2 years, 3-year gap) but consistent organization suggests recurring program."
+          },
+          {
+            "candidate_id": "fc_960d22cca8da",
+            "merge": true,
+            "family_title": "Demokracija za početnike u godini",
+            "confidence": "high",
+            "reason": "Recurring annual program (2020-2026, scattered) primarily by Restart. Consistent title structure and program classification."
+          },
+          {
+            "candidate_id": "fc_960e6d86fe2e",
+            "merge": true,
+            "family_title": "Revija hrvatskog filmskog stvaralastva djece",
+            "confidence": "high",
+            "reason": "Well-established recurring festival with sequential edition numbers (52-64) organized by Hrvatski filmski savez across 2014-2026. Highly distinctive title."
+          },
+          {
+            "candidate_id": "fc_969b98b9689b",
+            "merge": true,
+            "family_title": "Filmski studio Medika: program za godinu",
+            "confidence": "medium",
+            "reason": "Recurring program from Autonomni kulturni centar (2019-2020). Limited data but consistent title and organizer suggest annual program."
+          },
+          {
+            "candidate_id": "fc_980fc80972ea",
+            "merge": true,
+            "family_title": "FUSE - Film Under Severe Experiment",
+            "confidence": "high",
+            "reason": "Recurring annual festival with distinctive title (2019-2026). Consistent organizer Kinoklub Karlovac and festival classification."
+          },
+          {
+            "candidate_id": "fc_9814a4e44844",
+            "merge": true,
+            "family_title": "Stop Motion Scena",
+            "confidence": "high",
+            "reason": "Recurring annual event from Kinoklub Karlovac (2022-2025). Distinctive title and consistent organizer."
+          },
+          {
+            "candidate_id": "fc_9a56dc0b2189",
+            "merge": true,
+            "family_title": "Programi Udruge 25 FPS u godini",
+            "confidence": "high",
+            "reason": "Recurring annual program from 25 FPS (2012-2021, scattered years). Consistent organization and title structure."
+          },
+          {
+            "candidate_id": "fc_9a9af4a52d14",
+            "merge": true,
+            "family_title": "Production In turneja",
+            "confidence": "medium",
+            "reason": "Same touring program in consecutive years (2025-2026). Limited data but consistent title indicates recurring initiative."
+          },
+          {
+            "candidate_id": "fc_9aa508899d80",
+            "merge": true,
+            "family_title": "Redovna djelatnost udruge Izvan fokusa za godinu",
+            "confidence": "high",
+            "reason": "Recurring annual activity from Izvan fokusa (2019-2021). Consistent organization and title structure."
+          },
+          {
+            "candidate_id": "fc_9bd6234e5beb",
+            "merge": true,
+            "family_title": "EDIT: Edukacija i Trening",
+            "confidence": "high",
+            "reason": "Recurring annual program from Udruga ljubitelja filma Rare (2012-2019, scattered). Consistent distinctive title and organizer."
+          },
+          {
+            "candidate_id": "fc_9c5be32ca387",
+            "merge": true,
+            "family_title": "Dovedimo kulturu k nama",
+            "confidence": "medium",
+            "reason": "Same program in consecutive years (2023-2024). Limited data but title consistency suggests recurring initiative."
+          },
+          {
+            "candidate_id": "fc_9cb7364628cf",
+            "merge": true,
+            "family_title": "Smotra hrvatskog filma u Beogradu",
+            "confidence": "medium",
+            "reason": "Recurring cultural showcase with numbered editions (4th, 5th) across 2019-2023. Multiple organizers but consistent distinctive title and international focus."
+          },
+          {
+            "candidate_id": "fc_9cd420485276",
+            "merge": false,
+            "family_title": null,
+            "confidence": "high",
+            "reason": "Different organizations (Društvo hrvatskih filmskih redatelja vs Filmski centar mladih Šibenik) across different time periods (2013, 2021). Generic title 'Redovita djelatnost u' does not establish identity. Should not merge."
+          }
+        ]
+      },
+      "reviewed_at": "2026-07-30T17:21:42Z"
+    },
+    "728e6e3c59fe": {
+      "status": "ok",
+      "decision": {
+        "groups": [
+          {
+            "candidate_id": "fc_9d4fba23d3cc",
+            "merge": true,
+            "family_title": "Međunarodni festival arheološkog filma",
+            "confidence": "high",
+            "reason": "Seven entries with consistent distinctive naming (MFAF), numbered editions (3–9), same organizer (Muzej hrvatskih arheoloških spomenika Split), spanning 2014–2026. Clear recurring festival."
+          },
+          {
+            "candidate_id": "fc_9fc52cdcca5b",
+            "merge": true,
+            "family_title": "Program rada FFVAL-a",
+            "confidence": "high",
+            "reason": "Three entries from Foto film video amateri Luke, all titled 'Program rada FFVAL-a za [year] godinu', consistent category and entity. Annual program with edition-neutral naming."
+          },
+          {
+            "candidate_id": "fc_a17c725405e2",
+            "merge": true,
+            "family_title": "Radionica izrade filma Pulska filmska tvornica",
+            "confidence": "high",
+            "reason": "Two entries with numbered editions (8., 9.), same entity (Pulska filmska tvornica), distinctive naming. Recurring workshop series."
+          },
+          {
+            "candidate_id": "fc_a39e2566e4bb",
+            "merge": true,
+            "family_title": "Kino Katarina",
+            "confidence": "high",
+            "reason": "Five entries spanning 2021–2026, consistent distinctive name across all variants, same program category. Single ongoing cinema program with year variations."
+          },
+          {
+            "candidate_id": "fc_a3c6ef9ca836",
+            "merge": true,
+            "family_title": "Kino Valli - cjelogodišnja kinoprikazivačka djelatnost",
+            "confidence": "high",
+            "reason": "Two entries with identical core wording and consistent activity description, spanning 2025–2026. Recurring annual cinema activity."
+          },
+          {
+            "candidate_id": "fc_a3d23a68beaf",
+            "merge": true,
+            "family_title": "Tabor Film Festival",
+            "confidence": "high",
+            "reason": "Thirteen entries spanning 2009–2024 with numbered editions (14–22), consistent organizer GOKUL across all variants, highly distinctive name. Major recurring festival."
+          },
+          {
+            "candidate_id": "fc_a43d76e08c63",
+            "merge": true,
+            "family_title": "DokuMA Film Festival",
+            "confidence": "high",
+            "reason": "Two entries with numbered editions (3., 4.), same entity (Udruga Dokuma), consistent distinctive naming. Recurring documentary film festival."
+          },
+          {
+            "candidate_id": "fc_a5957dfeae85",
+            "merge": true,
+            "family_title": "Škola animacije",
+            "confidence": "high",
+            "reason": "Four entries spanning 2023–2026 with consistent name and category, year variants only. Single recurring animation school program."
+          },
+          {
+            "candidate_id": "fc_a69a0cdc3e5a",
+            "merge": true,
+            "family_title": "Edukativni programi i produkcija",
+            "confidence": "high",
+            "reason": "Two entries both titled 'Edukativni programi i produkcija [year]', consistent category. Recurring annual educational program."
+          },
+          {
+            "candidate_id": "fc_a9fbffab6c6c",
+            "merge": true,
+            "family_title": "Radionica animiranog filma za djecu – Mala zagrebačka animacija (Z–animacija)",
+            "confidence": "high",
+            "reason": "Five entries spanning 2014–2026, consistent entity (Autorski studio), consistent distinctive full naming across variants. Single recurring animation workshop."
+          },
+          {
+            "candidate_id": "fc_ac4536ba9ff0",
+            "merge": true,
+            "family_title": "Međunarodni summit medija za mlade",
+            "confidence": "high",
+            "reason": "Two entries with numbered editions (15., 16.), same organizer (Hrvatski filmski savez), consistent distinctive naming regardless of case. Recurring international summit."
+          },
+          {
+            "candidate_id": "fc_ad46e47f3151",
+            "merge": true,
+            "family_title": "Požeški filmski tjedan",
+            "confidence": "high",
+            "reason": "Twelve entries spanning 2014–2025, consistent distinctive name, consistent organizer GFR film-video, same program category. Established recurring film week."
+          },
+          {
+            "candidate_id": "fc_ad6ff4f1adfe",
+            "merge": true,
+            "family_title": "Kino u Kostreni",
+            "confidence": "high",
+            "reason": "Three entries spanning 2022–2024, consistent name with year suffixes, organizer Centar kulture Kostrena. Single recurring cinema program."
+          },
+          {
+            "candidate_id": "fc_ae4871768407",
+            "merge": true,
+            "family_title": "Attachment: film kao prilog",
+            "confidence": "high",
+            "reason": "Four entries spanning 2017–2020 with identical distinctive title, same entity (Izvan fokusa), consistent program. Single recurring program."
+          },
+          {
+            "candidate_id": "fc_ae5f5b31f44e",
+            "merge": true,
+            "family_title": "Slučajno kino",
+            "confidence": "high",
+            "reason": "Five entries spanning 2017, 2023–2026, consistent distinctive name, consistent program category. Single recurring cinema program."
+          },
+          {
+            "candidate_id": "fc_ae70f81c3c06",
+            "merge": true,
+            "family_title": "Revija amaterskog filma",
+            "confidence": "high",
+            "reason": "Five entries with numbered editions (8–13), same entity FAR, consistent distinctive naming. Recurring amateur film review festival."
+          },
+          {
+            "candidate_id": "fc_aea20dc9bdb8",
+            "merge": true,
+            "family_title": "Filmska početnica",
+            "confidence": "high",
+            "reason": "Six entries spanning 2014, 2015, 2022–2026 all titled 'Filmska početnica u [year] godini', consistent category. Single recurring annual film initiative."
+          },
+          {
+            "candidate_id": "fc_b001cb1cf471",
+            "merge": true,
+            "family_title": "Filmska revija Novo kino Osmijeh",
+            "confidence": "high",
+            "reason": "Four entries with numbered editions (14., 15., 17.), same entity (MMC SKIG), consistent distinctive naming. Recurring film review series."
+          },
+          {
+            "candidate_id": "fc_b09c47312b1a",
+            "merge": true,
+            "family_title": "Filmski program Vox Feminae Festivala",
+            "confidence": "high",
+            "reason": "Two entries with identical distinctive title structure, same entity (Prostor rodne i medijske kulture K-zona), consistent program. Single recurring program component."
+          },
+          {
+            "candidate_id": "fc_b190b7cba5db",
+            "merge": true,
+            "family_title": "Kino Istra",
+            "confidence": "high",
+            "reason": "Three entries spanning 2024–2026, consistent distinctive name with minimal case variation, consistent category. Single recurring cinema program."
+          }
+        ]
+      },
+      "reviewed_at": "2026-07-30T17:21:46Z"
+    },
+    "ef48716f4c17": {
+      "status": "ok",
+      "decision": {
+        "groups": [
+          {
+            "candidate_id": "fc_b1b5c579d80d",
+            "merge": true,
+            "family_title": "Rab Film Festival",
+            "confidence": "high",
+            "reason": "Identical project names across both entries (2022, 2023). Clear annual festival with consistent branding."
+          },
+          {
+            "candidate_id": "fc_b217629a3ab9",
+            "merge": true,
+            "family_title": "Redovna audiovizualna djelatnost i filmska produkcija udruge Bacački Sjenki",
+            "confidence": "high",
+            "reason": "Identical program title across consecutive years (2025, 2026). Same organization, same recurring activity type."
+          },
+          {
+            "candidate_id": "fc_b26de305871a",
+            "merge": true,
+            "family_title": "Kratki utorak",
+            "confidence": "high",
+            "reason": "Consistent simple title across 6 years (2021-2025). Same program category and event name throughout."
+          },
+          {
+            "candidate_id": "fc_b2cb8cdcaa4e",
+            "merge": true,
+            "family_title": "Klub Pulske filmske tvornice",
+            "confidence": "high",
+            "reason": "Identical entity (Pulska filmska tvornica) and title across 13 years (2011-2023). Clear single recurring program."
+          },
+          {
+            "candidate_id": "fc_b3df87debf9f",
+            "merge": true,
+            "family_title": "Programi Udruge 25 FPS",
+            "confidence": "high",
+            "reason": "Same organization (25 FPS) with consistent program naming pattern across 13 years (2013-2026)."
+          },
+          {
+            "candidate_id": "fc_b430b939f6ab",
+            "merge": true,
+            "family_title": "Redovita programska djelatnost udruge Blank",
+            "confidence": "high",
+            "reason": "Identical entity (Udruga Blank) and title across 4 entries (2020-2026). Same recurring activity."
+          },
+          {
+            "candidate_id": "fc_b491fe5be140",
+            "merge": true,
+            "family_title": "Kino Kinoteka i Ljetna pozornica Tuškanac - redovna audiovizualna djelatnost",
+            "confidence": "medium",
+            "reason": "Consistent venue and activity description across 3 years (2023-2025). Only recent entries, but distinctive naming."
+          },
+          {
+            "candidate_id": "fc_b4bab53e1d75",
+            "merge": true,
+            "family_title": "Redovna djelatnost udruge Izvan fokusa",
+            "confidence": "medium",
+            "reason": "Same organization (Izvan fokusa) and title type across 2 entries (2018, 2022). Descriptive program name matches pattern."
+          },
+          {
+            "candidate_id": "fc_b507a15f970d",
+            "merge": true,
+            "family_title": "Animirani Šibenik",
+            "confidence": "high",
+            "reason": "Distinctive event name consistent across 8 entries spanning 12 years (2014-2026). Clear annual animation festival."
+          },
+          {
+            "candidate_id": "fc_b5ce65f4cd0d",
+            "merge": true,
+            "family_title": "Digitalizacija i restauracija filmske, video i audio građe Autorskog studija",
+            "confidence": "medium",
+            "reason": "Identical project title and entity (Autorski studio) across 3 consecutive years (2024-2026). Clear specialized preservation program."
+          },
+          {
+            "candidate_id": "fc_b6f6fef9c31b",
+            "merge": true,
+            "family_title": "LFF Rough Cut",
+            "confidence": "high",
+            "reason": "Distinctive program name consistent across 5 entries (2022-2025). Same organizing entity, clear annual workshop."
+          },
+          {
+            "candidate_id": "fc_b7cc9a75d06e",
+            "merge": true,
+            "family_title": "Filmske radionice i djelatnosti grupe Enthusia Planck",
+            "confidence": "medium",
+            "reason": "Same authorial group (Enthusia Planck) with consistent program naming across 3 years (2014-2016)."
+          },
+          {
+            "candidate_id": "fc_b94a9e82ec6a",
+            "merge": true,
+            "family_title": "Festival igranog filma u Puli",
+            "confidence": "high",
+            "reason": "Numbered editions (56th, 57th) of the same festival by Javna ustanova Pula Film Festival (2009-2010). Clear series."
+          },
+          {
+            "candidate_id": "fc_bb4813f87968",
+            "merge": true,
+            "family_title": "Senzorne projekcije",
+            "confidence": "medium",
+            "reason": "Identical simple title and consistent program across 4 consecutive years (2023-2025)."
+          },
+          {
+            "candidate_id": "fc_bc0399c2ba4b",
+            "merge": false,
+            "family_title": null,
+            "confidence": "medium",
+            "reason": "Titles refer to different anniversary milestones (100 vs 102 years). While potentially the same recurring commemoration, the specific milestone year changes the event identity substantially enough to warrant separate records."
+          },
+          {
+            "candidate_id": "fc_bc2ad15846f9",
+            "merge": true,
+            "family_title": "Radionice i djelatnost udruge",
+            "confidence": "medium",
+            "reason": "Identical title pattern across 2 consecutive years (2022-2023). Same program type, generic naming consistent."
+          },
+          {
+            "candidate_id": "fc_bc2cea3fc0d9",
+            "merge": true,
+            "family_title": "RAB - radionica animiranog filma",
+            "confidence": "high",
+            "reason": "Distinctive program name consistent across 7 entries (2011-2017) with same organizing entity (Ustanova Zagreb film). Clear numbered workshop series."
+          },
+          {
+            "candidate_id": "fc_bc71405256f4",
+            "merge": true,
+            "family_title": "KinoKino - Međunarodni filmski festival za djecu",
+            "confidence": "high",
+            "reason": "Numbered festival editions (3rd-6th) by same entity (Umjetnička organizacija Zagreb Film Festival) across 5 entries (2017-2021). Clear annual series."
+          },
+          {
+            "candidate_id": "fc_bce213330fdb",
+            "merge": true,
+            "family_title": "Masterclass filmske kritike i analize - program usavršavanja za nastavnike",
+            "confidence": "medium",
+            "reason": "Identical distinctive title across 2 consecutive years (2025-2026). Platform-specific program (Vrti svoj film portal) recurring annually."
+          },
+          {
+            "candidate_id": "fc_be71ee234e1a",
+            "merge": true,
+            "family_title": "Diversions International Short Film Festival",
+            "confidence": "high",
+            "reason": "Numbered editions (7th-9th) by same entity (Pučko otvoreno učilište Sveti Ivan Zelina) across 5 entries (2018-2022). Clear annual international festival."
+          }
+        ]
+      },
+      "reviewed_at": "2026-07-30T17:22:22Z"
+    },
+    "b0b7b07fb267": {
+      "status": "ok",
+      "decision": {
+        "groups": [
+          {
+            "candidate_id": "fc_dd594558caae",
+            "merge": true,
+            "family_title": "Festival tolerancije Zadar",
+            "confidence": "high",
+            "reason": "Identical title and organizer (Festival suvremenog židovskog filma Zagreb) across 2025-2026, consistent category. Clear recurring annual festival."
+          },
+          {
+            "candidate_id": "fc_dddbb4283b7c",
+            "merge": true,
+            "family_title": "Ciklus hrvatskog filma u Vojvodini",
+            "confidence": "high",
+            "reason": "Consistent project name and organizer (Udruga za audiovizualno stvaralaštvo Artizana) across 7 rows spanning 2019-2026. Clear recurring program with stable identity."
+          },
+          {
+            "candidate_id": "fc_deebce19fb0a",
+            "merge": true,
+            "family_title": "Visia / Slavica",
+            "confidence": "high",
+            "reason": "Same event across 2021-2026 with organizer Kinematografi Dubrovnik; minor formatting variations (slash vs hyphen) are irrelevant to identity."
+          },
+          {
+            "candidate_id": "fc_dfb71fb58124",
+            "merge": true,
+            "family_title": "Kino umjetnika",
+            "confidence": "high",
+            "reason": "Identical program name at Muzej suvremene umjetnosti across 2013-2015. Consistent recurring program."
+          },
+          {
+            "candidate_id": "fc_dfe8757b3b3a",
+            "merge": true,
+            "family_title": "CinEd – program filmske edukacije za nastavnike",
+            "confidence": "high",
+            "reason": "Same education program across 2025-2026 with consistent category; year is only distinguishing variable."
+          },
+          {
+            "candidate_id": "fc_dfed517f4a99",
+            "merge": true,
+            "family_title": "Restauracija i digitalizacija filmova Ustanove Zagreb film",
+            "confidence": "high",
+            "reason": "Identical title and organizer (Ustanova Zagreb film) across 8 rows spanning 2019-2026. Consistent preservation project."
+          },
+          {
+            "candidate_id": "fc_e0c699fdb2aa",
+            "merge": true,
+            "family_title": "History Film Festival i Inkluzivno kino",
+            "confidence": "high",
+            "reason": "Numbered editions (4-5) of same festival by Istra film in 2020-2021. Clear recurring event despite minor title casing variations."
+          },
+          {
+            "candidate_id": "fc_e11315390051",
+            "merge": true,
+            "family_title": "Škola filma",
+            "confidence": "high",
+            "reason": "Numbered editions (13-22) by Pulska filmska tvornica spanning 2017-2026. Clear recurring annual school program with consistent identity."
+          },
+          {
+            "candidate_id": "fc_e12cae0b051a",
+            "merge": true,
+            "family_title": "Festival mediteranskog filma Split",
+            "confidence": "high",
+            "reason": "Numbered editions (4-19) spanning 2011-2026 with organizer Festival mediteranskog filma Split. Major recurring festival with strong edition continuity."
+          },
+          {
+            "candidate_id": "fc_e1684903fd31",
+            "merge": true,
+            "family_title": "Svjetski festival animiranog filma - Animafest Zagreb",
+            "confidence": "high",
+            "reason": "Numbered editions (29-36) by Hulahop d.o.o. spanning 2010-2026. Flagship recurring festival with consistent name and organizer across 14 rows."
+          },
+          {
+            "candidate_id": "fc_e24d077b925e",
+            "merge": true,
+            "family_title": "Programi i projekti Kino mreže",
+            "confidence": "high",
+            "reason": "Annual program by Hrvatska mreža neovisnih kinoprikazivača with identical structure 'Programi i projekti Kino mreže u [year]. godini' across 2019-2026."
+          },
+          {
+            "candidate_id": "fc_e36e6a2dbde4",
+            "merge": true,
+            "family_title": "Redovna djelatnost SPID-a",
+            "confidence": "high",
+            "reason": "Annual activity report by Savez scenarista i pisaca izvedbenih djela with identical title pattern across 2016-2026."
+          },
+          {
+            "candidate_id": "fc_e3ea4e4e4a9d",
+            "merge": true,
+            "family_title": "Dani video umjetnosti / Lovely Days",
+            "confidence": "high",
+            "reason": "Same event by REA across 2015-2016 with identical title; capitalization variation (Days/days) is trivial."
+          },
+          {
+            "candidate_id": "fc_e46e7081fe8d",
+            "merge": true,
+            "family_title": "Sisački ekološki filmski festival",
+            "confidence": "high",
+            "reason": "Numbered editions (3-4) at Dom kulture Kristalna kocka vedrine in 2010-2011. Recurring festival despite limited data."
+          },
+          {
+            "candidate_id": "fc_e50450b9b304",
+            "merge": true,
+            "family_title": "Program Art-kina na festivalu Tobogan",
+            "confidence": "high",
+            "reason": "Annual program by Art-kino across 2024-2025 with identical title template 'Program Art-kina na festivalu Tobogan [year]'."
+          },
+          {
+            "candidate_id": "fc_e504fc8afca8",
+            "merge": true,
+            "family_title": "Revija dokumentarnog filma Fibula",
+            "confidence": "high",
+            "reason": "Numbered editions (5-21) by Dom kulture Kristalna kocka vedrine spanning 2010-2026. Recurring documentary review with consistent identity."
+          },
+          {
+            "candidate_id": "fc_e596e26b5ba9",
+            "merge": true,
+            "family_title": "Hrvatska udruga producenata - rad na unaprijeđenju audiovizualne djelatnosti",
+            "confidence": "high",
+            "reason": "Annual activity report by Hrvatska udruga producenata with identical structure across 2015-2016."
+          },
+          {
+            "candidate_id": "fc_e6a1ef81ae34",
+            "merge": true,
+            "family_title": "Filmski laboratorij Klubvizija SC: Program",
+            "confidence": "high",
+            "reason": "Annual program by Sveučilište u Zagrebu - Studentski centar across 2017-2018 with identical title template."
+          },
+          {
+            "candidate_id": "fc_e6c90f189bab",
+            "merge": true,
+            "family_title": "Kino Galerija",
+            "confidence": "high",
+            "reason": "Same program by Filmsko-kreativni studio Vanima across 2013-2014. Consistent recurring activity."
+          },
+          {
+            "candidate_id": "fc_e789b8f381be",
+            "merge": true,
+            "family_title": "Splitski filmski festival",
+            "confidence": "high",
+            "reason": "Numbered editions (18-28) by Međunarodni festival novog filma spanning 2013-2023. Major recurring festival with consistent edition progression."
+          }
+        ]
+      },
+      "reviewed_at": "2026-07-30T17:22:24Z"
+    },
+    "ec42492b383a": {
+      "status": "ok",
+      "decision": {
+        "groups": [
+          {
+            "candidate_id": "fc_bf00c1243638",
+            "merge": true,
+            "family_title": "Production In",
+            "confidence": "high",
+            "reason": "Identical distinctive title, same program type, same organizer (Pulska filmska tvornica)"
+          },
+          {
+            "candidate_id": "fc_bf038f32a823",
+            "merge": true,
+            "family_title": "Filmaktiv edukacija",
+            "confidence": "high",
+            "reason": "Consistent name, same entity (Udruga Filmaktiv), sequential years (2013-2014)"
+          },
+          {
+            "candidate_id": "fc_bf3022771ff2",
+            "merge": true,
+            "family_title": "History Film Festival",
+            "confidence": "high",
+            "reason": "Distinctive festival name, same organizer (Istra film), sequentially numbered editions (3, 6, 7)"
+          },
+          {
+            "candidate_id": "fc_bf6b797ed2e3",
+            "merge": true,
+            "family_title": "Filmski EU tjedan",
+            "confidence": "high",
+            "reason": "Consistent distinctive name across 6 years (2015-2024), consistently organized by Kinoklub Karlovac"
+          },
+          {
+            "candidate_id": "fc_bfdbd30756fa",
+            "merge": true,
+            "family_title": "ETNOFILM festival etnografskog filma",
+            "confidence": "high",
+            "reason": "Distinctive brand name, same organizer (Etnografski muzej Istre), numbered editions (5-12)"
+          },
+          {
+            "candidate_id": "fc_c0078c689432",
+            "merge": true,
+            "family_title": "International Sound & Film Music Festival",
+            "confidence": "high",
+            "reason": "Distinctive title, sequentially numbered editions (12-14), same organizer (DreaMaker Productions)"
+          },
+          {
+            "candidate_id": "fc_c09974ce3181",
+            "merge": true,
+            "family_title": "Škola animiranog filma",
+            "confidence": "high",
+            "reason": "Consistent distinctive name, numbered editions (11-16), organized by Pulska filmska tvornica"
+          },
+          {
+            "candidate_id": "fc_c133754d6dc6",
+            "merge": true,
+            "family_title": "Program Dokukina",
+            "confidence": "high",
+            "reason": "Same program structure, same entity (Restart), annual documentary program"
+          },
+          {
+            "candidate_id": "fc_c2175da0806e",
+            "merge": true,
+            "family_title": "Besplatni obrazovni DVD Mali Dokuart za sat medijske kulture u osnovnim školama Hrvatske",
+            "confidence": "high",
+            "reason": "Identical program structure and purpose, same entity (Dokuart/DOKUart), educational DVD series"
+          },
+          {
+            "candidate_id": "fc_c21c81fc1c10",
+            "merge": true,
+            "family_title": "Filmski program Ulica pretkinja",
+            "confidence": "high",
+            "reason": "Consistent program name, same entity (BLOK), consecutive years (2019-2020)"
+          },
+          {
+            "candidate_id": "fc_c24c90ab0511",
+            "merge": true,
+            "family_title": "Program redovne djelatnosti Hrvatske udruge producenata",
+            "confidence": "high",
+            "reason": "Identical annual program structure across 8 years (2020-2026), same entity"
+          },
+          {
+            "candidate_id": "fc_c2c0ec6e3f59",
+            "merge": true,
+            "family_title": "Filmska radionica za mlade PSFF-a",
+            "confidence": "high",
+            "reason": "Consistent name across years (2020-2026), same workshop entity (Lanterna Magica)"
+          },
+          {
+            "candidate_id": "fc_c39a25fcc125",
+            "merge": true,
+            "family_title": "Radionice oko Kuće",
+            "confidence": "high",
+            "reason": "Consistent program name, same entity (Udruga Kućni kolektiv), consecutive years"
+          },
+          {
+            "candidate_id": "fc_c3ac7db39c47",
+            "merge": true,
+            "family_title": "Filmske i video radionice i tečajevi i Radionica animiranog filma za djecu - Mala zagrebačka animacija",
+            "confidence": "high",
+            "reason": "Identical program structure, same entity (Autorski studio), consecutive years (2019-2020)"
+          },
+          {
+            "candidate_id": "fc_c429e0c7efe8",
+            "merge": true,
+            "family_title": "Ljetna Škola Filma Gunja \"Josip Krunić\"",
+            "confidence": "high",
+            "reason": "Distinctive named program, numbered editions (15, 17), same category"
+          },
+          {
+            "candidate_id": "fc_c49e7c9d1152",
+            "merge": true,
+            "family_title": "Vukovar Film Festival",
+            "confidence": "high",
+            "reason": "Consistent festival name despite organizer changes, sequentially numbered editions (5, 18, 19, 20)"
+          },
+          {
+            "candidate_id": "fc_c8575f70b129",
+            "merge": true,
+            "family_title": "Split Script",
+            "confidence": "high",
+            "reason": "Distinctive program name, numbered editions (6-9), same entity (Udruga Metonimija) when listed"
+          },
+          {
+            "candidate_id": "fc_cb8fe423bd3f",
+            "merge": true,
+            "family_title": "Riječno kino",
+            "confidence": "high",
+            "reason": "Consistent distinctive name across 6 years (2017-2026), organized by Kinoklub Karlovac"
+          },
+          {
+            "candidate_id": "fc_ceff276bf077",
+            "merge": true,
+            "family_title": "Festival tolerancije - JFF Zagreb",
+            "confidence": "high",
+            "reason": "Distinctive festival name, same organizer (Festival suvremenog židovskog filma Zagreb), sequentially numbered editions (10-17)"
+          },
+          {
+            "candidate_id": "fc_cfdabe5e6fca",
+            "merge": true,
+            "family_title": "Festival o pravima djece - Prilagodbe filmova za slijepe i gluhe osobe",
+            "confidence": "high",
+            "reason": "Identical distinctive program name and focus, same entity (Alternator), accessibility-focused festival"
+          }
+        ]
+      },
+      "reviewed_at": "2026-07-30T17:22:32Z"
+    },
+    "1f00a5b6f760": {
+      "status": "ok",
+      "decision": {
+        "groups": [
+          {
+            "candidate_id": "fc_d019c93a6b70",
+            "merge": true,
+            "family_title": "Sudjelovanje na međunarodnom sajmu animiranog filma Marché international du film d'animation (MIFA) u sklopu festivala u Annecyju",
+            "confidence": "high",
+            "reason": "Consistent entity (MINYA FILM I ANIMACIJA), identical distinctive wording about MIFA in Annecy, same program category. Clear annual participation in same international market."
+          },
+          {
+            "candidate_id": "fc_d2a96e118072",
+            "merge": true,
+            "family_title": "Izdavaštvo i distribucija hrvatskih dokumentarnih filmova u regiji",
+            "confidence": "high",
+            "reason": "Same entity (Restart), consistent subject matter (distributing Croatian documentaries regionally). Variations in program classification reflect different funding streams for same core activity."
+          },
+          {
+            "candidate_id": "fc_d3dd571c6d51",
+            "merge": true,
+            "family_title": "Obilježavanje svjetskog dana animacije",
+            "confidence": "high",
+            "reason": "Same entity (Centar za kulturu Čakovec), identical title across 2014-2017, recurring annual commemoration of World Animation Day."
+          },
+          {
+            "candidate_id": "fc_d40465d98d32",
+            "merge": true,
+            "family_title": "Vukovar Film Festival - radionica - Od ideje do realizacije",
+            "confidence": "high",
+            "reason": "Same entity (Discovery d.o.o.), consecutive edition numbers (15th and 16th), identical workshop title. Annual festival workshop series."
+          },
+          {
+            "candidate_id": "fc_d4309972ae9a",
+            "merge": true,
+            "family_title": "Internacionalna radionica animiranog filma",
+            "confidence": "high",
+            "reason": "Same entity (Hrvatski filmski savez), explicit edition numbering (16-21), spanning 2009-2014. Long-running recurring international workshop."
+          },
+          {
+            "candidate_id": "fc_d4c0c7514f5d",
+            "merge": true,
+            "family_title": "Program redovnih aktivnosti HDNP-a",
+            "confidence": "high",
+            "reason": "Same entity (Hrvatsko društvo nezavisnih producenata), title pattern shows annual activity program (2018-2020). Consistent organizational initiative."
+          },
+          {
+            "candidate_id": "fc_d5da6dbe0ec2",
+            "merge": true,
+            "family_title": "Restauracija i digitalizacija filmova",
+            "confidence": "high",
+            "reason": "Same entity (Ustanova Zagreb film), identical title across 2017-2018. Consistent archival conservation project."
+          },
+          {
+            "candidate_id": "fc_d5ee8c78e72a",
+            "merge": true,
+            "family_title": "Godišnji filmski program kina Gaj",
+            "confidence": "high",
+            "reason": "Same cinema, annual programming pattern (2023-2026). Title explicitly indicates yearly cycle of film programming."
+          },
+          {
+            "candidate_id": "fc_d6697b463bfb",
+            "merge": true,
+            "family_title": "Međunarodna revija filmova za djecu",
+            "confidence": "high",
+            "reason": "Same entity (Centar za kulturu Čakovec), numbered editions (3, 8, 9 visible), recurring children's film festival across 2014-2021."
+          },
+          {
+            "candidate_id": "fc_d75264f2f5a2",
+            "merge": true,
+            "family_title": "FILM-o-GRAM - FILMsko – obrazovni proGRAM za srednjoškolce grada Zadra",
+            "confidence": "high",
+            "reason": "Identical distinctive title structure repeated yearly (2023-2026). Same educational program for Zadar secondary students."
+          },
+          {
+            "candidate_id": "fc_d75b18731436",
+            "merge": true,
+            "family_title": "Godišnja kinoprikazivačka djelatnost kina \"30. svibnja\" Daruvar",
+            "confidence": "high",
+            "reason": "Same cinema venue, identical long-form title repeated across years (2023, 2025, 2026). Annual cinema programming activity."
+          },
+          {
+            "candidate_id": "fc_d7803297b18b",
+            "merge": true,
+            "family_title": "Revija filmova podunavskih zemalja",
+            "confidence": "high",
+            "reason": "Same organizer (Foto-kino klub Baranja), visible edition numbers (5th, 10th editions), recurring international Danube region film review."
+          },
+          {
+            "candidate_id": "fc_d78882255be6",
+            "merge": true,
+            "family_title": "FROOOM! - cjelogodišnji program audiovizualnog opismenjavanja djece i mladih",
+            "confidence": "high",
+            "reason": "Same distinctive program name and scope across 2021-2025. Consistent year-round audiovisual literacy initiative for children/youth."
+          },
+          {
+            "candidate_id": "fc_d8ab9da856bd",
+            "merge": true,
+            "family_title": "Filmska proizvodnja kratkih filmova mladih neafirmiranih autora i Redovita programska djelatnost udruge Blank",
+            "confidence": "high",
+            "reason": "Same organization (Udruga Blank), identical title structure across 2018-2024. Recurring short film production and organizational activities."
+          },
+          {
+            "candidate_id": "fc_d8d79e53d10e",
+            "merge": true,
+            "family_title": "Program rada FFVAL-a",
+            "confidence": "high",
+            "reason": "Same entity (Foto film video amateri Luke), annual program pattern (2014-2015). Consistent organizational activity plan."
+          },
+          {
+            "candidate_id": "fc_d8f5eedfc19c",
+            "merge": true,
+            "family_title": "Restart laboratorij",
+            "confidence": "high",
+            "reason": "Same entity (Restart), consistent name across spanning 2009-2019. Recurring professional development workshop/laboratory program."
+          },
+          {
+            "candidate_id": "fc_d9301e4413a0",
+            "merge": true,
+            "family_title": "Večeri animacije",
+            "confidence": "high",
+            "reason": "Same distinctive program name repeated annually (2021, 2023-2026). Consistent animation-focused evening events program."
+          },
+          {
+            "candidate_id": "fc_d99833f034e3",
+            "merge": true,
+            "family_title": "Mladi mladima - poticanje razvoja filmskih družina u novim sredinama",
+            "confidence": "high",
+            "reason": "Consistent initiative name across 2018-2026. Same distinctive goal (fostering film groups in new communities), recurring annual implementation."
+          },
+          {
+            "candidate_id": "fc_d9cd48a91f01",
+            "merge": true,
+            "family_title": "Sudjelovanje hrvatske delegacije na festivalu Giffoni Experience u Italiji",
+            "confidence": "high",
+            "reason": "Recurring participation in same international festival across 2019-2024. Consistent program of Croatian delegation representation at Giffoni."
+          },
+          {
+            "candidate_id": "fc_db2718b39b96",
+            "merge": true,
+            "family_title": "Filmodrom - Ljetno kino Udruge DOKUart",
+            "confidence": "high",
+            "reason": "Same organizer (Udruga DOKUart) and distinctive summer cinema program name repeated across 2021-2026. Consistent annual outdoor cinema initiative."
+          }
+        ]
+      },
+      "reviewed_at": "2026-07-30T17:22:33Z"
+    },
+    "3b39473b9c10": {
+      "status": "ok",
+      "decision": {
+        "groups": [
+          {
+            "candidate_id": "fc_f4c796cb51c1",
+            "merge": true,
+            "family_title": "Međunarodni festival dokumentarnog filma CPH:DOX",
+            "confidence": "high",
+            "reason": "Same distinctive international festival (CPH:DOX in title), recurring 2025-2026. Consistent across different organizers."
+          },
+          {
+            "candidate_id": "fc_f741c65fefbc",
+            "merge": true,
+            "family_title": "Globe Media – redovna djelatnost",
+            "confidence": "high",
+            "reason": "Same entity (Udruga Globe Media), same program, same type of activity (regular operations). Clear recurring activity."
+          },
+          {
+            "candidate_id": "fc_f97e4758a669",
+            "merge": true,
+            "family_title": "Distribucija, promocija i prodaja filmova",
+            "confidence": "high",
+            "reason": "Same entity (Bonobostudio d.o.o.), same program type and activity description across consecutive years."
+          },
+          {
+            "candidate_id": "fc_fbdfd7164dc2",
+            "merge": true,
+            "family_title": "Programi AV Udruge Djeca susreću umjetnost – filmski program Sedji kontinent",
+            "confidence": "high",
+            "reason": "Same distinctive program name (Sedji kontinent), same parent organization, consistent program category."
+          },
+          {
+            "candidate_id": "fc_fbf8fdcc2eaa",
+            "merge": true,
+            "family_title": "Art kino Požega",
+            "confidence": "high",
+            "reason": "Consistent name across 5 entries spanning 2022-2026. Same recurring cinema activity."
+          },
+          {
+            "candidate_id": "fc_fcc02ea20f2f",
+            "merge": true,
+            "family_title": "Zimska i ljetna filmska radionica",
+            "confidence": "medium",
+            "reason": "Same entity (Foto kino video klub Zaprešić), same distinctive program name, but only 2 entries with 2-year gap."
+          },
+          {
+            "candidate_id": "fc_fce43cdf243f",
+            "merge": true,
+            "family_title": "Split Film Festival",
+            "confidence": "high",
+            "reason": "Clearly the same recurring international festival (31st edition in 2026 follows from unnamed 2011 entry). Distinctive name, same organizer entity."
+          },
+          {
+            "candidate_id": "fc_fe39b210f1d1",
+            "merge": true,
+            "family_title": "Revija hrvatskog filmskog i video stvaralaštva",
+            "confidence": "high",
+            "reason": "Numbered editions (44th, 45th) showing clear progression. Same entity (Hrvatski filmski savez), same program."
+          },
+          {
+            "candidate_id": "fc_fe8e23dbea17",
+            "merge": true,
+            "family_title": "Sedji kontinent u bolnicama",
+            "confidence": "high",
+            "reason": "Distinctive program name repeated across 4 consecutive years (2021-2024). Same recurring distribution program."
+          },
+          {
+            "candidate_id": "fc_fef64a087202",
+            "merge": true,
+            "family_title": "DA2 – Zagreb Design, Art & Architecture Film Festival",
+            "confidence": "high",
+            "reason": "Consistent distinctive title with numbered editions (8th in 2026), 6 entries across 2020-2026, same organizer and program."
+          },
+          {
+            "candidate_id": "fc_ff58ee749884",
+            "merge": true,
+            "family_title": "Upoznaj autora i Doku-razgovori",
+            "confidence": "high",
+            "reason": "Distinctive combined program name recurring across 5 years (2021-2026), same entity (Restart), same program category."
+          },
+          {
+            "candidate_id": "fc_ff6d6a0d2e9d",
+            "merge": true,
+            "family_title": "Europski žanrovski forum",
+            "confidence": "high",
+            "reason": "Numbered editions (3rd through 12th) showing clear progression across years 2017-2026. Consistent distinctive name despite varying organizers."
+          },
+          {
+            "candidate_id": "fc_ffd7d56c6f2c",
+            "merge": true,
+            "family_title": "Redovne djelatnosti DHAP-a",
+            "confidence": "high",
+            "reason": "Same entity (Društvo hrvatskih audiovizualnih prevoditelja), same program category, recurring annual organizational activity."
+          }
+        ]
+      },
+      "reviewed_at": "2026-07-30T17:23:02Z"
+    },
+    "2f3869bb2086": {
+      "status": "ok",
+      "decision": {
+        "groups": [
+          {
+            "candidate_id": "fc_e7e90a6a31bb",
+            "merge": true,
+            "family_title": "Festival dokumentarnog rock filma DORF",
+            "confidence": "high",
+            "reason": "Sequential edition numbers (9th–18th) across years 2010–2024, consistent organizer (Udruga ljubitelja filma Rare/Rare Vinkovci), consistent category and program type throughout."
+          },
+          {
+            "candidate_id": "fc_e7fc494bf6b2",
+            "merge": true,
+            "family_title": "Tribina Psihijatrija i film",
+            "confidence": "high",
+            "reason": "Distinctive, consistent title structure across years 2020–2026, same organizer (Hrvatsko društvo filmskih kritičara), consistent category (audiovizualni kritički pregled)."
+          },
+          {
+            "candidate_id": "fc_e8d30d1660da",
+            "merge": true,
+            "family_title": "Međunarodna revija filmova za djecu i mlade",
+            "confidence": "high",
+            "reason": "Sequential edition numbers (4th, 5th) in 2016–2017, consistent organizer (Centar za kulturu Čakovec), consistent category and program."
+          },
+          {
+            "candidate_id": "fc_e9fc229cf235",
+            "merge": true,
+            "family_title": "Kako napraviti bolji festival",
+            "confidence": "high",
+            "reason": "Identical title across 2012–2016, same organizer (Motovun film festival U.O.), consistent educational category (programi stručnog usavršavanja)."
+          },
+          {
+            "candidate_id": "fc_ec3ec8acc9ad",
+            "merge": true,
+            "family_title": "Redovite djelatnosti Udruge u okviru filmskog programa Sedmi kontinent",
+            "confidence": "high",
+            "reason": "Consistent title structure and entity (Udruga Djeca susreću umjetnost) across 2017–2020, same program category throughout."
+          },
+          {
+            "candidate_id": "fc_edfa9b5c33fc",
+            "merge": true,
+            "family_title": "Smaragdni eco film festival SEFF",
+            "confidence": "high",
+            "reason": "Sequential edition numbers (14th–18th) in 2021–2025, consistent organizer (Ekološko kulturna scena EKS Hrvatska Kostajnica), consistent festival category."
+          },
+          {
+            "candidate_id": "fc_ee72880b1175",
+            "merge": true,
+            "family_title": "Liburnia Film Festival",
+            "confidence": "high",
+            "reason": "Sequential edition numbers (9th–24th) spanning 2010–2026, consistent distinctive name despite minor entity variations, consistent festival category."
+          },
+          {
+            "candidate_id": "fc_ef31a480b5bc",
+            "merge": true,
+            "family_title": "Kampus Motovun",
+            "confidence": "high",
+            "reason": "Consistent title across 2017–2023, same organizer (Motovun film festival U.O.), consistent professional development focus."
+          },
+          {
+            "candidate_id": "fc_efda3ab0a8cb",
+            "merge": true,
+            "family_title": "Redovite aktivnosti Kinokluba Zagreb",
+            "confidence": "high",
+            "reason": "Identical title structure across 2019–2026, same organizer (Kinoklub Zagreb), consistent program category (audiovizualne udruge i organizacije)."
+          },
+          {
+            "candidate_id": "fc_f0583298ae51",
+            "merge": true,
+            "family_title": "Digitalni medijski arhiv",
+            "confidence": "high",
+            "reason": "Identical or near-identical title across 2023–2026, consistent archival category (zaštita audiovizualne baštine), clear annual recurrence."
+          },
+          {
+            "candidate_id": "fc_f1483b4a6a44",
+            "merge": true,
+            "family_title": "PSSST! Festival nijemog filma",
+            "confidence": "high",
+            "reason": "Sequential edition numbers (6th–20th) from 2012–2026, consistent organizer (Centar za kulturu Trešnjevka), consistent festival category throughout."
+          },
+          {
+            "candidate_id": "fc_f1e2a261a21f",
+            "merge": true,
+            "family_title": "Sisački ekološki filmski festival SEFF",
+            "confidence": "high",
+            "reason": "Consistent distinctive title across 2012–2015, same organizer (Dom kulture Kristalna kocka vedrine), consistent festival category."
+          },
+          {
+            "candidate_id": "fc_f1f9d8ef8a26",
+            "merge": true,
+            "family_title": "Gledamo dokumentarce - pravimo dokumentarce",
+            "confidence": "high",
+            "reason": "Distinctive, consistent title (minor punctuation variation) across 2013–2026, same program focus, despite entity shifts between Udruga Delta and Udruga Liburnia film festival."
+          },
+          {
+            "candidate_id": "fc_f23b31c167d2",
+            "merge": true,
+            "family_title": "VAFI & RAFI - internacionalni festival animiranog filma djece i mladih Varaždin/Rijeka",
+            "confidence": "high",
+            "reason": "Sequential edition numbers (10th, 11th) in 2019–2020, same organizer (Filmsko-kreativni studio Vanima), consistent festival category."
+          },
+          {
+            "candidate_id": "fc_f2550cd70869",
+            "merge": true,
+            "family_title": "Bubamarac – redovni dječji filmski program Kuće umjetnosti Arsen",
+            "confidence": "high",
+            "reason": "Identical title structure across 2025–2026, consistent program category (razvijanja audiovizualne kulture), clear annual program."
+          },
+          {
+            "candidate_id": "fc_f33dbd80bc05",
+            "merge": true,
+            "family_title": "Filmska radionica za mlade PSFF",
+            "confidence": "high",
+            "reason": "Consistent distinctive title across 2018–2019, same organizer (Udruga Lanterna Magica), consistent cultural development category."
+          },
+          {
+            "candidate_id": "fc_f3753df5082c",
+            "merge": true,
+            "family_title": "Putujući Sedji kontinent u suradnji s nezavisnim kinoprikazivačima",
+            "confidence": "high",
+            "reason": "Identical title structure across 2025–2026, consistent cultural development category, clear annual program."
+          },
+          {
+            "candidate_id": "fc_f4384df3b543",
+            "merge": true,
+            "family_title": "Koordinacijske i poticajne funkcije HFS-a",
+            "confidence": "high",
+            "reason": "Consistent distinctive title across 2018–2026, same organizer (Hrvatski filmski savez - HFS), consistent program category (audiovizualne udruge)."
+          },
+          {
+            "candidate_id": "fc_f47adafbd9d3",
+            "merge": true,
+            "family_title": "Radionica stop-trik animacije See/Touch/Try",
+            "confidence": "high",
+            "reason": "Consistent distinctive title across 2020–2026, consistent cultural development category, clear annual workshop program."
+          },
+          {
+            "candidate_id": "fc_f4aaa49860a8",
+            "merge": true,
+            "family_title": "Kino na trešnjevačkom placu / Doba trešanja",
+            "confidence": "high",
+            "reason": "Identical distinctive title across 2022–2023, same organizer (BLOK), consistent audiovizualni kritički category."
+          }
+        ]
+      },
+      "reviewed_at": "2026-07-30T17:23:11Z"
+    }
+  },
   "calls": [
     {
       "kind": "row_review",
@@ -27327,6 +30040,198 @@
       "at": "2026-07-30T17:04:50Z",
       "error": "claude exit 1",
       "attempts": 2
+    },
+    {
+      "kind": "row_review",
+      "source_sha": "054dc2e06d0dc1e3b67fb03ed57145a7435fdb4e58cfeb5483aaeca87557bded",
+      "prompt_hash": "5fae00624b7d",
+      "at": "2026-07-30T17:17:05Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.070063,
+      "duration_ms": 31524,
+      "attempt": 1
+    },
+    {
+      "kind": "row_review",
+      "source_sha": "23670f1065763bfaaccac6c9a465eb0db5af2674525367b11fd57f11b0be8f6a",
+      "prompt_hash": "7072edca3904",
+      "at": "2026-07-30T17:17:19Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.073892,
+      "duration_ms": 44877,
+      "attempt": 1
+    },
+    {
+      "kind": "row_review",
+      "source_sha": "8b0cec02e76a7c1102c14ff12a117bcf37d804c28a303f2d96750c1503ec2e68",
+      "prompt_hash": "ca9cfd53405c",
+      "at": "2026-07-30T17:17:31Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.085289,
+      "duration_ms": 57446,
+      "attempt": 1
+    },
+    {
+      "kind": "family_review",
+      "prompt_hash": "e637b70a14a3",
+      "at": "2026-07-30T17:20:03Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.052801,
+      "duration_ms": 31938,
+      "attempt": 1
+    },
+    {
+      "kind": "family_review",
+      "prompt_hash": "7378eed82eca",
+      "at": "2026-07-30T17:20:05Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.056558,
+      "duration_ms": 33792,
+      "attempt": 1
+    },
+    {
+      "kind": "family_review",
+      "prompt_hash": "d1b03192afa5",
+      "at": "2026-07-30T17:20:06Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.05362599999999999,
+      "duration_ms": 33968,
+      "attempt": 1
+    },
+    {
+      "kind": "family_review",
+      "prompt_hash": "06a68f03ba61",
+      "at": "2026-07-30T17:20:15Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.060461,
+      "duration_ms": 42901,
+      "attempt": 1
+    },
+    {
+      "kind": "family_review",
+      "prompt_hash": "8eb87e832bdf",
+      "at": "2026-07-30T17:20:46Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.0417321,
+      "duration_ms": 37167,
+      "attempt": 1
+    },
+    {
+      "kind": "family_review",
+      "prompt_hash": "8912af863844",
+      "at": "2026-07-30T17:20:54Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.0511211,
+      "duration_ms": 44118,
+      "attempt": 1
+    },
+    {
+      "kind": "family_review",
+      "prompt_hash": "684db41ebbef",
+      "at": "2026-07-30T17:20:55Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.0431951,
+      "duration_ms": 34108,
+      "attempt": 1
+    },
+    {
+      "kind": "family_review",
+      "prompt_hash": "20501a2cfb39",
+      "at": "2026-07-30T17:21:06Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.05177910000000001,
+      "duration_ms": 59524,
+      "attempt": 1
+    },
+    {
+      "kind": "family_review",
+      "prompt_hash": "4aaa51149c7d",
+      "at": "2026-07-30T17:21:38Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.0459311,
+      "duration_ms": 40736,
+      "attempt": 1
+    },
+    {
+      "kind": "family_review",
+      "prompt_hash": "64a656b37647",
+      "at": "2026-07-30T17:21:41Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.0588891,
+      "duration_ms": 50689,
+      "attempt": 1
+    },
+    {
+      "kind": "family_review",
+      "prompt_hash": "0d10b55ad138",
+      "at": "2026-07-30T17:21:42Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.0485481,
+      "duration_ms": 43820,
+      "attempt": 1
+    },
+    {
+      "kind": "family_review",
+      "prompt_hash": "728e6e3c59fe",
+      "at": "2026-07-30T17:21:46Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.055671,
+      "duration_ms": 36607,
+      "attempt": 1
+    },
+    {
+      "kind": "family_review",
+      "prompt_hash": "ef48716f4c17",
+      "at": "2026-07-30T17:22:22Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.042706100000000004,
+      "duration_ms": 40424,
+      "attempt": 1
+    },
+    {
+      "kind": "family_review",
+      "prompt_hash": "b0b7b07fb267",
+      "at": "2026-07-30T17:22:24Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.045156100000000005,
+      "duration_ms": 34307,
+      "attempt": 1
+    },
+    {
+      "kind": "family_review",
+      "prompt_hash": "ec42492b383a",
+      "at": "2026-07-30T17:22:32Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.0472341,
+      "duration_ms": 47861,
+      "attempt": 1
+    },
+    {
+      "kind": "family_review",
+      "prompt_hash": "1f00a5b6f760",
+      "at": "2026-07-30T17:22:33Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.0457621,
+      "duration_ms": 47258,
+      "attempt": 1
+    },
+    {
+      "kind": "family_review",
+      "prompt_hash": "3b39473b9c10",
+      "at": "2026-07-30T17:23:02Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.0314571,
+      "duration_ms": 35367,
+      "attempt": 1
+    },
+    {
+      "kind": "family_review",
+      "prompt_hash": "2f3869bb2086",
+      "at": "2026-07-30T17:23:11Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.055757100000000004,
+      "duration_ms": 46532,
+      "attempt": 1
     }
   ]
 }
