@@ -47,7 +47,7 @@
     'process.why_good':  { en: 'Why it worked',         hr: 'Što je radilo' },
     'process.why_limited':{ en: 'Why it broke',         hr: 'Što je puklo' },
     'process.artifacts': { en: 'Artifacts',             hr: 'Artefakti' },
-    'process.diagram':   { en: 'The three approaches at a glance', hr: 'Tri pristupa na prvi pogled' },
+    'process.diagram':   { en: 'The approaches at a glance', hr: 'Pristupi na prvi pogled' },
     'process.deep_dive.input':    { en: 'Input',    hr: 'Ulaz' },
     'process.deep_dive.output':   { en: 'Output',   hr: 'Izlaz' },
     'process.deep_dive.expected': { en: 'Expected', hr: 'Očekivano' },
@@ -4627,6 +4627,9 @@
       const sourceUrlMissingCount = docs.reduce((acc, d) => (
         acc + ((d && (!d.source_url || d.source_url_missing === true)) ? 1 : 0)
       ), 0);
+      const projectFamilyCount = new Set(
+        rows.map((row) => row && row.project_family_id).filter(Boolean),
+      ).size;
 
       return {
         record_count: docs.length + narratives.length + decisions.length,
@@ -4634,31 +4637,36 @@
         narrative_count: narratives.length,
         decision_count: decisions.length,
         row_count: rows.length,
+        awarded_count: rows.length,
+        not_awarded_count: DATA && Array.isArray(DATA.non_awards) ? DATA.non_awards.length : 0,
+        project_family_count: projectFamilyCount,
         source_url_missing_count: sourceUrlMissingCount,
         year_range: years.length ? `${years[0]}–${years[years.length - 1]}` : '—',
         hrk_to_eur: DATA && DATA.hrk_to_eur ? String(DATA.hrk_to_eur) : '—',
       };
     }
 
-    function formatLiveFactValue(item, facts) {
+    function formatLiveFactValue(item, facts, lang) {
       if (!item || typeof item !== 'object') return '—';
       let raw = item.data_key ? facts[item.data_key] : item.value;
       if (raw == null || raw === '') return '—';
       if (typeof raw === 'number') {
-        if (item.format === 'int' || item.format === 'number') return raw.toLocaleString();
+        if (item.format === 'int' || item.format === 'number') {
+          return raw.toLocaleString(lang === 'hr' ? 'hr-HR' : 'en-US');
+        }
         return String(raw);
       }
       return String(raw);
     }
 
-    function renderLiveFacts(liveFactsCfg) {
+    function renderLiveFacts(liveFactsCfg, lang) {
       if (!liveFactsCfg || !Array.isArray(liveFactsCfg.items) || !liveFactsCfg.items.length) return null;
       const facts = computeLiveFacts();
       return el('section', { class: 'process-live-facts' }, [
         liveFactsCfg.title ? el('h2', { class: 'process-section-title', text: liveFactsCfg.title }) : null,
         liveFactsCfg.subtitle ? el('p', { class: 'process-live-facts-subhead', text: liveFactsCfg.subtitle }) : null,
         el('div', { class: 'live-facts-grid' }, liveFactsCfg.items.map((it) => el('article', { class: 'live-fact-card' }, [
-          el('div', { class: 'live-fact-value display', text: formatLiveFactValue(it, facts) }),
+          el('div', { class: 'live-fact-value display', text: formatLiveFactValue(it, facts, lang) }),
           el('div', { class: 'live-fact-label kicker', text: it.label || '' }),
           it.note ? el('div', { class: 'live-fact-note mono', text: it.note }) : null,
           renderSourceChips(it.sources),
@@ -5103,15 +5111,14 @@
 
     function renderComparison(cmp, eras, lang) {
       if (!cmp || !Array.isArray(cmp.rows) || cmp.rows.length === 0) return null;
-      const headers = el('div', { class: 'cmp-row cmp-header' }, [
+      const gridStyle = `--cmp-era-count:${Math.max(1, eras.length)};`;
+      const headers = el('div', { class: 'cmp-row cmp-header', style: gridStyle }, [
         el('div', { class: 'cmp-cell cmp-cell-metric kicker', text: cmp.metric_label || '' }),
         ...eras.map(e => el('div', { class: 'cmp-cell kicker', text: e.label })),
       ]);
-      const body = cmp.rows.map(row => el('div', { class: 'cmp-row' }, [
+      const body = cmp.rows.map(row => el('div', { class: 'cmp-row', style: gridStyle }, [
         el('div', { class: 'cmp-cell cmp-cell-metric', text: row.metric }),
-        el('div', { class: 'cmp-cell', text: row.era1 || '—' }),
-        el('div', { class: 'cmp-cell', text: row.era2 || '—' }),
-        el('div', { class: 'cmp-cell', text: row.era3 || '—' }),
+        ...eras.map(era => el('div', { class: 'cmp-cell', text: row[era.id] || '—' })),
       ]));
       return el('section', { class: 'process-comparison' }, [
         cmp.title ? el('h2', { class: 'process-section-title', text: cmp.title }) : null,
@@ -5131,11 +5138,14 @@
           c.hero && c.hero.subhead ? renderClaimBlock('p', 'process-subhead', c.hero.subhead) : null,
         ]),
 
-        renderLiveFacts(c.live_facts),
+        renderLiveFacts(c.live_facts, lang),
 
         eras.length > 0 && el('section', { class: 'process-diagram-section' }, [
           el('h2', { class: 'process-section-title', text: t('process.diagram', lang) }),
-          el('div', { class: 'process-diagram' }, eras.map(e => renderEraColumn(e, lang))),
+          el('div', {
+            class: 'process-diagram',
+            style: `--process-era-count:${Math.max(1, eras.length)};`,
+          }, eras.map(e => renderEraColumn(e, lang))),
         ]),
 
         eras.length > 0 && el('section', { class: 'process-eras' },

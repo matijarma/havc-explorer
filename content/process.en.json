@@ -1786,6 +1786,119 @@
         },
         "technical_title": "Technical appendix (pass-level detail)"
       }
+    },
+    {
+      "id": "era4",
+      "label": "Era 4",
+      "dates": "30 July 2026",
+      "title": "Verification, curation, and recurring project identity",
+      "system": {
+        "input": "12,845 extracted result rows plus earlier parity and audit evidence",
+        "process": [
+          "deterministic cleanup and stable row IDs",
+          "structured Haiku row adjudication with cached recovery",
+          "primary-PDF correction ledger",
+          "recurring-project family review",
+          "explicit funding statuses and idempotent validation"
+        ],
+        "output": "9,543 result rows · 9,542 verified awards · 1 explicit non-award · 0 unresolved"
+      },
+      "what": {
+        "text": "The final curation layer stopped treating every extracted row as an award. Deterministic rules removed known artifacts and recovered shifted fields; Haiku reviewed ambiguous rows with the surrounding table and source text; direct PDF checks were recorded as explicit corrections. Annual editions were linked into stable project families while their original edition titles remained available in timelines.",
+        "sources": [
+          {
+            "label": "dash/havc/clean_data.py",
+            "kind": "code",
+            "stamp": "2026-07-30"
+          },
+          {
+            "label": "dash/havc/data-curation-audit.json",
+            "kind": "report",
+            "stamp": "2026-07-30"
+          }
+        ]
+      },
+      "why_good": [
+        {
+          "text": "Title shape alone never decides validity. Numeric, quoted, short, and unusual creative titles remain valid when the source supports them.",
+          "sources": [
+            {
+              "label": "dash/havc/data-curation-decisions.json",
+              "kind": "data",
+              "stamp": "2026-07-30"
+            }
+          ]
+        },
+        {
+          "text": "Only verified awards enter totals and the default registry. Explicit non-awards remain available for the unfunded-project view.",
+          "sources": [
+            {
+              "label": "dash/havc/data-curation-audit.json",
+              "kind": "report",
+              "stamp": "2026-07-30"
+            }
+          ]
+        },
+        "Cached decisions and byte-idempotent output make the final pass repeatable without paying for completed reviews again.",
+        "Project families solve annual-edition fragmentation without erasing the published title of each edition."
+      ],
+      "why_limited": [
+        "New HAVC layouts can still require a narrow source correction or classifier rule.",
+        "Missing reviews depend on model access, although completed decisions and recovered sessions remain cached.",
+        "Family overrides are intentionally conservative; related but distinct programmes remain separate."
+      ],
+      "artifacts": [
+        {
+          "kind": "metric",
+          "label": "Rows before curation",
+          "value": "12,845"
+        },
+        {
+          "kind": "metric",
+          "label": "Verified awards",
+          "value": "9,542"
+        },
+        {
+          "kind": "metric",
+          "label": "Explicit non-awards",
+          "value": "1"
+        },
+        {
+          "kind": "metric",
+          "label": "Unresolved rows",
+          "value": "0"
+        },
+        {
+          "kind": "metric",
+          "label": "Haiku repairs applied",
+          "value": "620"
+        },
+        {
+          "kind": "metric",
+          "label": "Family candidates reviewed",
+          "value": "353"
+        },
+        {
+          "kind": "file",
+          "path": "dash/havc/clean_data.py",
+          "note": "Deterministic cleanup, structured review, family assignment, and validation"
+        },
+        {
+          "kind": "file",
+          "path": "dash/havc/source-corrections.json",
+          "note": "Versioned corrections verified directly against original PDFs"
+        },
+        {
+          "kind": "file",
+          "path": "dash/havc/data-curation-decisions.json",
+          "note": "Cached row and family decisions"
+        },
+        {
+          "kind": "file",
+          "path": "dash/havc/data-curation-audit.json",
+          "note": "Final status totals, model-call receipts, and validation result"
+        }
+      ]
     }
   ],
   "comparison": {
@@ -1796,43 +1909,50 @@
         "metric": "Structured output",
         "era1": "No",
         "era2": "Partial — tables only",
-        "era3": "Yes — records + narratives + people"
+        "era3": "Yes — records + narratives + people",
+        "era4": "Yes — verified statuses + project families"
       },
       {
         "metric": "Coverage of funding decisions",
         "era1": "Retrieval only",
         "era2": "Most table-shaped rows",
-        "era3": "Full corpus"
+        "era3": "Full corpus",
+        "era4": "Curated result rows; uncertain rows excluded"
       },
       {
         "metric": "Captures jury rationale",
         "era1": "No",
         "era2": "No",
-        "era3": "Yes"
+        "era3": "Yes",
+        "era4": "Preserved and linked to verified families"
       },
       {
         "metric": "Project identity across rounds",
         "era1": "No",
         "era2": "No",
-        "era3": "Yes — title normalised across documents"
+        "era3": "Yes — title normalised across documents",
+        "era4": "Stable family IDs; edition titles preserved"
       },
       {
         "metric": "Auditable per record",
         "era1": "No",
         "era2": "CSV row → source PDF",
-        "era3": "Field → raw text → page → confidence"
+        "era3": "Field → raw text → page → confidence",
+        "era4": "Row decision → evidence → cache → final validation"
       },
       {
         "metric": "Restartable",
         "era1": "n/a",
         "era2": "Manual rerun",
-        "era3": "Yes — cached"
+        "era3": "Yes — cached",
+        "era4": "Yes — cached and byte-idempotent"
       },
       {
         "metric": "Setup time",
         "era1": "Minutes",
         "era2": "A weekend",
-        "era3": "48 hours of heavy iteration"
+        "era3": "48 hours of heavy iteration",
+        "era4": "One focused final curation pass"
       }
     ]
   },
@@ -1842,7 +1962,7 @@
       {
         "label": "dash/content/process.en.json",
         "kind": "content",
-        "stamp": "2026-05-23"
+        "stamp": "2026-07-30"
       },
       {
         "label": "dash/havc/data.json",
@@ -1868,8 +1988,32 @@
         ]
       },
       {
-        "label": "Funding rows now",
-        "data_key": "row_count",
+        "label": "Verified awards",
+        "data_key": "awarded_count",
+        "format": "int",
+        "sources": [
+          {
+            "label": "dash/havc/data.json",
+            "kind": "data",
+            "stamp": "live"
+          }
+        ]
+      },
+      {
+        "label": "Explicit non-awards",
+        "data_key": "not_awarded_count",
+        "format": "int",
+        "sources": [
+          {
+            "label": "dash/havc/data.json",
+            "kind": "data",
+            "stamp": "live"
+          }
+        ]
+      },
+      {
+        "label": "Project families",
+        "data_key": "project_family_count",
         "format": "int",
         "sources": [
           {
@@ -1955,6 +2099,6 @@
         ]
       }
     ],
-    "footnote": "Historical pass metrics below are frozen snapshots from May 2026 reports. Live cards above are computed in runtime from the loaded data JSON."
+    "footnote": "Era 1–3 pass metrics are frozen snapshots from May 2026 reports. Era 4 records the final July curation. Live cards above are computed in runtime from the loaded data JSON."
   }
 }
