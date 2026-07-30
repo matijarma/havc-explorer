@@ -64,6 +64,46 @@ GENERIC_FAMILY_BASES = {
     "radionice",
     "festival",
 }
+STRUCTURAL_REVIEW_REASONS = {
+    "flattened_table_row",
+    "embedded_amount_in_title",
+    "ocr_letter_spacing",
+    "bullet_or_footnote_prefix",
+}
+OCR_SPLIT_WORD_RE = re.compile(
+    r"(?<![\w.])([A-Za-z\u0100-\u017F])\s+(?=[A-Za-z\u0100-\u017F]{2,}\b)"
+)
+CROATIAN_SINGLE_LETTER_WORDS = set("aikosuvz")
+EXTRA_METADATA_KEYS = {
+    "amount_repaired_at",
+    "amount_repaired_by",
+    "amount_repair_confidence",
+    "amount_repair_format",
+    "approved_amount_original",
+    "approved_amount_text_original",
+    "entity_unified_at",
+    "flag",
+    "parity_action",
+    "parity_original_approved_amount",
+    "parity_original_approved_amount_text",
+    "parity_reasoning",
+    "parity_validated_at",
+    "repair_v1",
+}
+PROGRAM_EXTRA_LABELS = {
+    "nazivprograma",
+    "nazivprojekta",
+    "program",
+    "projektnaziv",
+    "projecttitle",
+}
+APPLICANT_EXTRA_LABELS = {
+    "korisnik",
+    "nazivpodnositelja",
+    "nazivpredlagatelja",
+    "podnositelj",
+    "predlagatelj",
+}
 
 
 def utc_now() -> str:
@@ -172,6 +212,40 @@ def clean_bullet_prefix(title: Any) -> Any:
     return re.sub(r"^[\u2010\u2011\u2012\u2013\u2014\u2212]\s+", "", title).strip()
 
 
+def compact_label(value: Any) -> str:
+    return norm_text(value).replace(" ", "")
+
+
+def title_embeds_amount(title: Any) -> bool:
+    value = str(title or "").strip()
+    return bool(
+        re.search(
+            r"(?:^|\s[-\u2010-\u2015]\s*)"
+            r"\d{1,3}(?:[.,]\d{3})+[.,]\d{2}\s*(?:kn|eur|€)?\s*$",
+            value,
+            re.I,
+        )
+    )
+
+
+def title_looks_flattened_row(title: Any) -> bool:
+    value = str(title or "").strip()
+    if re.match(r"^\d{1,3}[.)]?\s*[-\u2010-\u2015]\s+", value):
+        return True
+    separators = len(re.findall(r"\s[-\u2010-\u2015]\s", value))
+    return separators >= 2 and title_embeds_amount(value)
+
+
+def title_has_ocr_letter_spacing(title: Any) -> bool:
+    value = str(title or "")
+    split_letters = OCR_SPLIT_WORD_RE.findall(value)
+    invalid = sum(
+        letter.casefold() not in CROATIAN_SINGLE_LETTER_WORDS
+        for letter in split_letters
+    )
+    return invalid >= 2 or (invalid >= 1 and len(split_letters) >= 5)
+
+
 def title_is_amount_like(title: Any) -> bool:
     value = str(title or "").strip()
     return bool(value) and bool(re.fullmatch(r"[\s€$£]*[\d.,\s]+(?:kn|eur)?", value, re.I))
@@ -208,9 +282,30 @@ def review_reasons(row: dict[str, Any]) -> list[str]:
         reasons.append("non_positive_amount")
     if title_is_fragment_like(title):
         reasons.append("fragment_or_artifact_title")
+    if title_looks_flattened_row(title):
+        reasons.append("flattened_table_row")
+    if title_embeds_amount(title):
+        reasons.append("embedded_amount_in_title")
+    if title_has_ocr_letter_spacing(title):
+        reasons.append("ocr_letter_spacing")
+    if re.match(r"^\s*[\u2022\u25cf\u25aa*]\s+", title):
+        reasons.append("bullet_or_footnote_prefix")
     if curation.get("legacy_raw_content"):
         reasons.append("legacy_raw_content_needs_mapping")
-    return sorted(set(reasons))
+    reasons = sorted(set(reasons))
+    if (
+        status == "awarded"
+        and str(curation.get("method") or "").startswith("claude-haiku")
+        and curation.get("confidence") == "high"
+    ):
+        reviewed = set(curation.get("reviewed_reasons") or [])
+        if reviewed:
+            reasons = [reason for reason in reasons if reason not in reviewed]
+        else:
+            reasons = [
+                reason for reason in reasons if reason in STRUCTURAL_REVIEW_REASONS
+            ]
+    return reasons
 
 
 def load_legacy_results(path: Path) -> dict[str, dict[str, Any]]:
@@ -319,6 +414,129 @@ def mark_change(
     return True
 
 
+def prompt_extras(extras: Any) -> dict[str, Any]:
+    if not isinstance(extras, dict):
+        return {}
+    out = {}
+    for key, value in extras.items():
+        if key in EXTRA_METADATA_KEYS or key.startswith(("parity_", "amount_repair_")):
+            continue
+        if isinstance(value, (str, int, float)) and value not in ("", None):
+            out[str(key)] = value
+    return out
+
+
+def ordered_extra_values(extras: dict[str, Any]) -> list[tuple[str, str]]:
+    values = []
+    for key, raw_value in prompt_extras(extras).items():
+        if not isinstance(raw_value, str):
+            continue
+        value = re.sub(r"\s+", " ", raw_value).strip()
+        if not value or title_is_amount_like(value):
+            continue
+        match = re.search(r"(\d+)$", key)
+        order = int(match.group(1)) if match else 10_000
+        values.append((f"{order:06d}|{key}", value))
+    return sorted(values)
+
+
+def recover_machine_fields(
+    row: dict[str, Any],
+    section: dict[str, Any],
+    audit: dict[str, Any],
+) -> None:
+    extras = row.get("extras") or {}
+    if not isinstance(extras, dict):
+        return
+
+    current_title = str(row.get("project_title") or "").strip()
+    program_value = None
+    applicant_value = None
+    for key, value in prompt_extras(extras).items():
+        if not isinstance(value, str) or not value.strip():
+            continue
+        label = compact_label(key)
+        if label in PROGRAM_EXTRA_LABELS:
+            program_value = re.sub(r"\s+", " ", value).strip()
+        elif label in APPLICANT_EXTRA_LABELS:
+            applicant_value = re.sub(r"\s+", " ", value).strip()
+
+    if program_value and norm_text(program_value) != norm_text(current_title):
+        if current_title and not row.get("applicant"):
+            if mark_change(
+                row,
+                "applicant",
+                current_title,
+                "recover_applicant_from_shifted_title_column",
+            ):
+                audit["counts"]["applicants_recovered"] += 1
+        if mark_change(
+            row,
+            "project_title",
+            program_value,
+            "recover_project_title_from_program_extra",
+        ):
+            audit["counts"]["titles_recovered"] += 1
+        current_title = program_value
+
+    if applicant_value and not row.get("applicant"):
+        if mark_change(
+            row,
+            "applicant",
+            applicant_value,
+            "recover_applicant_from_named_extra",
+        ):
+            audit["counts"]["applicants_recovered"] += 1
+
+    columns = [compact_label(value) for value in section.get("columns") or []]
+    ordered_values = ordered_extra_values(extras)
+    if (
+        len(columns) >= 3
+        and columns[0] == "korisnik"
+        and columns[1] == "program"
+        and title_looks_flattened_row(current_title)
+        and len(ordered_values) >= 2
+    ):
+        recovered_applicant = ordered_values[0][1]
+        recovered_title = ordered_values[1][1]
+        if not row.get("applicant") and mark_change(
+            row,
+            "applicant",
+            recovered_applicant,
+            "recover_applicant_from_flattened_columns",
+        ):
+            audit["counts"]["applicants_recovered"] += 1
+        if mark_change(
+            row,
+            "project_title",
+            recovered_title,
+            "recover_project_title_from_flattened_columns",
+        ):
+            audit["counts"]["titles_recovered"] += 1
+        current_title = recovered_title
+
+    # Some PDF table extractors promote a data row to the section header. In
+    # those sections the one remaining text extra is the current applicant.
+    if (
+        not row.get("applicant")
+        and len(columns) >= 3
+        and title_is_amount_like(section.get("columns", [""])[0])
+        and title_is_amount_like(section.get("columns", [""])[-1])
+    ):
+        candidates = [
+            value
+            for _, value in ordered_values
+            if norm_text(value) != norm_text(current_title)
+        ]
+        if len(candidates) == 1 and mark_change(
+            row,
+            "applicant",
+            candidates[0],
+            "recover_applicant_from_promoted_header_section",
+        ):
+            audit["counts"]["applicants_recovered"] += 1
+
+
 def deterministic_cleanup(
     source_records: list[dict[str, Any]],
     legacy_results: dict[str, dict[str, Any]],
@@ -374,6 +592,7 @@ def deterministic_cleanup(
                     audit["counts"]["removed_artifact"] += 1
                     continue
 
+                recover_machine_fields(row, section, audit)
                 cleaned_title = clean_bullet_prefix(row.get("project_title"))
                 if cleaned_title != row.get("project_title"):
                     if mark_change(
@@ -492,6 +711,7 @@ def compact_row(row: dict[str, Any]) -> dict[str, Any]:
         "funding_status": row.get("funding_status"),
         "reasons": review_reasons(row),
         "legacy_raw_content": (row.get("curation") or {}).get("legacy_raw_content"),
+        "extras": prompt_extras(row.get("extras")),
     }
 
 
@@ -510,6 +730,8 @@ def row_review_candidates(
                 item = compact_row(row)
                 item["section_index"] = section_index
                 item["row_index"] = row_index
+                item["section_label"] = section.get("section_label")
+                item["columns"] = section.get("columns") or []
                 flat.append(item)
                 if review_reasons(row):
                     candidates.append(item)
@@ -609,6 +831,8 @@ def row_review_prompt(
         "Audit suspect rows from one Croatian HAVC public-funding source. "
         "Use only supplied source text and table context. A strange, numeric, quoted, "
         "or short creative title can be legitimate and must never be rejected by shape alone. "
+        "Correct OCR-inserted spaces inside words without paraphrasing. When a flattened table "
+        "put the applicant in project_title and the actual title in extras, restore both fields. "
         "Classify every candidate row. Use repair_award only when title and positive amount "
         "are supported by the source. Use artifact for headers, totals, duplicated fragments, "
         "addresses, or extraction debris. Use not_awarded only when the source explicitly "
@@ -620,6 +844,27 @@ def row_review_prompt(
     )
 
 
+def batch_context(
+    candidates: list[dict[str, Any]],
+    context: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    positions = {
+        (item.get("section_index"), item.get("row_index"))
+        for item in candidates
+    }
+    return [
+        item
+        for item in context
+        if any(
+            item.get("section_index") == section_index
+            and isinstance(item.get("row_index"), int)
+            and isinstance(row_index, int)
+            and abs(item["row_index"] - row_index) <= 2
+            for section_index, row_index in positions
+        )
+    ]
+
+
 def run_claude_structured(
     prompt: str,
     schema: dict[str, Any],
@@ -628,7 +873,6 @@ def run_claude_structured(
     command = [
         "claude",
         "-p",
-        prompt,
         "--model",
         "haiku",
         "--tools",
@@ -643,6 +887,7 @@ def run_claude_structured(
         try:
             proc = subprocess.run(
                 command,
+                input=prompt,
                 capture_output=True,
                 text=True,
                 encoding="utf-8",
@@ -668,7 +913,7 @@ def run_claude_structured(
             last_error = "missing structured_output"
         except json.JSONDecodeError as exc:
             last_error = f"invalid claude envelope: {exc}"
-    return None, {"error": last_error}
+    return None, {"error": last_error, "attempts": 2}
 
 
 def load_cache(path: Path) -> dict[str, Any]:
@@ -709,21 +954,38 @@ def review_rows_with_haiku(
     cache_path: Path,
     jobs: int,
     limit: int | None,
+    retry_failed: bool = False,
+    batch_size: int = 30,
 ) -> int:
     candidates = row_review_candidates(records)
     pending = []
+    if limit is not None:
+        candidates = candidates[:limit]
     for record_index, record, rows, context in candidates:
         sha = record_sha(record, record_index)
-        prompt = row_review_prompt(record_index, record, rows, context)
-        prompt_hash = sha12(prompt)
-        cached = cache["row_reviews"].get(sha)
-        if cached and prompt_hash in (cached.get("batches") or {}):
-            continue
-        if cached and len(cached.get("batches") or {}) >= 3:
-            continue
-        pending.append((sha, prompt_hash, prompt))
-    if limit is not None:
-        pending = pending[:limit]
+        for start in range(0, len(rows), max(1, batch_size)):
+            row_batch = rows[start : start + max(1, batch_size)]
+            prompt = row_review_prompt(
+                record_index,
+                record,
+                row_batch,
+                batch_context(row_batch, context),
+            )
+            prompt_hash = sha12(prompt)
+            cached = cache["row_reviews"].get(sha)
+            cached_batch = (
+                (cached.get("batches") or {}).get(prompt_hash) if cached else None
+            )
+            if cached_batch and not (
+                retry_failed and cached_batch.get("status") == "failed"
+            ):
+                continue
+            candidate_reasons = {
+                str(row.get("row_id")): list(row.get("reasons") or [])
+                for row in row_batch
+                if row.get("row_id")
+            }
+            pending.append((sha, prompt_hash, prompt, candidate_reasons))
     if not pending:
         return 0
 
@@ -733,12 +995,30 @@ def review_rows_with_haiku(
             pool.submit(run_claude_structured, prompt, ROW_REVIEW_SCHEMA): (
                 sha,
                 prompt_hash,
+                candidate_reasons,
             )
-            for sha, prompt_hash, prompt in pending
+            for sha, prompt_hash, prompt, candidate_reasons in pending
         }
         for future in as_completed(futures):
-            sha, prompt_hash = futures[future]
+            sha, prompt_hash, candidate_reasons = futures[future]
             decision, meta = future.result()
+            expected_ids = set(candidate_reasons)
+            returned_ids = [
+                item.get("row_id")
+                for item in (decision or {}).get("decisions") or []
+                if isinstance(item.get("row_id"), str)
+            ]
+            if decision and (
+                decision.get("doc_sha") != sha
+                or len(returned_ids) != len(set(returned_ids))
+                or set(returned_ids) != expected_ids
+            ):
+                decision = None
+                meta = {
+                    "error": "structured decision did not cover exactly the candidate rows",
+                    "expected_rows": len(expected_ids),
+                    "returned_rows": len(set(returned_ids)),
+                }
             cache["calls"].append(
                 {
                     "kind": "row_review",
@@ -748,12 +1028,26 @@ def review_rows_with_haiku(
                     **meta,
                 }
             )
+            entry = cache["row_reviews"].setdefault(sha, {"batches": {}})
+            batch = {
+                "candidate_reasons": candidate_reasons,
+                "reviewed_at": utc_now(),
+            }
             if decision:
-                entry = cache["row_reviews"].setdefault(sha, {"batches": {}})
-                entry.setdefault("batches", {})[prompt_hash] = {
-                    "decision": decision,
-                    "reviewed_at": utc_now(),
-                }
+                batch.update(
+                    {
+                        "status": "ok",
+                        "decision": decision,
+                    }
+                )
+            else:
+                batch.update(
+                    {
+                        "status": "failed",
+                        "error": meta.get("error") or "unknown review failure",
+                    }
+                )
+            entry.setdefault("batches", {})[prompt_hash] = batch
             completed += 1
             write_json(cache_path, cache)
             print(f"row review {completed}/{len(pending)}: {sha[:8]}", flush=True)
@@ -778,6 +1072,10 @@ def title_supported_by_raw(title: str, raw_text: str) -> bool:
     if not title_tokens:
         return False
     raw = norm_text(raw_text)
+    compact_title = norm_text(title).replace(" ", "")
+    compact_raw = raw.replace(" ", "")
+    if len(compact_title) >= 8 and compact_title in compact_raw:
+        return True
     meaningful = [tok for tok in title_tokens if len(tok) >= 4]
     if not meaningful:
         meaningful = title_tokens
@@ -822,13 +1120,23 @@ def decision_fingerprint(decision: dict[str, Any]) -> str:
 
 def consensus_row_decisions(
     cached: dict[str, Any],
-) -> tuple[dict[str, dict[str, Any] | None], set[str]]:
+) -> tuple[
+    dict[str, dict[str, Any] | None],
+    set[str],
+    dict[str, set[str]],
+]:
     by_row: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    reviewed_ids: set[str] = set()
+    reviewed_reasons: dict[str, set[str]] = defaultdict(set)
     for batch in (cached.get("batches") or {}).values():
+        for row_id, reasons in (batch.get("candidate_reasons") or {}).items():
+            reviewed_ids.add(row_id)
+            reviewed_reasons[row_id].update(reasons or [])
         payload = batch.get("decision") or {}
         for item in payload.get("decisions") or []:
             row_id = item.get("row_id")
             if isinstance(row_id, str):
+                reviewed_ids.add(row_id)
                 by_row[row_id].append(item)
 
     selected: dict[str, dict[str, Any] | None] = {}
@@ -848,7 +1156,9 @@ def consensus_row_decisions(
         selected[row_id] = next(
             item for item in reversed(pool) if decision_fingerprint(item) == winner
         )
-    return selected, set(by_row)
+    for row_id in reviewed_ids:
+        selected.setdefault(row_id, None)
+    return selected, reviewed_ids, reviewed_reasons
 
 
 def apply_row_reviews(
@@ -864,7 +1174,7 @@ def apply_row_reviews(
         cached = cache.get("row_reviews", {}).get(sha)
         if not cached:
             continue
-        decisions, reviewed_ids = consensus_row_decisions(cached)
+        decisions, reviewed_ids, reviewed_reasons = consensus_row_decisions(cached)
         rows_by_id: dict[str, dict[str, Any]] = {}
         for section in record.get("sections") or []:
             for row in section.get("rows") or []:
@@ -898,6 +1208,7 @@ def apply_row_reviews(
                     "method": "claude-haiku",
                     "confidence": decision.get("confidence"),
                     "evidence": decision.get("evidence"),
+                    "reviewed_reasons": sorted(reviewed_reasons.get(row_id, set())),
                 }
             )
             if action == "artifact":
@@ -1100,6 +1411,7 @@ def review_families_with_haiku(
     cache: dict[str, Any],
     cache_path: Path,
     batch_size: int = 20,
+    retry_failed: bool = False,
 ) -> int:
     candidates = family_candidates(records)
     pending = []
@@ -1107,12 +1419,34 @@ def review_families_with_haiku(
         batch = candidates[start : start + batch_size]
         prompt = family_review_prompt(batch)
         prompt_hash = sha12(prompt)
-        if prompt_hash in cache["family_reviews"]:
+        existing = cache["family_reviews"].get(prompt_hash)
+        if existing and not (retry_failed and existing.get("status") == "failed"):
             continue
-        pending.append((prompt_hash, prompt))
+        pending.append(
+            (
+                prompt_hash,
+                prompt,
+                [item["candidate_id"] for item in batch],
+            )
+        )
     completed = 0
-    for prompt_hash, prompt in pending:
+    for prompt_hash, prompt, candidate_ids in pending:
         decision, meta = run_claude_structured(prompt, FAMILY_REVIEW_SCHEMA)
+        returned_ids = [
+            item.get("candidate_id")
+            for item in (decision or {}).get("groups") or []
+            if isinstance(item.get("candidate_id"), str)
+        ]
+        if decision and (
+            len(returned_ids) != len(set(returned_ids))
+            or set(returned_ids) != set(candidate_ids)
+        ):
+            decision = None
+            meta = {
+                "error": "structured decision did not cover exactly the candidate families",
+                "expected_groups": len(candidate_ids),
+                "returned_groups": len(set(returned_ids)),
+            }
         cache["calls"].append(
             {
                 "kind": "family_review",
@@ -1123,7 +1457,15 @@ def review_families_with_haiku(
         )
         if decision:
             cache["family_reviews"][prompt_hash] = {
+                "status": "ok",
                 "decision": decision,
+                "reviewed_at": utc_now(),
+            }
+        else:
+            cache["family_reviews"][prompt_hash] = {
+                "status": "failed",
+                "candidate_ids": candidate_ids,
+                "error": meta.get("error") or "unknown review failure",
                 "reviewed_at": utc_now(),
             }
         completed += 1
@@ -1422,9 +1764,25 @@ def parse_args() -> argparse.Namespace:
         help="Review at most this many pending row documents in this run.",
     )
     parser.add_argument(
+        "--row-batch-size",
+        type=int,
+        default=30,
+        help="Maximum suspect rows per Haiku structured-output request.",
+    )
+    parser.add_argument(
+        "--skip-row-review",
+        action="store_true",
+        help="Do not request missing suspect-row reviews.",
+    )
+    parser.add_argument(
         "--skip-family-review",
         action="store_true",
         help="Do not request missing recurring-family reviews.",
+    )
+    parser.add_argument(
+        "--retry-failed",
+        action="store_true",
+        help="Retry cached failed row and family review prompts.",
     )
     return parser.parse_args()
 
@@ -1442,17 +1800,25 @@ def main() -> int:
     apply_row_reviews(records, cache, audit)
 
     if args.review:
-        review_rows_with_haiku(
-            records,
-            cache,
-            cache_path=args.cache,
-            jobs=args.jobs,
-            limit=args.max_row_docs,
-        )
+        if not args.skip_row_review:
+            review_rows_with_haiku(
+                records,
+                cache,
+                cache_path=args.cache,
+                jobs=args.jobs,
+                limit=args.max_row_docs,
+                retry_failed=args.retry_failed,
+                batch_size=args.row_batch_size,
+            )
         records, audit = deterministic_cleanup(source_records, legacy_results)
         apply_row_reviews(records, cache, audit)
         if not args.skip_family_review:
-            review_families_with_haiku(records, cache, cache_path=args.cache)
+            review_families_with_haiku(
+                records,
+                cache,
+                cache_path=args.cache,
+                retry_failed=args.retry_failed,
+            )
 
     family_meta = assign_families(records, cache)
     link_event_projects(records, family_meta)
