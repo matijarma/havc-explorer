@@ -1756,6 +1756,7 @@
     function render() {
       const lang = state.lang;
       const isDash = state.view === 'dashboard';
+      const showMobileFilterToggle = isDash && isMobile();
       const nextLang = lang === 'hr' ? 'en' : 'hr';
       const activeEl = document.activeElement;
       const hadSearchFocus = Boolean(
@@ -1808,6 +1809,17 @@
             }),
           ]) : el('div', { class: 'search-spacer' }),
           el('div', { class: 'toolbar' }, [
+            showMobileFilterToggle ? el('button', {
+              class: 'mode-toggle mobile-filter-toggle' + (state.mobileFiltersOpen ? ' is-open' : ''),
+              type: 'button',
+              title: t('facet.filters', lang),
+              'aria-label': t('facet.filters', lang),
+              'aria-controls': 'rail',
+              'aria-expanded': state.mobileFiltersOpen ? 'true' : 'false',
+              onclick: () => setMobileFiltersOpen(!state.mobileFiltersOpen),
+            }, [
+              fa(state.mobileFiltersOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-sliders'),
+            ]) : null,
             el('a', {
               class: 'mode-toggle repo-link-btn',
               href: HAVC_REPO_URL,
