@@ -73,8 +73,8 @@
     'facet.copy':     { en: 'Copy share-link',hr: 'Kopiraj link' },
     'facet.currency_note': { en: '1 € = {rate} kn (fixed, ECB)', hr: '1 € = {rate} kn (fiksno, ESB)' },
     'facet.unfunded.label': { en: 'Discussed, never funded', hr: 'Spominjani, ne financirani' },
-    'facet.unfunded.sub':   { en: 'projects mentioned in jury narratives without a funding record',
-                              hr: 'projekti spomenuti u obrazloženjima žirija bez evidencije financiranja' },
+    'facet.unfunded.sub':   { en: 'mentions and explicit non-awards without a verified award',
+                              hr: 'spomeni i izričito neodobreni projekti bez potvrđene potpore' },
 
     'header.line': { en: 'Croatian audiovisual public funding · 2009–{maxYear}',
                      hr: 'Hrvatski javni poticaji za audiovizualnu djelatnost · 2009.–{maxYear}.' },
@@ -300,8 +300,8 @@
 
     'unfunded.title': { en: 'Discussed but never funded',
                         hr: 'Spominjani, ali nikad financirani' },
-    'unfunded.note':  { en: 'Projects mentioned in jury narratives or decision documents that don\'t appear in any results table. Click one to scope the main view to that title.',
-                        hr: 'Projekti spomenuti u obrazloženjima žirija ili odlukama, ali bez zapisa u rezultatima. Klikni redak da suziš pregled na taj naslov.' },
+    'unfunded.note':  { en: 'Narrative mentions and explicit non-awards are listed only when no verified award exists for the same project family.',
+                        hr: 'Spomeni u obrazloženjima i izričito neodobrene prijave prikazuju se samo kada ista projektna porodica nema potvrđenu potporu.' },
     'unfunded.sources_count': { en: '{n} src', hr: '{n} izv.' },
     'modal.close':    { en: 'close',  hr: 'zatvori' },
     'view.about.load_error': { en: 'failed to load about content — see console', hr: 'učitavanje sadržaja stranice O autoru nije uspjelo — pogledaj konzolu' },
@@ -379,8 +379,9 @@
   let narrativeById = new Map();
   let decisionById = new Map();
   let searchIndex = new Map();           // token -> Set<rowIdx>
-  let rowNormTitles = [];                // rowIdx -> normalized title
-  let projectIndex = new Map();          // normTitle -> aggregated project record
+  let rowNormTitles = [];                // rowIdx -> project family key
+  let projectIndex = new Map();          // family key -> aggregated project record
+  let projectAliasIndex = new Map();     // normalized title alias -> Set<family key>
   let GLOBAL_ANALYTICS = null;           // global dataset analytics snapshot
   let SANITY_REPORT = null;              // optional sanity report summary
 
@@ -393,6 +394,10 @@
   function normTitle(s) {
     if (!s) return '';
     return normalizeText(s).replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+  function projectKeyForRow(row) {
+    const familyId = typeof row.project_family_id === 'string' ? row.project_family_id.trim() : '';
+    return familyId || normTitle(row.family_title || row.title);
   }
   function tokens(s) {
     const out = new Set();
@@ -653,6 +658,17 @@
       rok: doc.rok || null,
       summary: doc.summary || null,
       referenced_projects: asArray(doc.referenced_projects).map(String),
+      project_links: asArray(doc.project_links).map((linkAny) => {
+        const link = asObject(linkAny);
+        return {
+          source_title: link.source_title || null,
+          family_id: link.family_id || null,
+          family_title: link.family_title || null,
+          match_status: link.match_status || 'unmatched',
+          method: link.method || null,
+          confidence: link.confidence || null,
+        };
+      }),
     };
   }
 
@@ -663,7 +679,7 @@
     const filename = src.filename || src.filename_decoded || null;
     const sourceUrl = src.source_url || src.url || null;
 
-    if (isNonFundingDoc(filename)) return { doc: null, rows: [] };
+    if (isNonFundingDoc(filename)) return { doc: null, rows: [], nonAwards: [] };
 
     const docCurrency = doc.currency || 'EUR';
     const docUkupnoRaw = toFiniteNumber(totals.ukupno);
@@ -689,6 +705,7 @@
     };
 
     const outRows = [];
+    const nonAwards = [];
     let nCounter = 0;
     asArray(rec.sections).forEach((section) => {
       const sec = asObject(section);
@@ -709,12 +726,22 @@
         const rawCat = row.category || null;
         const rowCurrency = row.currency || docCurrency;
 
-        outRows.push({
+        const fundingStatus = row.funding_status || null;
+        const familyId = typeof row.project_family_id === 'string'
+          ? row.project_family_id
+          : null;
+        const familyTitle = typeof row.project_family_title === 'string'
+          ? row.project_family_title
+          : null;
+        const outRow = {
           doc: id,
+          row_id: row.row_id || null,
           n: row.row_number != null ? row.row_number : nCounter,
           title,
+          family_title: familyTitle,
+          project_family_id: familyId,
           applicant: row.applicant || null,
-          producer: row.production_company || null,
+          producer: row.production_company || row.entity || null,
           director: row.director || null,
           writer: row.writer || null,
           category: rawCat,
@@ -727,20 +754,28 @@
           year: docYear,
           program,
           flag: null,
-        });
+          funding_status: fundingStatus,
+        };
+        if (fundingStatus === 'awarded') {
+          outRows.push(outRow);
+        } else if (fundingStatus === 'not_awarded') {
+          nonAwards.push(outRow);
+        }
       });
     });
 
-    docEntry.row_count = nCounter;
-    return { doc: docEntry, rows: outRows };
+    docEntry.row_count = outRows.length;
+    docEntry.source_row_count = nCounter;
+    return { doc: docEntry, rows: outRows, nonAwards };
   }
 
   function buildProjectEvents(narratives, decisions) {
     const events = {};
     const seenByKey = new Map();
 
-    function add(kind, doc, projectTitle) {
-      const key = normTitle(projectTitle);
+    function add(kind, doc, projectTitle, link) {
+      const familyId = link && link.family_id ? link.family_id : null;
+      const key = familyId || normTitle(projectTitle);
       if (!key) return;
       const evt = {
         type: kind,
@@ -749,6 +784,9 @@
         program: doc.program,
         summary: doc.summary,
         project: projectTitle,
+        family_id: familyId,
+        family_title: link && link.family_title ? link.family_title : null,
+        match_status: link && link.match_status ? link.match_status : 'unmatched',
       };
 
       let seen = seenByKey.get(key);
@@ -761,34 +799,107 @@
       events[key].push(evt);
     }
 
-    narratives.forEach((d) => asArray(d.referenced_projects).forEach((p) => add('narrative', d, p)));
-    decisions.forEach((d) => asArray(d.referenced_projects).forEach((p) => add('decision', d, p)));
+    function addDocument(kind, doc) {
+      const links = asArray(doc.project_links);
+      if (links.length) {
+        links.forEach((link) => add(
+          kind,
+          doc,
+          link.source_title || link.family_title || '',
+          link,
+        ));
+        return;
+      }
+      asArray(doc.referenced_projects).forEach((title) => add(kind, doc, title, null));
+    }
+
+    narratives.forEach((doc) => addDocument('narrative', doc));
+    decisions.forEach((doc) => addDocument('decision', doc));
     return events;
   }
 
-  function buildUnfundedMentions(rows, narratives) {
-    const fundedTitles = new Set();
+  function buildUnfundedMentions(rows, narratives, decisions, nonAwards) {
+    const awardedFamilyIds = new Set();
+    const awardedTitles = new Set();
     rows.forEach((r) => {
-      const k = normTitle(r.title);
-      if (k) fundedTitles.add(k);
+      if (r.project_family_id) awardedFamilyIds.add(r.project_family_id);
+      for (const value of [r.title, r.family_title]) {
+        const key = normTitle(value);
+        if (key) awardedTitles.add(key);
+      }
     });
 
     const bucket = new Map();
-    narratives.forEach((n) => {
-      asArray(n.referenced_projects).forEach((proj) => {
-        const key = normTitle(proj);
-        if (!key || fundedTitles.has(key)) return;
-        let entry = bucket.get(key);
-        if (!entry) {
-          entry = { title: proj, narratives: [], first_year: null };
-          bucket.set(key, entry);
-        }
-        if (!entry.narratives.includes(n.id)) entry.narratives.push(n.id);
-        if (Number.isInteger(n.year)) {
-          if (entry.first_year == null || n.year < entry.first_year) entry.first_year = n.year;
-        }
-      });
+    function isFunded(familyId, title) {
+      if (familyId && awardedFamilyIds.has(familyId)) return true;
+      const titleKey = normTitle(title);
+      return !!titleKey && awardedTitles.has(titleKey);
+    }
+    function entryFor(familyId, title) {
+      const titleKey = normTitle(title);
+      if (!titleKey || isFunded(familyId, title)) return null;
+      const key = familyId || ('title:' + titleKey);
+      let entry = bucket.get(key);
+      if (!entry) {
+        entry = {
+          key,
+          family_id: familyId || null,
+          title,
+          narratives: [],
+          decisions: [],
+          non_awards: [],
+          sources: [],
+          first_year: null,
+        };
+        bucket.set(key, entry);
+      }
+      return entry;
+    }
+    function addYear(entry, year) {
+      if (!entry || !Number.isInteger(year)) return;
+      if (entry.first_year == null || year < entry.first_year) entry.first_year = year;
+    }
+    function addSource(entry, sourceKey) {
+      if (entry && !entry.sources.includes(sourceKey)) entry.sources.push(sourceKey);
+    }
+
+    asArray(nonAwards).forEach((row) => {
+      const entry = entryFor(
+        row.project_family_id,
+        row.family_title || row.title,
+      );
+      if (!entry) return;
+      if (!entry.non_awards.includes(row.doc)) entry.non_awards.push(row.doc);
+      addSource(entry, 'result:' + row.doc);
+      addYear(entry, row.year);
     });
+
+    function addDocument(kind, doc) {
+      const links = asArray(doc.project_links);
+      const values = links.length
+        ? links.map((link) => ({
+            title: link.family_title || link.source_title,
+            familyId: link.family_id || null,
+            matchStatus: link.match_status || 'unmatched',
+          }))
+        : asArray(doc.referenced_projects).map((title) => ({
+            title,
+            familyId: null,
+            matchStatus: 'unmatched',
+          }));
+      values.forEach((item) => {
+        if (item.matchStatus === 'awarded' || isFunded(item.familyId, item.title)) return;
+        const entry = entryFor(item.familyId, item.title);
+        if (!entry) return;
+        const target = kind === 'narrative' ? entry.narratives : entry.decisions;
+        if (!target.includes(doc.id)) target.push(doc.id);
+        addSource(entry, kind + ':' + doc.id);
+        addYear(entry, doc.year);
+      });
+    }
+
+    narratives.forEach((doc) => addDocument('narrative', doc));
+    decisions.forEach((doc) => addDocument('decision', doc));
 
     return [...bucket.values()].sort((a, b) => {
       const aNone = a.first_year == null;
@@ -828,6 +939,7 @@
     const rows = [];
     const narratives = [];
     const decisions = [];
+    const nonAwards = [];
     const usedIds = new Set();
 
     asArray(records).forEach((rec, idx) => {
@@ -839,6 +951,7 @@
         const out = processResultsRecord(r, id);
         if (out.doc) docs.push(out.doc);
         rows.push(...out.rows);
+        nonAwards.push(...out.nonAwards);
       } else if (docType === 'narrative') {
         narratives.push(extractEventDoc(r, id));
       } else if (docType === 'decision') {
@@ -848,7 +961,12 @@
 
     const flagged = flagOutliers(rows);
     const projectEvents = buildProjectEvents(narratives, decisions);
-    const unfundedMentions = buildUnfundedMentions(rows, narratives);
+    const unfundedMentions = buildUnfundedMentions(
+      rows,
+      narratives,
+      decisions,
+      nonAwards,
+    );
     const facets = deriveFacets(rows);
 
     return {
@@ -859,6 +977,7 @@
       docs,
       narratives,
       decisions,
+      non_awards: nonAwards,
       project_events: projectEvents,
       unfunded_mentions: unfundedMentions,
       counts: {
@@ -878,6 +997,7 @@
     const docs = asArray(base.docs);
     const narratives = asArray(base.narratives);
     const decisions = asArray(base.decisions);
+    const nonAwards = asArray(base.non_awards);
     const projectEvents = asObject(base.project_events);
     const unfundedMentions = asArray(base.unfunded_mentions);
 
@@ -905,6 +1025,7 @@
       docs,
       narratives,
       decisions,
+      non_awards: nonAwards,
       project_events: projectEvents,
       unfunded_mentions: unfundedMentions,
       counts: asObject(base.counts),
@@ -958,10 +1079,26 @@
     decisionById = new Map(DATA.decisions.map(d => [d.id, d]));
 
     searchIndex = new Map();
+    projectAliasIndex = new Map();
     rowNormTitles = new Array(DATA.rows.length);
     DATA.rows.forEach((r, i) => {
-      rowNormTitles[i] = normTitle(r.title);
-      const fields = [r.title, r.director, r.producer, r.applicant, r.writer];
+      const projectKey = projectKeyForRow(r);
+      rowNormTitles[i] = projectKey;
+      for (const value of [r.title, r.family_title]) {
+        const alias = normTitle(value);
+        if (!alias || !projectKey) continue;
+        let keys = projectAliasIndex.get(alias);
+        if (!keys) { keys = new Set(); projectAliasIndex.set(alias, keys); }
+        keys.add(projectKey);
+      }
+      const fields = [
+        r.title,
+        r.family_title,
+        r.director,
+        r.producer,
+        r.applicant,
+        r.writer,
+      ];
       for (const f of fields) {
         for (const tok of tokens(f || '')) {
           let bucket = searchIndex.get(tok);
@@ -982,7 +1119,7 @@
       let p = projectIndex.get(key);
       if (!p) {
         p = {
-          title: r.title || '',
+          title: r.family_title || r.title || '',
           normTitle: key,
           rows: [],
           total_eur: 0,
@@ -2234,6 +2371,14 @@
   }
 
   // ═══ Filter / derive helpers ════════════════════════════════════════
+  function rowMatchesProjectScope(rowIndex, scopeValue) {
+    const projectKey = rowNormTitles[rowIndex];
+    if (projectKey === scopeValue) return true;
+    const alias = normTitle(scopeValue);
+    const matchingFamilies = projectAliasIndex.get(alias);
+    return !!matchingFamilies && matchingFamilies.has(projectKey);
+  }
+
   function rowInScope(i, scopes) {
     const r = DATA.rows[i];
     for (const s of scopes) {
@@ -2250,7 +2395,7 @@
           if (a < s.value[0] || a >= s.value[1]) return false;
           break;
         }
-        case 'project':   if (rowNormTitles[i] !== s.value) return false; break;
+        case 'project':   if (!rowMatchesProjectScope(i, s.value)) return false; break;
       }
     }
     return true;
@@ -2332,7 +2477,7 @@
       const key = rowNormTitles[i] || UNATTRIBUTED_KEY;
       let p = map.get(key);
       if (!p) p = { key, rows: [], total: 0, yearMin: null, yearMax: null,
-                    title: DATA.rows[i].title || '',
+                    title: DATA.rows[i].family_title || DATA.rows[i].title || '',
                     programs: new Set(), cats: new Set(),
                     producers: new Set(), directors: new Set() };
       p.rows.push(i);
@@ -2495,118 +2640,47 @@
       ].join(' · ');
     }
 
-    function packTimelineItems(items, width, height, minYear, maxYear) {
-      const margin = { left: 18, right: 18, top: 14, bottom: 30 };
+    function layoutTimelineItems(items, width, height, minYear, maxYear) {
+      const margin = { left: 24, right: 24, top: 12, bottom: 28 };
       const plotWidth = Math.max(1, width - margin.left - margin.right);
       const plotHeight = Math.max(1, height - margin.top - margin.bottom);
-      const yearCount = Math.max(1, maxYear - minYear + 1);
-      const bandWidth = plotWidth / yearCount;
+      const yearSpan = Math.max(0, maxYear - minYear);
+      const yearCount = yearSpan + 1;
       const maxTotal = items.reduce((max, item) => Math.max(max, item.total), 1);
-      const minRadius = 1.8;
-      const maxRadius = Math.max(12, Math.min(22, bandWidth * 0.48, plotHeight * 0.16));
-      const byYear = new Map();
+      const minRadius = 1.35;
+      const maxRadius = Math.max(10, Math.min(18, plotHeight * 0.17));
+      const trackY = margin.top + plotHeight / 2;
 
-      for (const item of items) {
+      const packed = items.map((item) => {
+        const radius = Math.max(minRadius, Math.sqrt(item.total / maxTotal) * maxRadius);
         const year = Math.max(minYear, Math.min(maxYear, item.year));
-        const list = byYear.get(year) || [];
-        list.push({
+        const yearRatio = yearSpan === 0 ? 0.5 : (year - minYear) / yearSpan;
+        const seed = hashString(item.key);
+        const unit = ((seed % 10007) / 10006) * 2 - 1;
+        const xUnit = (((seed >>> 12) % 4093) / 4092) * 2 - 1;
+        const yearSpacing = yearSpan === 0 ? 0 : plotWidth / yearSpan;
+        const yearX = margin.left + yearRatio * plotWidth;
+        const availableJitter = Math.max(0, plotHeight / 2 - radius - 2);
+        const largeBubbleBias = 1 - (radius / maxRadius) * 0.55;
+        return {
           ...item,
-          radius: Math.max(minRadius, Math.sqrt(item.total / maxTotal) * maxRadius),
-        });
-        byYear.set(year, list);
-      }
-
-      const packed = [];
-      const goldenAngle = Math.PI * (3 - Math.sqrt(5));
-
-      function overlapScore(candidate, nearby, gap) {
-        let score = 0;
-        for (const other of nearby) {
-          const dx = candidate.x - other.x;
-          const dy = candidate.y - other.y;
-          const minDistance = candidate.radius + other.radius + gap;
-          const distanceSq = dx * dx + dy * dy;
-          if (distanceSq >= minDistance * minDistance) continue;
-          const distance = Math.sqrt(Math.max(distanceSq, 0.0001));
-          const overlap = minDistance - distance;
-          score += overlap * overlap;
-        }
-        return score;
-      }
-
-      for (let year = minYear; year <= maxYear; year++) {
-        const list = byYear.get(year) || [];
-        if (!list.length) continue;
-        list.sort((a, b) => b.radius - a.radius || hashString(a.key) - hashString(b.key));
-
-        const laneLeft = margin.left + (year - minYear) * bandWidth;
-        const centerX = laneLeft + bandWidth / 2;
-        const centerY = margin.top + plotHeight / 2;
-        const cellSize = Math.max(8, maxRadius * 1.4);
-        const spatial = new Map();
-
-        function cellKey(x, y) {
-          return `${Math.floor(x / cellSize)}:${Math.floor(y / cellSize)}`;
-        }
-        function nearbyFor(x, y, radius) {
-          const reach = radius + maxRadius + 2;
-          const minX = Math.floor((x - reach) / cellSize);
-          const maxX = Math.floor((x + reach) / cellSize);
-          const minY = Math.floor((y - reach) / cellSize);
-          const maxY = Math.floor((y + reach) / cellSize);
-          const nearby = [];
-          for (let gx = minX; gx <= maxX; gx++) {
-            for (let gy = minY; gy <= maxY; gy++) {
-              const bucket = spatial.get(`${gx}:${gy}`);
-              if (bucket) nearby.push(...bucket);
-            }
-          }
-          return nearby;
-        }
-        function remember(item) {
-          const key = cellKey(item.x, item.y);
-          const bucket = spatial.get(key) || [];
-          bucket.push(item);
-          spatial.set(key, bucket);
-        }
-
-        for (const item of list) {
-          const seed = hashString(item.key);
-          const candidateCount = list.length > 500 ? 48 : list.length > 180 ? 64 : 88;
-          const horizontalReach = Math.max(0, bandWidth / 2 - Math.min(item.radius, bandWidth * 0.44) - 1);
-          const verticalReach = Math.max(0, plotHeight / 2 - item.radius - 1);
-          let best = null;
-          let bestScore = Infinity;
-
-          for (let attempt = 0; attempt < candidateCount; attempt++) {
-            const fraction = Math.sqrt((attempt + 0.5) / candidateCount);
-            const angle = attempt * goldenAngle + (seed % 6283) / 1000;
-            const candidate = {
-              ...item,
-              x: centerX + Math.cos(angle) * horizontalReach * fraction,
-              y: centerY + Math.sin(angle) * verticalReach * fraction,
-            };
-            const score = overlapScore(candidate, nearbyFor(candidate.x, candidate.y, candidate.radius), 0.7)
-              + Math.abs(candidate.x - centerX) * 0.002;
-            if (score < bestScore) {
-              best = candidate;
-              bestScore = score;
-            }
-            if (score === 0) break;
-          }
-
-          remember(best);
-          packed.push(best);
-        }
-      }
+          radius,
+          x: Math.max(
+            margin.left,
+            Math.min(width - margin.right, yearX + xUnit * yearSpacing * 0.34),
+          ),
+          y: trackY + unit * availableJitter * largeBubbleBias,
+        };
+      });
 
       return {
         items: packed.sort((a, b) => a.radius - b.radius || hashString(a.key) - hashString(b.key)),
         margin,
         plotWidth,
         plotHeight,
-        bandWidth,
+        trackY,
         yearCount,
+        yearSpan,
       };
     }
 
@@ -2700,13 +2774,23 @@
 
         ctx.save();
         ctx.strokeStyle = rule;
-        ctx.lineWidth = 1;
-        ctx.globalAlpha = 0.65;
+        ctx.lineWidth = 1.5;
+        ctx.globalAlpha = 0.9;
+        ctx.beginPath();
+        ctx.moveTo(layout.margin.left, layout.trackY);
+        ctx.lineTo(width - layout.margin.right, layout.trackY);
+        ctx.stroke();
+
+        const labelCapacity = Math.max(2, Math.floor(layout.plotWidth / 52));
+        const labelStep = Math.max(1, Math.ceil(layout.yearCount / labelCapacity));
         for (let year = model.minYear; year <= model.maxYear; year++) {
-          const x = layout.margin.left + (year - model.minYear + 0.5) * layout.bandWidth;
+          const isEdge = year === model.minYear || year === model.maxYear;
+          if (!isEdge && (year - model.minYear) % labelStep !== 0) continue;
+          const ratio = layout.yearSpan === 0 ? 0.5 : (year - model.minYear) / layout.yearSpan;
+          const x = layout.margin.left + ratio * layout.plotWidth;
           ctx.beginPath();
-          ctx.moveTo(x, layout.margin.top);
-          ctx.lineTo(x, height - layout.margin.bottom + 2);
+          ctx.moveTo(x, layout.trackY - 5);
+          ctx.lineTo(x, layout.trackY + 5);
           ctx.stroke();
         }
         ctx.restore();
@@ -2717,12 +2801,12 @@
           ctx.beginPath();
           ctx.arc(item.x, item.y, item.radius, 0, Math.PI * 2);
           ctx.fillStyle = red;
-          ctx.globalAlpha = isSelected ? 0.98 : 0.5;
+          ctx.globalAlpha = isSelected ? 0.98 : 0.46;
           ctx.fill();
-          if (item.radius >= 4) {
+          if (item.radius >= 5) {
             ctx.strokeStyle = ink;
             ctx.lineWidth = isSelected ? 1.8 : 0.8;
-            ctx.globalAlpha = isSelected ? 0.95 : 0.6;
+            ctx.globalAlpha = isSelected ? 0.95 : 0.5;
             ctx.stroke();
           }
           if (isSelected) {
@@ -2741,12 +2825,11 @@
         ctx.font = '9px "JetBrains Mono", monospace';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'bottom';
-        const labelCapacity = Math.max(2, Math.floor(layout.plotWidth / 52));
-        const labelStep = Math.max(1, Math.ceil(layout.yearCount / labelCapacity));
         for (let year = model.minYear; year <= model.maxYear; year++) {
           const isEdge = year === model.minYear || year === model.maxYear;
           if (!isEdge && (year - model.minYear) % labelStep !== 0) continue;
-          const x = layout.margin.left + (year - model.minYear + 0.5) * layout.bandWidth;
+          const ratio = layout.yearSpan === 0 ? 0.5 : (year - model.minYear) / layout.yearSpan;
+          const x = layout.margin.left + ratio * layout.plotWidth;
           ctx.fillText(String(year), x, height - 5);
         }
         ctx.restore();
@@ -2793,7 +2876,7 @@
       function relayout() {
         const rect = canvas.getBoundingClientRect();
         if (!rect.width || !rect.height) return;
-        layout = packTimelineItems(model.items, rect.width, rect.height, model.minYear, model.maxYear);
+        layout = layoutTimelineItems(model.items, rect.width, rect.height, model.minYear, model.maxYear);
         buildHitGrid();
         if (activeKey && !itemByKey(activeKey)) activeKey = null;
         draw();
@@ -3466,7 +3549,7 @@
           dots.push(el('div', {
             class: 'timeline-dot',
             style: `left:${pct}%; width:${radius * 2}px; height:${radius * 2}px; transform:translate(calc(-50% + ${offset}px), -50%);`,
-            title: `${y} · ${t('prog.' + (r.program || 'other'), lang)} · ${formatAmount(r.amount_eur, 'EUR', lang)}`,
+            title: `${r.title || t('col.untitled', lang)} · ${y} · ${t('prog.' + (r.program || 'other'), lang)} · ${formatAmount(r.amount_eur, 'EUR', lang)}`,
           }));
         });
       }
@@ -4085,13 +4168,19 @@
             ...list.map(u => el('button', {
               class: 'unfunded-row clickable',
               onclick: () => {
-                addScope({ kind: 'project', value: normTitle(u.title), label: u.title });
+                addScope({
+                  kind: 'project',
+                  value: u.family_id || normTitle(u.title),
+                  label: u.title,
+                });
                 close();
               },
             }, [
               el('span', { class: 'y mono', text: u.first_year != null ? String(u.first_year) : '—' }),
               el('span', { class: 't', text: u.title }),
-              el('span', { class: 'n mono', text: t('unfunded.sources_count', lang, { n: u.narratives.length }) }),
+              el('span', { class: 'n mono', text: t('unfunded.sources_count', lang, {
+                n: asArray(u.sources).length || asArray(u.narratives).length,
+              }) }),
             ])),
           ]),
         ]),
