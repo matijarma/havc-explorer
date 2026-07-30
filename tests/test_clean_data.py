@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 from pathlib import Path
+from types import SimpleNamespace
 
 
 MODULE_PATH = Path(__file__).resolve().parents[1] / "havc" / "clean_data.py"
@@ -113,6 +115,92 @@ def test_deterministic_cleanup_is_stable_after_first_curation():
     second, _ = clean_data.deterministic_cleanup(first, {})
 
     assert first == second
+
+
+def test_machine_recovers_shifted_project_and_applicant_columns():
+    records = [
+        result_record(
+            [
+                row(
+                    "Applicant association",
+                    15000,
+                    extras={"Naziv p rograma": "12. F estival p rava d jece"},
+                ),
+            ]
+        )
+    ]
+    records[0]["sections"][0]["columns"] = [
+        "Naziv p redlagatelja",
+        "Naziv p rograma",
+        "Odobrena sredstva",
+    ]
+
+    cleaned, audit = clean_data.deterministic_cleanup(records, {})
+    repaired = cleaned[0]["sections"][0]["rows"][0]
+
+    assert repaired["project_title"] == "12. F estival p rava d jece"
+    assert repaired["applicant"] == "Applicant association"
+    assert audit["counts"]["titles_recovered"] == 1
+    assert "ocr_letter_spacing" in clean_data.review_reasons(repaired)
+
+
+def test_structural_review_reasons_do_not_reject_numbered_editions():
+    edition = row("17. Zagreb Film Festival", 1000)
+    flattened = row("1. - Applicant - Project title - 10.000,00", 10000)
+
+    assert clean_data.review_reasons(edition) == []
+    assert "flattened_table_row" in clean_data.review_reasons(flattened)
+    assert "embedded_amount_in_title" in clean_data.review_reasons(flattened)
+
+
+def test_claude_prompt_is_sent_over_stdin(monkeypatch):
+    seen = {}
+
+    def fake_run(command, **kwargs):
+        seen["command"] = command
+        seen["input"] = kwargs.get("input")
+        return SimpleNamespace(
+            returncode=0,
+            stderr="",
+            stdout=json.dumps(
+                {
+                    "structured_output": {"ok": True},
+                    "modelUsage": {"claude-haiku": {}},
+                }
+            ),
+        )
+
+    monkeypatch.setattr(clean_data.subprocess, "run", fake_run)
+    result, meta = clean_data.run_claude_structured(
+        "x" * 50_000,
+        {
+            "type": "object",
+            "properties": {"ok": {"type": "boolean"}},
+            "required": ["ok"],
+        },
+    )
+
+    assert result == {"ok": True}
+    assert seen["input"] == "x" * 50_000
+    assert "x" * 50_000 not in seen["command"]
+    assert meta["attempt"] == 1
+
+
+def test_failed_review_batch_marks_candidates_reviewed_but_unresolved():
+    selected, reviewed, reasons = clean_data.consensus_row_decisions(
+        {
+            "batches": {
+                "failed": {
+                    "status": "failed",
+                    "candidate_reasons": {"row-1": ["flattened_table_row"]},
+                }
+            }
+        }
+    )
+
+    assert selected == {"row-1": None}
+    assert reviewed == {"row-1"}
+    assert reasons["row-1"] == {"flattened_table_row"}
 
 
 def test_family_review_groups_editions_but_not_distinct_festival():
