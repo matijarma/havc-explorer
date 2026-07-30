@@ -1,10 +1,9 @@
 {
   "version": "2.0",
-  "generated_at": "2026-07-30T17:26:00Z",
+  "generated_at": "2026-07-30T17:33:24Z",
   "input": "D:\\scratch\\havc\\dash\\havc\\data.json",
-  "input_sha256": "99791e2c43b102b51f541cacb0fd2a8beab505676e9d9dc81ba3160bdd2a6004",
+  "input_sha256": "5c434afd229cb555788042ee8458816c981501c6ae0a808bf562bdf04fe5f542",
   "counts": {
-    "titles_recovered": 212,
     "source_documents_reconciled": 1,
     "haiku_repairs": 620,
     "haiku_not_awarded": 1
