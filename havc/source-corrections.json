@@ -209,5 +209,17 @@
         }
       ]
     }
-  }
+  },
+  "family_overrides": [
+    {
+      "id": "zff-industrija",
+      "family_title": "Industrija Zagreb Film Festivala",
+      "title_patterns": [
+        "\\d+\\.\\s+Zagreb Film Festival\\s*-\\s*Industrija",
+        "Industrija\\s+\\d+\\.\\s+Zagreb Film Festivala",
+        "ZFF Industrija"
+      ],
+      "reason": "Pure annual Industrija editions use both prefix and suffix title order; they are distinct from the main Zagreb Film Festival, FMFS Industrija, Industrija 1.0, and combined TSFM programs."
+    }
+  ]
 }
