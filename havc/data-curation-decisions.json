@@ -6318,6 +6318,36 @@
           "reviewed_at": "2026-07-30T16:24:49Z"
         }
       }
+    },
+    "086c7aa34c49ae2f0a198ae4335e1d01b76d2654526e66530497a6bfa965901c": {
+      "batches": {
+        "2e291591516a": {
+          "candidate_reasons": {
+            "086c7aa3:s4:d77311efa8db": [
+              "bullet_or_footnote_prefix"
+            ]
+          },
+          "reviewed_at": "2026-07-30T16:39:46Z",
+          "status": "ok",
+          "decision": {
+            "doc_sha": "086c7aa34c49ae2f0a198ae4335e1d01b76d2654526e66530497a6bfa965901c",
+            "decisions": [
+              {
+                "row_id": "086c7aa3:s4:d77311efa8db",
+                "action": "repair_award",
+                "canonical_title": "Djeca mog brata",
+                "applicant": "Metar60",
+                "production_company": "Metar60",
+                "approved_amount": 200000,
+                "currency": "HRK",
+                "merge_row_ids": [],
+                "confidence": "high",
+                "evidence": "Listed in dugometražni dokumentarni filmovi section with approved amount 200.000,00 HRK. Asterisk in title is footnote marker; source footnote confirms withdrawal: 'projekt \"Djeca mog brata\" odustao je od sklapanja Ugovora o sufinanciranju'. Award was formally granted but applicant did not execute contract."
+              }
+            ]
+          }
+        }
+      }
     }
   },
   "family_reviews": {},
@@ -8425,6 +8455,16 @@
       "prompt_hash": "a684b684225e",
       "at": "2026-07-30T16:29:12Z",
       "error": "[WinError 206] The filename or extension is too long"
+    },
+    {
+      "kind": "row_review",
+      "source_sha": "086c7aa34c49ae2f0a198ae4335e1d01b76d2654526e66530497a6bfa965901c",
+      "prompt_hash": "2e291591516a",
+      "at": "2026-07-30T16:39:46Z",
+      "model": "claude-haiku-4-5-20251001",
+      "cost_usd": 0.03921,
+      "duration_ms": 18621,
+      "attempt": 1
     }
   ]
 }
