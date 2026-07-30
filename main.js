@@ -185,8 +185,8 @@
       hr: 'Površina kruga prikazuje ukupno financiranje kroz cijeli vijek projekta',
     },
     'timeline.projects.placement': {
-      en: 'Placed at the latest matching year',
-      hr: 'Smješteno u zadnju godinu koja odgovara filtrima',
+      en: 'Placed by the latest matching record',
+      hr: 'Smješteno prema zadnjem zapisu koji odgovara filtrima',
     },
     'timeline.projects.hint': {
       en: 'Hover or use arrow keys to inspect. Click or press Enter to open a project.',
@@ -2585,23 +2585,59 @@
     }
 
     function timelineModel() {
+      const selectedYear = state.filters.selectedYear;
+      const fallbackRange = [
+        DATA.facets.years[0],
+        DATA.facets.years[DATA.facets.years.length - 1],
+      ];
+      const range = selectedYear != null
+        ? [selectedYear, selectedYear]
+        : (state.filters.yearRange || fallbackRange);
+      const minYear = Number(range[0]);
+      const maxYear = Number(range[1]);
+
+      function rowTimelineTime(rowId, row, projectKey) {
+        const yearStart = Date.UTC(row.year, 0, 1);
+        const nextYearStart = Date.UTC(row.year + 1, 0, 1);
+        const doc = docById.get(row.doc);
+        const dateMatch = doc && typeof doc.decision_date === 'string'
+          ? /^(\d{4})-(\d{2})-(\d{2})/.exec(doc.decision_date)
+          : null;
+
+        if (dateMatch) {
+          const month = Math.max(1, Math.min(12, Number(dateMatch[2]))) - 1;
+          const day = Math.max(1, Math.min(31, Number(dateMatch[3])));
+          const dated = Date.UTC(row.year, month, day);
+          return Math.max(yearStart, Math.min(nextYearStart - 1, dated));
+        }
+
+        const seed = hashString(`${projectKey}:${row.doc}:${row.n}:${rowId}`);
+        const fraction = 0.04 + ((seed % 10007) / 10006) * 0.92;
+        return yearStart + (nextYearStart - yearStart) * fraction;
+      }
+
       const matches = new Map();
       for (const rowId of applyFilters()) {
         const key = rowNormTitles[rowId];
         const row = DATA.rows[rowId];
         if (!key || key === UNATTRIBUTED_KEY || row.year == null) continue;
+        const time = rowTimelineTime(rowId, row, key);
         let item = matches.get(key);
         if (!item) {
           item = {
             key,
             title: row.title || '',
             year: row.year,
+            time,
             matchingCount: 0,
           };
           matches.set(key, item);
         }
         item.matchingCount += 1;
-        if (row.year > item.year) item.year = row.year;
+        if (time > item.time) {
+          item.time = time;
+          item.year = row.year;
+        }
       }
 
       const items = [];
@@ -2615,19 +2651,10 @@
         });
       }
 
-      const selectedYear = state.filters.selectedYear;
-      const fallbackRange = [
-        DATA.facets.years[0],
-        DATA.facets.years[DATA.facets.years.length - 1],
-      ];
-      const range = selectedYear != null
-        ? [selectedYear, selectedYear]
-        : (state.filters.yearRange || fallbackRange);
-
       return {
         items,
-        minYear: Number(range[0]),
-        maxYear: Number(range[1]),
+        minYear,
+        maxYear,
       };
     }
 
@@ -2640,35 +2667,29 @@
       ].join(' · ');
     }
 
-    function layoutTimelineItems(items, width, height, minYear, maxYear) {
+    function layoutTimelineItems(items, width, height) {
       const margin = { left: 24, right: 24, top: 12, bottom: 28 };
       const plotWidth = Math.max(1, width - margin.left - margin.right);
       const plotHeight = Math.max(1, height - margin.top - margin.bottom);
-      const yearSpan = Math.max(0, maxYear - minYear);
-      const yearCount = yearSpan + 1;
       const maxTotal = items.reduce((max, item) => Math.max(max, item.total), 1);
       const minRadius = 1.35;
       const maxRadius = Math.max(10, Math.min(18, plotHeight * 0.17));
       const trackY = margin.top + plotHeight / 2;
 
-      const packed = items.map((item) => {
+      const ordered = items.slice().sort((a, b) =>
+        a.time - b.time || hashString(a.key) - hashString(b.key)
+      );
+      const positionSpan = Math.max(1, ordered.length - 1);
+      const packed = ordered.map((item, index) => {
         const radius = Math.max(minRadius, Math.sqrt(item.total / maxTotal) * maxRadius);
-        const year = Math.max(minYear, Math.min(maxYear, item.year));
-        const yearRatio = yearSpan === 0 ? 0.5 : (year - minYear) / yearSpan;
         const seed = hashString(item.key);
         const unit = ((seed % 10007) / 10006) * 2 - 1;
-        const xUnit = (((seed >>> 12) % 4093) / 4092) * 2 - 1;
-        const yearSpacing = yearSpan === 0 ? 0 : plotWidth / yearSpan;
-        const yearX = margin.left + yearRatio * plotWidth;
         const availableJitter = Math.max(0, plotHeight / 2 - radius - 2);
         const largeBubbleBias = 1 - (radius / maxRadius) * 0.55;
         return {
           ...item,
           radius,
-          x: Math.max(
-            margin.left,
-            Math.min(width - margin.right, yearX + xUnit * yearSpacing * 0.34),
-          ),
+          x: margin.left + (index / positionSpan) * plotWidth,
           y: trackY + unit * availableJitter * largeBubbleBias,
         };
       });
@@ -2679,8 +2700,6 @@
         plotWidth,
         plotHeight,
         trackY,
-        yearCount,
-        yearSpan,
       };
     }
 
@@ -2780,19 +2799,12 @@
         ctx.moveTo(layout.margin.left, layout.trackY);
         ctx.lineTo(width - layout.margin.right, layout.trackY);
         ctx.stroke();
-
-        const labelCapacity = Math.max(2, Math.floor(layout.plotWidth / 52));
-        const labelStep = Math.max(1, Math.ceil(layout.yearCount / labelCapacity));
-        for (let year = model.minYear; year <= model.maxYear; year++) {
-          const isEdge = year === model.minYear || year === model.maxYear;
-          if (!isEdge && (year - model.minYear) % labelStep !== 0) continue;
-          const ratio = layout.yearSpan === 0 ? 0.5 : (year - model.minYear) / layout.yearSpan;
-          const x = layout.margin.left + ratio * layout.plotWidth;
-          ctx.beginPath();
-          ctx.moveTo(x, layout.trackY - 5);
-          ctx.lineTo(x, layout.trackY + 5);
-          ctx.stroke();
-        }
+        ctx.beginPath();
+        ctx.moveTo(layout.margin.left, layout.trackY - 5);
+        ctx.lineTo(layout.margin.left, layout.trackY + 5);
+        ctx.moveTo(width - layout.margin.right, layout.trackY - 5);
+        ctx.lineTo(width - layout.margin.right, layout.trackY + 5);
+        ctx.stroke();
         ctx.restore();
 
         for (const item of layout.items) {
@@ -2823,14 +2835,15 @@
         ctx.save();
         ctx.fillStyle = paperDim;
         ctx.font = '9px "JetBrains Mono", monospace';
-        ctx.textAlign = 'center';
         ctx.textBaseline = 'bottom';
-        for (let year = model.minYear; year <= model.maxYear; year++) {
-          const isEdge = year === model.minYear || year === model.maxYear;
-          if (!isEdge && (year - model.minYear) % labelStep !== 0) continue;
-          const ratio = layout.yearSpan === 0 ? 0.5 : (year - model.minYear) / layout.yearSpan;
-          const x = layout.margin.left + ratio * layout.plotWidth;
-          ctx.fillText(String(year), x, height - 5);
+        if (model.minYear === model.maxYear) {
+          ctx.textAlign = 'center';
+          ctx.fillText(String(model.minYear), width / 2, height - 5);
+        } else {
+          ctx.textAlign = 'left';
+          ctx.fillText(String(model.minYear), layout.margin.left, height - 5);
+          ctx.textAlign = 'right';
+          ctx.fillText(String(model.maxYear), width - layout.margin.right, height - 5);
         }
         ctx.restore();
       }
@@ -2876,7 +2889,7 @@
       function relayout() {
         const rect = canvas.getBoundingClientRect();
         if (!rect.width || !rect.height) return;
-        layout = layoutTimelineItems(model.items, rect.width, rect.height, model.minYear, model.maxYear);
+        layout = layoutTimelineItems(model.items, rect.width, rect.height);
         buildHitGrid();
         if (activeKey && !itemByKey(activeKey)) activeKey = null;
         draw();

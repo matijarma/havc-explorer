@@ -231,6 +231,15 @@ def test_diacritics_are_restored_from_split_source_words():
     assert repaired == "Festival prava djece - oštećenjem sluha i vida"
 
 
+def test_diacritic_restoration_preserves_candidate_casing():
+    repaired = clean_data.restore_evidence_diacritics(
+        "Revija filmskog stvaralastva djece",
+        "STVARALAŠTVA stvaralaštva",
+    )
+
+    assert repaired == "Revija filmskog stvaralaštva djece"
+
+
 def test_claude_prompt_is_sent_over_stdin(monkeypatch):
     seen = {}
 
@@ -592,3 +601,35 @@ def test_nonaward_edition_links_to_verified_recurring_family():
     family_ids = {item["project_family_id"] for item in rows}
 
     assert len(family_ids) == 1
+
+
+def test_family_override_groups_title_order_variants_only():
+    records = [
+        result_record(
+            [
+                row("14. Zagreb Film Festival - Industrija", 1000, row_number=1),
+                row("Industrija 15. Zagreb Film Festivala", 1200, row_number=2),
+                row("FMFS Industrija", 900, row_number=3),
+            ]
+        )
+    ]
+    cleaned, _ = clean_data.deterministic_cleanup(records, {})
+    corrections = {
+        "family_overrides": [
+            {
+                "id": "zff-industrija",
+                "family_title": "Industrija Zagreb Film Festivala",
+                "title_patterns": [
+                    r"\d+\.\s+Zagreb Film Festival\s*-\s*Industrija",
+                    r"Industrija\s+\d+\.\s+Zagreb Film Festivala",
+                ],
+            }
+        ]
+    }
+
+    clean_data.assign_families(cleaned, {}, corrections)
+    rows = cleaned[0]["sections"][0]["rows"]
+
+    assert rows[0]["project_family_id"] == rows[1]["project_family_id"]
+    assert rows[0]["project_family_title"] == "Industrija Zagreb Film Festivala"
+    assert rows[2]["project_family_id"] != rows[0]["project_family_id"]
