@@ -8,7 +8,9 @@
       subscribe,
       setShowAnalytics,
       setSelectedYear,
-      addScope,
+      addNarrow,
+      narrowOne,
+      narrowSet,
       applyFilters,
       t,
       el,
@@ -105,30 +107,31 @@
       });
     }
 
-    function contextYear() {
-      if (state.filters.selectedYear != null) return state.filters.selectedYear;
-      const yearScope = state.scopes.find((scope) => scope && scope.kind === 'year');
-      return yearScope && Number.isInteger(yearScope.value) ? yearScope.value : null;
+    // The active year range, or null when the whole registry is in view.
+    function contextRange() {
+      const token = narrowOne('years');
+      const v = token && Array.isArray(token.value) ? token.value : null;
+      return (v && v.length === 2 && v[0] != null && v[1] != null) ? v : null;
     }
 
+    // The benchmark population is the registry restricted to the same PERIOD as
+    // the current view but none of its other narrowing — that is what makes a
+    // comparison meaningful rather than circular.
     function benchmarkRowIds() {
       const registry = data();
-      const range = state.filters.yearRange;
-      const selectedYear = contextYear();
+      const range = contextRange();
       const ids = [];
       for (let i = 0; i < registry.rows.length; i++) {
         const row = registry.rows[i];
         if (range && row.year != null && (row.year < range[0] || row.year > range[1])) continue;
-        if (selectedYear != null && row.year !== selectedYear) continue;
         ids.push(i);
       }
       return ids;
     }
 
     function benchmarkCacheKey() {
-      const range = state.filters.yearRange || [];
-      const selectedYear = contextYear();
-      return `${range[0] || ''}:${range[1] || ''}:${selectedYear == null ? '' : selectedYear}`;
+      const range = contextRange() || [];
+      return `${range[0] || ''}:${range[1] || ''}`;
     }
 
     function sameIds(a, b) {
@@ -138,34 +141,30 @@
     }
 
     function periodLabel(lang) {
-      const selectedYear = contextYear();
-      if (selectedYear != null) return String(selectedYear);
-      const range = state.filters.yearRange;
-      if (!range || range[0] == null || range[1] == null) return t('years.all', lang);
+      const range = contextRange();
+      if (!range) return t('years.all', lang);
       return range[0] === range[1] ? String(range[0]) : `${range[0]}–${range[1]}`;
     }
 
     function contextLabel(lang) {
       const parts = [periodLabel(lang)];
-      if (state.filters.programs.size === 1) {
-        parts.push(t('prog.' + [...state.filters.programs][0], lang));
-      } else if (state.filters.programs.size > 1) {
-        parts.push(t('analytics.context.filters', lang, { n: state.filters.programs.size }));
+      const named = (dim, prefix) => {
+        const values = [...narrowSet(dim)];
+        if (values.length === 1) parts.push(prefix ? t(prefix + '.' + values[0], lang) : String(values[0]));
+        else if (values.length > 1) parts.push(t('analytics.context.filters', lang, { n: values.length }));
+      };
+      named('program', 'prog');
+      named('cat', 'cat');
+      named('rok', null);
+      const q = narrowOne('q');
+      if (q && String(q.value).trim()) {
+        parts.push(t('analytics.context.search', lang, { q: String(q.value).trim() }));
       }
-      if (state.filters.cats.size === 1) {
-        parts.push(t('cat.' + [...state.filters.cats][0], lang));
-      } else if (state.filters.cats.size > 1) {
-        parts.push(t('analytics.context.filters', lang, { n: state.filters.cats.size }));
-      }
-      if (state.filters.roks.size) {
-        parts.push(t('analytics.context.filters', lang, { n: state.filters.roks.size }));
-      }
-      if (state.filters.q.trim()) {
-        parts.push(t('analytics.context.search', lang, { q: state.filters.q.trim() }));
-      }
-      if (state.scopes.length) {
-        parts.push(t('analytics.context.scopes', lang, { n: state.scopes.length }));
-      }
+      // Everything that isn't period / programme / category / round / search is a
+      // drill-down; report it as a count so the label stays one line.
+      const drill = state.narrow.filter((token) => token
+        && !['years', 'program', 'cat', 'rok', 'q'].includes(token.dim)).length;
+      if (drill) parts.push(t('analytics.context.scopes', lang, { n: drill }));
       return parts.join(' · ');
     }
 
@@ -271,22 +270,26 @@
       const selection = ui.selection;
       if (!selection) return;
 
+      // Selection kinds are the studio's own vocabulary; map them onto narrowing
+      // dimensions. A year selection is a one-year range like any other.
+      const SELECTION_DIM = { sizeBand: 'amount', program: 'program', cat: 'cat',
+        rok: 'rok', recipient: 'recipient', project: 'project' };
+
       function applyOne(item) {
         const label = selectedLabel(item, state.lang);
         if (item.kind === 'year') {
           setSelectedYear(item.value);
           return;
         }
-        if (['sizeBand', 'program', 'cat', 'rok', 'recipient', 'project'].includes(item.kind)) {
-          addScope({ kind: item.kind, value: item.value, label });
-        }
+        const dim = SELECTION_DIM[item.kind];
+        if (dim) addNarrow({ dim, value: item.value, label });
       }
 
       if (selection.kind === 'compound') selection.items.forEach(applyOne);
       else applyOne(selection);
       close();
       requestAnimationFrame(() => {
-        const target = document.querySelector('.scope-chip:last-of-type, .year-pill.is-active, .list-header button');
+        const target = document.querySelector('.scope-chip:last-of-type, .list-header button');
         if (target && typeof target.focus === 'function') target.focus();
       });
     }
