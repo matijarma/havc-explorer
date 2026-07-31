@@ -406,19 +406,28 @@
     },
 
     'scope.label':    { en: 'scope', hr: 'opseg' },
-    'scope.empty':    { en: 'nothing scoped — click any bar, group row, or value to narrow',
-                        hr: 'nije sužen opseg — klikni stupić, grupu ili vrijednost' },
+    // Short, because it now shares a line with the live record count instead of
+    // owning a 40px band whose only job was to say nothing was happening. The
+    // "click a bar or a group row" hint moved onto the marks that do the work.
+    'scope.empty':    { en: 'whole registry', hr: 'cijeli registar' },
     'scope.clearAll': { en: 'clear all', hr: 'očisti sve' },
     'scope.kind.producer':  { en: 'producer',  hr: 'producent' },
     'scope.kind.director':  { en: 'director',  hr: 'redatelj' },
     'scope.kind.writer':    { en: 'writer',    hr: 'scenarist' },
-    'scope.kind.year':      { en: 'year',      hr: 'godina' },
+    'scope.kind.years':     { en: 'year',      hr: 'godina' },
     'scope.kind.program':   { en: 'programme', hr: 'program' },
     'scope.kind.cat':       { en: 'category',  hr: 'kategorija' },
     'scope.kind.rok':       { en: 'round',     hr: 'rok' },
     'scope.kind.recipient': { en: 'recipient', hr: 'korisnik' },
-    'scope.kind.sizeBand':  { en: 'amount',    hr: 'iznos' },
+    'scope.kind.amount':    { en: 'amount',    hr: 'iznos' },
     'scope.kind.project':   { en: 'project',   hr: 'projekt' },
+    'scope.kind.q':         { en: 'search',    hr: 'traži' },
+
+    'year.single': { en: 'only {year}', hr: 'samo {year}.' },
+    'timeline.collapse': { en: 'hide timeline', hr: 'sakrij vremensku crtu' },
+    'timeline.expand':   { en: 'show timeline', hr: 'prikaži vremensku crtu' },
+    'timeline.full':     { en: 'enlarge timeline', hr: 'povećaj vremensku crtu' },
+    'timeline.compact':  { en: 'shrink timeline', hr: 'smanji vremensku crtu' },
 
     'pivot.label':     { en: 'Group by', hr: 'Grupiraj po' },
     'pivot.projects':  { en: 'Projects',  hr: 'Projekti' },
@@ -426,7 +435,6 @@
     'pivot.producer':  { en: 'Producer',  hr: 'Producent' },
     'pivot.director':  { en: 'Director',  hr: 'Redatelj' },
     'pivot.writer':    { en: 'Writer',    hr: 'Scenarist' },
-    'pivot.year':      { en: 'Year',      hr: 'Godina' },
     'pivot.program':   { en: 'Programme', hr: 'Program' },
     'pivot.cat':       { en: 'Category',  hr: 'Kategorija' },
     'pivot.hideUnattributed': { en: 'hide unattributed', hr: 'sakrij neidentificirano' },
@@ -1567,16 +1575,19 @@
 
   // ═══ 3. State + observer ════════════════════════════════════════════
   const state = {
-    filters: {
-      yearRange: null,
-      programs: new Set(),
-      cats: new Set(),
-      roks: new Set(),
-      normalize: true,
-      q: '',
-      selectedYear: null,
-    },
-    scopes: [],            // {kind, value, label?}
+    // One list for every way the registry can be narrowed, whatever set it:
+    // a rail chip, a drill-down click on a chart or group row, the year slider,
+    // the search box, or an analytics selection. Tokens are {dim, value, label?}.
+    // Semantics: AND across dimensions, OR within one — so two programmes are a
+    // union, while a programme AND a producer intersect. Before this was two
+    // disjoint mechanisms (state.filters + state.scopes) that AND-ed blindly, so
+    // "program=X" from a chart and "program=Y" from the rail silently produced an
+    // empty list with nothing on screen to explain it.
+    narrow: [],
+    normalize: true,       // display-only: original currency vs. normalized €
+    // Produced by the list once it has filtered, consumed by the view bar. Kept
+    // in state rather than read back out of the DOM so the bar has one source.
+    readout: { shown: 0, total: 0, sum: 0 },
     groupBy: 'projects',
     sort: { key: 'title', dir: 'asc' },
     expandedKey: null,     // normTitle of the expanded project (works in projects/decisions)
@@ -1590,9 +1601,66 @@
     expandedAnalyticsKpi: null, // KPI key currently expanded inside the analytics modal
     pdfPreview: null, // { title, source_url }
     showHelperTip: false,
+    showProvenance: false,  // the headline's (i) — the data-origin note
+    // 'collapsed' | 'default' | 'full'. The timeline is the screen's visual
+    // signature, so desktop shows it expanded — the list keeps its guaranteed
+    // floor either way (see "The list always wins" in style.css), which is what
+    // makes that safe on a short viewport. Mobile renders the compact summary
+    // instead and never reaches this. Remembered across sessions.
+    timelineView: localStorage.getItem('sredstva-timeline') || 'default',
     mobileFiltersOpen: false,
     view: 'dashboard', // 'dashboard' | 'about' | 'process'
   };
+
+  // ─── Narrowing dimensions ───────────────────────────────────────────
+  // `get` is the row accessor for plain-equality dimensions, which are the ones
+  // that OR within themselves. `single: true` dimensions replace rather than
+  // accumulate — a year range, an amount band, a project family or a search
+  // string has no useful union with a second one of its kind — and each carries a
+  // bespoke matcher in buildNarrowPlan().
+  const NARROW_DIMS = {
+    program:   { get: (r) => r.program },
+    cat:       { get: (r) => r.cat_type },
+    rok:       { get: (r) => r.rok },
+    producer:  { get: (r) => r.producer },
+    director:  { get: (r) => r.director },
+    writer:    { get: (r) => r.writer },
+    recipient: { get: (r) => (window.SredstvaAnalytics
+      ? window.SredstvaAnalytics.recipientForRow(r)
+      : (r.producer || r.applicant || null)) },
+    years:     { single: true },
+    amount:    { single: true },
+    project:   { single: true },
+    q:         { single: true },
+  };
+  function isNarrowDim(dim) {
+    return Object.prototype.hasOwnProperty.call(NARROW_DIMS, dim);
+  }
+  function isSingleDim(dim) {
+    return !!(NARROW_DIMS[dim] && NARROW_DIMS[dim].single);
+  }
+  function sameNarrowValue(a, b) {
+    if (Array.isArray(a) && Array.isArray(b)) {
+      return a.length === b.length && a.every((v, i) => v === b[i]);
+    }
+    return a === b;
+  }
+  function sameNarrowToken(a, b) {
+    return !!a && !!b && a.dim === b.dim && sameNarrowValue(a.value, b.value);
+  }
+  // First token on a single-cardinality dimension, or null.
+  function narrowOne(dim) {
+    return state.narrow.find(t => t.dim === dim) || null;
+  }
+  // All values present on a multi-cardinality dimension.
+  function narrowSet(dim) {
+    const out = new Set();
+    for (const t of state.narrow) if (t.dim === dim) out.add(t.value);
+    return out;
+  }
+  function hasNarrowToken(dim, value) {
+    return state.narrow.some(t => t.dim === dim && sameNarrowValue(t.value, value));
+  }
 
   const DEFAULT_SORT_BY_PIVOT = {
     projects:  { key: 'title', dir: 'asc' },
@@ -1624,25 +1692,69 @@
     });
   }
 
-  function setFilters(patch) {
-    const keys = Object.keys(patch || {});
-    if (keys.length === 0) return;
-    let changed = false;
-    for (const k of keys) {
-      if (state.filters[k] !== patch[k]) {
-        changed = true;
-        break;
-      }
-    }
-    if (!changed) return;
-    state.filters = { ...state.filters, ...patch };
-    const sy = state.filters.selectedYear;
-    const yr = state.filters.yearRange;
-    if (sy != null && yr && (sy < yr[0] || sy > yr[1])) {
-      state.filters.selectedYear = null;
-    }
+  function commitNarrow(next) {
+    state.narrow = next;
     schedulePersist();
-    fire('filters');
+    fire('narrow');
+  }
+  // opts.switchToProjects: drilling into a group row only makes sense if the list
+  // then shows that group's projects rather than staying on the aggregate pivot.
+  function addNarrow(token, opts) {
+    if (!token || !isNarrowDim(token.dim)) return;
+    if (hasNarrowToken(token.dim, token.value)) return;
+    const next = isSingleDim(token.dim)
+      ? [...state.narrow.filter(t => t.dim !== token.dim), token]
+      : [...state.narrow, token];
+    if (opts && opts.switchToProjects) {
+      state.groupBy = 'projects';
+      state.expandedKey = null;
+    }
+    state.narrow = next;
+    schedulePersist();
+    fire(['narrow', 'groupBy']);
+  }
+  function removeNarrow(idx) {
+    if (idx < 0 || idx >= state.narrow.length) return;
+    commitNarrow(state.narrow.filter((_, i) => i !== idx));
+  }
+  // Rail chips and year ticks are toggles: clicking an active value clears it.
+  function toggleNarrow(token) {
+    if (!token || !isNarrowDim(token.dim)) return;
+    if (hasNarrowToken(token.dim, token.value)) {
+      commitNarrow(state.narrow.filter(t => !sameNarrowToken(t, token)));
+      return;
+    }
+    addNarrow(token);
+  }
+  // Replace-or-clear for single-cardinality dimensions (years, amount, q, project).
+  function setNarrowOne(dim, value, label) {
+    if (!isNarrowDim(dim)) return;
+    const without = state.narrow.filter(t => t.dim !== dim);
+    const cleared = value == null || value === '';
+    if (!cleared && hasNarrowToken(dim, value)) return;
+    commitNarrow(cleared ? without : [...without, label == null ? { dim, value } : { dim, value, label }]);
+  }
+  function clearNarrow() {
+    if (state.narrow.length === 0) return;
+    commitNarrow([]);
+  }
+  function popNarrow() {
+    if (state.narrow.length === 0) return false;
+    commitNarrow(state.narrow.slice(0, -1));
+    return true;
+  }
+  function setReadout(next) {
+    const cur = state.readout;
+    if (cur.shown === next.shown && cur.total === next.total && cur.sum === next.sum) return;
+    state.readout = next;
+    fire('readout');
+  }
+  function setNormalize(v) {
+    const next = !!v;
+    if (state.normalize === next) return;
+    state.normalize = next;
+    schedulePersist();
+    fire('normalize');
   }
   function setGroupBy(g) {
     state.groupBy = g;
@@ -1667,12 +1779,27 @@
       setSort({ key, dir: 'asc' });
     }
   }
+  // A single year is just a one-year range now — there is no separate
+  // "selectedYear" for the pills row to disagree with the slider about.
   function setSelectedYear(year) {
-    const next = year == null ? null : Number(year);
-    if (state.filters.selectedYear === next) return;
-    state.filters.selectedYear = next;
-    schedulePersist();
-    fire('filters');
+    if (year == null) { setNarrowOne('years', null); return; }
+    const y = Number(year);
+    setNarrowOne('years', [y, y]);
+  }
+  function setYearRange(from, to) {
+    const lo = Math.min(from, to), hi = Math.max(from, to);
+    const full = DATA && DATA.facets && DATA.facets.years;
+    // The full span is not a narrowing — drop the token instead of carrying a
+    // no-op chip that claims the view is scoped when it isn't.
+    if (full && full.length && lo <= full[0] && hi >= full[full.length - 1]) {
+      setNarrowOne('years', null);
+      return;
+    }
+    setNarrowOne('years', [lo, hi]);
+  }
+  function setQuery(str) {
+    const q = (str || '').trim();
+    setNarrowOne('q', q || null);
   }
   function setExpandedKey(key) {
     state.expandedKey = state.expandedKey === key ? null : key;
@@ -1720,7 +1847,7 @@
   function setHideUnattributed(v) {
     state.hideUnattributed = v;
     schedulePersist();
-    fire(['hideUnattributed', 'filters']);
+    fire('hideUnattributed');
   }
   function setShowUnfunded(v) {
     state.showUnfunded = v;
@@ -1745,35 +1872,75 @@
     state.showHelperTip = next;
     fire('helperTip');
   }
+  // The choice outlives the session — re-collapsing a chart you deliberately
+  // opened, on every reload, is the kind of thing that makes a tool feel like it
+  // is arguing with you.
+  const TIMELINE_VIEWS = ['collapsed', 'default', 'full'];
+  function setTimelineView(v) {
+    const next = TIMELINE_VIEWS.includes(v) ? v : 'default';
+    if (state.timelineView === next) return;
+    state.timelineView = next;
+    try { localStorage.setItem('sredstva-timeline', next); } catch (_) {}
+    fire('viewport');
+  }
+  function setShowProvenance(v) {
+    const next = !!v;
+    if (state.showProvenance === next) return;
+    state.showProvenance = next;
+    fire('provenance');
+  }
   function setMobileFiltersOpen(v) {
     const open = !!v;
     if (open && state.view !== 'dashboard') return;
-    if (open && !window.matchMedia('(max-width: 900px)').matches) return;
+    if (open && !isRailDrawer()) return;
     if (state.mobileFiltersOpen === open) return;
     state.mobileFiltersOpen = open;
     document.body.classList.toggle('mobile-filters-open', open);
     fire('mobileFilters');
   }
 
-  // ─── Mobile breakpoint observer ─────────────────────────────────────
-  const MOBILE_MQL = typeof window !== 'undefined' && window.matchMedia
-    ? window.matchMedia('(max-width: 900px)')
+  // ─── Viewport observers ─────────────────────────────────────────────
+  // Width decides the shell (locked panels vs. document scroll); height decides
+  // how much optional chrome we can afford above the list. Both fire 'viewport'.
+  const mq = (q) => (typeof window !== 'undefined' && window.matchMedia)
+    ? window.matchMedia(q)
     : null;
+  // Three independent questions, which one breakpoint used to answer badly:
+  //
+  //  isMobile()     — phone. Document scroll, simplified rows, and the timeline
+  //                   replaced by a compact summary.
+  //  isRailDrawer() — anything not wide enough to spare a 280px column for the
+  //                   rail. A tablet at 1024px lost 27% of its width to it, which
+  //                   is why the registry felt unusable there. Tablets get the
+  //                   drawer but KEEP the desktop shell and the timeline.
+  //  isWide()       — wide enough for all seven grouping buttons in the view bar
+  //                   rather than a select.
+  const MOBILE_MQL = mq('(max-width: 900px)');
+  const RAIL_DRAWER_MQL = mq('(max-width: 1199px)');
+  const WIDE_MQL = mq('(min-width: 1400px)');
   function isMobile() {
     return !!(MOBILE_MQL && MOBILE_MQL.matches);
   }
-  if (MOBILE_MQL) {
-    const onMobileChange = () => {
-      document.body.classList.toggle('is-mobile', isMobile());
-      if (!isMobile() && state.mobileFiltersOpen) {
-        state.mobileFiltersOpen = false;
-        document.body.classList.remove('mobile-filters-open');
-      }
-      fire('mobile');
-    };
-    if (MOBILE_MQL.addEventListener) MOBILE_MQL.addEventListener('change', onMobileChange);
-    else if (MOBILE_MQL.addListener) MOBILE_MQL.addListener(onMobileChange);
+  function isRailDrawer() {
+    return !!(RAIL_DRAWER_MQL && RAIL_DRAWER_MQL.matches);
   }
+  function isWide() {
+    return !!(WIDE_MQL && WIDE_MQL.matches);
+  }
+  function onViewportChange() {
+    document.body.classList.toggle('is-mobile', isMobile());
+    document.body.classList.toggle('is-rail-drawer', isRailDrawer());
+    if (!isRailDrawer() && state.mobileFiltersOpen) {
+      state.mobileFiltersOpen = false;
+      document.body.classList.remove('mobile-filters-open');
+    }
+    fire('viewport');
+  }
+  [MOBILE_MQL, RAIL_DRAWER_MQL, WIDE_MQL].forEach((m) => {
+    if (!m) return;
+    if (m.addEventListener) m.addEventListener('change', onViewportChange);
+    else if (m.addListener) m.addListener(onViewportChange);
+  });
   function setView(view) {
     const next = (view === 'about' || view === 'process') ? view : 'dashboard';
     if (state.view === next) return;
@@ -1791,58 +1958,20 @@
     schedulePersist();
   }
 
-  function scopesEqual(a, b) {
-    if (a.kind !== b.kind) return false;
-    if (Array.isArray(a.value) && Array.isArray(b.value)) {
-      return a.value.length === b.value.length && a.value.every((v, i) => v === b.value[i]);
-    }
-    return a.value === b.value;
-  }
-  function addScope(scope, opts) {
-    const exists = state.scopes.find(s => scopesEqual(s, scope));
-    if (exists) return;
-    state.scopes = [...state.scopes, scope];
-    if (opts && opts.switchToProjects) {
-      state.groupBy = 'projects';
-      state.expandedKey = null;
-    }
-    schedulePersist();
-    fire(['scopes', 'groupBy']);
-  }
   function openScopedProject(projectKey, projectTitle) {
-    const scope = { kind: 'project', value: projectKey, label: projectTitle };
-    if (!state.scopes.some(s => scopesEqual(s, scope))) {
-      state.scopes = [...state.scopes, scope];
-    }
+    const token = { dim: 'project', value: projectKey, label: projectTitle };
+    state.narrow = [...state.narrow.filter(t => t.dim !== 'project'), token];
     state.groupBy = 'projects';
     state.sort = defaultSortFor('projects');
     state.expandedKey = projectKey;
     state.expandedRoundIds = new Set();
     state.expandedMentions = false;
     schedulePersist();
-    fire(['scopes', 'groupBy', 'sort', 'expanded']);
+    fire(['narrow', 'groupBy', 'sort', 'expanded']);
     requestAnimationFrame(() => {
       const list = document.querySelector('#listwrap .list');
       if (list && typeof list.scrollTo === 'function') list.scrollTo({ top: 0, left: 0 });
     });
-  }
-  function removeScope(idx) {
-    state.scopes = state.scopes.filter((_, i) => i !== idx);
-    schedulePersist();
-    fire('scopes');
-  }
-  function clearScopes() {
-    if (state.scopes.length === 0) return;
-    state.scopes = [];
-    schedulePersist();
-    fire('scopes');
-  }
-  function popDeepestScope() {
-    if (state.scopes.length === 0) return false;
-    state.scopes = state.scopes.slice(0, -1);
-    schedulePersist();
-    fire('scopes');
-    return true;
   }
 
   // ═══ 4. Clean URL + explicit share state ════════════════════════════
@@ -1858,18 +1987,11 @@
   }
   function buildShareUrl() {
     try {
-      const f = state.filters;
       const payload = {
-        y: f.yearRange,
-        p: [...f.programs],
-        c: [...f.cats],
-        r: [...f.roks],
-        n: f.normalize ? 1 : 0,
-        q: f.q || '',
+        nw: state.narrow,
+        n: state.normalize ? 1 : 0,
         g: state.groupBy,
-        s: state.scopes,
         hu: state.hideUnattributed ? 1 : 0,
-        sy: f.selectedYear,
         so: state.sort,
         v: state.view,
       };
@@ -1881,6 +2003,53 @@
       return new URL('/', location.origin);
     }
   }
+  // Share links minted before filters and scopes were merged carry the old
+  // y/p/c/r/q/sy/s keys. Those URLs are already out in the world, so keep
+  // reading them and fold them into the one token list.
+  const LEGACY_SCOPE_DIM = {
+    applicant: 'producer',   // applicant became an alias of producer
+    sizeBand: 'amount',
+    year: 'years',
+  };
+  function readNarrowPayload(payload) {
+    const out = [];
+    const push = (dim, value, label) => {
+      if (!isNarrowDim(dim) || value == null || value === '') return;
+      if (out.some(t => t.dim === dim && sameNarrowValue(t.value, value))) return;
+      out.push(label == null ? { dim, value } : { dim, value, label });
+    };
+    if (Array.isArray(payload.nw)) {
+      for (const t of payload.nw) {
+        if (t && typeof t.dim === 'string') push(t.dim, t.value, t.label);
+      }
+      return out;
+    }
+    // ── legacy shape ──
+    // y (range) and sy (single year) were AND-ed, so sy — being narrower — is
+    // the effective selection whenever both are present. A y covering the whole
+    // registry narrows nothing and must not become a no-op chip.
+    const span = (DATA && DATA.facets && DATA.facets.years) || null;
+    if (typeof payload.sy === 'number') {
+      push('years', [payload.sy, payload.sy]);
+    } else if (Array.isArray(payload.y) && payload.y.length === 2) {
+      const isFullSpan = span && span.length
+        && payload.y[0] <= span[0] && payload.y[1] >= span[span.length - 1];
+      if (!isFullSpan) push('years', payload.y);
+    }
+    if (typeof payload.q === 'string') push('q', payload.q.trim());
+    (Array.isArray(payload.p) ? payload.p : []).forEach(v => push('program', v));
+    (Array.isArray(payload.c) ? payload.c : []).forEach(v => push('cat', v));
+    (Array.isArray(payload.r) ? payload.r : []).forEach(v => push('rok', v));
+    (Array.isArray(payload.s) ? payload.s : []).forEach((s) => {
+      if (!s || typeof s.kind !== 'string') return;
+      const dim = LEGACY_SCOPE_DIM[s.kind] || s.kind;
+      // A legacy single-year scope and a legacy sy key can both be present; push()
+      // dedupes, and 'years' being single-cardinality means the first one wins.
+      push(dim, s.kind === 'year' ? [s.value, s.value] : s.value, s.label);
+    });
+    return out;
+  }
+
   function readSharedState() {
     try {
       const u = new URL(location.href);
@@ -1892,12 +2061,8 @@
         return;
       }
       const payload = JSON.parse(decodeURIComponent(escape(atob(f))));
-      if (payload.y) state.filters.yearRange = payload.y;
-      if (Array.isArray(payload.p)) state.filters.programs = new Set(payload.p);
-      if (Array.isArray(payload.c)) state.filters.cats = new Set(payload.c);
-      if (Array.isArray(payload.r)) state.filters.roks = new Set(payload.r);
-      if (typeof payload.n === 'number') state.filters.normalize = !!payload.n;
-      if (typeof payload.q === 'string') state.filters.q = payload.q;
+      state.narrow = readNarrowPayload(payload);
+      if (typeof payload.n === 'number') state.normalize = !!payload.n;
       if (typeof payload.g === 'string') {
         // backward compat: 'project' → 'decisions'; 'year' → 'projects' (year is now a filter, not a pivot)
         // Phase 6: 'applicant' → 'producer' (applicant is now an alias of producer after entity unification)
@@ -1906,14 +2071,7 @@
         if (g === 'applicant') g = 'producer';
         if (PIVOTS.includes(g)) state.groupBy = g;
       }
-      if (Array.isArray(payload.s)) {
-        // Migrate stale applicant scopes to producer (Phase 6).
-        state.scopes = payload.s.map(s =>
-          (s && s.kind === 'applicant') ? Object.assign({}, s, { kind: 'producer' }) : s
-        );
-      }
       if (typeof payload.hu === 'number') state.hideUnattributed = !!payload.hu;
-      if (typeof payload.sy === 'number') state.filters.selectedYear = payload.sy;
       if (payload.so && typeof payload.so === 'object' && typeof payload.so.key === 'string') {
         state.sort = {
           key: payload.so.key,
@@ -1927,8 +2085,11 @@
       } else if (legacyView === 'about' || legacyView === 'process') {
         state.view = legacyView;
       }
-    } catch (_) {
-      // Invalid or stale share state should never strand the user on a noisy URL.
+    } catch (err) {
+      // A malformed or stale share link must never strand the user on a noisy
+      // URL — but swallowing the reason entirely hides real bugs in here, so say
+      // something. The user still lands on a clean, working registry.
+      console.warn('Ignoring unreadable share state:', err);
     } finally {
       cleanAppUrl();
     }
@@ -2158,7 +2319,7 @@
   // ═══ 6. Topbar ═════════════════════════════════════════════════════
   function mountTopbar(root) {
     const VIEW_TABS = ['dashboard', 'about', 'process'];
-    let searchDraft = state.filters.q || '';
+    let searchDraft = (narrowOne('q') || {}).value || '';
     let shareStatus = 'idle';
     let shareTimer = null;
 
@@ -2204,7 +2365,7 @@
     function render() {
       const lang = state.lang;
       const isDash = state.view === 'dashboard';
-      const showMobileFilterToggle = isDash && isMobile();
+      const showMobileFilterToggle = isDash && isRailDrawer();
       const nextLang = lang === 'hr' ? 'en' : 'hr';
       const activeEl = document.activeElement;
       const hadSearchFocus = Boolean(
@@ -2222,7 +2383,7 @@
       if (hadSearchFocus) {
         searchDraft = activeEl.value;
       } else {
-        searchDraft = state.filters.q || '';
+        searchDraft = (narrowOne('q') || {}).value || '';
       }
       const themeIcon = state.theme === 'light'
         ? 'fa-solid fa-sun'
@@ -2256,7 +2417,7 @@
                 const val = e.target.value;
                 searchDraft = val;
                 render._searchDebounce = setTimeout(() => {
-                  setFilters({ q: val });
+                  setQuery(val);
                 }, 220);
               },
             }),
@@ -2373,7 +2534,9 @@
         }
       }
     }
-    on(['lang', 'theme', 'filters', 'view', 'mobileFilters', 'helperTip'], render);
+    // 'viewport' matters here: the mobile filter toggle is the only way to reach
+    // the rail below 900px, so the topbar must rebuild when we cross that line.
+    on(['lang', 'theme', 'narrow', 'view', 'mobileFilters', 'helperTip', 'viewport'], render);
     render();
   }
 
@@ -2390,31 +2553,81 @@
     'admin-cost', 'other',
   ];
 
-  function buildYearSlider(minYear, maxYear) {
-    const range = Math.max(1, maxYear - minYear);
-    const [yrFrom, yrTo] = state.filters.yearRange;
+  // 19 tick marks in a 280px rail is ~14px each, well under the 44px target the
+  // design system asks for on coarse pointers. So touch devices also get a
+  // horizontally-scrollable year list — always in the DOM, revealed by CSS under
+  // @media (pointer: coarse), which keeps pointer sniffing out of the JS. This is
+  // the one place the old #year-pills band still earns its keep: inside the
+  // filter drawer, where it is genuinely the better control.
+  function buildYearPills(minYear, maxYear) {
+    const sel = (narrowOne('years') || {}).value || null;
+    const only = sel && sel[0] === sel[1] ? sel[0] : null;
+    const pills = [el('button', {
+      class: 'btn mono year-pill year-pill-all' + (sel == null ? ' active' : ''),
+      type: 'button',
+      text: t('years.all', state.lang),
+      onclick: () => setNarrowOne('years', null),
+    })];
+    for (let y = minYear; y <= maxYear; y++) {
+      pills.push(el('button', {
+        class: 'btn mono year-pill' + (only === y ? ' active' : ''),
+        type: 'button',
+        text: String(y),
+        'aria-pressed': only === y ? 'true' : 'false',
+        onclick: () => { if (only === y) setNarrowOne('years', null); else setYearRange(y, y); },
+      }));
+    }
+    return el('div', { class: 'year-pills-list' }, pills);
+  }
 
-    let dragFrom = null, dragTo = null;
+  // Year slider, boundary model.
+  //
+  // The thumbs sit on year BOUNDARIES, not on years: the left thumb is 1 January
+  // of its year, the right thumb is 31 December of the year before it. So for
+  // 2008–2026 there are 20 stops for 19 years, and the two thumbs can never
+  // coincide — one step apart already means one whole year, with a highlighted
+  // segment exactly one year wide.
+  //
+  // The old model put both thumbs on years, which made a single-year selection
+  // render as a zero-width bar: picking 2020 left no visible mark anywhere, and
+  // the knob tooltips are only opaque while dragging, so at rest the year filter
+  // had no readout at all.
+  function buildYearSlider(minYear, maxYear) {
+    const lo = minYear, hi = maxYear + 1;        // boundary domain
+    const span = Math.max(1, hi - lo);
+    const sel = (narrowOne('years') || {}).value || [minYear, maxYear];
+    const yrFrom = Math.max(minYear, Math.min(maxYear, sel[0]));
+    const yrTo = Math.max(yrFrom, Math.min(maxYear, sel[1]));
+
+    // Drag state is in boundary units: [a, b) with b >= a + 1.
+    let dragA = null, dragB = null;
     let rafPending = false;
+
+    const pct = (boundary) => ((boundary - lo) / span) * 100;
 
     const trackEl = el('div', { class: 'track' });
     const rangeEl = el('div', { class: 'range' });
     const knobFromEl = el('div', { class: 'knob from' });
     const knobToEl = el('div', { class: 'knob to' });
-    const tipFromEl = el('div', { class: 'knob-tooltip from', text: String(yrFrom) });
-    const tipToEl = el('div', { class: 'knob-tooltip to', text: String(yrTo) });
+    const tipFromEl = el('div', { class: 'knob-tooltip from' });
+    const tipToEl = el('div', { class: 'knob-tooltip to' });
 
-    function applyVisual(from, to) {
-      const pctFrom = ((from - minYear) / range) * 100;
-      const pctTo   = ((to   - minYear) / range) * 100;
-      rangeEl.style.left = pctFrom + '%';
-      rangeEl.style.right = (100 - pctTo) + '%';
-      knobFromEl.style.left = pctFrom + '%';
-      knobToEl.style.left = pctTo + '%';
-      tipFromEl.style.left = pctFrom + '%';
-      tipToEl.style.left = pctTo + '%';
-      tipFromEl.textContent = String(from);
-      tipToEl.textContent = String(to);
+    function applyVisual(a, b) {
+      const pa = pct(a), pb = pct(b);
+      rangeEl.style.left = pa + '%';
+      rangeEl.style.right = (100 - pb) + '%';
+      knobFromEl.style.left = pa + '%';
+      knobToEl.style.left = pb + '%';
+      tipFromEl.style.left = pa + '%';
+      tipToEl.style.left = pb + '%';
+      // Tooltips name the years the thumbs enclose, not the boundary numbers —
+      // "2020" and "2020" for one year, never "2020" and "2021".
+      tipFromEl.textContent = String(a);
+      tipToEl.textContent = String(b - 1);
+      for (const tick of tickEls) {
+        const y = +tick.dataset.year;
+        tick.classList.toggle('in-range', y >= a && y <= b - 1);
+      }
     }
 
     function scheduleVisual() {
@@ -2422,52 +2635,40 @@
       rafPending = true;
       requestAnimationFrame(() => {
         rafPending = false;
-        applyVisual(
-          dragFrom != null ? dragFrom : state.filters.yearRange[0],
-          dragTo   != null ? dragTo   : state.filters.yearRange[1],
-        );
+        applyVisual(dragA != null ? dragA : yrFrom, dragB != null ? dragB : yrTo + 1);
       });
     }
 
     const inputFromEl = el('input', {
-      type: 'range', min: String(minYear), max: String(maxYear), value: String(yrFrom),
-      class: 'from',
+      type: 'range', min: String(lo), max: String(hi - 1), value: String(yrFrom),
+      class: 'from', 'aria-label': t('facet.year', state.lang),
     });
     const inputToEl = el('input', {
-      type: 'range', min: String(minYear), max: String(maxYear), value: String(yrTo),
-      class: 'to',
+      type: 'range', min: String(lo + 1), max: String(hi), value: String(yrTo + 1),
+      class: 'to', 'aria-label': t('facet.year', state.lang),
     });
 
     function onFromInput() {
-      const cur = state.filters.yearRange;
-      const ceiling = dragTo != null ? dragTo : cur[1];
-      const v = Math.min(+inputFromEl.value, ceiling);
-      dragFrom = v;
-      if (dragTo == null) dragTo = cur[1];
+      const ceiling = (dragB != null ? dragB : yrTo + 1) - 1;   // keep 1 year of gap
+      dragA = Math.min(+inputFromEl.value, ceiling);
+      if (dragB == null) dragB = yrTo + 1;
       sliderEl.classList.add('dragging');
       scheduleVisual();
     }
     function onToInput() {
-      const cur = state.filters.yearRange;
-      const floor = dragFrom != null ? dragFrom : cur[0];
-      const v = Math.max(+inputToEl.value, floor);
-      dragTo = v;
-      if (dragFrom == null) dragFrom = cur[0];
+      const floor = (dragA != null ? dragA : yrFrom) + 1;
+      dragB = Math.max(+inputToEl.value, floor);
+      if (dragA == null) dragA = yrFrom;
       sliderEl.classList.add('dragging');
       scheduleVisual();
     }
     function commit() {
       sliderEl.classList.remove('dragging');
-      if (dragFrom == null && dragTo == null) return;
-      const cur = state.filters.yearRange;
-      const newRange = [
-        dragFrom != null ? dragFrom : cur[0],
-        dragTo   != null ? dragTo   : cur[1],
-      ];
-      dragFrom = null; dragTo = null;
-      if (newRange[0] !== cur[0] || newRange[1] !== cur[1]) {
-        setFilters({ yearRange: newRange });
-      }
+      if (dragA == null && dragB == null) return;
+      const a = dragA != null ? dragA : yrFrom;
+      const b = dragB != null ? dragB : yrTo + 1;
+      dragA = null; dragB = null;
+      if (a !== yrFrom || b - 1 !== yrTo) setYearRange(a, b - 1);
     }
 
     inputFromEl.addEventListener('input', onFromInput);
@@ -2485,44 +2686,83 @@
       if (['ArrowLeft', 'ArrowRight'].includes(e.key)) requestAnimationFrame(commit);
     });
 
+    // One tick per year, centred in that year's slot. Clicking it selects that
+    // single year — the common case, which dragging two thumbs onto adjacent
+    // boundaries makes needlessly fiddly.
+    const tickEls = [];
+    for (let y = minYear; y <= maxYear; y++) {
+      const isOnly = y === yrFrom && y === yrTo;
+      const tick = el('button', {
+        class: 'year-tick' + (isOnly ? ' is-only' : ''),
+        type: 'button',
+        title: t('year.single', state.lang, { year: y }),
+        'aria-label': t('year.single', state.lang, { year: y }),
+        'aria-pressed': isOnly ? 'true' : 'false',
+        dataset: { year: String(y) },
+        // Selecting the year you already have selected alone clears it, so the
+        // tick is a toggle like every other narrowing control.
+        onclick: () => { if (isOnly) setNarrowOne('years', null); else setYearRange(y, y); },
+      });
+      tick.style.left = pct(y + 0.5) + '%';
+      tickEls.push(tick);
+    }
+    const ticksEl = el('div', { class: 'year-ticks' }, tickEls);
+
     const sliderEl = el('div', { class: 'year-slider' }, [
-      trackEl, rangeEl, inputFromEl, inputToEl,
+      trackEl, rangeEl, ticksEl, inputFromEl, inputToEl,
       knobFromEl, knobToEl, tipFromEl, tipToEl,
     ]);
 
-    applyVisual(yrFrom, yrTo);
+    applyVisual(yrFrom, yrTo + 1);
     return sliderEl;
   }
 
   function mountFilterRail(root) {
-    const counts = { programs: {}, cats: {}, roks: {} };
-    DATA.rows.forEach(r => {
-      if (r.program) counts.programs[r.program] = (counts.programs[r.program] || 0) + 1;
-      if (r.cat_type) counts.cats[r.cat_type] = (counts.cats[r.cat_type] || 0) + 1;
-      if (r.rok) counts.roks[r.rok] = (counts.roks[r.rok] || 0) + 1;
-    });
-
     const minYear = DATA.facets.years[0];
     const maxYear = DATA.facets.years[DATA.facets.years.length - 1];
-    if (!state.filters.yearRange) state.filters.yearRange = [minYear, maxYear];
 
-    function chipList(items, kind, labelKey) {
+    // Counts were computed once over every row and then never moved, so the rail
+    // read identically whether you had narrowed or not. Recompute them per
+    // change against everything EXCEPT the facet's own dimension — that is what
+    // keeps the other programmes' counts alive so you can still add a second one.
+    // One pass over ~9.5k rows per facet is not worth optimizing.
+    function countsFor(dim, field) {
+      const out = {};
+      for (const i of applyFiltersExcept(dim)) {
+        const v = DATA.rows[i][field];
+        if (v) out[v] = (out[v] || 0) + 1;
+      }
+      return out;
+    }
+
+    // A value whose count has fallen to 0 under the OTHER narrowings is dropped
+    // from the list — except when it is itself active, or you would be unable to
+    // untick the very chip you are looking at a token for.
+    function visibleValues(order, counts, dim) {
+      return order.filter(k => counts[k] || hasNarrowToken(dim, k));
+    }
+
+    function chipList(items, dim, field, labelKey, counts) {
       return items.map(k => el('button', {
-        class: 'chip' + (state.filters[kind].has(k) ? ' active' : ''),
-        onclick: () => {
-          const cur = new Set(state.filters[kind]);
-          cur.has(k) ? cur.delete(k) : cur.add(k);
-          setFilters({ [kind]: cur });
-        },
+        class: 'chip' + (hasNarrowToken(dim, k) ? ' active' : ''),
+        onclick: () => toggleNarrow({
+          dim,
+          value: k,
+          label: labelKey ? t(labelKey + '.' + k, state.lang) : k,
+        }),
       }, [
         el('span', { text: labelKey ? t(labelKey + '.' + k, state.lang) : k }),
-        el('span', { class: 'count', text: String(counts[kind][k] || 0) }),
+        el('span', { class: 'count', text: String(counts[k] || 0) }),
       ]));
     }
 
     function render() {
       const lang = state.lang;
-      const [yrFrom, yrTo] = state.filters.yearRange;
+      const years = (narrowOne('years') || {}).value || [minYear, maxYear];
+      const [yrFrom, yrTo] = years;
+      const programCounts = countsFor('program', 'program');
+      const catCounts = countsFor('cat', 'cat_type');
+      const rokCounts = countsFor('rok', 'rok');
 
       const yearSlider = buildYearSlider(minYear, maxYear);
 
@@ -2554,38 +2794,44 @@
           el('div', { class: 'facet-header' }, [
             el('span', { class: 'kicker', text: t('facet.year', lang) }),
           ]),
-          el('div', { class: 'endpoints' }, [
-            el('span', { class: 'mono', text: String(yrFrom) }),
-            el('span', { class: 'mono', text: String(yrTo) }),
-          ]),
+          // One year reads as a single centred label rather than "2020 2020".
+          yrFrom === yrTo
+            ? el('div', { class: 'endpoints is-single' }, [
+                el('span', { class: 'mono', text: String(yrFrom) }),
+              ])
+            : el('div', { class: 'endpoints' }, [
+                el('span', { class: 'mono', text: String(yrFrom) }),
+                el('span', { class: 'mono', text: String(yrTo) }),
+              ]),
           yearSlider,
+          buildYearPills(minYear, maxYear),
         ]),
         // Programme
         el('div', { class: 'facet' }, [
           el('div', { class: 'facet-header' }, [
             el('span', { class: 'kicker', text: t('facet.program', lang) }),
-            el('span', { class: 'count', text: state.filters.programs.size || t('facet.all', lang) }),
+            el('span', { class: 'count', text: narrowSet('program').size || t('facet.all', lang) }),
           ]),
           el('div', { class: 'facet-list' },
-            chipList(PROGRAM_ORDER.filter(p => counts.programs[p]), 'programs', 'prog')),
+            chipList(visibleValues(PROGRAM_ORDER, programCounts, 'program'), 'program', 'program', 'prog', programCounts)),
         ]),
         // Category
         el('div', { class: 'facet' }, [
           el('div', { class: 'facet-header' }, [
             el('span', { class: 'kicker', text: t('facet.cat', lang) }),
-            el('span', { class: 'count', text: state.filters.cats.size || t('facet.all', lang) }),
+            el('span', { class: 'count', text: narrowSet('cat').size || t('facet.all', lang) }),
           ]),
           el('div', { class: 'facet-list' },
-            chipList(CAT_ORDER.filter(c => counts.cats[c]), 'cats', 'cat')),
+            chipList(visibleValues(CAT_ORDER, catCounts, 'cat'), 'cat', 'cat_type', 'cat', catCounts)),
         ]),
         // Round
         DATA.facets.roks.length > 0 && el('div', { class: 'facet' }, [
           el('div', { class: 'facet-header' }, [
             el('span', { class: 'kicker', text: t('facet.rok', lang) }),
-            el('span', { class: 'count', text: state.filters.roks.size || t('facet.all', lang) }),
+            el('span', { class: 'count', text: narrowSet('rok').size || t('facet.all', lang) }),
           ]),
           el('div', { class: 'facet-list' },
-            chipList(DATA.facets.roks.slice().sort(), 'roks', null)),
+            chipList(visibleValues(DATA.facets.roks.slice().sort(), rokCounts, 'rok'), 'rok', 'rok', null, rokCounts)),
         ]),
         // Currency
         el('div', { class: 'facet' }, [
@@ -2594,14 +2840,14 @@
           ]),
           el('div', { class: 'normalize-toggle' }, [
             el('button', {
-              class: 'btn mono' + (!state.filters.normalize ? ' active' : ''),
+              class: 'btn mono' + (!state.normalize ? ' active' : ''),
               text: t('facet.original', lang),
-              onclick: () => setFilters({ normalize: false }),
+              onclick: () => setNormalize(false),
             }),
             el('button', {
-              class: 'btn mono' + (state.filters.normalize ? ' active' : ''),
+              class: 'btn mono' + (state.normalize ? ' active' : ''),
               text: t('facet.normalize', lang),
-              onclick: () => setFilters({ normalize: true }),
+              onclick: () => setNormalize(true),
             }),
           ]),
           el('span', { class: 'note', text: t('facet.currency_note', lang, { rate: DATA.hrk_to_eur }) }),
@@ -2611,14 +2857,7 @@
           el('div', { class: 'btn-row' }, [
             el('button', {
               class: 'btn mono',
-              onclick: () => {
-                clearScopes();
-                setFilters({
-                  yearRange: [minYear, maxYear],
-                  programs: new Set(), cats: new Set(), roks: new Set(),
-                  q: '',
-                });
-              },
+              onclick: clearNarrow,
             }, [
               fa('fa-solid fa-rotate-left', 'icon-left'),
               t('facet.reset', lang),
@@ -2628,7 +2867,7 @@
         ]),
       );
     }
-    on(['filters', 'lang'], render);
+    on(['narrow', 'normalize', 'lang'], render);
     render();
   }
 
@@ -2641,70 +2880,68 @@
     return !!matchingFamilies && matchingFamilies.has(projectKey);
   }
 
-  function rowInScope(i, scopes) {
-    const r = DATA.rows[i];
-    for (const s of scopes) {
-      switch (s.kind) {
-        case 'producer':  if (r.producer  !== s.value) return false; break;
-        case 'director':  if (r.director  !== s.value) return false; break;
-        case 'writer':    if (r.writer    !== s.value) return false; break;
-        case 'recipient': {
-          const recipient = window.SredstvaAnalytics
-            ? window.SredstvaAnalytics.recipientForRow(r)
-            : (r.producer || r.applicant || null);
-          if (recipient !== s.value) return false;
+  // Compile state.narrow into a shape the row loop can run cheaply: one Set per
+  // active equality dimension (membership = the OR within that dimension) plus
+  // the four bespoke matchers. Built once per call, not once per row.
+  function buildNarrowPlan(tokens) {
+    const eq = [];
+    const byDim = new Map();
+    let years = null, amount = null, project = null, searched = null;
+    for (const t of (tokens || [])) {
+      if (!t || !isNarrowDim(t.dim)) continue;
+      switch (t.dim) {
+        case 'years':   years = t.value; break;
+        case 'amount':  amount = t.value; break;
+        case 'project': project = t.value; break;
+        case 'q': {
+          const q = String(t.value || '').trim();
+          if (q) searched = searchRowIds(q);
           break;
         }
-        case 'year':      if (r.year      !== s.value) return false; break;
-        case 'program':   if (r.program   !== s.value) return false; break;
-        case 'cat':       if (r.cat_type  !== s.value) return false; break;
-        case 'rok':       if (r.rok       !== s.value) return false; break;
-        case 'sizeBand': {
-          const a = r.amount_eur || 0;
-          if (a < s.value[0] || a >= s.value[1]) return false;
-          break;
+        default: {
+          let set = byDim.get(t.dim);
+          if (!set) { set = new Set(); byDim.set(t.dim, set); }
+          set.add(t.value);
         }
-        case 'project':   if (!rowMatchesProjectScope(i, s.value)) return false; break;
       }
+    }
+    for (const [dim, values] of byDim) eq.push({ get: NARROW_DIMS[dim].get, values });
+    return { eq, years, amount, project, searched, active: eq.length > 0
+      || years || amount || project != null || searched };
+  }
+
+  function rowMatchesPlan(i, plan) {
+    const r = DATA.rows[i];
+    if (plan.years && r.year && (r.year < plan.years[0] || r.year > plan.years[1])) return false;
+    if (plan.amount) {
+      const a = r.amount_eur || 0;
+      if (a < plan.amount[0] || a >= plan.amount[1]) return false;
+    }
+    if (plan.searched && !plan.searched.has(i)) return false;
+    if (plan.project != null && !rowMatchesProjectScope(i, plan.project)) return false;
+    for (let k = 0; k < plan.eq.length; k++) {
+      if (!plan.eq[k].values.has(plan.eq[k].get(r))) return false;
     }
     return true;
   }
 
   function applyFilters() {
-    const f = state.filters;
-    const yr = f.yearRange;
-    const sy = f.selectedYear;
-    const programs = f.programs, cats = f.cats, roks = f.roks;
-    const searched = f.q.trim() ? searchRowIds(f.q.trim()) : null;
-    const scopes = state.scopes;
-
+    const plan = buildNarrowPlan(state.narrow);
     const out = [];
     for (let i = 0; i < DATA.rows.length; i++) {
-      const r = DATA.rows[i];
-      if (yr && r.year && (r.year < yr[0] || r.year > yr[1])) continue;
-      if (sy != null && r.year !== sy) continue;
-      if (programs.size && !programs.has(r.program)) continue;
-      if (cats.size && !cats.has(r.cat_type)) continue;
-      if (roks.size && !roks.has(r.rok)) continue;
-      if (searched && !searched.has(i)) continue;
-      if (scopes.length && !rowInScope(i, scopes)) continue;
-      out.push(i);
+      if (!plan.active || rowMatchesPlan(i, plan)) out.push(i);
     }
     return out;
   }
 
-  // Filter as `applyFilters` would, but also exclude rows that would land in the
-  // unattributed bucket of the active people-pivot, when the hide-unattributed
-  // toggle is on. Keeps the insights metrics in sync with what the table shows.
-  function applyFiltersAndPivotView() {
-    const ids = applyFilters();
-    if (!state.hideUnattributed) return ids;
-    if (!PIVOTS_WITH_UNATTRIBUTED.has(state.groupBy)) return ids;
-    const field = state.groupBy; // 'producer' | 'director' | 'writer'
+  // Row ids matching everything EXCEPT one dimension. Facet counts need this:
+  // if selecting a programme zeroed every other programme's count, you could
+  // never add a second one.
+  function applyFiltersExcept(dim) {
+    const plan = buildNarrowPlan(state.narrow.filter(t => t.dim !== dim));
     const out = [];
-    for (const i of ids) {
-      const v = DATA.rows[i][field];
-      if (v != null && String(v).trim() !== '') out.push(i);
+    for (let i = 0; i < DATA.rows.length; i++) {
+      if (!plan.active || rowMatchesPlan(i, plan)) out.push(i);
     }
     return out;
   }
@@ -2774,21 +3011,71 @@
   }
 
   // ═══ 8. Orientation headline ════════════════════════════════════════
+  // One line: what the registry is, plus its global totals.
+  //
+  // The provenance note used to sit here permanently as a 275-character
+  // paragraph — the largest block of copy on the screen, unchanging, and the
+  // single biggest reason the headline cost 156px. It is a trust statement you
+  // read once, so it moved behind the (i), which is where a reader looks for it
+  // when they actually want it.
+  //
+  // These totals are deliberately GLOBAL and stay global (PRODUCT.md keeps
+  // registry facts distinct from the active scope). What changed is that they are
+  // no longer the loudest thing on screen — the scoped count in #viewbar is.
   function mountHeadline(root) {
     const openAnalytics = () => setShowAnalytics(true);
+
+    const onDocPointerDown = (e) => {
+      if (!state.showProvenance) return;
+      const wrap = root.querySelector('.head-note-wrap');
+      if (wrap && !wrap.contains(e.target)) setShowProvenance(false);
+    };
+    const onDocKeyDown = (e) => {
+      if (e.key === 'Escape' && state.showProvenance) setShowProvenance(false);
+    };
+    document.addEventListener('pointerdown', onDocPointerDown);
+    document.addEventListener('keydown', onDocKeyDown);
+
     function render() {
       const lang = state.lang;
       const maxYear = DATA.facets.years[DATA.facets.years.length - 1];
       const fundedProjects = GLOBAL_ANALYTICS ? GLOBAL_ANALYTICS.projectCount : 0;
       root.replaceChildren(
         el('div', { class: 'head-line' }, [
-          el('span', { class: 'head-main', text: t('header.line', lang, { maxYear }) }),
-        ]),
-        el('aside', { class: 'head-infopill', role: 'note' }, [
-          fa('fa-solid fa-circle-info', 'icon-left'),
-          el('div', { class: 'head-infopill-copy' }, [
-            el('span', { class: 'head-infopill-kicker kicker', text: t('header.notice.kicker', lang) }),
-            el('span', { class: 'head-infopill-body', text: t('header.notice.body', lang) })
+          // Truncates before the figures do; the title attribute keeps the full
+          // string reachable when it does.
+          el('span', {
+            class: 'head-main',
+            text: t('header.line', lang, { maxYear }),
+            title: t('header.line', lang, { maxYear }),
+          }),
+          el('div', { class: 'head-note-wrap' }, [
+            el('button', {
+              class: 'head-note-btn',
+              type: 'button',
+              title: t('header.notice.kicker', lang),
+              'aria-label': t('header.notice.kicker', lang),
+              'aria-haspopup': 'dialog',
+              'aria-expanded': state.showProvenance ? 'true' : 'false',
+              onclick: (e) => {
+                e.stopPropagation();
+                setShowProvenance(!state.showProvenance);
+              },
+            }, [fa('fa-solid fa-circle-info')]),
+            state.showProvenance && el('div', {
+              class: 'helper-tip-popover head-note-popover',
+              role: 'dialog',
+              'aria-label': t('header.notice.kicker', lang),
+            }, [
+              el('div', { class: 'helper-tip-title display', text: t('header.notice.kicker', lang) }),
+              el('div', { class: 'helper-tip-body', text: t('header.notice.body', lang) }),
+              // The old statusbar's coverage note belongs with provenance, not
+              // pinned below the table.
+              el('div', {
+                class: 'head-note-coverage mono',
+                text: t('status.coverage', lang, { maxYear }),
+              }),
+            ]),
           ]),
         ]),
         el('button', {
@@ -2821,7 +3108,7 @@
         ]),
       );
     }
-    on(['lang'], render);
+    on(['lang', 'provenance'], render);
     render();
   }
 
@@ -2854,14 +3141,11 @@
     }
 
     function timelineModel() {
-      const selectedYear = state.filters.selectedYear;
       const fallbackRange = [
         DATA.facets.years[0],
         DATA.facets.years[DATA.facets.years.length - 1],
       ];
-      const range = selectedYear != null
-        ? [selectedYear, selectedYear]
-        : (state.filters.yearRange || fallbackRange);
+      const range = (narrowOne('years') || {}).value || fallbackRange;
       const minYear = Number(range[0]);
       const maxYear = Number(range[1]);
 
@@ -3275,18 +3559,52 @@
         return;
       }
 
-      root.className = 'insights project-timeline-insights';
+      // Three sizes: a ~28px strip, the default 178px plot, and a taller "full"
+      // plot for reading the distribution properly. Expanded is the desktop
+      // default — the chart is the main screen's visual signature — and the list's
+      // guaranteed floor plus a scrollable .main is what keeps that safe when the
+      // viewport is short. Browsing the list stays the priority; the chart just
+      // no longer has to be sacrificed pre-emptively to protect it.
+      const view = state.timelineView;
+      const open = view !== 'collapsed';
+      const model = timelineModel();
+      const summary = t('timeline.projects.summary', lang, { n: model.items.length.toLocaleString() });
+
+      root.className = 'insights project-timeline-insights'
+        + (open ? '' : ' is-collapsed')
+        + (view === 'full' ? ' is-full' : '');
       root.removeAttribute('role');
       root.removeAttribute('aria-label');
       root.removeAttribute('tabindex');
-      const model = timelineModel();
-      const summary = t('timeline.projects.summary', lang, { n: model.items.length.toLocaleString() });
+
+      const sizeBtn = open && el('button', {
+        class: 'timeline-disclosure',
+        type: 'button',
+        title: t(view === 'full' ? 'timeline.compact' : 'timeline.full', lang),
+        'aria-label': t(view === 'full' ? 'timeline.compact' : 'timeline.full', lang),
+        onclick: () => setTimelineView(view === 'full' ? 'default' : 'full'),
+      }, [fa(view === 'full'
+        ? 'fa-solid fa-down-left-and-up-right-to-center'
+        : 'fa-solid fa-up-right-and-down-left-from-center')]);
+
+      const disclosure = el('button', {
+        class: 'timeline-disclosure',
+        type: 'button',
+        title: t(open ? 'timeline.collapse' : 'timeline.expand', lang),
+        'aria-label': t(open ? 'timeline.collapse' : 'timeline.expand', lang),
+        'aria-expanded': open ? 'true' : 'false',
+        onclick: () => setTimelineView(open ? 'collapsed' : 'default'),
+      }, [fa(open ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down')]);
+
       const head = el('header', { class: 'project-timeline-head' }, [
         el('div', { class: 'project-timeline-heading' }, [
           el('span', { class: 'kicker', text: t('timeline.projects.title', lang) }),
           el('span', { class: 'project-timeline-summary mono', text: summary }),
         ]),
-        el('div', { class: 'project-timeline-legend mono' }, [
+        // The legend explains marks you cannot see while collapsed, so it goes
+        // with them. The hover hint moved onto the plot's own title attribute —
+        // it belongs on the thing it describes, not on a line of its own.
+        open && el('div', { class: 'project-timeline-legend mono' }, [
           el('span', { class: 'project-timeline-legend-dots', 'aria-hidden': 'true' }, [
             el('span', { class: 'project-timeline-legend-dot is-small' }),
             el('span', { class: 'project-timeline-legend-dot is-large' }),
@@ -3295,7 +3613,13 @@
           el('span', { class: 'sep', text: '·' }),
           el('span', { text: t('timeline.projects.placement', lang) }),
         ]),
+        el('div', { class: 'timeline-controls' }, [sizeBtn, disclosure]),
       ]);
+
+      if (!open) {
+        root.replaceChildren(head);
+        return;
+      }
 
       if (!model.items.length) {
         root.replaceChildren(
@@ -3335,81 +3659,107 @@
         tabindex: '0',
         'aria-activedescendant': optionId,
         'aria-label': t('timeline.projects.keyboard', lang, { n: model.items.length.toLocaleString() }),
+        title: t('timeline.projects.hint', lang),
       }, [canvas, tooltip, option, live]);
-      root.replaceChildren(
-        head,
-        plot,
-        el('p', { class: 'project-timeline-hint mono', text: t('timeline.projects.hint', lang) }),
-      );
+      root.replaceChildren(head, plot);
       timelineCleanup = mountTimelineCanvas(plot, canvas, tooltip, option, live, model, lang);
     }
-    on(['filters', 'scopes', 'lang', 'theme', 'mobile'], render);
+    on(['narrow', 'lang', 'theme', 'viewport'], render);
     render();
   }
 
-  // ═══ 10. Scope-chip row ═════════════════════════════════════════════
-  function mountScopeRow(root) {
-    function chipLabel(s, lang) {
-      const kindLabel = t('scope.kind.' + s.kind, lang);
-      let val;
-      if (s.kind === 'program') val = t('prog.' + s.value, lang);
-      else if (s.kind === 'cat') val = t('cat.' + s.value, lang);
-      else if (s.kind === 'project') val = s.label || t('col.untitled', lang);
-      else if (s.kind === 'sizeBand') val = s.label || bandLabel(s.value[0], s.value[1]);
-      else val = s.label != null ? s.label : String(s.value);
-      return [kindLabel, val];
-    }
-
-    function render() {
-      const lang = state.lang;
-      if (state.scopes.length === 0) {
-        root.replaceChildren(
-          el('span', { class: 'scope-kicker kicker', text: t('scope.label', lang) }),
-          el('span', { class: 'scope-empty', text: t('scope.empty', lang) }),
-        );
-        root.classList.add('empty');
-        return;
-      }
-      root.classList.remove('empty');
-      const chips = state.scopes.map((s, idx) => {
-        const [k, v] = chipLabel(s, lang);
-        return el('button', {
-          class: 'scope-chip',
-          title: t('scope.label', lang),
-          onclick: () => removeScope(idx),
-        }, [
-          el('span', { class: 'k mono', text: k }),
-          el('span', { class: 'eq', text: '=' }),
-          el('span', { class: 'v', text: v }),
-          el('span', { class: 'x' }, [fa('fa-solid fa-xmark')]),
-        ]);
-      });
-      root.replaceChildren(
-        el('span', { class: 'scope-kicker kicker', text: t('scope.label', lang) }),
-        ...chips,
-        el('button', {
-          class: 'btn mono scope-clear',
-          text: t('scope.clearAll', lang),
-          onclick: clearScopes,
-        }),
-      );
-    }
-    on(['scopes', 'lang'], render);
-    render();
-  }
-
-  // ═══ 11. Pivot chips ════════════════════════════════════════════════
+  // ═══ 10/11. View bar ════════════════════════════════════════════════
   const PIVOTS = ['projects', 'decisions', 'producer', 'director', 'writer', 'program', 'cat'];
   const PIVOTS_WITH_UNATTRIBUTED = new Set(['producer', 'director', 'writer']);
 
-  function mountPivot(root) {
+  // One bar that answers "what am I looking at?" — the live record count, every
+  // active narrowing as a removable token, and the grouping control. It replaces
+  // three stacked bands (scope row + pivot + year pills, 136–164px) with ~44px,
+  // and it is where narrowing finally becomes visible: the count sits next to the
+  // tokens that caused it, and the bar itself tints when the view is a subset.
+  //
+  // Before, the loudest numbers on screen lived in #headline, which subscribed to
+  // ['lang'] alone and therefore never moved when you filtered; the only truthful
+  // readout was a 34px statusbar pinned to the bottom of the window.
+  function mountViewBar(root) {
+    function tokenLabel(token, lang) {
+      const kind = t('scope.kind.' + token.dim, lang);
+      let val;
+      if (token.dim === 'program') val = t('prog.' + token.value, lang);
+      else if (token.dim === 'cat') val = t('cat.' + token.value, lang);
+      else if (token.dim === 'project') val = token.label || t('col.untitled', lang);
+      else if (token.dim === 'amount') val = token.label || bandLabel(token.value[0], token.value[1]);
+      else if (token.dim === 'years') {
+        val = token.value[0] === token.value[1]
+          ? String(token.value[0])
+          : `${token.value[0]}–${token.value[1]}`;
+      } else val = token.label != null ? token.label : String(token.value);
+      return [kind, val];
+    }
+
+    // Re-render is driven by both 'narrow' and 'readout', and one user action
+    // fires both. Skip the redundant pass so a token's × doesn't get rebuilt
+    // out from under the pointer twice.
+    let lastSig = null;
+
     function render() {
       const lang = state.lang;
-      const showUnattributedToggle = PIVOTS_WITH_UNATTRIBUTED.has(state.groupBy);
+      const narrowed = state.narrow.length > 0;
+      const { shown, total, sum } = state.readout;
+      const sig = JSON.stringify([state.narrow, shown, total, sum, lang,
+        state.groupBy, state.hideUnattributed, isWide(), isMobile()]);
+      if (sig === lastSig) return;
+      lastSig = sig;
 
-      let left;
-      if (isMobile()) {
-        const select = el('select', {
+      // ── readout ──
+      const readout = el('div', { class: 'vb-readout' }, [
+        el('span', { class: 'vb-count mono', text: shown.toLocaleString() }),
+        narrowed
+          ? el('span', { class: 'vb-of mono', text: `${t('status.of', lang)} ${total.toLocaleString()} ${t('status.rows', lang)}` })
+          : el('span', { class: 'vb-of mono', text: t('status.rows', lang) }),
+        el('span', { class: 'vb-sum mono', text: '· ' + formatAmount(sum, 'EUR', lang) }),
+      ]);
+
+      // ── tokens ──
+      const tokens = el('div', { class: 'vb-tokens' });
+      if (!narrowed) {
+        tokens.appendChild(el('span', { class: 'scope-empty', text: t('scope.empty', lang) }));
+      } else {
+        state.narrow.forEach((token, idx) => {
+          const [k, v] = tokenLabel(token, lang);
+          tokens.appendChild(el('button', {
+            class: 'scope-chip',
+            title: t('scope.clearAll', lang),
+            onclick: () => removeNarrow(idx),
+          }, [
+            el('span', { class: 'k mono', text: k }),
+            el('span', { class: 'eq', text: '=' }),
+            el('span', { class: 'v', text: v }),
+            el('span', { class: 'x' }, [fa('fa-solid fa-xmark')]),
+          ]));
+        });
+        tokens.appendChild(el('button', {
+          class: 'btn mono scope-clear',
+          text: t('scope.clearAll', lang),
+          onclick: clearNarrow,
+        }));
+      }
+
+      // ── grouping ──
+      // Seven buttons plus the readout only fit on genuinely wide screens; below
+      // that fall back to the select the mobile layout already uses rather than
+      // letting the bar wrap into a second row.
+      const group = el('div', { class: 'vb-group' }, [
+        el(isWide() ? 'span' : 'label', { class: 'kicker', text: t('pivot.label', lang) }),
+      ]);
+      if (isWide()) {
+        PIVOTS.forEach(p => group.appendChild(el('button', {
+          class: 'btn mono' + (state.groupBy === p ? ' active' : ''),
+          text: t('pivot.' + p, lang),
+          onclick: () => setGroupBy(p),
+        })));
+      } else {
+        group.appendChild(el('select', {
           class: 'pivot-select mono',
           'aria-label': t('pivot.label', lang),
           onchange: (e) => setGroupBy(e.target.value),
@@ -3417,39 +3767,24 @@
           const opt = el('option', { value: p, text: t('pivot.' + p, lang) });
           if (state.groupBy === p) opt.selected = true;
           return opt;
-        }));
-        left = el('div', { class: 'pivot-left' }, [
-          el('label', { class: 'kicker', text: t('pivot.label', lang) }),
-          select,
-        ]);
-      } else {
-        left = el('div', { class: 'pivot-left' }, [
-          el('span', { class: 'kicker', text: t('pivot.label', lang) }),
-          ...PIVOTS.map(p => el('button', {
-            class: 'btn mono' + (state.groupBy === p ? ' active' : ''),
-            text: t('pivot.' + p, lang),
-            onclick: () => setGroupBy(p),
-          })),
-        ]);
+        })));
       }
 
-      const right = el('div', { class: 'pivot-right' });
-      if (showUnattributedToggle) {
-        right.appendChild(el('button', {
+      if (PIVOTS_WITH_UNATTRIBUTED.has(state.groupBy)) {
+        group.appendChild(el('button', {
           class: 'btn mono unattributed-toggle' + (state.hideUnattributed ? ' active' : ''),
           text: t('pivot.hideUnattributed', lang),
           onclick: () => setHideUnattributed(!state.hideUnattributed),
         }));
         if (state.hideUnattributed) {
           const field = state.groupBy; // 'producer' | 'director' | 'writer'
-          const baseIds = applyFilters();
           let hiddenCount = 0;
-          for (const i of baseIds) {
+          for (const i of applyFilters()) {
             const v = DATA.rows[i][field];
             if (v == null || String(v).trim() === '') hiddenCount++;
           }
           if (hiddenCount > 0) {
-            right.appendChild(el('span', {
+            group.appendChild(el('span', {
               class: 'kicker unattributed-caption',
               text: hiddenCount.toLocaleString() + ' ' + t('pivot.hiddenSuffix', lang),
             }));
@@ -3457,9 +3792,10 @@
         }
       }
 
-      root.replaceChildren(left, right);
+      root.classList.toggle('is-narrowed', narrowed);
+      root.replaceChildren(readout, tokens, group);
     }
-    on(['groupBy', 'lang', 'hideUnattributed', 'filters', 'scopes', 'mobile'], render);
+    on(['narrow', 'readout', 'lang', 'groupBy', 'hideUnattributed', 'viewport'], render);
     render();
   }
 
@@ -3538,7 +3874,6 @@
     scrollEl.appendChild(spacer);
 
     const headerEl = el('div', { class: 'list-header-wrap' });
-    let statusbar;
 
     function headerCell(label, key, extraClass) {
       const isActive = state.sort.key === key;
@@ -3641,7 +3976,7 @@
 
     function paint() {
       const lang = state.lang;
-      const normalize = state.filters.normalize;
+      const normalize = state.normalize;
 
       if (filteredIds.length === 0) {
         spacer.replaceChildren(el('div', { class: 'list-empty', text: t('status.empty', lang) }));
@@ -3791,8 +4126,11 @@
 
       const clickHandler = () => {
         if (g.isUnattributed || value == null) return;
-        addScope({
-          kind: dim, value,
+        // Drilling into a group row produces exactly the token a rail chip
+        // produces for the same value, so the rail lights up and the two can
+        // never disagree — they are the same state now.
+        addNarrow({
+          dim, value,
           label: dim === 'program' ? t('prog.' + value, lang)
                : dim === 'cat'     ? t('cat.' + value, lang)
                                    : String(value),
@@ -3903,7 +4241,7 @@
             class: 'btn mono',
             onclick: (e) => {
               e.stopPropagation();
-              addScope({ kind: 'project', value: project.normTitle, label: project.title });
+              addNarrow({ dim: 'project', value: project.normTitle, label: project.title });
               setExpandedKey(null);
             },
           }, [
@@ -3984,7 +4322,7 @@
             onclick: (e) => {
               e.stopPropagation();
               if (!r.program) return;
-              addScope({ kind: 'program', value: r.program, label: t('prog.' + r.program, lang) });
+              addNarrow({ dim: 'program', value: r.program, label: t('prog.' + r.program, lang) });
             },
             title: t('profile.scope_short', lang),
           }),
@@ -3994,7 +4332,7 @@
             onclick: (e) => {
               e.stopPropagation();
               if (!r.cat_type || r.cat_type === 'other') return;
-              addScope({ kind: 'cat', value: r.cat_type, label: t('cat.' + r.cat_type, lang) });
+              addNarrow({ dim: 'cat', value: r.cat_type, label: t('cat.' + r.cat_type, lang) });
             },
             title: t('profile.scope_short', lang),
           }),
@@ -4114,21 +4452,13 @@
       return wrap;
     }
 
+    // The list owns the filtered set, so it owns the count. It publishes it and
+    // the view bar renders it, which is why there is no longer a statusbar
+    // stranded below the fold to hold this number.
     function updateStatus() {
-      if (!statusbar) return;
-      const lang = state.lang;
-      const total = DATA.rows.length;
-      const shown = filteredIds.length;
-      const sum = filteredIds.reduce((s, i) => s + (DATA.rows[i].amount_eur || 0), 0);
-      statusbar.replaceChildren(
-        el('span', {}, [
-          t('status.showing', lang) + ' ',
-          el('b', { text: shown.toLocaleString() }),
-          ' ' + t('status.of', lang) + ' ' + total.toLocaleString() + ' ' + t('status.rows', lang) + ' · ',
-          formatAmount(sum, 'EUR', lang) + ' ' + t('status.total', lang),
-        ]),
-        el('span', { text: t('status.coverage', lang, { maxYear: DATA.facets.years[DATA.facets.years.length - 1] }) }),
-      );
+      let sum = 0;
+      for (const i of filteredIds) sum += (DATA.rows[i].amount_eur || 0);
+      setReadout({ shown: filteredIds.length, total: DATA.rows.length, sum });
     }
 
     let rafQueued = false;
@@ -4141,15 +4471,12 @@
     window.addEventListener('scroll', requestPaint, { passive: true });
     window.addEventListener('resize', paint);
 
-    on(['filters', 'scopes', 'groupBy', 'sort', 'expanded', 'hideUnattributed', 'lang'], () => {
+    on(['narrow', 'normalize', 'groupBy', 'sort', 'expanded', 'hideUnattributed', 'lang'], () => {
       recomputeData();
     });
-    on(['mobile'], paint);
+    on(['viewport'], paint);
 
     root.replaceChildren(headerEl, scrollEl);
-
-    statusbar = el('div', { class: 'statusbar' });
-    root.parentElement.appendChild(statusbar);
 
     recomputeData();
   }
@@ -4437,7 +4764,9 @@
       subscribe: on,
       setShowAnalytics,
       setSelectedYear,
-      addScope,
+      addNarrow,
+      narrowOne,
+      narrowSet,
       applyFilters,
       t,
       el,
@@ -4479,8 +4808,8 @@
             ...list.map(u => el('button', {
               class: 'unfunded-row clickable',
               onclick: () => {
-                addScope({
-                  kind: 'project',
+                addNarrow({
+                  dim: 'project',
                   value: u.family_id || normTitle(u.title),
                   label: u.title,
                 });
@@ -4628,20 +4957,23 @@
           state.expandedRoundIds = new Set();
           state.expandedMentions = false;
           fire('expanded');
-        } else if (state.scopes.length > 0) {
-          popDeepestScope();
+        } else if (state.narrow.length > 0) {
+          popNarrow();
         }
       }
     });
   }
 
+  // Widening past the drawer breakpoint puts the rail back in the layout, so an
+  // open drawer must not linger on top of it.
   function installMobileFilterViewportGuard() {
-    const mq = window.matchMedia('(max-width: 900px)');
     const sync = () => {
-      if (!mq.matches) setMobileFiltersOpen(false);
+      if (!isRailDrawer()) setMobileFiltersOpen(false);
     };
-    if (typeof mq.addEventListener === 'function') mq.addEventListener('change', sync);
-    else if (typeof mq.addListener === 'function') mq.addListener(sync);
+    if (RAIL_DRAWER_MQL) {
+      if (typeof RAIL_DRAWER_MQL.addEventListener === 'function') RAIL_DRAWER_MQL.addEventListener('change', sync);
+      else if (typeof RAIL_DRAWER_MQL.addListener === 'function') RAIL_DRAWER_MQL.addListener(sync);
+    }
     sync();
   }
 
@@ -5415,48 +5747,13 @@
     proc.classList.toggle('is-hidden', state.view !== 'process');
   }
 
-  // ═══ Year pills (single-select year filter row) ═════════════════════
-  function mountYearPills(root) {
-    function render() {
-      const lang = state.lang;
-      const f = state.filters;
-      const allYears = DATA && DATA.facets && Array.isArray(DATA.facets.years) ? DATA.facets.years : [];
-      if (allYears.length === 0) {
-        root.replaceChildren();
-        return;
-      }
-      const [lo, hi] = f.yearRange || [allYears[0], allYears[allYears.length - 1]];
-      const yearsInRange = allYears.filter(y => y >= lo && y <= hi);
-
-      const allBtn = el('button', {
-        class: 'btn mono year-pill year-pill-all' + (f.selectedYear == null ? ' active' : ''),
-        type: 'button',
-        text: t('years.all', lang),
-        onclick: () => setSelectedYear(null),
-      });
-
-      const yearBtns = yearsInRange.map(y => el('button', {
-        class: 'btn mono year-pill' + (f.selectedYear === y ? ' active' : ''),
-        type: 'button',
-        text: String(y),
-        onclick: () => setSelectedYear(f.selectedYear === y ? null : y),
-      }));
-
-      root.replaceChildren(
-        el('span', { class: 'kicker year-pills-kicker', text: t('years.label', lang) }),
-        el('div', { class: 'year-pills-list' }, [allBtn, ...yearBtns]),
-      );
-    }
-    on(['filters', 'lang'], render);
-    render();
-  }
-
   // ═══ 18. Boot ═══════════════════════════════════════════════════════
   async function boot() {
     syncDocumentI18n(state.lang);
     document.body.classList.add('theme-' + state.theme);
     document.body.classList.remove('mobile-filters-open');
     document.body.classList.toggle('is-mobile', isMobile());
+    document.body.classList.toggle('is-rail-drawer', isRailDrawer());
     state.view = 'dashboard';
     document.body.classList.add('view-' + state.view);
 
@@ -5480,9 +5777,8 @@
     document.body.classList.remove('view-dashboard', 'view-about', 'view-process');
     document.body.classList.add('view-' + state.view);
 
-    if (!state.filters.yearRange) {
-      state.filters.yearRange = [DATA.facets.years[0], DATA.facets.years[DATA.facets.years.length - 1]];
-    }
+    // No year seeding: the full span IS the unnarrowed state, so it needs no
+    // token. The slider reads its own bounds from DATA.facets.years.
 
     app.className = 'app';
     app.replaceChildren(
@@ -5495,12 +5791,13 @@
             id: 'filter-drawer-backdrop',
             onclick: () => setMobileFiltersOpen(false),
           }),
+          // Three bands, not six. #scope-row, #pivot and #year-pills merged into
+          // #viewbar, and .statusbar is gone — its count moved up into the bar,
+          // beside the tokens that produce it.
           el('main', { class: 'main' }, [
             el('section', { class: 'headline', id: 'headline' }),
             el('section', { class: 'insights', id: 'insights' }),
-            el('section', { class: 'scope-row', id: 'scope-row' }),
-            el('nav', { class: 'pivot', id: 'pivot' }),
-            el('section', { class: 'year-pills', id: 'year-pills' }),
+            el('section', { class: 'viewbar', id: 'viewbar' }),
             el('section', { class: 'list-wrap', id: 'listwrap' }),
           ]),
         ]),
@@ -5514,10 +5811,10 @@
     installMobileFilterViewportGuard();
     mountHeadline(document.getElementById('headline'));
     mountInsights(document.getElementById('insights'));
-    mountScopeRow(document.getElementById('scope-row'));
-    mountPivot(document.getElementById('pivot'));
-    mountYearPills(document.getElementById('year-pills'));
+    // Mount the list before the view bar so the bar's first render already has a
+    // readout to show instead of 0.
     mountList(document.getElementById('listwrap'));
+    mountViewBar(document.getElementById('viewbar'));
     mountAbout(document.getElementById('view-about'));
     mountProcess(document.getElementById('view-process'));
     mountAnalyticsModal();
