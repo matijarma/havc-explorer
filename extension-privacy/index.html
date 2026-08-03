@@ -90,9 +90,9 @@
     </header>
 
     <div class="tldr">
-      🔒 <strong>Ukratko:</strong> HAVC Companion ne prikuplja, ne pohranjuje na poslužitelj i ne dijeli nikakve vaše podatke. Sve radi lokalno u vašem pregledniku. Nema analitike, oglasa, računa ni pratitelja.
+      🔒 <strong>Ukratko:</strong> HAVC Companion ne prikuplja, ne pohranjuje na poslužitelj i ne dijeli nikakve vaše podatke. Sve radi lokalno u vašem pregledniku. Nema analitike, oglasa, računa ni pratitelja. Web-aplikacija <code>havc.matijar.info</code> mjeri korištenje isključivo zbirno i bez kolačića — ništa se ne zapisuje na vaš uređaj (odjeljak 9).
       <br><br>
-      🔒 <strong>In short:</strong> HAVC Companion collects, stores and shares no personal data. Everything runs locally in your browser. No analytics, ads, accounts or trackers.
+      🔒 <strong>In short:</strong> HAVC Companion collects, stores and shares no personal data. Everything runs locally in your browser. No analytics, ads, accounts or trackers. The <code>havc.matijar.info</code> web app measures usage only in aggregate and without cookies — nothing is written to your device (section 9).
     </div>
 
     <!-- ─────────────── HR ─────────────── -->
@@ -132,6 +132,19 @@
 
       <h2>8. Kontakt</h2>
       <p>Pitanja: <a href="mailto:info@umjetnostzasve.hr">info@umjetnostzasve.hr</a>.</p>
+
+      <h2>9. Web-aplikacija havc.matijar.info — mjerenje korištenja</h2>
+      <p class="muted">Ovaj odjeljak opisuje web-aplikaciju <strong>Sredstva</strong> (<code>havc.matijar.info</code>), ne proširenje. Proširenje i dalje ne prikuplja ništa. Na snazi od 3. kolovoza 2026.</p>
+      <p>Web-aplikacija mjeri vlastito korištenje <strong>zbirno, prvom stranom i bez kolačića</strong> — kako bismo znali što se koristi i koliko brzo se registar učitava. Konkretno:</p>
+      <ul>
+        <li><strong>Ništa se ne zapisuje na vaš uređaj.</strong> Nema kolačića i nema pohrane za mjerenje; identifikator sesije postoji samo u memoriji otvorene kartice i nestaje njezinim zatvaranjem. Zato ova stranica ne treba traku za privolu o kolačićima.</li>
+        <li><strong>IP adresa se ne pohranjuje.</strong> Koristi se samo prolazno, na rubnome poslužitelju, za ograničavanje broja zahtjeva.</li>
+        <li><strong>Puni User-Agent se ne pohranjuje</strong> — svodi se na grubu klasu uređaja (mobitel / tablet / računalo). Od preporučitelja (referrer) čuva se samo naziv domaćina, nikad puna adresa.</li>
+        <li><strong>Nema identifikatora koji povezuje posjete</strong> kroz dane, uređaje ili druge web-lokacije. Pojmovi pretraživanja i vrijednosti filtara se ne bilježe — samo koji je filtar korišten.</li>
+        <li><strong>Do Not Track i Global Privacy Control se poštuju:</strong> s uključenom bilo kojom od tih postavaka mjerenje se uopće ne izvršava.</li>
+        <li><strong>Podaci ostaju kod autora</strong> — u vlastitom Cloudflare računu, koriste se isključivo za poboljšanje ove aplikacije i nikada se ne dijele niti prodaju.</li>
+      </ul>
+      <p>Aplikacija dodatno koristi <a href="https://www.cloudflare.com/web-analytics/">Cloudflare Web Analytics</a> — mjerenje performansi bez kolačića koje ništa ne pohranjuje u preglednik i ne prati korisnike preko web-lokacija. To je jedina komponenta treće strane.</p>
     </section>
 
     <!-- ─────────────── EN ─────────────── -->
@@ -171,6 +184,19 @@
 
       <h2>8. Contact</h2>
       <p>Questions: <a href="mailto:info@umjetnostzasve.hr">info@umjetnostzasve.hr</a>.</p>
+
+      <h2>9. The havc.matijar.info web app — usage measurement</h2>
+      <p class="muted">This section describes the <strong>Sredstva</strong> web app (<code>havc.matijar.info</code>), not the extension. The extension still collects nothing. Effective 3 August 2026.</p>
+      <p>The web app measures its own usage <strong>in aggregate, first-party, and without cookies</strong> — so we know what gets used and how fast the registry loads. Specifically:</p>
+      <ul>
+        <li><strong>Nothing is written to your device.</strong> No cookies and no storage of any kind for measurement; the session identifier lives only in the open tab's memory and vanishes when the tab closes. That is why this site needs no cookie-consent banner.</li>
+        <li><strong>Your IP address is never stored.</strong> It is used only transiently, at the edge server, to rate-limit requests.</li>
+        <li><strong>The full User-Agent is never stored</strong> — it is reduced to a coarse device class (mobile / tablet / desktop). Of the referrer, only the host name is kept, never the full address.</li>
+        <li><strong>No identifier links your visits</strong> across days, devices or other websites. Search terms and filter values are not recorded — only which filter was used.</li>
+        <li><strong>Do Not Track and Global Privacy Control are honoured:</strong> with either setting enabled, the measurement code does not run at all.</li>
+        <li><strong>The data stays with the author</strong> — in his own Cloudflare account, used solely to improve this app, and never shared or sold.</li>
+      </ul>
+      <p>The app additionally uses <a href="https://www.cloudflare.com/web-analytics/">Cloudflare Web Analytics</a> — cookieless performance measurement that stores nothing in your browser and does not track users across websites. It is the only third-party component.</p>
     </section>
 
     <footer>

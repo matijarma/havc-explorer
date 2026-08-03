@@ -1710,6 +1710,9 @@
       state.expandedKey = null;
     }
     state.narrow = next;
+    // Field name only, never the value: which filters earn their place is
+    // worth knowing; what people search for is none of our business.
+    window.havcUsage?.('filter', token.dim);
     schedulePersist();
     fire(['narrow', 'groupBy']);
   }
@@ -1732,6 +1735,7 @@
     const without = state.narrow.filter(t => t.dim !== dim);
     const cleared = value == null || value === '';
     if (!cleared && hasNarrowToken(dim, value)) return;
+    if (!cleared) window.havcUsage?.('filter', dim);
     commitNarrow(cleared ? without : [...without, label == null ? { dim, value } : { dim, value, label }]);
   }
   function clearNarrow() {
@@ -1854,8 +1858,10 @@
     fire('showUnfunded');
   }
   function setShowAnalytics(v) {
+    const opening = !!v && !state.showAnalytics;
     state.showAnalytics = !!v;
     if (!state.showAnalytics) state.expandedAnalyticsKpi = null;
+    if (opening) window.havcUsage?.('studio_open');
     fire('showAnalytics');
   }
   function setExpandedAnalyticsKpi(key) {
@@ -1864,6 +1870,7 @@
   }
   function setPdfPreview(v) {
     state.pdfPreview = v || null;
+    if (state.pdfPreview) window.havcUsage?.('pdf_open');
     fire('pdfPreview');
   }
   function setShowHelperTip(v) {
@@ -1951,6 +1958,7 @@
     state.view = next;
     document.body.classList.remove('view-dashboard', 'view-about', 'view-process');
     document.body.classList.add('view-' + next);
+    window.havcUsage?.('view', next);
     fire('view');
   }
   function navigateView(view) {
@@ -2114,6 +2122,7 @@
         helper.remove();
         if (!copied) throw new Error('copy command failed');
       }
+      window.havcUsage?.('share_created');
       return true;
     } catch (_) {
       return false;
@@ -5763,6 +5772,7 @@
       el('div', { class: 'label', text: t('boot.loading_registry', state.lang) }),
     ]));
 
+    const loadStarted = performance.now();
     try {
       await loadData();
     } catch (err) {
@@ -5772,6 +5782,8 @@
       console.error(err);
       return;
     }
+    window.havcUsage?.('data_loaded', '', performance.now() - loadStarted);
+    window.havcUsage?.('session_start', state.lang + '|' + state.theme);
 
     readSharedState();
     document.body.classList.remove('view-dashboard', 'view-about', 'view-process');
