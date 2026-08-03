@@ -1,0 +1,23 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "havc-explorer",
+	"main": "worker/index.js",
+	// Matches the date the live Worker already reports, so this file taking over
+	// from the dashboard config changes no runtime behaviour.
+	"compatibility_date": "2026-07-31",
+	"compatibility_flags": ["nodejs_compat"],
+
+	// Workers Builds applies THIS file on every push to master and replaces
+	// dashboard-held settings. Every value below was read back off the live
+	// Worker before this file existed — do not drop one assuming it is a default.
+	"observability": { "enabled": true },
+
+	"assets": {
+		// The repo root. `.assetsignore` controls what is actually public.
+		"directory": ".",
+		"binding": "ASSETS"
+		// No `run_worker_first`: assets are matched first and served free, and
+		// non-asset paths fall through to the Worker on their own. Setting it to
+		// true would bill every page load against the account-wide request budget.
+	}
+}
