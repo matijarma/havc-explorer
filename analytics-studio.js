@@ -1480,6 +1480,7 @@
         onclick: () => {
           ui.chapter = chapter;
           ui.selection = null;
+          window.havcUsage?.('studio_chapter', chapter);
           render(`chapter-${chapter}`);
         },
       }, [
