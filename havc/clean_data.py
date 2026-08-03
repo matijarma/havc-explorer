@@ -127,6 +127,14 @@ def write_json(path: Path, value: Any) -> None:
     path.write_text(text, encoding="utf-8")
 
 
+def write_json_min(path: Path, value: Any) -> None:
+    # data.json is a Cloudflare Workers static asset with a hard 25 MiB
+    # per-file limit; pretty-printing it once cost 6.7 MiB of that budget.
+    # Audit ledgers stay pretty (write_json) - humans read those.
+    text = json.dumps(value, ensure_ascii=False, separators=(",", ":")) + "\n"
+    path.write_text(text, encoding="utf-8")
+
+
 def canonical_json(value: Any) -> str:
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
 
@@ -2357,11 +2365,22 @@ def main() -> int:
         return 1
 
     if args.apply:
-        write_json(args.data, records)
+        write_json_min(args.data, records)
         write_json(args.cache, cache)
         write_json(args.audit, final_audit)
         print(f"wrote {args.data}")
         print(f"wrote {args.audit}")
+        # Keep the app's slim boot payload in lockstep with the full registry.
+        try:
+            from build_app_payload import APP_PATH, build_app_payload
+            slim = build_app_payload(records)
+            APP_PATH.write_text(
+                json.dumps(slim, ensure_ascii=False, separators=(",", ":")) + "\n",
+                encoding="utf-8",
+            )
+            print(f"wrote {APP_PATH}")
+        except ImportError:
+            print("warning: build_app_payload.py not found; data.app.json is now stale", file=sys.stderr)
     else:
         print("dry run; use --apply to write")
     return 0
