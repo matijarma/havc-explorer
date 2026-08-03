@@ -18,6 +18,10 @@
 
 <div id="app"></div>
 
+<!-- usage.js is visitor measurement (cookieless, stores nothing on the device);
+     analytics-*.js are the funding-statistics feature. It loads first so
+     window.havcUsage exists before main.js evaluates. -->
+<script src="usage.js" defer></script>
 <script src="analytics-core.js" defer></script>
 <script src="analytics-studio.js" defer></script>
 <script src="main.js" defer></script>
