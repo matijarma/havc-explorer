@@ -19,6 +19,7 @@
 # Config files parsed line-by-line. A CRLF checkout would leave a trailing \r on
 # every .assetsignore pattern, which would silently stop the exclusions matching.
 *.jsonc        -text
+*.sql          -text
 .assetsignore  -text
 .gitattributes -text
 .gitignore     -text
