@@ -88,9 +88,12 @@ Pure static files — serve the `web/` folder with any static server and open `i
 python -m http.server 8080   # then open http://localhost:8080
 ```
 
-The curated dataset is regenerated with `python havc/clean_data.py --apply`. Run
-`python -m pytest -q` before publishing. The extension's compact index is regenerated with
-`node ../chromeext/scripts/build-index.mjs` (reads `web/havc/data.json`).
+The curated dataset is regenerated with `python havc/clean_data.py --apply`, which also
+rebuilds `havc/data.app.json` — the slim boot payload the app actually fetches (full
+`data.json` stays published as the source of truth; regenerate the slim file alone with
+`python havc/build_app_payload.py`). Run `python -m pytest -q` before publishing. The
+extension's compact index is regenerated with `node ../chromeext/scripts/build-index.mjs`
+(reads `web/havc/data.json`).
 
 ## Notes
 

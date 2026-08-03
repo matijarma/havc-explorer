@@ -1271,9 +1271,20 @@
     }
     return null;
   }
+  // The app boots from havc/data.app.json — the same registry projected onto
+  // just the fields this file reads (built by havc/build_app_payload.py, ~5 MB
+  // instead of ~18 MB). The full data.json stays published as the source of
+  // truth and public download, and remains a working fallback here.
+  async function fetchRegistry() {
+    try {
+      const res = await fetch('havc/data.app.json');
+      if (res.ok) return res;
+    } catch (_) { /* fall through to the full registry */ }
+    return fetch('havc/data.json');
+  }
   async function loadData() {
     const [res, sanityReport] = await Promise.all([
-      fetch('havc/data.json'),
+      fetchRegistry(),
       loadOptionalSanityReport(),
     ]);
     const raw = sanitizeDeep(await res.json());
