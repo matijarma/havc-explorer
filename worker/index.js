@@ -20,6 +20,9 @@
  *  - data lives in this account's D1 and is used solely to improve the app.
  */
 
+import { aggregate } from './aggregate.js';
+import { renderStats } from './render.js';
+
 // Only these event names are accepted from the wire. Anything else is dropped.
 const EVENT_NAMES = new Set([
 	'session_start',
@@ -181,84 +184,6 @@ async function stats(request, env, url) {
 	});
 }
 
-// Buckets keep usage_daily a pure counting table: durations become labelled
-// ranges rather than stored averages, which is honest about the precision an
-// aggregate-only archive can offer.
-function loadBucket(ms) {
-	if (ms < 3000) return '<3s';
-	if (ms < 8000) return '3-8s';
-	if (ms < 20000) return '8-20s';
-	return '>20s';
-}
-function durBucket(ms) {
-	const m = ms / 60000;
-	if (m < 1) return '<1m';
-	if (m < 5) return '1-5m';
-	if (m < 15) return '5-15m';
-	return '>15m';
-}
-
-// Fold raw rows for every day before `today` into usage_daily counters.
-// Returns the aggregate map so renderStats can reuse the same shape for the
-// un-compacted tail.
-function aggregate(rows) {
-	const counts = new Map(); // 'day|event|dim|val' -> n
-	const bump = (day, event, dim, val, n = 1) => {
-		const key = `${day}|${event}|${dim}|${val}`;
-		counts.set(key, (counts.get(key) || 0) + n);
-	};
-
-	const seenSessions = new Map(); // 'day|session' -> {country, device, ref, lang, theme, dur}
-	for (const row of rows) {
-		let sess = seenSessions.get(`${row.day}|${row.session}`);
-		if (!sess) {
-			sess = { country: row.country || '', device: row.device || '', ref: row.ref_host || '', lang: '', theme: '', dur: null };
-			seenSessions.set(`${row.day}|${row.session}`, sess);
-		}
-		let events;
-		try {
-			events = JSON.parse(row.payload);
-		} catch (_) {
-			continue;
-		}
-		if (!Array.isArray(events)) continue;
-		for (const ev of events) {
-			if (!ev || typeof ev.n !== 'string') continue;
-			// session_end can legitimately fire more than once per session (hide,
-			// return, hide again). Count it once per session, at the fullest
-			// observed duration, instead of once per firing.
-			if (ev.n === 'session_end') {
-				if (Number.isFinite(ev.v)) sess.dur = Math.max(sess.dur ?? 0, ev.v);
-				continue;
-			}
-			bump(row.day, ev.n, '', '');
-			if ((ev.n === 'view' || ev.n === 'studio_chapter' || ev.n === 'filter') && ev.d) {
-				bump(row.day, ev.n, 'd', String(ev.d).slice(0, 80));
-			}
-			if (ev.n === 'data_loaded' && Number.isFinite(ev.v)) bump(row.day, ev.n, 'ms', loadBucket(ev.v));
-			if (ev.n === 'session_start' && typeof ev.d === 'string') {
-				const [lang, theme] = ev.d.split('|');
-				if (lang) sess.lang = lang.slice(0, 8);
-				if (theme) sess.theme = theme.slice(0, 8);
-			}
-		}
-	}
-
-	for (const [key, sess] of seenSessions) {
-		const day = key.slice(0, 10);
-		bump(day, 'session', '', '');
-		bump(day, 'session', 'country', sess.country || '??');
-		bump(day, 'session', 'device', sess.device || 'unknown');
-		bump(day, 'session', 'ref', sess.ref || 'direct');
-		if (sess.lang) bump(day, 'session', 'lang', sess.lang);
-		if (sess.theme) bump(day, 'session', 'theme', sess.theme);
-		if (sess.dur !== null) {
-			bump(day, 'session_end', '', '');
-			bump(day, 'session_end', 'dur', durBucket(sess.dur));
-		}
-	}
-	return counts;
-}
 
 async function compact(env, today) {
 	const { results } = await env.DB.prepare('SELECT * FROM usage_events WHERE day < ?').bind(today).all();
@@ -291,104 +216,3 @@ async function compact(env, today) {
 	await env.DB.batch(stmts);
 }
 
-/* ─── stats rendering ─────────────────────────────────────────────────── */
-
-const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-
-async function renderStats(env, today, { compactedNow, lastCompaction }) {
-	// Archive (compacted) + today's un-compacted tail, merged into one view.
-	const [{ results: daily }, { results: tailRows }] = await Promise.all([
-		env.DB.prepare('SELECT day, event, dim, val, count FROM usage_daily').all(),
-		env.DB.prepare('SELECT * FROM usage_events WHERE day >= ?').bind(today).all(),
-	]);
-
-	const merged = new Map();
-	for (const r of daily) merged.set(`${r.day}|${r.event}|${r.dim}|${r.val}`, r.count);
-	for (const [key, n] of aggregate(tailRows)) merged.set(key, (merged.get(key) || 0) + n);
-
-	// Reshape for the tables.
-	const byDay = new Map(); // day -> sessions
-	const dimTotals = new Map(); // 'event|dim' -> Map(val -> n)
-	const eventTotals = new Map(); // event -> n
-	let archiveThrough = '';
-	for (const [key, n] of merged) {
-		const [day, event, dim, val] = key.split('|');
-		if (day > archiveThrough) archiveThrough = day;
-		if (event === 'session' && dim === '') byDay.set(day, (byDay.get(day) || 0) + n);
-		if (dim === '') eventTotals.set(event, (eventTotals.get(event) || 0) + n);
-		if (dim !== '') {
-			const k = `${event}|${dim}`;
-			if (!dimTotals.has(k)) dimTotals.set(k, new Map());
-			const m = dimTotals.get(k);
-			m.set(val, (m.get(val) || 0) + n);
-		}
-	}
-
-	const dayRows = [...byDay.entries()].sort((a, b) => (a[0] < b[0] ? 1 : -1)).slice(0, 60);
-
-	const table = (title, entries, valHead = '', nHead = 'count') => {
-		if (!entries.length) return '';
-		const rows = entries.map(([val, n]) => `<tr><td>${esc(val)}</td><td class="n">${n}</td></tr>`).join('');
-		return `<section><h2>${esc(title)}</h2><table><thead><tr><th>${esc(valHead)}</th><th class="n">${esc(nHead)}</th></tr></thead><tbody>${rows}</tbody></table></section>`;
-	};
-	const dimTable = (title, event, dim, valHead, limit = 25) => {
-		const m = dimTotals.get(`${event}|${dim}`);
-		if (!m) return '';
-		return table(title, [...m.entries()].sort((a, b) => b[1] - a[1]).slice(0, limit), valHead, 'count');
-	};
-
-	const totalSessions = [...byDay.values()].reduce((a, b) => a + b, 0);
-	const compactionNote = compactedNow
-		? 'compaction ran on this visit'
-		: lastCompaction
-			? `last compaction ${new Date(lastCompaction).toISOString().slice(0, 10)}`
-			: 'no compaction yet';
-
-	return `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
-<title>Sredstva · usage</title>
-<style>
-  :root { --ink:#2e2522; --paper:#f4ede2; --muted:#8a7e72; --rule:#d6cebe; --red:#c14843; }
-  * { box-sizing: border-box; }
-  body { margin: 0 auto; max-width: 60rem; padding: 2rem 1.25rem 4rem;
-         background: var(--paper); color: var(--ink);
-         font: 14px/1.5 ui-monospace, 'JetBrains Mono', Consolas, monospace; }
-  h1 { font-size: 1.1rem; letter-spacing: .04em; }
-  h1 .dot { color: var(--red); }
-  h2 { font-size: .8rem; text-transform: uppercase; letter-spacing: .12em;
-       color: var(--muted); margin: 2.2rem 0 .4rem; }
-  p.meta { color: var(--muted); font-size: .8rem; }
-  table { border-collapse: collapse; width: 100%; max-width: 32rem; }
-  th, td { text-align: left; padding: .25rem .6rem .25rem 0; border-bottom: 1px solid var(--rule); }
-  th { font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 500; }
-  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 0 2.5rem; }
-</style>
-</head>
-<body>
-<h1>Sredstva<span class="dot">·</span>usage</h1>
-<p class="meta">${totalSessions} sessions on record · archive current through ${esc(archiveThrough || '—')} · ${esc(compactionNote)}.
-Aggregate first-party measurement: no cookies, no stored IPs, no stored user agents, sessions forget themselves when the tab closes.</p>
-
-${table('Sessions by day (last 60)', dayRows, 'day', 'sessions')}
-
-<div class="grid">
-${dimTable('Countries', 'session', 'country', 'country')}
-${dimTable('Devices', 'session', 'device', 'device')}
-${dimTable('Referrer hosts', 'session', 'ref', 'host')}
-${dimTable('Language', 'session', 'lang', 'lang')}
-${dimTable('Theme', 'session', 'theme', 'theme')}
-${dimTable('Views', 'view', 'd', 'view')}
-${dimTable('Studio chapters', 'studio_chapter', 'd', 'chapter')}
-${dimTable('Filter fields', 'filter', 'd', 'field')}
-${dimTable('Registry load time', 'data_loaded', 'ms', 'bucket')}
-${dimTable('Session length', 'session_end', 'dur', 'bucket')}
-${table('Event totals (all time)', [...eventTotals.entries()].filter(([e]) => e !== 'session').sort((a, b) => b[1] - a[1]), 'event', 'count')}
-</div>
-</body>
-</html>`;
-}
