@@ -155,10 +155,15 @@ const card = (title, body, note = '') =>
 /* ─── the page ────────────────────────────────────────────────────────── */
 
 export async function renderStats(env, today, { compactedNow, lastCompaction }) {
-	// Archive (compacted) + today's un-compacted tail, merged into one view.
+	// Archive (compacted) + ALL raw rows, merged into one view. The raw query
+	// deliberately has no day filter: compaction runs at most weekly, so rows
+	// older than today can sit un-compacted for days — a `day >= today` tail
+	// left them invisible in both sources (the empty-stats bug of 2026-08-04).
+	// Double counting is impossible: compaction deletes exactly the rows it
+	// folds, in the same transaction, and this table stays ≤ a week of flushes.
 	const [{ results: daily }, { results: tailRows }] = await Promise.all([
 		env.DB.prepare('SELECT day, event, dim, val, count FROM usage_daily').all(),
-		env.DB.prepare('SELECT * FROM usage_events WHERE day >= ?').bind(today).all(),
+		env.DB.prepare('SELECT * FROM usage_events').all(),
 	]);
 
 	const merged = new Map();
