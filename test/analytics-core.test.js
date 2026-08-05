@@ -1,8 +1,8 @@
-'use strict';
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import '../analytics-core.js';
 
-const test = require('node:test');
-const assert = require('node:assert/strict');
-const Analytics = require('../analytics-core.js');
+const Analytics = globalThis.SredstvaAnalytics;
 
 function row(overrides) {
   return {
