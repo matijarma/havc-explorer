@@ -134,13 +134,14 @@
       <p>Pitanja: <a href="mailto:info@umjetnostzasve.hr">info@umjetnostzasve.hr</a>.</p>
 
       <h2>9. Web-aplikacija havc.matijar.info — mjerenje korištenja</h2>
-      <p class="muted">Ovaj odjeljak opisuje web-aplikaciju <strong>Sredstva</strong> (<code>havc.matijar.info</code>), ne proširenje. Proširenje i dalje ne prikuplja ništa. Na snazi od 3. kolovoza 2026.</p>
+      <p class="muted">Ovaj odjeljak opisuje web-aplikaciju <strong>Sredstva</strong> (<code>havc.matijar.info</code>), ne proširenje. Proširenje i dalje ne prikuplja ništa. Ažurirano 5. kolovoza 2026.</p>
       <p>Web-aplikacija mjeri vlastito korištenje <strong>zbirno, prvom stranom i bez kolačića</strong> — kako bismo znali što se koristi i koliko brzo se registar učitava. Konkretno:</p>
       <ul>
-        <li><strong>Ništa se ne zapisuje na vaš uređaj.</strong> Nema kolačića i nema pohrane za mjerenje; identifikator sesije postoji samo u memoriji otvorene kartice i nestaje njezinim zatvaranjem. Zato ova stranica ne treba traku za privolu o kolačićima.</li>
+        <li><strong>Javnim posjetiteljima mjerenje ništa ne zapisuje na uređaj.</strong> Nema analitičkih kolačića ni trajnog identifikatora; identifikator sesije postoji samo u memoriji otvorene kartice i nestaje njezinim zatvaranjem. Jedina iznimka je dobrovoljna lokalna oznaka kojom vlasnik stranice može isključiti vlastiti preglednik iz mjerenja. Zato ova stranica ne treba traku za privolu o kolačićima.</li>
         <li><strong>IP adresa se ne pohranjuje.</strong> Koristi se samo prolazno, na rubnome poslužitelju, za ograničavanje broja zahtjeva.</li>
         <li><strong>Puni User-Agent se ne pohranjuje</strong> — svodi se na grubu klasu uređaja (mobitel / tablet / računalo). Od preporučitelja (referrer) čuva se samo naziv domaćina, nikad puna adresa.</li>
         <li><strong>Nema identifikatora koji povezuje posjete</strong> kroz dane, uređaje ili druge web-lokacije. Pojmovi pretraživanja i vrijednosti filtara se ne bilježe — samo koji je filtar korišten.</li>
+        <li><strong>Bilježe se samo funkcije i tehnička kvaliteta:</strong> učitavanje aplikacije, otvaranje profila projekta, Studio poglavlja, vrste korištenih filtara, otvaranje izvornog PDF-a, stvaranje poveznice za dijeljenje te zbirne metrike performansi (TTFB, FCP, LCP, CLS i INP). Naslovi pretraživanja i vrijednosti filtara nisu dio zapisa.</li>
         <li><strong>Do Not Track i Global Privacy Control se poštuju:</strong> s uključenom bilo kojom od tih postavaka mjerenje se uopće ne izvršava.</li>
         <li><strong>Podaci ostaju kod autora</strong> — u vlastitom Cloudflare računu, koriste se isključivo za poboljšanje ove aplikacije i nikada se ne dijele niti prodaju.</li>
       </ul>
@@ -186,13 +187,14 @@
       <p>Questions: <a href="mailto:info@umjetnostzasve.hr">info@umjetnostzasve.hr</a>.</p>
 
       <h2>9. The havc.matijar.info web app — usage measurement</h2>
-      <p class="muted">This section describes the <strong>Sredstva</strong> web app (<code>havc.matijar.info</code>), not the extension. The extension still collects nothing. Effective 3 August 2026.</p>
+      <p class="muted">This section describes the <strong>Sredstva</strong> web app (<code>havc.matijar.info</code>), not the extension. The extension still collects nothing. Updated 5 August 2026.</p>
       <p>The web app measures its own usage <strong>in aggregate, first-party, and without cookies</strong> — so we know what gets used and how fast the registry loads. Specifically:</p>
       <ul>
-        <li><strong>Nothing is written to your device.</strong> No cookies and no storage of any kind for measurement; the session identifier lives only in the open tab's memory and vanishes when the tab closes. That is why this site needs no cookie-consent banner.</li>
+        <li><strong>Measurement writes nothing to a public visitor's device.</strong> There are no analytics cookies or persistent identifiers; the session identifier lives only in the open tab's memory and vanishes when the tab closes. The sole exception is an optional local flag that lets the site owner exclude his own browser from measurement. That is why this site needs no cookie-consent banner.</li>
         <li><strong>Your IP address is never stored.</strong> It is used only transiently, at the edge server, to rate-limit requests.</li>
         <li><strong>The full User-Agent is never stored</strong> — it is reduced to a coarse device class (mobile / tablet / desktop). Of the referrer, only the host name is kept, never the full address.</li>
         <li><strong>No identifier links your visits</strong> across days, devices or other websites. Search terms and filter values are not recorded — only which filter was used.</li>
+        <li><strong>Only features and technical quality are recorded:</strong> app readiness, project-profile openings, Studio chapters, filter types, source-PDF openings, created share links, and aggregate performance metrics (TTFB, FCP, LCP, CLS and INP). Search text and filter values are not part of the record.</li>
         <li><strong>Do Not Track and Global Privacy Control are honoured:</strong> with either setting enabled, the measurement code does not run at all.</li>
         <li><strong>The data stays with the author</strong> — in his own Cloudflare account, used solely to improve this app, and never shared or sold.</li>
       </ul>
