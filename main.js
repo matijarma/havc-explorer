@@ -1816,8 +1816,10 @@
     const q = (str || '').trim();
     setNarrowOne('q', q || null);
   }
-  function setExpandedKey(key) {
+  function setExpandedKey(key, source) {
+    const opening = !!key && state.expandedKey !== key;
     state.expandedKey = state.expandedKey === key ? null : key;
+    if (opening) window.havcUsage?.('project_open', source || 'project-row', undefined, key);
     state.expandedRoundIds = new Set();
     state.expandedMentions = false;
     schedulePersist();
@@ -1985,6 +1987,7 @@
     state.expandedKey = projectKey;
     state.expandedRoundIds = new Set();
     state.expandedMentions = false;
+    window.havcUsage?.('project_open', 'timeline', undefined, projectKey);
     schedulePersist();
     fire(['narrow', 'groupBy', 'sort', 'expanded']);
     requestAnimationFrame(() => {
@@ -2133,7 +2136,7 @@
         helper.remove();
         if (!copied) throw new Error('copy command failed');
       }
-      window.havcUsage?.('share_created');
+      window.havcUsage?.('share_created', state.view);
       return true;
     } catch (_) {
       return false;
@@ -4075,7 +4078,7 @@
       return el('div', {
         class: 'row' + (expanded ? ' expanded' : ''),
         style: `top:${top}px; height:${DECISION_ROW_H}px`,
-        onclick: () => setExpandedKey(key),
+        onclick: () => setExpandedKey(key, 'decision-row'),
       }, [
         el('div', { class: 'col n', text: doc ? (r.n + ' · ' + doc.id) : String(r.n) }),
         el('div', { class: 'col title' }, [
@@ -4112,7 +4115,7 @@
       return el('div', {
         class: 'row project-row' + (expanded ? ' expanded' : ''),
         style: `top:${top}px; height:${PROJECT_ROW_H}px`,
-        onclick: () => setExpandedKey(p.key),
+        onclick: () => setExpandedKey(p.key, 'project-row'),
       }, [
         el('div', { class: 'col n mono', text: p.rows.length + '×' }),
         el('div', { class: 'col title' }, [
@@ -5022,6 +5025,7 @@
     }
 
     function renderError(err) {
+      window.havcUsage?.('load_error', 'about');
       root.replaceChildren(el('div', { class: 'about-view' }, [
         el('div', { class: 'kicker', text: t('nav.about', state.lang) }),
         el('p', { class: 'view-error', text: t('view.about.load_error', state.lang) }),
@@ -5141,6 +5145,7 @@
     }
 
     function renderError(err) {
+      window.havcUsage?.('load_error', 'process');
       root.replaceChildren(el('div', { class: 'process-view' }, [
         el('div', { class: 'kicker', text: t('nav.process', state.lang) }),
         el('p', { class: 'view-error', text: t('view.process.load_error', state.lang) }),
@@ -5769,6 +5774,7 @@
 
   // ═══ 18. Boot ═══════════════════════════════════════════════════════
   async function boot() {
+    const bootStarted = performance.now();
     syncDocumentI18n(state.lang);
     document.body.classList.add('theme-' + state.theme);
     document.body.classList.remove('mobile-filters-open');
@@ -5787,6 +5793,7 @@
     try {
       await loadData();
     } catch (err) {
+      window.havcUsage?.('load_error', 'registry');
       app.replaceChildren(el('div', { class: 'boot' }, [
         el('div', { class: 'label', text: t('boot.load_data_error', state.lang) }),
       ]));
@@ -5847,6 +5854,7 @@
 
     applyViewVisibility();
     on('view', applyViewVisibility);
+    window.havcUsage?.('app_ready', '', performance.now() - bootStarted);
   }
 
   document.addEventListener('DOMContentLoaded', boot);

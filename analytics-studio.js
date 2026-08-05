@@ -1534,6 +1534,7 @@
           if (content) content.focus({ preventScroll: true });
         } catch (error) {
           console.error('Failed to build analytics studio', error);
+          window.havcUsage?.('load_error', 'analytics');
           model = {
             current: { rowCount: 0 },
             benchmark: { rowCount: 0 },

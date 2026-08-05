@@ -1,147 +1,351 @@
 /*
- * usage.js — first-party, cookieless usage measurement for Sredstva.
+ * First-party, cookieless usage measurement for Sredstva.
  *
- * Contract with the visitor (mirrored on /extension-privacy/):
- *  - NOTHING is written to the device: no cookies, no localStorage, no
- *    sessionStorage, no IndexedDB. The session id below lives in a closure
- *    variable and evaporates when the tab closes. A reload is a new session.
- *  - No fingerprinting: no IP or User-Agent hashing, no canvas, no fonts.
- *  - The referrer is reduced to its HOST here, in the browser, so the full
- *    referring URL never even leaves the page.
- *  - Do Not Track / Global Privacy Control are honoured by not existing:
- *    every call becomes a no-op and no request is ever made.
- *
- * The app calls window.havcUsage(name, detail, value) from a handful of hooks
- * in main.js — always via optional chaining, so a blocked or failed collector
- * can never break the registry.
- *
- * (Not to be confused with analytics-core.js / analytics-studio.js, which are
- * the funding-statistics feature of the app itself and track nothing.)
+ * Public visitors receive no analytics cookie or persistent identifier. The
+ * random tab session ID below exists only in memory. The sole storage exception
+ * is an explicit owner opt-out flag set from the private /stats page.
  */
 (() => {
   'use strict';
 
-  const optedOut =
+  const OPT_OUT_KEY = 'sredstva-usage-optout';
+  const MAX_QUEUE = 200;
+  const MAX_BATCH = 40;
+  const ENGAGE_WINDOW = 15000;
+
+  function ownerOptedOut() {
+    try {
+      return localStorage.getItem(OPT_OUT_KEY) === '1';
+    } catch (_) {
+      return false;
+    }
+  }
+
+  const privacyOptOut =
     navigator.globalPrivacyControl === true ||
     navigator.doNotTrack === '1' ||
     window.doNotTrack === '1';
 
-  if (optedOut || typeof fetch !== 'function') {
+  if (privacyOptOut || ownerOptedOut() || typeof fetch !== 'function') {
     window.havcUsage = () => {};
+    window.havcUsageStatus = {
+      enabled: false,
+      reason: privacyOptOut ? 'privacy-signal' : ownerOptedOut() ? 'owner-optout' : 'fetch-unavailable',
+    };
     return;
   }
 
-  // In-memory only, by design. Sessions — not daily uniques — are the metric.
-  const SID = (crypto.randomUUID && crypto.randomUUID()) ||
-    String(Date.now()) + '-' + Math.random().toString(36).slice(2, 10);
+  const randomPart = () => Math.random().toString(36).slice(2, 12);
+  const sessionId = (crypto.randomUUID && crypto.randomUUID()) ||
+    `${Date.now().toString(36)}_${randomPart()}_${randomPart()}`;
+  const now = () => performance.now();
+  const started = now();
 
-  let refHost = '';
+  let referrerHost = '';
   try {
     if (document.referrer) {
       const host = new URL(document.referrer).host;
-      if (host !== location.host) refHost = host;
+      if (host !== location.host) referrerHost = host;
     }
-  } catch (_) { /* unparseable referrer: treat as direct */ }
+  } catch (_) {
+    // An unreadable referrer is treated as direct.
+  }
 
-  const started = Date.now();
   let queue = [];
   let flushTimer = null;
+  let retryTimer = null;
+  let retryDelay = 1000;
+  let fetchesInFlight = 0;
   let endSent = false;
+  let pageWasHidden = document.visibilityState !== 'visible';
 
-  // ── Tab activity & dwell ─────────────────────────────────────────────
-  // visibleMs — wall-time the tab actually spent in the foreground.
-  // engagedMs — the honest dwell metric: foreground time within 15 s of the
-  //             last input (pointer, key, wheel, touch, scroll). A tab left
-  //             open on a second monitor accrues visible time but not this.
-  // returns   — hidden→visible transitions (came back to the tab).
-  // Computed lazily on events and transitions; no ticking timer.
-  const ENGAGE_WINDOW = 15000;
+  function clearScheduledFlush() {
+    if (flushTimer !== null) clearTimeout(flushTimer);
+    flushTimer = null;
+  }
+
+  function scheduleFlush(delay = 5000) {
+    if (flushTimer !== null || retryTimer !== null || !queue.length) return;
+    flushTimer = setTimeout(() => {
+      flushTimer = null;
+      flush(false);
+    }, delay);
+  }
+
+  function scheduleRetry() {
+    if (retryTimer !== null || !queue.length) return;
+    retryTimer = setTimeout(() => {
+      retryTimer = null;
+      flush(false);
+    }, retryDelay);
+    retryDelay = Math.min(retryDelay * 2, 30000);
+  }
+
+  function restoreBatch(batch) {
+    queue = batch.concat(queue).slice(0, MAX_QUEUE);
+    scheduleRetry();
+  }
+
+  function bodyFor(batch) {
+    return JSON.stringify({ s: sessionId, ref: referrerHost, e: batch });
+  }
+
+  function sendWithFetch(batch) {
+    fetchesInFlight++;
+    return fetch('/api/u', {
+      method: 'POST',
+      body: bodyFor(batch),
+      keepalive: true,
+      headers: { 'content-type': 'application/json' },
+      credentials: 'same-origin',
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(`usage beacon failed: ${response.status}`);
+        retryDelay = 1000;
+        return true;
+      })
+      .catch(() => {
+        restoreBatch(batch);
+        return false;
+      })
+      .finally(() => {
+        fetchesInFlight--;
+        if (queue.length && retryTimer === null) scheduleFlush(250);
+      });
+  }
+
+  function flush(preferBeacon) {
+    if (!queue.length) return Promise.resolve(true);
+    if (!preferBeacon && fetchesInFlight > 0) {
+      scheduleFlush(250);
+      return Promise.resolve(false);
+    }
+
+    clearScheduledFlush();
+    if (retryTimer !== null) {
+      clearTimeout(retryTimer);
+      retryTimer = null;
+    }
+    const batch = queue.splice(0, MAX_BATCH);
+    if (preferBeacon && typeof navigator.sendBeacon === 'function') {
+      try {
+        const accepted = navigator.sendBeacon(
+          '/api/u',
+          new Blob([bodyFor(batch)], { type: 'application/json' }),
+        );
+        if (accepted) {
+          retryDelay = 1000;
+          if (queue.length) scheduleFlush(250);
+          return Promise.resolve(true);
+        }
+      } catch (_) {
+        // A false return or exception falls through to keepalive fetch.
+      }
+    }
+    return sendWithFetch(batch);
+  }
+
+  window.havcUsage = (name, detail, value, project) => {
+    if (typeof name !== 'string' || !name) return;
+    const event = {
+      n: name,
+      t: Math.max(0, Math.round(now() - started)),
+    };
+    if (typeof detail === 'string' && detail) event.d = detail.slice(0, 80);
+    if (Number.isFinite(value)) event.v = Math.round(value);
+    if (typeof project === 'string' && project) event.p = project.slice(0, 80);
+    queue.push(event);
+    if (queue.length > MAX_QUEUE) queue.shift();
+    if (queue.length >= 20) flush(false);
+    else scheduleFlush();
+  };
+
+  window.havcUsageStatus = { enabled: true, storage: 'none', session: 'tab-memory' };
+
+  // Count the page even if registry data later fails to load.
+  window.havcUsage('page_view', 'app');
+
+  // Tab activity and dwell ------------------------------------------------
+
   let visibleMs = 0;
   let engagedMs = 0;
   let returns = 0;
-  let visibleSince = document.visibilityState === 'visible' ? Date.now() : null;
-  let engagedSince = null; // set on input, only while visible
+  let visibleSince = document.visibilityState === 'visible' ? now() : null;
+  let engagedSince = null;
   let lastInput = 0;
 
-  function settleEngagement(now) {
-    if (engagedSince !== null) {
-      engagedMs += Math.min(now, lastInput + ENGAGE_WINDOW) - engagedSince;
-      engagedSince = null;
-    }
+  function settleEngagement(at) {
+    if (engagedSince === null) return;
+    engagedMs += Math.max(0, Math.min(at, lastInput + ENGAGE_WINDOW) - engagedSince);
+    engagedSince = null;
   }
+
   function onInput() {
-    const now = Date.now();
+    const at = now();
     if (visibleSince === null) return;
-    // Extend or open the engagement window.
-    if (engagedSince !== null && now - lastInput > ENGAGE_WINDOW) settleEngagement(now);
-    if (engagedSince === null) engagedSince = now;
-    lastInput = now;
+    if (engagedSince !== null && at - lastInput > ENGAGE_WINDOW) settleEngagement(at);
+    if (engagedSince === null) engagedSince = at;
+    lastInput = at;
   }
-  for (const ev of ['pointerdown', 'keydown', 'wheel', 'touchstart', 'scroll']) {
-    window.addEventListener(ev, onInput, { passive: true, capture: true });
+
+  for (const eventName of ['pointerdown', 'keydown', 'wheel', 'touchstart', 'scroll']) {
+    window.addEventListener(eventName, onInput, { passive: true, capture: true });
   }
-  function settleVisibility() {
-    const now = Date.now();
-    settleEngagement(now);
+
+  function settleVisibility(at = now()) {
+    settleEngagement(at);
     if (visibleSince !== null) {
-      visibleMs += now - visibleSince;
+      visibleMs += Math.max(0, at - visibleSince);
       visibleSince = null;
     }
   }
-  function dwellSnapshot() {
-    // Settle up to "now" without losing the running clocks.
-    const now = Date.now();
-    let vis = visibleMs + (visibleSince !== null ? now - visibleSince : 0);
-    let eng = engagedMs + (engagedSince !== null ? Math.min(now, lastInput + ENGAGE_WINDOW) - engagedSince : 0);
-    return Math.round(vis) + '|' + Math.round(eng) + '|' + returns;
+
+  function dwellSnapshot(at = now()) {
+    const visible = visibleMs + (visibleSince !== null ? Math.max(0, at - visibleSince) : 0);
+    const engaged = engagedMs + (engagedSince !== null
+      ? Math.max(0, Math.min(at, lastInput + ENGAGE_WINDOW) - engagedSince)
+      : 0);
+    return `${Math.round(visible)}|${Math.round(Math.min(engaged, visible))}|${returns}`;
   }
 
-  function flush(useBeacon) {
-    if (!queue.length) return;
-    clearTimeout(flushTimer);
-    flushTimer = null;
-    const body = JSON.stringify({ s: SID, ref: refHost, e: queue.slice(0, 40) });
-    queue = [];
+  // Performance ----------------------------------------------------------
+
+  const observers = [];
+  const reportedVitals = new Set();
+  let lcp = null;
+  let cls = 0;
+  let clsWindow = 0;
+  let clsWindowStart = 0;
+  let clsLastAt = 0;
+  const interactions = new Map();
+  let lcpSupported = false;
+  let clsSupported = false;
+  let inpSupported = false;
+
+  function observe(type, callback, options = {}) {
+    if (typeof PerformanceObserver !== 'function') return false;
     try {
-      if (useBeacon && navigator.sendBeacon) {
-        navigator.sendBeacon('/api/u', new Blob([body], { type: 'application/json' }));
-      } else {
-        fetch('/api/u', { method: 'POST', body, keepalive: true, headers: { 'content-type': 'application/json' } })
-          .catch(() => {});
-      }
-    } catch (_) { /* measurement must never surface as an app error */ }
+      const observer = new PerformanceObserver((list) => callback(list.getEntries()));
+      observer.observe({ type, buffered: true, ...options });
+      observers.push(observer);
+      return true;
+    } catch (_) {
+      return false;
+    }
   }
 
-  window.havcUsage = (name, detail, value) => {
-    if (typeof name !== 'string' || !name) return;
-    queue.push({
-      n: name,
-      d: typeof detail === 'string' ? detail.slice(0, 80) : '',
-      v: Number.isFinite(value) ? Math.round(value) : undefined,
-      t: Date.now() - started,
-    });
-    if (queue.length >= 20) flush(false);
-    else if (!flushTimer) flushTimer = setTimeout(() => flush(false), 5000);
-  };
+  try {
+    const navigation = performance.getEntriesByType('navigation')[0];
+    if (navigation && Number.isFinite(navigation.responseStart)) {
+      window.havcUsage('web_vital', 'ttfb', navigation.responseStart);
+      reportedVitals.add('ttfb');
+    }
+  } catch (_) {}
 
-  // The tab going hidden is the only reliable "goodbye" on the mobile web —
-  // pagehide covers bfcache navigations that never fire visibilitychange.
+  observe('paint', (entries) => {
+    const entry = entries.find((candidate) => candidate.name === 'first-contentful-paint');
+    if (entry && !reportedVitals.has('fcp')) {
+      reportedVitals.add('fcp');
+      window.havcUsage('web_vital', 'fcp', entry.startTime);
+    }
+  });
+
+  lcpSupported = observe('largest-contentful-paint', (entries) => {
+    const entry = entries[entries.length - 1];
+    if (entry) lcp = entry.startTime;
+  });
+
+  clsSupported = observe('layout-shift', (entries) => {
+    for (const entry of entries) {
+      if (entry.hadRecentInput) continue;
+      if (!clsWindowStart || entry.startTime - clsLastAt > 1000 || entry.startTime - clsWindowStart > 5000) {
+        clsWindowStart = entry.startTime;
+        clsWindow = entry.value;
+      } else {
+        clsWindow += entry.value;
+      }
+      clsLastAt = entry.startTime;
+      cls = Math.max(cls, clsWindow);
+    }
+  });
+
+  inpSupported = observe('event', (entries) => {
+    for (const entry of entries) {
+      if (!entry.interactionId || !Number.isFinite(entry.duration)) continue;
+      interactions.set(
+        entry.interactionId,
+        Math.max(interactions.get(entry.interactionId) || 0, entry.duration),
+      );
+    }
+  }, { durationThreshold: 40 });
+
+  function estimatedInp() {
+    const values = [...interactions.values()].sort((a, b) => b - a);
+    if (!values.length) return null;
+    return values[Math.min(values.length - 1, Math.floor(values.length / 50))];
+  }
+
+  function reportFinalVitals() {
+    if (lcpSupported && lcp !== null && !reportedVitals.has('lcp')) {
+      reportedVitals.add('lcp');
+      window.havcUsage('web_vital', 'lcp', lcp);
+    }
+    if (clsSupported && !reportedVitals.has('cls')) {
+      reportedVitals.add('cls');
+      window.havcUsage('web_vital', 'cls', cls * 1000);
+    }
+    const inp = estimatedInp();
+    if (inpSupported && inp !== null && !reportedVitals.has('inp')) {
+      reportedVitals.add('inp');
+      window.havcUsage('web_vital', 'inp', inp);
+    }
+  }
+
+  // Lifecycle ------------------------------------------------------------
+
   function onLeave() {
-    settleVisibility();
+    const at = now();
+    settleVisibility(at);
+    reportFinalVitals();
     if (!endSent) {
       endSent = true;
-      window.havcUsage('session_end', dwellSnapshot(), Date.now() - started);
+      window.havcUsage('session_end', dwellSnapshot(at), at - started);
     }
     flush(true);
   }
+
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
+      pageWasHidden = true;
       onLeave();
-    } else {
-      endSent = false; // came back: a later hide should count the fuller session
-      returns++;
-      visibleSince = Date.now();
+      return;
     }
+    const at = now();
+    if (pageWasHidden) returns++;
+    pageWasHidden = false;
+    endSent = false;
+    if (visibleSince === null) visibleSince = at;
   });
+
   window.addEventListener('pagehide', onLeave);
+  window.addEventListener('pageshow', (event) => {
+    if (!event.persisted) return;
+    const at = now();
+    endSent = false;
+    if (document.visibilityState === 'visible' && visibleSince === null) visibleSince = at;
+    if (pageWasHidden) {
+      returns++;
+      pageWasHidden = false;
+    }
+    window.havcUsage('page_view', 'app');
+  });
+
+  if (window.__HAVC_USAGE_TEST__) {
+    window.__havcUsageTest = {
+      flush,
+      queueSize: () => queue.length,
+      sessionId,
+      inFlight: () => fetchesInFlight,
+    };
+  }
 })();
