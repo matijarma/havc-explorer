@@ -4,6 +4,11 @@
  * Public visitors receive no analytics cookie or persistent identifier. The
  * random tab session ID below exists only in memory. The sole storage exception
  * is an explicit owner opt-out flag set from the private /stats page.
+ *
+ * DNT/GPC signals do not switch the counter off: those signals govern
+ * cross-site tracking and sale of personal data, and this measurement stores
+ * no identifier at all. The disclosure in /extension-privacy/ says the same —
+ * keep the two in sync.
  */
 (() => {
   'use strict';
@@ -21,16 +26,11 @@
     }
   }
 
-  const privacyOptOut =
-    navigator.globalPrivacyControl === true ||
-    navigator.doNotTrack === '1' ||
-    window.doNotTrack === '1';
-
-  if (privacyOptOut || ownerOptedOut() || typeof fetch !== 'function') {
+  if (ownerOptedOut() || typeof fetch !== 'function') {
     window.havcUsage = () => {};
     window.havcUsageStatus = {
       enabled: false,
-      reason: privacyOptOut ? 'privacy-signal' : ownerOptedOut() ? 'owner-optout' : 'fetch-unavailable',
+      reason: ownerOptedOut() ? 'owner-optout' : 'fetch-unavailable',
     };
     return;
   }

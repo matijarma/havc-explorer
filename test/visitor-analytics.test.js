@@ -479,7 +479,7 @@ test('Cloudflare GraphQL query declares only valid capitalized variable types', 
 	}
 });
 
-test('owner-control status reports privacy-signal exclusion independently of the toggle', async () => {
+test('owner-control status reflects only the local opt-out flag', async () => {
 	const db = new FakeD1({
 		daily: [{ day: '2026-08-05', event: 'session', dim: '', val: '', count: 2 }],
 	});
@@ -488,8 +488,8 @@ test('owner-control status reports privacy-signal exclusion independently of the
 		archiveStatus: { refreshed: [], pruned: [], syncedAt: Date.parse('2026-08-05T12:00:00Z') },
 		nonce: 'test-nonce',
 	});
-	assert.match(html, /globalPrivacyControl/);
-	assert.match(html, /doNotTrack/);
-	assert.match(html, /privacy signal/i);
-	assert.match(html, /regardless of this toggle/i);
+	assert.doesNotMatch(html, /globalPrivacyControl/);
+	assert.doesNotMatch(html, /privacy signal/i);
+	assert.match(html, /owner-optout/);
+	assert.match(html, /sredstva-usage-optout/);
 });
