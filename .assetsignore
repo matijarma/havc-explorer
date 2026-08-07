@@ -5,11 +5,12 @@
 # the whole repo was — including .git/, the Python curation pipeline, and the
 # test suites.
 #
-# The app's actual runtime set is: index.html, main.js, style.css,
-# analytics-core.js, analytics-studio.js, favicon.svg, havc/data.json,
-# havc/10_sanity_check_official.json, content/*.json, extension-privacy/.
-# Nothing else is fetched at runtime — verified against every fetch() call in
-# main.js (lines 1265, 1276, 4986). Do not exclude any of the above.
+# The app's actual runtime set is: index.html, main.js, style.css, usage.js,
+# analytics-core.js, analytics-studio.js, favicon.svg, havc/data.app.json,
+# havc/data.json, havc/10_sanity_check_official.json, content/*.json,
+# extension-privacy/. Nothing else is fetched at runtime — verified against
+# every fetch() call in main.js (lines 1265, 1280, 1283, 5009). Do not exclude
+# any of the above.
 
 # Version control and local tooling state
 .git/
@@ -35,14 +36,17 @@ node_modules/
 *.md
 DESIGN.json
 
-# Test suites
+# Test suites and their caches
 test/
 tests/
+.pytest_cache/
 
 # Data-curation pipeline inputs and audit ledgers. `havc/data.json` and
 # `havc/10_sanity_check_official.json` ARE shipped and must stay out of this list.
+havc/build_app_payload.py
 havc/clean_data.py
 havc/codex-audit-input.json
+havc/__pycache__/
 havc/data-curation-audit.json
 havc/data-curation-decisions.json
 havc/normalize-decision.json

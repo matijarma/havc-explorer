@@ -10,7 +10,7 @@ const ENDPOINT = 'https://api.cloudflare.com/client/v4/graphql';
 const EXCLUDED_BROWSERS = ['Curl', 'YandexBot', 'GoogleBot', 'ChromeHeadless'];
 
 const QUERY = `
-query SredstvaTraffic($account: String!, $start: Date!, $end: Date!, $zone: string!, $site: string!, $host: string!) {
+query SredstvaTraffic($account: String!, $start: Date!, $end: Date!, $zone: String!, $site: String!, $host: String!) {
   viewer {
     accounts(filter: { accountTag: $account }) {
       edgeDaily: httpRequestsAdaptiveGroups(
