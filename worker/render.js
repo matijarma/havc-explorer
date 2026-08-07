@@ -953,27 +953,16 @@ tbody td { font-family: "JetBrains Mono", monospace; font-size: .8rem; }
 	const key = 'sredstva-usage-optout';
 	const input = document.getElementById('owner-optout');
 	const status = document.getElementById('owner-optout-status');
-	// Must mirror the gate in usage.js, or this status claims inclusion that
-	// the collector will refuse.
-	const privacySignal =
-		navigator.globalPrivacyControl === true ||
-		navigator.doNotTrack === '1' ||
-		window.doNotTrack === '1';
-	const signalCopy = 'This browser sends a privacy signal (Do Not Track or Global Privacy Control), so it is excluded regardless of this toggle.';
 	function render() {
 		try {
 			const excluded = localStorage.getItem(key) === '1';
 			input.checked = excluded;
-			status.textContent = privacySignal
-				? signalCopy
-				: excluded
-					? 'This browser is excluded. Reloading the public app will send no first-party analytics.'
-					: 'This browser is included in the same cookieless measurement as other sessions.';
+			status.textContent = excluded
+				? 'This browser is excluded. Reloading the public app will send no first-party analytics.'
+				: 'This browser is included in the same cookieless measurement as other sessions.';
 		} catch (_) {
 			input.disabled = true;
-			status.textContent = privacySignal
-				? signalCopy
-				: 'Browser storage is unavailable, so the owner opt-out cannot be changed here.';
+			status.textContent = 'Browser storage is unavailable, so the owner opt-out cannot be changed here.';
 		}
 	}
 	input.addEventListener('change', () => {
