@@ -92,12 +92,8 @@ function makeCollector({
 	};
 }
 
-test('DNT, GPC, and the explicit owner flag disable collection before any request', () => {
-	for (const options of [
-		{ dnt: '1' },
-		{ gpc: true },
-		{ ownerOptOut: true },
-	]) {
+test('privacy signals do not disable the identifier-free counter; the owner flag does', async () => {
+	for (const options of [{ dnt: '1' }, { gpc: true }]) {
 		let calls = 0;
 		const harness = makeCollector({
 			...options,
@@ -106,10 +102,23 @@ test('DNT, GPC, and the explicit owner flag disable collection before any reques
 				return new Response(null, { status: 204 });
 			},
 		});
+		assert.equal(harness.window.havcUsageStatus.enabled, true);
 		harness.window.havcUsage('filter', 'program');
-		assert.equal(harness.window.havcUsageStatus.enabled, false);
-		assert.equal(calls, 0);
+		await harness.window.__havcUsageTest.flush(false);
+		assert.equal(calls, 1);
 	}
+	let calls = 0;
+	const harness = makeCollector({
+		ownerOptOut: true,
+		fetchImpl: async () => {
+			calls++;
+			return new Response(null, { status: 204 });
+		},
+	});
+	harness.window.havcUsage('filter', 'program');
+	assert.equal(harness.window.havcUsageStatus.enabled, false);
+	assert.equal(harness.window.havcUsageStatus.reason, 'owner-optout');
+	assert.equal(calls, 0);
 });
 
 test('public collection reads no persistent identifier and writes nothing to storage', async () => {
