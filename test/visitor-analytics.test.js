@@ -455,3 +455,41 @@ test('optional Cloudflare comparison aggregates only returned group totals', asy
 	assert.equal(requestBody.variables.start, '2026-08-03');
 	assert.match(requestBody.query, /userAgentBrowser_notin/);
 });
+
+test('Cloudflare GraphQL query declares only valid capitalized variable types', async () => {
+	let requestBody;
+	const fetchFn = async (_url, options) => {
+		requestBody = JSON.parse(options.body);
+		return new Response(JSON.stringify({
+			data: { viewer: { accounts: [{ edgeDaily: [], edgeBrowsers: [], rumDaily: [] }] } },
+		}), { status: 200, headers: { 'content-type': 'application/json' } });
+	};
+	await loadCloudflareSignals({
+		CF_ANALYTICS_TOKEN: 'secret',
+		CF_ACCOUNT_ID: 'account',
+		CF_ZONE_ID: 'zone',
+		CF_WEB_ANALYTICS_SITE_TAG: 'site',
+		PUBLIC_HOST: 'havc.matijar.info',
+	}, '2026-08-03', '2026-08-05', fetchFn);
+	const declarations = [...requestBody.query.matchAll(/\$[A-Za-z]+:\s*([A-Za-z]+)!/g)].map((m) => m[1]);
+	assert.ok(declarations.length >= 6, 'expected the query to declare its six variables');
+	for (const typeName of declarations) {
+		assert.match(typeName, /^[A-Z]/,
+			`GraphQL type "${typeName}" is invalid: built-in scalar types are capitalized`);
+	}
+});
+
+test('owner-control status reports privacy-signal exclusion independently of the toggle', async () => {
+	const db = new FakeD1({
+		daily: [{ day: '2026-08-05', event: 'session', dim: '', val: '', count: 2 }],
+	});
+	const html = await renderStats({ DB: db }, '2026-08-05', {
+		range: '30',
+		archiveStatus: { refreshed: [], pruned: [], syncedAt: Date.parse('2026-08-05T12:00:00Z') },
+		nonce: 'test-nonce',
+	});
+	assert.match(html, /globalPrivacyControl/);
+	assert.match(html, /doNotTrack/);
+	assert.match(html, /privacy signal/i);
+	assert.match(html, /regardless of this toggle/i);
+});
