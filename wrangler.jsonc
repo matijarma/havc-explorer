@@ -40,7 +40,7 @@
 
 	// Usage-measurement store (see worker/schema.sql). D1 keeps permanent daily
 	// first-party history and hourly Cloudflare edge aggregates. /stats refreshes
-	// current data; the cron preserves edge data beyond Cloudflare's lookback.
+	// current data; a GitHub schedule preserves it beyond Cloudflare's lookback.
 	"d1_databases": [
 		{
 			"binding": "DB",
@@ -57,9 +57,5 @@
 			"namespace_id": "2001",
 			"simple": { "limit": 30, "period": 60 }
 		}
-	],
-
-	"triggers": {
-		"crons": ["15 2 * * *"]
-	}
+	]
 }

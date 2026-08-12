@@ -79,6 +79,7 @@ export default {
 		}
 
 		if (url.pathname === '/api/u') return ingest(request, env, ctx, url);
+		if (url.pathname === '/api/cron') return maintenance(request, env);
 		if (url.pathname === '/stats' || url.pathname === '/stats/') return stats(request, env, url);
 		return env.ASSETS.fetch(request);
 	},
@@ -430,6 +431,34 @@ export async function runScheduledMaintenance(env, today, now = Date.now()) {
 		if (result.status === 'rejected') console.error('scheduled analytics maintenance failed:', result.reason);
 	}
 	return results;
+}
+
+export function secretsMatch(received, expected) {
+	if (typeof received !== 'string' || typeof expected !== 'string') return false;
+	const left = new TextEncoder().encode(received);
+	const right = new TextEncoder().encode(expected);
+	if (left.length !== right.length || !left.length) return false;
+	let difference = 0;
+	for (let index = 0; index < left.length; index++) difference |= left[index] ^ right[index];
+	return difference === 0;
+}
+
+export async function maintenance(request, env, now = Date.now()) {
+	if (request.method !== 'POST') {
+		return new Response(null, { status: 405, headers: { Allow: 'POST' } });
+	}
+	const header = request.headers.get('authorization') || '';
+	const received = header.startsWith('Bearer ') ? header.slice(7) : '';
+	if (!secretsMatch(received, env.CRON_SECRET)) return new Response('Not found', { status: 404 });
+
+	const results = await runScheduledMaintenance(env, dayInTimeZone(now), now);
+	const firstPartyFailed = results[0]?.status === 'rejected';
+	const edgeResult = results[1];
+	const edgeFailed = edgeResult?.status === 'rejected'
+		|| edgeResult?.value?.status === 'error'
+		|| edgeResult?.value?.status === 'not-configured';
+	if (firstPartyFailed || edgeFailed) return new Response('Maintenance unavailable', { status: 503 });
+	return new Response(null, NO_CONTENT);
 }
 
 /* Private stats --------------------------------------------------------- */
