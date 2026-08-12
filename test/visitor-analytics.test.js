@@ -11,7 +11,6 @@ import {
 	aggregateKey,
 	decodeAggregateKey,
 } from '../worker/aggregate.js';
-import { loadCloudflareSignals } from '../worker/cloudflare.js';
 import { renderStats } from '../worker/render.js';
 import { dayInTimeZone } from '../worker/time.js';
 
@@ -62,6 +61,10 @@ class FakeStatement {
 	}
 
 	run() {
+		if (this.db.failNextRun) {
+			this.db.failNextRun = false;
+			return Promise.reject(new Error('simulated write failure'));
+		}
 		this.db.mutate(this.db.state, this.sql, this.params);
 		return Promise.resolve({ success: true });
 	}
@@ -76,6 +79,7 @@ class FakeD1 {
 			nextId: events.length + 1,
 		};
 		this.failNextBatch = false;
+		this.failNextRun = false;
 	}
 
 	prepare(sql) {
@@ -119,6 +123,9 @@ class FakeD1 {
 		if (sql === 'SELECT k, v FROM usage_meta') {
 			return [...state.meta.entries()].map(([k, v]) => ({ k, v }));
 		}
+		if (sql.startsWith('SELECT hour_utc, request_count, visit_count FROM edge_hourly')) return [];
+		if (sql.startsWith('SELECT hour_utc, browser, request_count, visit_count FROM edge_browser_hourly')) return [];
+		if (sql === 'SELECT k, v FROM edge_sync_state') return [];
 		throw new Error(`Unsupported fake query: ${sql}`);
 	}
 
@@ -266,9 +273,7 @@ test('ingest accepts valid same-origin payloads and silently drops invalid cardi
 			e: [{ n: 'filter', d: 'program' }, { n: 'filter', d: 'not-a-field' }],
 		}),
 	});
-	let pending;
-	const response = await ingest(valid, env, { waitUntil: (promise) => { pending = promise; } });
-	await pending;
+	const response = await ingest(valid, env, {});
 	assert.equal(response.status, 204);
 	assert.equal(db.state.events.length, 1);
 	assert.deepEqual(JSON.parse(db.state.events[0].payload), [{ n: 'filter', d: 'program' }]);
@@ -283,6 +288,30 @@ test('ingest accepts valid same-origin payloads and silently drops invalid cardi
 	});
 	await ingest(invalid, env, { waitUntil() {} });
 	assert.equal(db.state.events.length, 1);
+});
+
+test('ingest reports D1 persistence failure so the collector can retry', async () => {
+	const db = new FakeD1();
+	db.failNextRun = true;
+	const request = new Request('https://havc.matijar.info/api/u', {
+		method: 'POST',
+		headers: {
+			origin: 'https://havc.matijar.info',
+			'content-type': 'application/json',
+			'user-agent': 'Mozilla/5.0',
+		},
+		body: JSON.stringify({
+			s: 'session_abcdefghijklmnop',
+			e: [{ n: 'page_view', d: 'app' }],
+		}),
+	});
+	const response = await ingest(request, {
+		DB: db,
+		RL_HIT: { limit: async () => ({ success: true }) },
+	}, {});
+	assert.equal(response.status, 503);
+	assert.equal(response.headers.get('retry-after'), '2');
+	assert.equal(db.state.events.length, 0);
 });
 
 test('Access JWT validation checks signature, issuer, audience, and time claims', async () => {
@@ -417,66 +446,6 @@ test('renderer escapes dimensions and exposes ranges, exact tables, and narrow-s
 	assert.doesNotMatch(html, /<img src=x onerror=alert\(1\)>/);
 	assert.match(html, /nonce="test-nonce"/);
 	assert.match(html, /never unique people/i);
-});
-
-test('optional Cloudflare comparison aggregates only returned group totals', async () => {
-	let requestBody;
-	const fetchFn = async (_url, options) => {
-		requestBody = JSON.parse(options.body);
-		return new Response(JSON.stringify({
-			data: {
-				viewer: {
-					accounts: [{
-						edgeDaily: [
-							{ count: 16, sum: { visits: 10 }, dimensions: { date: '2026-08-03' } },
-							{ count: 22, sum: { visits: 19 }, dimensions: { date: '2026-08-05' } },
-						],
-						edgeBrowsers: [
-							{ count: 20, sum: { visits: 17 }, dimensions: { userAgentBrowser: 'Chrome' } },
-							{ count: 18, sum: { visits: 12 }, dimensions: { userAgentBrowser: 'Firefox' } },
-						],
-						rumDaily: [],
-					}],
-				},
-			},
-		}), { status: 200, headers: { 'content-type': 'application/json' } });
-	};
-	const result = await loadCloudflareSignals({
-		CF_ANALYTICS_TOKEN: 'secret',
-		CF_ACCOUNT_ID: 'account',
-		CF_ZONE_ID: 'zone',
-		CF_WEB_ANALYTICS_SITE_TAG: 'site',
-		PUBLIC_HOST: 'havc.matijar.info',
-	}, '2026-08-03', '2026-08-05', fetchFn);
-	assert.equal(result.status, 'ok');
-	assert.equal(result.edgeRequests, 38);
-	assert.equal(result.edgeVisits, 29);
-	assert.equal(result.rumPageLoads, 0);
-	assert.equal(requestBody.variables.start, '2026-08-03');
-	assert.match(requestBody.query, /userAgentBrowser_notin/);
-});
-
-test('Cloudflare GraphQL query declares only valid capitalized variable types', async () => {
-	let requestBody;
-	const fetchFn = async (_url, options) => {
-		requestBody = JSON.parse(options.body);
-		return new Response(JSON.stringify({
-			data: { viewer: { accounts: [{ edgeDaily: [], edgeBrowsers: [], rumDaily: [] }] } },
-		}), { status: 200, headers: { 'content-type': 'application/json' } });
-	};
-	await loadCloudflareSignals({
-		CF_ANALYTICS_TOKEN: 'secret',
-		CF_ACCOUNT_ID: 'account',
-		CF_ZONE_ID: 'zone',
-		CF_WEB_ANALYTICS_SITE_TAG: 'site',
-		PUBLIC_HOST: 'havc.matijar.info',
-	}, '2026-08-03', '2026-08-05', fetchFn);
-	const declarations = [...requestBody.query.matchAll(/\$[A-Za-z]+:\s*([A-Za-z]+)!/g)].map((m) => m[1]);
-	assert.ok(declarations.length >= 6, 'expected the query to declare its six variables');
-	for (const typeName of declarations) {
-		assert.match(typeName, /^[A-Z]/,
-			`GraphQL type "${typeName}" is invalid: built-in scalar types are capitalized`);
-	}
 });
 
 test('owner-control status reflects only the local opt-out flag', async () => {

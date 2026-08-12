@@ -2,9 +2,9 @@
 -- Apply with: npx wrangler d1 execute havc-explorer-db --remote --file=worker/schema.sql
 
 -- Append-only ingest buffer: one row per beacon flush, not one row per event.
--- Raw rows are retained for 30 days. Each authenticated /stats visit atomically
--- refreshes completed days in usage_daily, then performs retention cleanup.
--- There is deliberately no cron.
+-- Raw rows are retained for 30 days. Authenticated /stats visits and the daily
+-- maintenance cron atomically refresh completed days in usage_daily, then
+-- perform retention cleanup.
 CREATE TABLE IF NOT EXISTS usage_events (
   id       INTEGER PRIMARY KEY AUTOINCREMENT,
   ts       INTEGER NOT NULL,             -- epoch ms, server-assigned
@@ -30,6 +30,30 @@ CREATE TABLE IF NOT EXISTS usage_daily (
 );
 
 CREATE TABLE IF NOT EXISTS usage_meta (
+  k TEXT PRIMARY KEY,
+  v TEXT NOT NULL
+);
+
+-- Permanent Cloudflare edge archive. Cloudflare's adaptive request dataset is
+-- queryable for only eight days, so bounded hourly aggregates are copied here
+-- and retained indefinitely. No request-level edge data is stored.
+CREATE TABLE IF NOT EXISTS edge_hourly (
+  hour_utc      TEXT    PRIMARY KEY,     -- normalized ISO UTC hour
+  request_count INTEGER NOT NULL DEFAULT 0,
+  visit_count   INTEGER NOT NULL DEFAULT 0,
+  synced_at     INTEGER NOT NULL         -- epoch ms
+);
+
+CREATE TABLE IF NOT EXISTS edge_browser_hourly (
+  hour_utc      TEXT    NOT NULL,
+  browser       TEXT    NOT NULL,
+  request_count INTEGER NOT NULL DEFAULT 0,
+  visit_count   INTEGER NOT NULL DEFAULT 0,
+  synced_at     INTEGER NOT NULL,
+  PRIMARY KEY (hour_utc, browser)
+);
+
+CREATE TABLE IF NOT EXISTS edge_sync_state (
   k TEXT PRIMARY KEY,
   v TEXT NOT NULL
 );

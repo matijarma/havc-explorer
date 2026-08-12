@@ -7,9 +7,10 @@
  */
 
 import { aggregate, aggregateKey, decodeAggregateKey } from './aggregate.js';
-import { loadCloudflareSignals } from './cloudflare.js';
+import { edgeSnapshotForRange, loadEdgeArchive } from './cloudflare.js';
 import {
 	addDays,
+	dayInTimeZone,
 	eachDay,
 	formatZagrebDateTime,
 } from './time.js';
@@ -229,12 +230,12 @@ function periodModel(period, previous) {
 	};
 }
 
-export function buildStatsModel(snapshot, today, requestedRange) {
+export function buildStatsModel(snapshot, today, requestedRange, additionalFirstDay = null) {
 	const recordedDays = snapshot.records
 		.filter((row) => row.event === 'session' && row.dim === '')
 		.map((row) => row.day)
 		.sort();
-	const firstDay = recordedDays[0] || null;
+	const firstDay = [recordedDays[0], additionalFirstDay].filter(Boolean).sort()[0] || null;
 	const lastDay = recordedDays[recordedDays.length - 1] || null;
 	const definition = rangeDefinition(today, requestedRange, firstDay);
 	const current = periodCounters(snapshot.records, definition.start, definition.end);
@@ -269,10 +270,23 @@ function disclosure(label, content, open = false) {
 	return `<details${open ? ' open' : ''}><summary>${esc(label)}</summary>${content}</details>`;
 }
 
-function trendChart(period, definition, today) {
+function trendChart(period, definition, today, edge) {
 	const days = eachDay(definition.start, definition.end);
-	const series = days.map((day) => [day, period.byDay.get(day) || 0]);
-	if (!series.some(([, count]) => count > 0)) return '<p class="empty">No sessions in this range.</p>';
+	const edgeByDay = new Map((edge.edgeDaily || []).map((row) => [row.day, row]));
+	const useEdge = edge.status === 'ok' || edge.status === 'empty';
+	const series = days.map((day) => {
+		const edgeRow = edgeByDay.get(day);
+		return {
+			day,
+			primary: useEdge ? edgeRow?.visits || 0 : period.byDay.get(day) || 0,
+			edgeVisits: edgeRow?.visits || 0,
+			edgeRequests: edgeRow?.requests || 0,
+			sessions: period.byDay.get(day) || 0,
+		};
+	});
+	if (!series.some((row) => row.primary > 0)) {
+		return `<p class="empty">No ${useEdge ? 'edge visits' : 'sessions'} in this range.</p>`;
+	}
 
 	const width = 900;
 	const height = 230;
@@ -282,7 +296,7 @@ function trendChart(period, definition, today) {
 	const bottom = 34;
 	const plotWidth = width - left - right;
 	const plotHeight = height - top - bottom;
-	const maximum = Math.max(1, ...series.map(([, count]) => count));
+	const maximum = Math.max(1, ...series.map((row) => row.primary));
 	const tickTop = maximum <= 5 ? maximum : Math.ceil(maximum / 5) * 5;
 	const slot = plotWidth / series.length;
 	const barWidth = Math.min(22, Math.max(2, slot - 2));
@@ -294,7 +308,8 @@ function trendChart(period, definition, today) {
 		<text x="${left - 7}" y="${y(value) + 4}" text-anchor="end" class="axis-label">${fmt(value)}</text>`,
 	).join('');
 
-	const bars = series.map(([day, count], index) => {
+	const bars = series.map((row, index) => {
+		const { day, primary: count } = row;
 		const x = left + index * slot + (slot - barWidth) / 2;
 		const barHeight = count ? Math.max(2, plotHeight * count / tickTop) : 0;
 		const barY = top + plotHeight - barHeight;
@@ -303,22 +318,34 @@ function trendChart(period, definition, today) {
 			? `<text x="${x + barWidth / 2}" y="${height - 9}" text-anchor="middle" class="axis-label">${esc(day.slice(5))}</text>`
 			: '';
 		return `${count ? `<rect x="${x}" y="${barY}" width="${barWidth}" height="${barHeight}" rx="2" class="trend-bar${partial}">
-			<title>${esc(formatDay(day, 'long'))}: ${fmt(count)} session${count === 1 ? '' : 's'}${day === today ? ', partial day' : ''}</title>
+			<title>${esc(formatDay(day, 'long'))}: ${fmt(count)} ${useEdge ? 'edge visit estimate' : `session${count === 1 ? '' : 's'}`}${day === today ? ', partial day' : ''}</title>
 		</rect>` : ''}${label}`;
 	}).join('');
 
 	const exact = table(
-		['Date', 'Sessions', 'Status'],
-		series.slice().reverse().map(([day, count]) => [
-			formatDay(day, 'long'),
-			fmt(count),
-			day === today ? 'partial day' : 'complete day',
-		]),
-		'Sessions by Zagreb calendar day',
+		useEdge
+			? ['Date', 'Edge visits', 'Root requests', 'D1 sessions', 'Status']
+			: ['Date', 'D1 sessions', 'Status'],
+		series.slice().reverse().map((row) => useEdge
+			? [
+				formatDay(row.day, 'long'),
+				fmt(row.edgeVisits),
+				fmt(row.edgeRequests),
+				fmt(row.sessions),
+				row.day === today ? 'partial day' : 'complete day',
+			]
+			: [
+				formatDay(row.day, 'long'),
+				fmt(row.sessions),
+				row.day === today ? 'partial day' : 'complete day',
+			]),
+		useEdge
+			? 'Cloudflare edge estimates and detailed sessions by Zagreb calendar day'
+			: 'Detailed sessions by Zagreb calendar day',
 	);
 	return `<div class="chart-scroll"><svg viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="trend-title trend-desc">
-		<title id="trend-title">Observed tab sessions by day</title>
-		<desc id="trend-desc">Daily session counts for ${esc(definition.label)}. Today is marked as partial.</desc>
+		<title id="trend-title">${useEdge ? 'Cloudflare edge visit estimates' : 'Observed tab sessions'} by day</title>
+		<desc id="trend-desc">Daily ${useEdge ? 'edge visit estimates' : 'session counts'} for ${esc(definition.label)}. Today is marked as partial.</desc>
 		<defs><pattern id="partial-pattern" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="3" height="6" fill="var(--chart)"></rect></pattern></defs>
 		${grid}${bars}
 	</svg></div>${disclosure('Show exact daily table', exact)}`;
@@ -353,6 +380,7 @@ function distribution(title, values, order, denominator, note = '') {
 
 function rankedLedger(title, entries, denominator, options = {}) {
 	const top = options.top || 10;
+	const valueLabel = options.valueLabel || 'Sessions';
 	const rows = mapEntries(entries).slice(0, top);
 	if (!rows.length) return `<div class="ranked"><h3>${esc(title)}</h3><p class="empty">No observations in this period.</p></div>`;
 	const maximum = Math.max(...rows.map(([, count]) => count), 1);
@@ -364,7 +392,7 @@ function rankedLedger(title, entries, denominator, options = {}) {
 			<span class="rank-value">${fmt(count)}${denominator ? ` <small>${fmtPercent(count / denominator, 0)}</small>` : ''}</span>
 		</div>`).join('')}</div>
 		${disclosure(`Show all ${title.toLowerCase()}`, table(
-			['Value', 'Sessions', denominator ? 'Share of sessions' : 'Count'],
+			['Value', valueLabel, denominator ? `Share of ${valueLabel.toLowerCase()}` : 'Count'],
 			mapEntries(entries).map(([label, count]) => [
 				label,
 				fmt(count),
@@ -375,12 +403,15 @@ function rankedLedger(title, entries, denominator, options = {}) {
 	</div>`;
 }
 
-function cloudflareComparison(cloudflare, current) {
+function cloudflareComparison(cloudflare, current, syncStatus = {}) {
 	if (cloudflare.status === 'not-configured') {
-		return '<p class="section-footnote">Cloudflare edge traffic and RUM are ready to merge here after a durable Analytics Read API token is configured as <code>CF_ANALYTICS_TOKEN</code>.</p>';
+		return '<p class="alert">Cloudflare edge archiving is not configured. Add a durable Analytics Read token as <code>CF_ANALYTICS_TOKEN</code>; detailed first-party sessions remain available below.</p>';
+	}
+	if (cloudflare.status === 'schema-missing') {
+		return '<p class="alert">The Cloudflare edge archive tables have not been created in D1 yet. Detailed first-party sessions remain available below.</p>';
 	}
 	if (cloudflare.status === 'error') {
-		return '<p class="alert">Cloudflare traffic comparison could not be loaded. First-party analytics below remain available.</p>';
+		return '<p class="alert">The Cloudflare edge archive could not be read. Detailed first-party sessions remain available below.</p>';
 	}
 	const sessions = current.get('session');
 	const daily = new Map(cloudflare.edgeDaily.map((row) => [row.day, row]));
@@ -390,12 +421,25 @@ function cloudflareComparison(cloudflare, current) {
 	])].sort().reverse();
 	const browserVisits = new Map(cloudflare.browsers.map((row) => [row.name, row.visits]));
 	const coverage = cloudflare.edgeVisits ? sessions / cloudflare.edgeVisits : null;
+	const warnings = [];
+	if (!cloudflare.tokenConfigured) {
+		warnings.push('Archived edge data is available, but the Analytics Read token is currently missing, so it cannot refresh.');
+	}
+	if (syncStatus.status === 'error') {
+		warnings.push('The latest edge refresh failed. Cached archive rows are shown.');
+	} else if (cloudflare.stale) {
+		warnings.push('The edge archive has not refreshed successfully for more than 26 hours.');
+	}
+	if (cloudflare.edgeVisits > 0 && sessions === 0) {
+		warnings.push('Cloudflare observed edge visits in this range, while the detailed first-party collector accepted no sessions.');
+	}
 	return `<div class="cloudflare-comparison">
+		${warnings.map((warning) => `<p class="alert">${esc(warning)}</p>`).join('')}
 		<div class="metric-ledger compact-ledger">
 			${metricRow(
-				'Cloudflare browser-like visits',
-				fmt(cloudflare.edgeVisits),
-				`${fmt(cloudflare.edgeRequests)} successful root-page requests after known bot/tool exclusions`,
+				'Successful root-page requests',
+				fmt(cloudflare.edgeRequests),
+				`${fmt(cloudflare.edgeVisits)} Cloudflare visit estimates in the selected range`,
 				{ label: 'edge estimate', className: 'is-neutral' },
 			)}
 			${metricRow(
@@ -405,10 +449,10 @@ function cloudflareComparison(cloudflare, current) {
 				{ label: 'diagnostic ratio', className: 'is-neutral' },
 			)}
 			${metricRow(
-				'Cloudflare RUM page loads',
-				fmt(cloudflare.rumPageLoads),
-				cloudflare.rumPageLoads ? 'cookieless Cloudflare Web Analytics feed' : 'the current Web Analytics site feed returned no rows',
-				{ label: cloudflare.rumPageLoads ? 'connected' : 'inactive or mismatched', className: 'is-neutral' },
+				'Edge archive coverage',
+				cloudflare.archiveStart ? formatDay(dayInTimeZone(Date.parse(cloudflare.archiveStart)), 'long') : 'not yet',
+				`last successful sync ${formatZagrebDateTime(cloudflare.lastSyncAt)}`,
+				{ label: cloudflare.stale ? 'stale' : 'current', className: cloudflare.stale ? 'is-down' : 'is-neutral' },
 			)}
 		</div>
 		<div class="split-grid edge-details">
@@ -428,7 +472,7 @@ function cloudflareComparison(cloudflare, current) {
 					'Cloudflare edge estimates compared with first-party sessions',
 				)}
 			</div>
-			${rankedLedger('Browser family at the edge', browserVisits, cloudflare.edgeVisits)}
+			${rankedLedger('Browser family at the edge', browserVisits, cloudflare.edgeVisits, { valueLabel: 'Edge visits' })}
 		</div>
 		<p class="section-footnote">Edge visits are Cloudflare estimates, not unique people. Known Curl, YandexBot, GoogleBot, ChromeHeadless, and verified-bot categories are excluded; unclassified automation can still remain.</p>
 	</div>`;
@@ -495,7 +539,7 @@ function section(id, kicker, title, note, body) {
 	</section>`;
 }
 
-function diagnosticsContent(model, archiveStatus) {
+function diagnosticsContent(model, archiveStatus, cloudflare, edgeStatus) {
 	const diagnostics = model.diagnostics;
 	const eventRows = [];
 	for (const [key, count] of model.current.counters) {
@@ -514,6 +558,15 @@ function diagnosticsContent(model, archiveStatus) {
 				<div><dt>Raw session IDs retained</dt><dd>${fmt(diagnostics.rawSessions)}</dd></div>
 				<div><dt>Archive rows</dt><dd>${fmt(diagnostics.archiveRows)}</dd></div>
 				<div><dt>Archived calendar days</dt><dd>${fmt(diagnostics.archiveDays)}</dd></div>
+				<div><dt>Edge archive begins</dt><dd>${cloudflare.archiveStart
+					? esc(formatZagrebDateTime(Date.parse(cloudflare.archiveStart)))
+					: 'not yet'}</dd></div>
+				<div><dt>Last successful edge sync</dt><dd>${esc(formatZagrebDateTime(cloudflare.lastSyncAt))}</dd></div>
+				<div><dt>Latest edge refresh</dt><dd>${edgeStatus?.status === 'error'
+					? 'failed; cached rows shown'
+					: edgeStatus?.skipped
+						? 'skipped; recent sync is current'
+						: `${fmt(edgeStatus?.windows || 0)} query window${edgeStatus?.windows === 1 ? '' : 's'}`}</dd></div>
 				<div><dt>Archive refresh</dt><dd>${archiveStatus?.error
 					? 'failed; raw fallback is shown'
 					: refreshed.length
@@ -529,7 +582,8 @@ function diagnosticsContent(model, archiveStatus) {
 				<li>No cookie, persistent analytics ID, stored IP address, raw user agent, search term, or filter value is retained.</li>
 				<li>Session reach counts a feature once per session. Actions count every accepted event.</li>
 				<li>Today is partial. Period comparisons use the immediately preceding period of the same length.</li>
-				<li>Raw beacon rows remain for 30 days. Completed days are archived only when this authenticated page is opened.</li>
+				<li>Raw beacon rows remain for 30 days. Completed days are archived by this authenticated page and by the daily maintenance cron.</li>
+				<li>Cloudflare edge totals are copied as hourly aggregates before the source dataset's eight-day lookback expires.</li>
 				<li>This dashboard does not claim unique people, returning visitors, or cross-device identity.</li>
 			</ul>
 		</div>
@@ -544,22 +598,42 @@ function diagnosticsContent(model, archiveStatus) {
 export async function renderStats(env, today, {
 	range = '30',
 	archiveStatus = {},
+	edgeStatus = {},
 	nonce = '',
 } = {}) {
-	const snapshot = await loadUsageSnapshot(env, today);
-	const model = buildStatsModel(snapshot, today, range);
+	const [snapshot, edgeArchive] = await Promise.all([
+		loadUsageSnapshot(env, today),
+		loadEdgeArchive(env),
+	]);
+	const archiveStartMs = Date.parse(edgeArchive.archiveStart);
+	const edgeFirstDay = Number.isFinite(archiveStartMs) ? dayInTimeZone(archiveStartMs) : null;
+	const model = buildStatsModel(snapshot, today, range, edgeFirstDay);
 	const { current, previous, summary, definition } = model;
-	const cloudflare = await loadCloudflareSignals(env, definition.start, definition.end);
+	const cloudflare = edgeSnapshotForRange(edgeArchive, definition.start, definition.end);
 	const previousSummary = summary.previous;
 	const sessions = summary.sessions;
-	const updatedAt = archiveStatus.syncedAt || Date.now();
+	const updatedAt = Math.max(
+		Number(archiveStatus.syncedAt) || 0,
+		Number(cloudflare.lastSyncAt) || 0,
+	) || Date.now();
 	const sessionEndCoverage = sessions ? summary.ended / sessions : 0;
+	const edgeAvailable = cloudflare.status === 'ok' || cloudflare.status === 'empty';
+	const edgeCoverage = cloudflare.edgeVisits ? sessions / cloudflare.edgeVisits : null;
+	const lastBeacon = formatZagrebDateTime(model.diagnostics.lastBeaconAt);
 
 	const overview = `<div class="metric-ledger" role="table" aria-label="Overview metrics">
 		${metricRow(
-			'Observed tab sessions',
-			fmt(sessions),
-			'One tab lifetime per Zagreb calendar day, not unique people',
+			'Cloudflare edge visit estimate',
+			edgeAvailable ? fmt(cloudflare.edgeVisits) : 'not available',
+			edgeAvailable
+				? `${fmt(cloudflare.edgeRequests)} successful root-page requests; includes owner traffic and unclassified automation`
+				: 'edge archive unavailable; detailed first-party sessions are still shown',
+			{ label: 'traffic baseline', className: 'is-neutral' },
+		)}
+		${metricRow(
+			'Detailed first-party sessions',
+			`${fmt(sessions)}${edgeCoverage == null ? '' : ` <small>${fmtPercent(edgeCoverage)} coverage</small>`}`,
+			`owner browser excluded; last accepted beacon ${lastBeacon}`,
 			deltaModel(sessions, previousSummary?.sessions ?? null),
 		)}
 		${metricRow(
@@ -603,7 +677,7 @@ export async function renderStats(env, today, {
 		</div>
 	</div>`;
 
-	const acquisition = `${cloudflareComparison(cloudflare, current)}
+	const acquisition = `${cloudflareComparison(cloudflare, current, edgeStatus)}
 	<div class="split-grid">
 		${rankedLedger('Referrer hosts', current.dimension('session', 'ref'), sessions, { top: 12 })}
 		${rankedLedger('Countries', current.dimension('session', 'country'), sessions)}
@@ -895,9 +969,9 @@ tbody td { font-family: "JetBrains Mono", monospace; font-size: .8rem; }
 		${section(
 			'traffic',
 			'02 · traffic trend',
-			'Sessions by day',
-			'Zeroes are shown as zeroes. The current day is visually marked as incomplete.',
-			trendChart(current, definition, today),
+			'Edge visits and detailed sessions by day',
+			'Cloudflare edge estimates are the traffic baseline. D1 sessions provide cookieless behavioral detail.',
+			trendChart(current, definition, today, cloudflare),
 		)}
 		${section(
 			'engagement',
@@ -929,7 +1003,7 @@ tbody td { font-family: "JetBrains Mono", monospace; font-size: .8rem; }
 		)}
 		<details class="diagnostics">
 			<summary>Diagnostics, retention, and definitions</summary>
-			${diagnosticsContent(model, archiveStatus)}
+			${diagnosticsContent(model, archiveStatus, cloudflare, edgeStatus)}
 		</details>
 		<section class="owner-control" aria-labelledby="owner-optout-title">
 			<div>
