@@ -41,13 +41,14 @@ action counts, referrer host, country, device class, dwell coverage, load errors
 Vitals. It does not store IP addresses, full user agents, search text, filter values, or an
 identifier that survives a reload or links visits across days.
 
-Opening authenticated `/stats` is the maintenance trigger. It atomically rebuilds completed
-daily aggregates when needed and removes raw beacon rows older than 30 days. There is no cron.
-The permanent archive remains in D1, while the report combines current raw rows with archived
-days without double-counting.
+Opening authenticated `/stats` atomically rebuilds completed daily aggregates when needed and
+removes raw beacon rows older than 30 days. A daily maintenance cron performs the same archival
+work and copies bounded hourly Cloudflare edge aggregates into D1 before Cloudflare's eight-day
+query window expires. The report combines current raw rows with permanent archives without
+double-counting.
 
-Cloudflare edge traffic and RUM can be shown beside first-party sessions by configuring a
-durable Analytics Read token:
+Cloudflare edge traffic is the report's traffic baseline; first-party sessions provide the
+detailed cookieless behavior layer. Configure a durable Analytics Read token:
 
 ```powershell
 npx wrangler secret put CF_ANALYTICS_TOKEN

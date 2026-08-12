@@ -6,6 +6,7 @@
  */
 
 import { aggregate, decodeAggregateKey } from './aggregate.js';
+import { syncEdgeArchive } from './cloudflare.js';
 import { addDays, dayInTimeZone } from './time.js';
 import { renderStats } from './render.js';
 
@@ -80,6 +81,11 @@ export default {
 		if (url.pathname === '/api/u') return ingest(request, env, ctx, url);
 		if (url.pathname === '/stats' || url.pathname === '/stats/') return stats(request, env, url);
 		return env.ASSETS.fetch(request);
+	},
+	async scheduled(controller, env, ctx) {
+		const now = Number(controller?.scheduledTime) || Date.now();
+		const today = dayInTimeZone(now);
+		ctx.waitUntil(runScheduledMaintenance(env, today, now));
 	},
 };
 
@@ -161,18 +167,17 @@ export async function ingest(request, env, ctx, url = new URL(request.url)) {
 		payload: JSON.stringify(events),
 	};
 
-	const write = env.DB.prepare(
-		'INSERT INTO usage_events (ts, day, session, country, device, ref_host, payload) VALUES (?, ?, ?, ?, ?, ?, ?)',
-	)
-		.bind(row.ts, row.day, row.session, row.country, row.device, row.referrer, row.payload)
-		.run()
-		.catch((error) => console.error('usage insert failed:', error));
-
-	// In production this write is detached from visitor latency. Test and local
-	// harnesses without an execution context can await it deterministically.
-	if (ctx?.waitUntil) ctx.waitUntil(write);
-	else await write;
-	return new Response(null, NO_CONTENT);
+	try {
+		await env.DB.prepare(
+			'INSERT INTO usage_events (ts, day, session, country, device, ref_host, payload) VALUES (?, ?, ?, ?, ?, ?, ?)',
+		)
+			.bind(row.ts, row.day, row.session, row.country, row.device, row.referrer, row.payload)
+			.run();
+		return new Response(null, NO_CONTENT);
+	} catch (error) {
+		console.error('usage insert failed:', error);
+		return new Response(null, { status: 503, headers: { 'retry-after': '2' } });
+	}
 }
 
 export function cleanEvent(event) {
@@ -416,6 +421,17 @@ export async function syncArchive(env, today) {
 	return { refreshed, pruned, syncedAt, cutoff };
 }
 
+export async function runScheduledMaintenance(env, today, now = Date.now()) {
+	const results = await Promise.allSettled([
+		syncArchive(env, today),
+		syncEdgeArchive(env, { now, reason: 'scheduled' }),
+	]);
+	for (const result of results) {
+		if (result.status === 'rejected') console.error('scheduled analytics maintenance failed:', result.reason);
+	}
+	return results;
+}
+
 /* Private stats --------------------------------------------------------- */
 
 async function stats(request, env, url) {
@@ -440,12 +456,17 @@ async function stats(request, env, url) {
 		console.error('usage archive sync failed:', error);
 		archiveStatus = { refreshed: [], pruned: [], syncedAt: null, error: true };
 	}
+	const edgeStatus = await syncEdgeArchive(env, {
+		now: Date.now(),
+		reason: 'stats',
+	});
 
 	const nonceBytes = crypto.getRandomValues(new Uint8Array(18));
 	const nonce = btoa(String.fromCharCode(...nonceBytes));
 	const html = await renderStats(env, today, {
 		range: url.searchParams.get('range') || '30',
 		archiveStatus,
+		edgeStatus,
 		nonce,
 	});
 	const headers = {
