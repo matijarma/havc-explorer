@@ -134,7 +134,7 @@
       <p>Pitanja: <a href="mailto:info@umjetnostzasve.hr">info@umjetnostzasve.hr</a>.</p>
 
       <h2>9. Web-aplikacija havc.matijar.info — mjerenje korištenja</h2>
-      <p class="muted">Ovaj odjeljak opisuje web-aplikaciju <strong>Sredstva</strong> (<code>havc.matijar.info</code>), ne proširenje. Proširenje i dalje ne prikuplja ništa. Ažurirano 5. kolovoza 2026.</p>
+      <p class="muted">Ovaj odjeljak opisuje web-aplikaciju <strong>Sredstva</strong> (<code>havc.matijar.info</code>), ne proširenje. Proširenje i dalje ne prikuplja ništa. Ažurirano 12. kolovoza 2026.</p>
       <p>Web-aplikacija mjeri vlastito korištenje <strong>zbirno, prvom stranom i bez kolačića</strong> — kako bismo znali što se koristi i koliko brzo se registar učitava. Konkretno:</p>
       <ul>
         <li><strong>Javnim posjetiteljima mjerenje ništa ne zapisuje na uređaj.</strong> Nema analitičkih kolačića ni trajnog identifikatora; identifikator sesije postoji samo u memoriji otvorene kartice i nestaje njezinim zatvaranjem. Jedina iznimka je dobrovoljna lokalna oznaka kojom vlasnik stranice može isključiti vlastiti preglednik iz mjerenja. Zato ova stranica ne treba traku za privolu o kolačićima.</li>
@@ -145,7 +145,7 @@
         <li><strong>Do Not Track i Global Privacy Control ne isključuju brojanje:</strong> ti signali uređuju praćenje preko web-lokacija i prodaju osobnih podataka, čega ovdje nema. Mjerenje ne sadrži nikakav identifikator pa je jednako anonimno za sve posjetitelje.</li>
         <li><strong>Podaci ostaju kod autora</strong> — u vlastitom Cloudflare računu, koriste se isključivo za poboljšanje ove aplikacije i nikada se ne dijele niti prodaju.</li>
       </ul>
-      <p>Aplikacija dodatno koristi <a href="https://www.cloudflare.com/web-analytics/">Cloudflare Web Analytics</a> — mjerenje performansi bez kolačića koje ništa ne pohranjuje u preglednik i ne prati korisnike preko web-lokacija. To je jedina komponenta treće strane.</p>
+      <p>Poslužitelj dodatno arhivira zbirne Cloudflareove rubne brojače zahtjeva i procjene posjeta. Ti podaci ne učitavaju skriptu treće strane u preglednik i ne sadrže pojedinačne zahtjeve ni identifikatore posjetitelja.</p>
     </section>
 
     <!-- ─────────────── EN ─────────────── -->
@@ -187,7 +187,7 @@
       <p>Questions: <a href="mailto:info@umjetnostzasve.hr">info@umjetnostzasve.hr</a>.</p>
 
       <h2>9. The havc.matijar.info web app — usage measurement</h2>
-      <p class="muted">This section describes the <strong>Sredstva</strong> web app (<code>havc.matijar.info</code>), not the extension. The extension still collects nothing. Updated 5 August 2026.</p>
+      <p class="muted">This section describes the <strong>Sredstva</strong> web app (<code>havc.matijar.info</code>), not the extension. The extension still collects nothing. Updated 12 August 2026.</p>
       <p>The web app measures its own usage <strong>in aggregate, first-party, and without cookies</strong> — so we know what gets used and how fast the registry loads. Specifically:</p>
       <ul>
         <li><strong>Measurement writes nothing to a public visitor's device.</strong> There are no analytics cookies or persistent identifiers; the session identifier lives only in the open tab's memory and vanishes when the tab closes. The sole exception is an optional local flag that lets the site owner exclude his own browser from measurement. That is why this site needs no cookie-consent banner.</li>
@@ -198,7 +198,7 @@
         <li><strong>Do Not Track and Global Privacy Control do not switch counting off:</strong> those signals govern cross-site tracking and the sale of personal data, neither of which happens here. The measurement carries no identifier and is equally anonymous for every visitor.</li>
         <li><strong>The data stays with the author</strong> — in his own Cloudflare account, used solely to improve this app, and never shared or sold.</li>
       </ul>
-      <p>The app additionally uses <a href="https://www.cloudflare.com/web-analytics/">Cloudflare Web Analytics</a> — cookieless performance measurement that stores nothing in your browser and does not track users across websites. It is the only third-party component.</p>
+      <p>The server additionally archives aggregate Cloudflare edge request counters and visit estimates. This loads no third-party script in the browser and retains neither individual edge requests nor visitor identifiers.</p>
     </section>
 
     <footer>

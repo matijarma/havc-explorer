@@ -76,6 +76,9 @@ const db = {
         if (normalized.startsWith('SELECT day, event')) return { results: [] };
         if (normalized.startsWith('SELECT * FROM usage_events')) return { results: raw };
         if (normalized === 'SELECT k, v FROM usage_meta') return { results: [] };
+        if (normalized.startsWith('SELECT hour_utc, request_count, visit_count FROM edge_hourly')) return { results: [] };
+        if (normalized.startsWith('SELECT hour_utc, browser, request_count, visit_count FROM edge_browser_hourly')) return { results: [] };
+        if (normalized === 'SELECT k, v FROM edge_sync_state') return { results: [] };
         throw new Error(`Unsupported query: ${normalized}`);
       },
     };
@@ -242,7 +245,9 @@ try {
     return {
       title: document.querySelector('h1')?.textContent,
       sections: document.querySelectorAll('.ledger-section').length,
-      sessions: document.querySelector('.metric-value')?.textContent.trim(),
+      sessions: [...document.querySelectorAll('.metric-row')]
+        .find((row) => row.querySelector('.metric-copy strong')?.textContent.includes('Detailed first-party sessions'))
+        ?.querySelector('.metric-value')?.childNodes[0]?.textContent.trim(),
       bodyOverflow: document.documentElement.scrollWidth > innerWidth,
       summaries: [...document.querySelectorAll('summary')].map((node) => Math.round(node.getBoundingClientRect().height)),
       optOut: document.querySelector('#owner-optout-status')?.textContent,
