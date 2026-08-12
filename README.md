@@ -42,10 +42,10 @@ Vitals. It does not store IP addresses, full user agents, search text, filter va
 identifier that survives a reload or links visits across days.
 
 Opening authenticated `/stats` atomically rebuilds completed daily aggregates when needed and
-removes raw beacon rows older than 30 days. A daily maintenance cron performs the same archival
-work and copies bounded hourly Cloudflare edge aggregates into D1 before Cloudflare's eight-day
-query window expires. The report combines current raw rows with permanent archives without
-double-counting.
+removes raw beacon rows older than 30 days. A daily GitHub Actions schedule calls a secret-
+protected maintenance endpoint to perform the same archival work and copy bounded hourly
+Cloudflare edge aggregates into D1 before Cloudflare's eight-day query window expires. The
+report combines current raw rows with permanent archives without double-counting.
 
 Cloudflare edge traffic is the report's traffic baseline; first-party sessions provide the
 detailed cookieless behavior layer. Configure a durable Analytics Read token:
