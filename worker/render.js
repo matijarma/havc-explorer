@@ -539,7 +539,7 @@ function section(id, kicker, title, note, body) {
 	</section>`;
 }
 
-function diagnosticsContent(model, archiveStatus, cloudflare, edgeStatus) {
+function diagnosticsContent(model, archiveStatus, cloudflare, edgeStatus, schedulerStatus) {
 	const diagnostics = model.diagnostics;
 	const eventRows = [];
 	for (const [key, count] of model.current.counters) {
@@ -567,6 +567,11 @@ function diagnosticsContent(model, archiveStatus, cloudflare, edgeStatus) {
 					: edgeStatus?.skipped
 						? 'skipped; recent sync is current'
 						: `${fmt(edgeStatus?.windows || 0)} query window${edgeStatus?.windows === 1 ? '' : 's'}`}</dd></div>
+				<div><dt>Archive scheduler</dt><dd>${schedulerStatus?.status === 'scheduled'
+					? `next alarm ${formatZagrebDateTime(schedulerStatus.alarmAt)}`
+					: schedulerStatus?.status === 'not-configured'
+						? 'waiting for Analytics Read token'
+						: 'unavailable'}</dd></div>
 				<div><dt>Archive refresh</dt><dd>${archiveStatus?.error
 					? 'failed; raw fallback is shown'
 					: refreshed.length
@@ -582,7 +587,7 @@ function diagnosticsContent(model, archiveStatus, cloudflare, edgeStatus) {
 				<li>No cookie, persistent analytics ID, stored IP address, raw user agent, search term, or filter value is retained.</li>
 				<li>Session reach counts a feature once per session. Actions count every accepted event.</li>
 				<li>Today is partial. Period comparisons use the immediately preceding period of the same length.</li>
-				<li>Raw beacon rows remain for 30 days. Completed days are archived by this authenticated page and by the daily maintenance cron.</li>
+				<li>Raw beacon rows remain for 30 days. Completed days are archived by this authenticated page and by the daily maintenance alarm.</li>
 				<li>Cloudflare edge totals are copied as hourly aggregates before the source dataset's eight-day lookback expires.</li>
 				<li>This dashboard does not claim unique people, returning visitors, or cross-device identity.</li>
 			</ul>
@@ -599,6 +604,7 @@ export async function renderStats(env, today, {
 	range = '30',
 	archiveStatus = {},
 	edgeStatus = {},
+	schedulerStatus = {},
 	nonce = '',
 } = {}) {
 	const [snapshot, edgeArchive] = await Promise.all([
@@ -1003,7 +1009,7 @@ tbody td { font-family: "JetBrains Mono", monospace; font-size: .8rem; }
 		)}
 		<details class="diagnostics">
 			<summary>Diagnostics, retention, and definitions</summary>
-			${diagnosticsContent(model, archiveStatus, cloudflare, edgeStatus)}
+			${diagnosticsContent(model, archiveStatus, cloudflare, edgeStatus, schedulerStatus)}
 		</details>
 		<section class="owner-control" aria-labelledby="owner-optout-title">
 			<div>

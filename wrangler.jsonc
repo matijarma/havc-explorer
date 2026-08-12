@@ -40,12 +40,28 @@
 
 	// Usage-measurement store (see worker/schema.sql). D1 keeps permanent daily
 	// first-party history and hourly Cloudflare edge aggregates. /stats refreshes
-	// current data; a GitHub schedule preserves it beyond Cloudflare's lookback.
+	// current data; a Durable Object alarm preserves it beyond the edge lookback.
 	"d1_databases": [
 		{
 			"binding": "DB",
 			"database_name": "havc-explorer-db",
 			"database_id": "86eca9f4-0bfd-43dc-b15b-7c066a68f715"
+		}
+	],
+
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "ANALYTICS_SCHEDULER",
+				"class_name": "AnalyticsScheduler"
+			}
+		]
+	},
+
+	"migrations": [
+		{
+			"tag": "analytics-scheduler-v1",
+			"new_sqlite_classes": ["AnalyticsScheduler"]
 		}
 	],
 

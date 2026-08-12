@@ -1,9 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import worker, {
+	AnalyticsScheduler,
 	cleanEvent,
 	ingest,
-	secretsMatch,
+	nextArchiveAlarm,
 	syncArchive,
 	verifyAccessJwt,
 } from '../worker/index.js';
@@ -377,24 +378,29 @@ test('direct workers.dev host and a fake stats header are denied before D1 acces
 	assert.equal(assetCalls, 0);
 });
 
-test('maintenance endpoint rejects missing or incorrect secrets before D1 access', async () => {
-	assert.equal(secretsMatch('same-secret', 'same-secret'), true);
-	assert.equal(secretsMatch('same-secret', 'different-secret'), false);
-	assert.equal(secretsMatch('', ''), false);
+test('Durable Object scheduler arms the next 02:15 UTC alarm without a cron slot', async () => {
+	assert.equal(
+		nextArchiveAlarm(Date.parse('2026-08-12T01:00:00Z')),
+		Date.parse('2026-08-12T02:15:00Z'),
+	);
+	assert.equal(
+		nextArchiveAlarm(Date.parse('2026-08-12T03:00:00Z')),
+		Date.parse('2026-08-13T02:15:00Z'),
+	);
 
-	const env = {
-		CRON_SECRET: 'expected-secret',
-		ASSETS: { fetch: () => new Response('asset') },
-	};
-	for (const authorization of [null, 'Bearer wrong-secret']) {
-		const headers = authorization ? { authorization } : {};
-		const response = await worker.fetch(
-			new Request('https://havc.matijar.info/api/cron', { method: 'POST', headers }),
-			env,
-			{},
-		);
-		assert.equal(response.status, 404);
-	}
+	let alarmAt = null;
+	const scheduler = new AnalyticsScheduler({
+		storage: {
+			getAlarm: async () => alarmAt,
+			setAlarm: async (value) => { alarmAt = value; },
+		},
+	}, {});
+	const before = Date.now();
+	const response = await scheduler.fetch();
+	const payload = await response.json();
+	assert.equal(response.status, 200);
+	assert.equal(payload.alarmAt, alarmAt);
+	assert.ok(alarmAt > before);
 });
 
 test('owner-triggered archive replacement is idempotent and retains 30 days of raw rows', async () => {
