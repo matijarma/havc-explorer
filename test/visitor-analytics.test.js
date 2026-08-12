@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import worker, {
 	cleanEvent,
 	ingest,
+	secretsMatch,
 	syncArchive,
 	verifyAccessJwt,
 } from '../worker/index.js';
@@ -374,6 +375,26 @@ test('direct workers.dev host and a fake stats header are denied before D1 acces
 	);
 	assert.equal(fakeHeader.status, 403);
 	assert.equal(assetCalls, 0);
+});
+
+test('maintenance endpoint rejects missing or incorrect secrets before D1 access', async () => {
+	assert.equal(secretsMatch('same-secret', 'same-secret'), true);
+	assert.equal(secretsMatch('same-secret', 'different-secret'), false);
+	assert.equal(secretsMatch('', ''), false);
+
+	const env = {
+		CRON_SECRET: 'expected-secret',
+		ASSETS: { fetch: () => new Response('asset') },
+	};
+	for (const authorization of [null, 'Bearer wrong-secret']) {
+		const headers = authorization ? { authorization } : {};
+		const response = await worker.fetch(
+			new Request('https://havc.matijar.info/api/cron', { method: 'POST', headers }),
+			env,
+			{},
+		);
+		assert.equal(response.status, 404);
+	}
 });
 
 test('owner-triggered archive replacement is idempotent and retains 30 days of raw rows', async () => {
