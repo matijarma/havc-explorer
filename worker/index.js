@@ -79,7 +79,6 @@ export default {
 		}
 
 		if (url.pathname === '/api/u') return ingest(request, env, ctx, url);
-		if (url.pathname === '/api/cron') return maintenance(request, env);
 		if (url.pathname === '/stats' || url.pathname === '/stats/') return stats(request, env, url);
 		return env.ASSETS.fetch(request);
 	},
@@ -433,32 +432,58 @@ export async function runScheduledMaintenance(env, today, now = Date.now()) {
 	return results;
 }
 
-export function secretsMatch(received, expected) {
-	if (typeof received !== 'string' || typeof expected !== 'string') return false;
-	const left = new TextEncoder().encode(received);
-	const right = new TextEncoder().encode(expected);
-	if (left.length !== right.length || !left.length) return false;
-	let difference = 0;
-	for (let index = 0; index < left.length; index++) difference |= left[index] ^ right[index];
-	return difference === 0;
-}
-
-export async function maintenance(request, env, now = Date.now()) {
-	if (request.method !== 'POST') {
-		return new Response(null, { status: 405, headers: { Allow: 'POST' } });
-	}
-	const header = request.headers.get('authorization') || '';
-	const received = header.startsWith('Bearer ') ? header.slice(7) : '';
-	if (!secretsMatch(received, env.CRON_SECRET)) return new Response('Not found', { status: 404 });
-
-	const results = await runScheduledMaintenance(env, dayInTimeZone(now), now);
+function maintenanceFailed(results) {
 	const firstPartyFailed = results[0]?.status === 'rejected';
 	const edgeResult = results[1];
 	const edgeFailed = edgeResult?.status === 'rejected'
 		|| edgeResult?.value?.status === 'error'
 		|| edgeResult?.value?.status === 'not-configured';
-	if (firstPartyFailed || edgeFailed) return new Response('Maintenance unavailable', { status: 503 });
-	return new Response(null, NO_CONTENT);
+	return firstPartyFailed || edgeFailed;
+}
+
+export function nextArchiveAlarm(now = Date.now()) {
+	const date = new Date(now);
+	let next = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 2, 15);
+	if (next <= now + 60 * 1000) next += 24 * 60 * 60 * 1000;
+	return next;
+}
+
+export class AnalyticsScheduler {
+	constructor(state, env) {
+		this.state = state;
+		this.env = env;
+	}
+
+	async fetch() {
+		const current = await this.state.storage.getAlarm();
+		if (current === null) await this.state.storage.setAlarm(nextArchiveAlarm());
+		const alarmAt = await this.state.storage.getAlarm();
+		return Response.json({ alarmAt });
+	}
+
+	async alarm() {
+		const now = Date.now();
+		const results = await runScheduledMaintenance(this.env, dayInTimeZone(now), now);
+		if (maintenanceFailed(results)) {
+			const retries = Math.min(6, (Number(await this.state.storage.get('retry_count')) || 0) + 1);
+			const delay = Math.min(6 * 60 * 60 * 1000, 15 * 60 * 1000 * (2 ** (retries - 1)));
+			await this.state.storage.put('retry_count', retries);
+			await this.state.storage.setAlarm(now + delay);
+			return;
+		}
+		await this.state.storage.delete('retry_count');
+		await this.state.storage.setAlarm(nextArchiveAlarm(now));
+	}
+}
+
+export async function ensureAnalyticsAlarm(env) {
+	if (!env.CF_ANALYTICS_TOKEN) return { status: 'not-configured', alarmAt: null };
+	if (!env.ANALYTICS_SCHEDULER) return { status: 'unavailable', alarmAt: null };
+	const id = env.ANALYTICS_SCHEDULER.idFromName('daily-edge-archive');
+	const response = await env.ANALYTICS_SCHEDULER.get(id).fetch('https://scheduler.internal/');
+	if (!response.ok) throw new Error(`Analytics scheduler returned ${response.status}`);
+	const payload = await response.json();
+	return { status: 'scheduled', alarmAt: Number(payload.alarmAt) || null };
 }
 
 /* Private stats --------------------------------------------------------- */
@@ -489,6 +514,13 @@ async function stats(request, env, url) {
 		now: Date.now(),
 		reason: 'stats',
 	});
+	let schedulerStatus;
+	try {
+		schedulerStatus = await ensureAnalyticsAlarm(env);
+	} catch (error) {
+		console.error('analytics alarm initialization failed:', error);
+		schedulerStatus = { status: 'error', alarmAt: null };
+	}
 
 	const nonceBytes = crypto.getRandomValues(new Uint8Array(18));
 	const nonce = btoa(String.fromCharCode(...nonceBytes));
@@ -496,6 +528,7 @@ async function stats(request, env, url) {
 		range: url.searchParams.get('range') || '30',
 		archiveStatus,
 		edgeStatus,
+		schedulerStatus,
 		nonce,
 	});
 	const headers = {

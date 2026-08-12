@@ -2,9 +2,9 @@
 -- Apply with: npx wrangler d1 execute havc-explorer-db --remote --file=worker/schema.sql
 
 -- Append-only ingest buffer: one row per beacon flush, not one row per event.
--- Raw rows are retained for 30 days. Authenticated /stats visits and the daily
--- maintenance cron atomically refresh completed days in usage_daily, then
--- perform retention cleanup.
+-- Raw rows are retained for 30 days. Authenticated /stats visits and scheduled
+-- maintenance atomically refresh completed days in usage_daily, then perform
+-- retention cleanup.
 CREATE TABLE IF NOT EXISTS usage_events (
   id       INTEGER PRIMARY KEY AUTOINCREMENT,
   ts       INTEGER NOT NULL,             -- epoch ms, server-assigned
