@@ -1,0 +1,25 @@
+# Never line-ending-convert the data payloads.
+#
+# With core.autocrlf=true, checkout was rewriting havc/data.json to CRLF, adding
+# one byte per line — 477,516 bytes — which inflated the working copy from
+# 24.62 MiB to 25.08 MiB and pushed it past the Cloudflare Workers 25 MiB
+# per-asset hard limit. Production was unaffected (git stores LF, and that is
+# what gets deployed), but `wrangler dev` refused to start locally.
+#
+# JSON has no business being CRLF-converted in either direction.
+*.json -text
+
+# Same reasoning for the rest of the shipped text surface: these are served
+# byte-for-byte over HTTP, so the repo and the wire should agree.
+*.js   -text
+*.css  -text
+*.html -text
+*.svg  -text
+
+# Config files parsed line-by-line. A CRLF checkout would leave a trailing \r on
+# every .assetsignore pattern, which would silently stop the exclusions matching.
+*.jsonc        -text
+*.sql          -text
+.assetsignore  -text
+.gitattributes -text
+.gitignore     -text

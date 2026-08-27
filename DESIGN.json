@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-30T18:17:02.1675506Z",
+  "title": "Design System: Sredstva",
+  "extensions": {
+    "colorMeta": {
+      "registry-red": {
+        "role": "primary",
+        "displayName": "Registry Red",
+        "canonical": "#c14843",
+        "tonalRamp": [
+          "oklch(20% 0.055 25)",
+          "oklch(30% 0.085 25)",
+          "oklch(40% 0.11 25)",
+          "oklch(51% 0.14 25)",
+          "oklch(62% 0.12 25)",
+          "oklch(73% 0.09 25)",
+          "oklch(84% 0.05 25)",
+          "oklch(94% 0.018 25)"
+        ]
+      },
+      "analytics-red-dark": {
+        "role": "primary",
+        "displayName": "Dark-Theme Data Red",
+        "canonical": "#dc7069",
+        "tonalRamp": [
+          "oklch(20% 0.05 25)",
+          "oklch(30% 0.075 25)",
+          "oklch(40% 0.1 25)",
+          "oklch(52% 0.13 25)",
+          "oklch(64% 0.12 25)",
+          "oklch(74% 0.09 25)",
+          "oklch(84% 0.05 25)",
+          "oklch(94% 0.018 25)"
+        ]
+      },
+      "analytics-red-light": {
+        "role": "primary",
+        "displayName": "Light-Theme Data Red",
+        "canonical": "#a83b37",
+        "tonalRamp": [
+          "oklch(20% 0.05 25)",
+          "oklch(30% 0.075 25)",
+          "oklch(40% 0.1 25)",
+          "oklch(52% 0.13 25)",
+          "oklch(64% 0.12 25)",
+          "oklch(74% 0.09 25)",
+          "oklch(84% 0.05 25)",
+          "oklch(94% 0.018 25)"
+        ]
+      },
+      "ink-dark": {
+        "role": "neutral",
+        "displayName": "Dark Roasted Ink",
+        "canonical": "#2e2522",
+        "tonalRamp": [
+          "oklch(15% 0.012 38)",
+          "oklch(24% 0.014 38)",
+          "oklch(34% 0.014 38)",
+          "oklch(45% 0.013 38)",
+          "oklch(57% 0.012 38)",
+          "oklch(70% 0.01 38)",
+          "oklch(83% 0.008 38)",
+          "oklch(95% 0.004 38)"
+        ]
+      },
+      "paper-dark": {
+        "role": "neutral",
+        "displayName": "Warm Archive Paper",
+        "canonical": "#f4ede2",
+        "tonalRamp": [
+          "oklch(15% 0.01 70)",
+          "oklch(27% 0.012 70)",
+          "oklch(39% 0.014 70)",
+          "oklch(52% 0.015 70)",
+          "oklch(65% 0.014 70)",
+          "oklch(77% 0.012 70)",
+          "oklch(88% 0.009 70)",
+          "oklch(96% 0.005 70)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Editorial Display",
+        "purpose": "Major orientation and product identity only."
+      },
+      "body": {
+        "displayName": "Registry Body",
+        "purpose": "Dense but readable interface and explanatory copy."
+      },
+      "label": {
+        "displayName": "Evidence Mono",
+        "purpose": "Amounts, metadata, formulas, controls, and provenance."
+      }
+    },
+    "shadows": [
+      {
+        "name": "overlay",
+        "value": "0 40px 80px rgba(0,0,0,0.4)",
+        "purpose": "True modal and full-screen overlay surfaces only."
+      },
+      {
+        "name": "mobile-drawer",
+        "value": "0 20px 40px rgba(0,0,0,0.34)",
+        "purpose": "Mobile filter drawer only."
+      }
+    ],
+    "motion": [
+      {
+        "name": "feedback",
+        "value": "120ms cubic-bezier(0.25, 1, 0.5, 1)",
+        "purpose": "Button, focus, and selection feedback."
+      },
+      {
+        "name": "state-change",
+        "value": "220ms cubic-bezier(0.25, 1, 0.5, 1)",
+        "purpose": "Panels, readouts, and analytical selection changes."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "900px"
+      },
+      {
+        "name": "compact-analytics",
+        "value": "1120px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Registry Button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Compact editorial action with explicit focus and active states.",
+      "html": "<button class=\"ds-btn\">SHOW RECORDS</button>",
+      "css": ".ds-btn { background: transparent; color: var(--paper, #f4ede2); border: 1px solid var(--rule, #4a3b35); border-radius: 2px; padding: 8px 12px; min-height: 36px; font: 500 10px/1.4 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: color 120ms cubic-bezier(.25,1,.5,1), border-color 120ms cubic-bezier(.25,1,.5,1); } .ds-btn:hover { color: var(--red, #c14843); border-color: var(--red, #c14843); } .ds-btn:focus-visible { outline: 2px solid var(--red, #c14843); outline-offset: 2px; } .ds-btn:active { transform: translateY(1px); }"
+    },
+    {
+      "name": "Registry Search",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Transparent search field with a strong rule and red focus state.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">SEARCH</span><input class=\"ds-input\" placeholder=\"Search projects, producers, directors…\"></label>",
+      "css": ".ds-field { display: grid; gap: 6px; color: var(--paper, #f4ede2); } .ds-field-label { font: 500 10px/1.4 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .12em; } .ds-input { background: transparent; color: inherit; border: 1.5px solid var(--rule, #4a3b35); border-radius: 2px; padding: 9px 14px; font: 400 14px/1.5 'Albert Sans', system-ui, sans-serif; } .ds-input:focus-visible { outline: none; border-color: var(--red, #c14843); box-shadow: 0 0 0 1px var(--red, #c14843); }"
+    },
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Compact state token for reversible filters and analytical selections.",
+      "html": "<button class=\"ds-chip\" aria-pressed=\"true\">2024 ×</button>",
+      "css": ".ds-chip { background: transparent; color: var(--red, #c14843); border: 1px solid var(--red, #c14843); border-radius: 999px; padding: 6px 10px; min-height: 32px; font: 500 10px/1.4 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .06em; cursor: pointer; } .ds-chip:hover { background: color-mix(in oklab, var(--red, #c14843) 10%, transparent); } .ds-chip:focus-visible { outline: 2px solid var(--red, #c14843); outline-offset: 2px; }"
+    },
+    {
+      "name": "View Navigation",
+      "kind": "nav",
+      "description": "Familiar tabs with a red active rule and restrained inactive states.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Views\"><button class=\"ds-tab is-active\" aria-current=\"page\">REGISTRY</button><button class=\"ds-tab\">ABOUT</button><button class=\"ds-tab\">PROCESS</button></nav>",
+      "css": ".ds-nav { display: flex; gap: 4px; } .ds-tab { background: transparent; color: var(--paper-dim, #d6cebe); border: 1.5px solid transparent; border-radius: 2px; padding: 7px 12px; font: 600 12px/1.4 'Albert Sans', system-ui, sans-serif; cursor: pointer; } .ds-tab:hover { color: var(--paper, #f4ede2); } .ds-tab:focus-visible { outline: 2px solid var(--red, #c14843); outline-offset: 2px; } .ds-tab.is-active { color: var(--paper, #f4ede2); border-color: var(--red, #c14843); }"
+    },
+    {
+      "name": "Analytical Figure",
+      "kind": "custom",
+      "description": "Ruled editorial chart container with visible context and an exact readout.",
+      "html": "<figure class=\"ds-figure\"><figcaption><span class=\"ds-kicker\">FUNDING BY YEAR</span><strong>€18.4M</strong></figcaption><div class=\"ds-chart\" aria-label=\"Chart area\"></div><p>Current scope · 2024 · 812 decisions</p></figure>",
+      "css": ".ds-figure { margin: 0; padding: 16px 0; border-top: 1px solid var(--rule, #4a3b35); color: var(--paper, #f4ede2); } .ds-figure figcaption { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; } .ds-kicker { color: var(--paper-dim, #d6cebe); font: 500 10px/1.4 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .12em; } .ds-chart { height: 96px; margin: 14px 0 10px; border-bottom: 1px solid var(--rule, #4a3b35); background: linear-gradient(to top, color-mix(in oklab, var(--red, #c14843) 18%, transparent), transparent); } .ds-figure p { margin: 0; color: var(--paper-dim, #d6cebe); font: 400 12px/1.5 'Albert Sans', system-ui, sans-serif; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Public Ledger Desk",
+    "overview": "Sredstva should feel like a carefully edited working desk for public records: warm paper, dark ink, ruled divisions, exact figures, and restrained annotations. It is dense because its users compare evidence repeatedly, but hierarchy and progressive disclosure keep that density legible.\n\nThe interface is editorial, rigorous, and direct. It must never drift into a generic SaaS dashboard, a decorative metric-card grid, or a glossy visualization product. Interaction exists to help users investigate and verify, not to make public data feel theatrical.",
+    "keyCharacteristics": [
+      "Warm, tinted neutrals in both themes",
+      "One red accent reserved for selection, focus, and consequential actions",
+      "Editorial display type paired with a neutral body face and tabular mono labels",
+      "Flat, ruled surfaces with depth used only for true overlays",
+      "Compact information density with explicit provenance and exact values",
+      "Responsive composition rather than a shrunken desktop layout"
+    ],
+    "rules": [
+      {
+        "name": "The Red-Pencil Rule",
+        "body": "Registry red marks a decision or an active state. It is never ambient decoration and should occupy less than roughly ten percent of a screen.",
+        "section": "colors"
+      },
+      {
+        "name": "The Evidence-Is-Not-Color Rule",
+        "body": "Every chart color must be paired with a label, value, pattern, or position. Meaning must survive grayscale and common color-vision deficiencies.",
+        "section": "colors"
+      },
+      {
+        "name": "The Three-Voices Rule",
+        "body": "Bricolage speaks only for orientation, Albert Sans for reading, and JetBrains Mono for evidence. Never introduce another typographic voice for novelty.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-Ledger Rule",
+        "body": "If a section can be separated by space and a rule, it must not become a floating card.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do prioritize comparison and investigation over decoration.",
+      "Do keep the registry dense, legible, and predictable for repeated use.",
+      "Do distinguish global registry facts from the active filtered scope.",
+      "Do connect important numbers to denominators, field coverage, methodology, and source evidence.",
+      "Do use progressive disclosure for formulas, caveats, and detailed records.",
+      "Do preserve bilingual content, light/dark/auto themes, visible focus, and reduced-motion behavior."
+    ],
+    "donts": [
+      "Don't build a generic SaaS dashboard.",
+      "Don't use decorative metric-card grids or leaderboard framing.",
+      "Don't use glossy data visualizations or gratuitous motion.",
+      "Don't conceal provenance, denominators, exact values, or field coverage.",
+      "Don't use nested cards, glassmorphism, gradient text, or colored side-stripe accents.",
+      "Don't make hover the only way to reveal information or perform an action.",
+      "Don't use registry red as ambient decoration or rely on color alone for meaning."
+    ]
+  }
+}
