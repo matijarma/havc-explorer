@@ -1,6 +1,7 @@
-# wrangler files
-.wrangler
-.dev.vars*
-!.dev.vars.example
-.env*
-!.env.example
+__pycache__/
+*/__pycache__/
+*.py[cod]
+.pytest_cache/
+.wrangler/
+havc/data.backup.*.json
+havc/data-old.json
