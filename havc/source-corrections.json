@@ -1,0 +1,225 @@
+{
+  "version": "1.0",
+  "documents": {
+    "3c5f015bf1548b333b928cc6af1eedb04ed8234040bcfcda4b625ab6be330abf": {
+      "evidence": "Reconciled against the original one-page HAVC distribution results PDF. The prior record was reconstructed from an explanation document and omitted five awarded rows.",
+      "replace_sections": [
+        {
+          "section_label": "Distribucija",
+          "section_key": "distribucija",
+          "columns": [
+            "Nositelj prijave",
+            "Naslov filma",
+            "Kategorija filma",
+            "Redatelj/ica",
+            "Producent",
+            "Distributer",
+            "Odobrena sredstva (€)"
+          ],
+          "rows": [
+            {
+              "row_number": 1,
+              "project_title": "Sveta obitelj",
+              "applicant": "Inter film d.o.o.",
+              "production_company": "Inter film d.o.o.",
+              "director": "Vlatka Vorkapić",
+              "category": "dugometražni igrani film",
+              "approved_amount_text": "14.000,00",
+              "approved_amount": 14000.0,
+              "currency": "EUR",
+              "extras": {
+                "distributor": "Duplicato Media d.o.o."
+              }
+            },
+            {
+              "row_number": 2,
+              "project_title": "Bosanski lonac",
+              "applicant": "Telefilm d.o.o.",
+              "production_company": "Telefilm d.o.o.",
+              "director": "Pavao Marinković",
+              "category": "dugometražni igrani film",
+              "approved_amount_text": "8.900,00",
+              "approved_amount": 8900.0,
+              "currency": "EUR",
+              "extras": {
+                "distributor": "Duplicato Media d.o.o."
+              }
+            },
+            {
+              "row_number": 3,
+              "project_title": "Distribucija filma \"DOSJE LABUDOVIĆ: Nesvrstani\"",
+              "applicant": "Restart",
+              "production_company": "Restart",
+              "director": "Mila Turajlić",
+              "category": "dugometražni dokumentarni film - manjinska koprodukcija",
+              "approved_amount_text": "2.400,00",
+              "approved_amount": 2400.0,
+              "currency": "EUR",
+              "extras": {
+                "distributor": "Restart"
+              }
+            },
+            {
+              "row_number": 4,
+              "project_title": "Distribucija filma \"DOSJE LABUDOVIĆ: Ciné-Guerrillas\"",
+              "applicant": "Restart",
+              "production_company": "Restart",
+              "director": "Mila Turajlić",
+              "category": "dugometražni dokumentarni film - manjinska koprodukcija",
+              "approved_amount_text": "2.400,00",
+              "approved_amount": 2400.0,
+              "currency": "EUR",
+              "extras": {
+                "distributor": "Restart"
+              }
+            },
+            {
+              "row_number": 5,
+              "project_title": "Distribucija dokumentarnog filma \"Istražitelj\"",
+              "applicant": "Restart",
+              "production_company": "Restart",
+              "director": "Viktor Portel",
+              "category": "dugometražni dokumentarni film - manjinska koprodukcija",
+              "approved_amount_text": "2.400,00",
+              "approved_amount": 2400.0,
+              "currency": "EUR",
+              "extras": {
+                "distributor": "Restart"
+              }
+            },
+            {
+              "row_number": 6,
+              "project_title": "Smrt djevojčice sa žigicama",
+              "applicant": "Livada produkcija d.o.o.",
+              "production_company": "Livada produkcija d.o.o.",
+              "director": "Goran Kulenović",
+              "category": "dugometražni igrani film",
+              "approved_amount_text": "12.500,00",
+              "approved_amount": 12500.0,
+              "currency": "EUR",
+              "extras": {
+                "distributor": "Con film d.o.o."
+              }
+            },
+            {
+              "row_number": 7,
+              "project_title": "Bazen beskraja",
+              "applicant": "Četiri film d.o.o.",
+              "production_company": "Četiri film d.o.o.",
+              "director": "Brandon Cronenberg",
+              "category": "dugometražni igrani film - manjinska koprodukcija",
+              "approved_amount_text": "5.500,00",
+              "approved_amount": 5500.0,
+              "currency": "EUR",
+              "extras": {
+                "distributor": "Duplicato Media d.o.o."
+              }
+            },
+            {
+              "row_number": 8,
+              "project_title": "Čovjek bez krivnje",
+              "applicant": "Umjetnička organizacija Zagreb Film Festival",
+              "production_company": "Umjetnička organizacija Zagreb Film Festival",
+              "director": "Ivan Gergolet",
+              "category": "dugometražni dokumentarni film - manjinska koprodukcija",
+              "approved_amount_text": "4.000,00",
+              "approved_amount": 4000.0,
+              "currency": "EUR",
+              "extras": {
+                "distributor": "Umjetnička organizacija Zagreb Film Festival"
+              }
+            },
+            {
+              "row_number": 9,
+              "project_title": "Escort",
+              "applicant": "Kinorama d.o.o.",
+              "production_company": "Kinorama d.o.o.",
+              "director": "Lukas Nola",
+              "category": "dugometražni igrani film",
+              "approved_amount_text": "8.300,00",
+              "approved_amount": 8300.0,
+              "currency": "EUR",
+              "extras": {
+                "distributor": "Duplicato Media d.o.o."
+              }
+            },
+            {
+              "row_number": 10,
+              "project_title": "Iza jednog osmijeha",
+              "applicant": "Maxima film d.o.o.",
+              "production_company": "Maxima film d.o.o.",
+              "category": "dugometražni dokumentarni film",
+              "approved_amount_text": "3.500,00",
+              "approved_amount": 3500.0,
+              "currency": "EUR",
+              "extras": {
+                "distributor": "Maxima film d.o.o."
+              }
+            },
+            {
+              "row_number": 11,
+              "project_title": "Samo kad se smijem",
+              "applicant": "Maxima film d.o.o.",
+              "production_company": "Maxima film d.o.o.",
+              "director": "Vanja Juranic",
+              "category": "dugometražni igrani film",
+              "approved_amount_text": "9.500,00",
+              "approved_amount": 9500.0,
+              "currency": "EUR",
+              "extras": {
+                "distributor": "Jučer d.o.o."
+              }
+            }
+          ],
+          "section_total_text": "73.400,00",
+          "section_total": 73400.0
+        }
+      ],
+      "totals": {
+        "ukupno_text": "73.400,00",
+        "ukupno": 73400.0,
+        "sveukupno_text": "73.400,00",
+        "sveukupno": 73400.0
+      }
+    },
+    "dce642963f649ac8f734e5625a47e417dd48a7f9a4a73313b4523dee509ca3e9": {
+      "evidence": "Amounts verified directly in the original HAVC approved-project table; the PDF text extractor shifted these cells to the end of each page.",
+      "row_patches": [
+        {
+          "section_index": 0,
+          "row_number": 8,
+          "project_title": "Lego radionica – od kockica do animiranog filma 2023. i Radionica animacije o nosačima medija (video i audio)",
+          "fields": {
+            "approved_amount": 1990.84,
+            "approved_amount_text": "1.990,84 €",
+            "currency": "EUR"
+          },
+          "evidence": "Original PDF row 8 awards 15.000,00 kn / 1.990,84 €."
+        },
+        {
+          "section_index": 3,
+          "row_number": 28,
+          "project_title": "Redovita programska djelatnost udruge Blank u 2023. i Filmska proizvodnja kratkih filmova mladih neafirmiranih autora",
+          "fields": {
+            "approved_amount": 10617.82,
+            "approved_amount_text": "10.617,82 €",
+            "currency": "EUR"
+          },
+          "evidence": "Original PDF row 28 awards 80.000,00 kn / 10.617,82 €."
+        }
+      ]
+    }
+  },
+  "family_overrides": [
+    {
+      "id": "zff-industrija",
+      "family_title": "Industrija Zagreb Film Festivala",
+      "title_patterns": [
+        "\\d+\\.\\s+Zagreb Film Festival\\s*-\\s*Industrija",
+        "Industrija\\s+\\d+\\.\\s+Zagreb Film Festivala",
+        "ZFF Industrija"
+      ],
+      "reason": "Pure annual Industrija editions use both prefix and suffix title order; they are distinct from the main Zagreb Film Festival, FMFS Industrija, Industrija 1.0, and combined TSFM programs."
+    }
+  ]
+}

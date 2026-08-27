@@ -16,7 +16,7 @@ follow a project across years.
 
 This project fixes that in two complementary ways:
 
-1. **Extract** the data from the source PDFs into one clean, machine-readable dataset.
+1. **Extract and curate** the source PDFs into one clean, machine-readable dataset.
 2. **Surface** it through two front-ends — a full standalone web app, and a browser extension
    that improves HAVC's own pages in place.
 
@@ -33,6 +33,30 @@ A single-page dashboard over the whole funding registry. Vanilla JS, no framewor
 
 Live at **https://havc.matijar.info**.
 
+### Private visitor ledger
+
+`/stats` is an owner-only Cloudflare Access surface for cookieless usage measurement.
+The public app creates one random in-memory ID per tab and records coarse feature reach,
+action counts, referrer host, country, device class, dwell coverage, load errors, and Web
+Vitals. It does not store IP addresses, full user agents, search text, filter values, or an
+identifier that survives a reload or links visits across days.
+
+Opening authenticated `/stats` atomically rebuilds completed daily aggregates when needed and
+removes raw beacon rows older than 30 days. It also arms a daily Durable Object alarm that
+performs the same archival work and copies bounded hourly Cloudflare edge aggregates into D1
+before Cloudflare's eight-day query window expires. The report combines current raw rows with
+permanent archives without double-counting.
+
+Cloudflare edge traffic is the report's traffic baseline; first-party sessions provide the
+detailed cookieless behavior layer. Configure a durable Analytics Read token:
+
+```powershell
+npx wrangler secret put CF_ANALYTICS_TOKEN
+```
+
+This command only configures the secret. Application code is deployed exclusively through a
+Git push and the connected Cloudflare Workers build.
+
 ### 🧩 HAVC Companion — the browser extension  (sibling folder, `../chromeext/`)
 A Chrome MV3 extension that enhances HAVC's *own* pages in place — a light-touch, native-feeling
 upgrade rather than a replacement. On `havc.hr/o-nama/javni-pozivi` it adds document-type pills, a
@@ -42,14 +66,18 @@ same dataset (a compact index built from `web/havc/data.json`).
 
 - Source: `../chromeext/` — see its `README.md`.
 - Store submission materials: `../store/`.
-- **Chrome Web Store:** _link coming once published_ <!-- TODO: add the Web Store URL here -->
+- **Chrome Web Store:** https://chromewebstore.google.com/detail/havc-companion-%E2%80%94-javni-po/jjfmjbmebnljefefcgfdjljenilgmfpg
 
 ## Data provenance ⚠️
 
-All registry data is **machine-extracted** from funding results published on `havc.hr`. Each project,
-decision and amount links directly to its source HAVC PDF. No manual review has been performed yet —
-treat figures as best-effort extraction, verifiable against the linked source. Automated cross-checks
-against HAVC's own published totals run over the dataset (see `havc/10_sanity_check_official.json`).
+Registry data is machine-extracted from funding results published on `havc.hr`, then passed through a
+hybrid deterministic and LLM-assisted curation layer. Suspect rows are checked against source text and
+table context; direct PDF corrections are recorded in a versioned ledger. Every result row has an
+explicit `awarded` or `not_awarded` status, and only verified awards enter dashboard totals.
+
+Each project, decision and amount remains traceable to its source HAVC PDF. The final curation audit is
+stored in `havc/data-curation-audit.json`; the separate official-total cross-check remains available in
+`havc/10_sanity_check_official.json`.
 
 ## Repo layout
 
@@ -57,13 +85,23 @@ against HAVC's own published totals run over the dataset (see `havc/10_sanity_ch
 web/                     the Sredstva web app
   index.html             single entry point
   main.js                app (i18n · data loader/indexers · filters · analytics · list · profiles)
+  usage.js               first-party cookieless visitor collector
   style.css              styles (warm paper-on-ink palette, Bricolage / Albert Sans / JetBrains Mono)
+  worker/                beacon ingest, Access verification, D1 archive, private stats renderer
+  test/                  Node and browser smoke tests
   content/               About & Process page content (*.en.json / *.hr.json)
   havc/
-    data.json            the dataset (extracted funding records; source of truth)
-    *.py                 ingest / normalize / audit pipeline (ingest_2026_batch, normalize_pass, …)
-    data.backup.*.json   timestamped backups
-    *sanity*/*audit*     automated cross-checks & reports
+    data.json            curated funding registry; source of truth
+    clean_data.py        deterministic cleanup, structured review and family assignment
+    source-corrections.json
+                         corrections verified directly against source PDFs
+    data-curation-decisions.json
+                         cached row and recurring-family decisions
+    data-curation-audit.json
+                         final validation and review-call receipts
+    10_sanity_check_official.json
+                         independent comparison with published HAVC totals
+  tests/                 curation-pipeline tests
 ../chromeext/            the HAVC Companion browser extension (built from web/havc/data.json)
 ../store/                Chrome Web Store listing, permissions, promo images, screenshots
 ```
@@ -77,8 +115,13 @@ Pure static files — serve the `web/` folder with any static server and open `i
 python -m http.server 8080   # then open http://localhost:8080
 ```
 
-The dataset is regenerated by the Python pipeline in `havc/`; the extension's compact index is
-regenerated with `node ../chromeext/scripts/build-index.mjs` (reads `web/havc/data.json`).
+The curated dataset is regenerated with `python havc/clean_data.py --apply`, which also
+rebuilds `havc/data.app.json` — the slim boot payload the app actually fetches (full
+`data.json` stays published as the source of truth; regenerate the slim file alone with
+`python havc/build_app_payload.py`). Run `python -m pytest -q`, `npm test`,
+`npm run test:browser`, and `npm run test:stats-browser` before publishing. The
+extension's compact index is regenerated with `node ../chromeext/scripts/build-index.mjs`
+(reads `web/havc/data.json`).
 
 ## Notes
 
