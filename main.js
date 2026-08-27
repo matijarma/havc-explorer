@@ -12,7 +12,7 @@
  *   6. topbar
  *   7. filter rail (chips + smooth year slider)
  *   8. orientation headline
- *   9. insights strip (clickable lenses: year-trend & size-distribution)
+ *   9. scoped all-project funding timeline
  *  10. scope-chip row
  *  11. pivot chips (group-by + unattributed toggle)
  *  12. virtualized list (Projects aggregated · Decisions per-row · Groups clickable · Project profile)
@@ -47,7 +47,7 @@
     'process.why_good':  { en: 'Why it worked',         hr: 'Što je radilo' },
     'process.why_limited':{ en: 'Why it broke',         hr: 'Što je puklo' },
     'process.artifacts': { en: 'Artifacts',             hr: 'Artefakti' },
-    'process.diagram':   { en: 'The three approaches at a glance', hr: 'Tri pristupa na prvi pogled' },
+    'process.diagram':   { en: 'The approaches at a glance', hr: 'Pristupi na prvi pogled' },
     'process.deep_dive.input':    { en: 'Input',    hr: 'Ulaz' },
     'process.deep_dive.output':   { en: 'Output',   hr: 'Izlaz' },
     'process.deep_dive.expected': { en: 'Expected', hr: 'Očekivano' },
@@ -70,18 +70,27 @@
     'facet.filters':  { en: 'Filters',        hr: 'Filtri' },
     'facet.all':      { en: 'all',            hr: 'sve' },
     'facet.reset':    { en: 'Reset',          hr: 'Poništi' },
-    'facet.copy':     { en: 'Copy share-link',hr: 'Kopiraj link' },
+    'share.label':    { en: 'Share view', hr: 'Podijeli prikaz' },
+    'share.copied':   { en: 'Link copied', hr: 'Poveznica kopirana' },
+    'share.failed':   { en: 'Copy failed', hr: 'Kopiranje nije uspjelo' },
+    'share.aria':     { en: 'Copy a link to the current view', hr: 'Kopiraj poveznicu na trenutačni prikaz' },
+    'wordmark.home':  { en: 'Reset and return to the registry home', hr: 'Poništi prikaz i vrati se na početak registra' },
     'facet.currency_note': { en: '1 € = {rate} kn (fixed, ECB)', hr: '1 € = {rate} kn (fiksno, ESB)' },
     'facet.unfunded.label': { en: 'Discussed, never funded', hr: 'Spominjani, ne financirani' },
-    'facet.unfunded.sub':   { en: 'projects mentioned in jury narratives without a funding record',
-                              hr: 'projekti spomenuti u obrazloženjima žirija bez evidencije financiranja' },
+    'facet.unfunded.sub':   { en: 'mentions and explicit non-awards without a verified award',
+                              hr: 'spomeni i izričito neodobreni projekti bez potvrđene potpore' },
 
     'header.line': { en: 'Croatian audiovisual public funding · 2009–{maxYear}',
                      hr: 'Hrvatski javni poticaji za audiovizualnu djelatnost · 2009.–{maxYear}.' },
     'header.decisions': { en: '{n} decisions', hr: '{n} odluka' },
     'header.funded':    { en: '{amt} funded',  hr: '{amt} dodijeljeno' },
+    'header.projects':  { en: '{n} funded projects', hr: '{n} financiranih projekata' },
     'header.calls':     { en: '{n} calls',     hr: '{n} natječaja' },
     'header.unfunded':  { en: '{n} unfunded',  hr: '{n} bez sredstava' },
+    'header.stats.open': {
+      en: 'Open full registry analytics',
+      hr: 'Otvori punu analitiku registra',
+    },
     'header.notice.kicker': {
       en: 'Data provenance',
       hr: 'Podrijetlo podataka',
@@ -151,6 +160,10 @@
 
     'analytics.title':        { en: 'Registry analytics', hr: 'Analitika registra' },
     'analytics.subtitle':     { en: 'Global view across all available rows (independent from active filters)', hr: 'Globalni pregled svih dostupnih redaka (neovisno o aktivnim filterima)' },
+    'analytics.overview':     { en: 'Registry overview', hr: 'Pregled registra' },
+    'analytics.projects':     { en: 'Funded projects', hr: 'Financirani projekti' },
+    'analytics.calls':        { en: 'Source calls', hr: 'Izvorni natječaji' },
+    'analytics.unfunded':     { en: 'Unfunded mentions', hr: 'Spomenuti bez sredstava' },
     'analytics.yearly':       { en: 'Funding by year', hr: 'Financiranje po godini' },
     'analytics.program_mix':  { en: 'Programme mix by amount', hr: 'Raspodjela po programu (iznos)' },
     'analytics.category_mix': { en: 'Category mix by amount', hr: 'Raspodjela po kategoriji (iznos)' },
@@ -162,20 +175,259 @@
     'analytics.note.pre2009': { en: 'Rows exist before 2009 (earliest detected year is 2008).', hr: 'Postoje redci prije 2009. (najranija pronadena godina je 2008.).' },
     'analytics.note.current': { en: '{year} is likely partial (in-year data snapshot).', hr: '{year} je vjerojatno parcijalna godina (presjek usred godine).' },
     'analytics.note.stable':  { en: 'No special year-window caveats detected.', hr: 'Nema posebnih napomena za vremenski raspon.' },
+    'analytics.studio.subtitle': {
+      en: 'Contextual analysis with a like-for-like registry benchmark',
+      hr: 'Kontekstualna analiza s usporedivom referentnom vrijednošću registra',
+    },
+    'analytics.loading': {
+      en: 'Calculating this view from the registry…',
+      hr: 'Izračunavam ovaj prikaz iz registra…',
+    },
+    'analytics.context.current': { en: 'Current scope', hr: 'Trenutačni opseg' },
+    'analytics.context.benchmark': { en: 'Registry benchmark', hr: 'Referentni registar' },
+    'analytics.context.global': { en: 'All registry records', hr: 'Svi zapisi registra' },
+    'analytics.context.same_period': {
+      en: 'All registry records in the same time window',
+      hr: 'Svi zapisi registra u istom vremenskom rasponu',
+    },
+    'analytics.context.search': { en: 'search “{q}”', hr: 'pretraga „{q}”' },
+    'analytics.context.scopes': { en: '{n} active scopes', hr: '{n} aktivnih opsega' },
+    'analytics.context.filters': { en: '{n} active filters', hr: '{n} aktivnih filtara' },
+    'analytics.chapter.overview': { en: 'Overview', hr: 'Pregled' },
+    'analytics.chapter.time': { en: 'Time', hr: 'Vrijeme' },
+    'analytics.chapter.distribution': { en: 'Award distribution', hr: 'Raspodjela potpora' },
+    'analytics.chapter.mix': { en: 'Programme mix', hr: 'Struktura programa' },
+    'analytics.chapter.concentration': { en: 'Recipient concentration', hr: 'Koncentracija korisnika' },
+    'analytics.chapter.lifecycles': { en: 'Project lifecycles', hr: 'Životni ciklusi projekata' },
+    'analytics.chapter.methodology': { en: 'Data & methodology', hr: 'Podaci i metodologija' },
+    'analytics.overview.diagnosis': { en: 'What distinguishes this scope', hr: 'Što izdvaja ovaj opseg' },
+    'analytics.overview.findings': { en: 'Key registry findings', hr: 'Ključni nalazi registra' },
+    'analytics.overview.no_difference': {
+      en: 'This is the complete benchmark population. The notes below describe the registry itself.',
+      hr: 'Ovo je cijela referentna populacija. Napomene u nastavku opisuju sam registar.',
+    },
+    'analytics.metric.repeat': { en: 'Multi-decision projects', hr: 'Projekti s više odluka' },
+    'analytics.metric.gini': { en: 'Recipient Gini', hr: 'Gini korisnika' },
+    'analytics.metric.not_available': { en: 'not available', hr: 'nije dostupno' },
+    'analytics.metric.vs_benchmark': { en: 'vs benchmark', hr: 'prema referentnoj vrijednosti' },
+    'analytics.finding.scopeShare': {
+      en: 'This scope contains {amount} of recorded funding and {rows} of decisions in the same time window.',
+      hr: 'Ovaj opseg sadrži {amount} zabilježenih sredstava i {rows} odluka u istom vremenskom rasponu.',
+    },
+    'analytics.finding.medianRatio.up': {
+      en: 'Its typical award is {ratio}× the registry median ({current} vs {benchmark}).',
+      hr: 'Tipična potpora je {ratio}× veća od medijana registra ({current} prema {benchmark}).',
+    },
+    'analytics.finding.medianRatio.down': {
+      en: 'Its typical award is {ratio}× the registry median ({current} vs {benchmark}).',
+      hr: 'Tipična potpora iznosi {ratio}× medijana registra ({current} prema {benchmark}).',
+    },
+    'analytics.finding.repeatDelta': {
+      en: 'Projects receive multiple recorded decisions {direction} often here ({current} vs {benchmark}).',
+      hr: 'Projekti ovdje dobivaju više zabilježenih odluka {direction} često ({current} prema {benchmark}).',
+    },
+    'analytics.finding.direction.more': { en: 'more', hr: 'češće' },
+    'analytics.finding.direction.less': { en: 'less', hr: 'rjeđe' },
+    'analytics.finding.concentrationDelta': {
+      en: 'Attributed funding is {direction} concentrated than the benchmark (Gini {current} vs {benchmark}).',
+      hr: 'Pripisana sredstva su {direction} koncentrirana od referentne vrijednosti (Gini {current} prema {benchmark}).',
+    },
+    'analytics.finding.concentration.more': { en: 'more', hr: 'više' },
+    'analytics.finding.concentration.less': { en: 'less', hr: 'manje' },
+    'analytics.finding.programmeOverindex': {
+      en: '{programme} is over-represented by {delta} percentage points in this scope.',
+      hr: '{programme} je u ovom opsegu zastupljeniji za {delta} postotnih bodova.',
+    },
+    'analytics.finding.latestChange': {
+      en: 'The latest complete year, {year}, changed {percent} from {previousYear}.',
+      hr: 'Posljednja potpuna godina, {year}., promijenila se {percent} u odnosu na {previousYear}.',
+    },
+    'analytics.finding.distributionSkew': {
+      en: 'The mean award is {ratio}× the median, showing how strongly large awards pull the average upward.',
+      hr: 'Prosječna potpora je {ratio}× veća od medijana, što pokazuje koliko velike potpore podižu prosjek.',
+    },
+    'analytics.finding.leadingProgramme': {
+      en: '{programme} accounts for {share} of recorded funding.',
+      hr: '{programme} čini {share} zabilježenih sredstava.',
+    },
+    'analytics.selection.label': { en: 'Selected segment', hr: 'Odabrani segment' },
+    'analytics.selection.show': { en: 'Show these records', hr: 'Prikaži ove zapise' },
+    'analytics.selection.clear': { en: 'Clear selection', hr: 'Očisti odabir' },
+    'analytics.selection.project_hint': {
+      en: 'Choose an individual project below to continue in the registry.',
+      hr: 'Odaberi pojedinačni projekt u nastavku za nastavak u registru.',
+    },
+    'analytics.series.current': { en: 'Current scope', hr: 'Trenutačni opseg' },
+    'analytics.series.benchmark': { en: 'Registry benchmark', hr: 'Referentni registar' },
+    'analytics.table.open': { en: 'Show exact data table', hr: 'Prikaži tablicu točnih podataka' },
+    'analytics.control.amount': { en: 'Amount', hr: 'Iznos' },
+    'analytics.control.count': { en: 'Decisions', hr: 'Odluke' },
+    'analytics.control.median': { en: 'Median', hr: 'Medijan' },
+    'analytics.control.programmes': { en: 'Programmes', hr: 'Programi' },
+    'analytics.control.categories': { en: 'Categories', hr: 'Kategorije' },
+    'analytics.control.rounds': { en: 'Rounds', hr: 'Rokovi' },
+    'analytics.time.title': { en: 'Funding through time', hr: 'Financiranje kroz vrijeme' },
+    'analytics.time.note': {
+      en: 'The benchmark keeps the same time window while removing programme, category, round, search, and entity scopes.',
+      hr: 'Referentna vrijednost zadržava isti vremenski raspon, a uklanja program, kategoriju, rok, pretragu i opsege subjekata.',
+    },
+    'analytics.time.partial': { en: '{year} is a partial year.', hr: '{year}. je djelomična godina.' },
+    'analytics.distribution.title': { en: 'How award sizes are distributed', hr: 'Kako su raspoređene veličine potpora' },
+    'analytics.distribution.note': {
+      en: 'Positive recorded amounts only. Select a band to inspect its records.',
+      hr: 'Samo pozitivni zabilježeni iznosi. Odaberi raspon za pregled zapisa.',
+    },
+    'analytics.distribution.percentiles': { en: 'Percentile ledger', hr: 'Pregled percentila' },
+    'analytics.distribution.p25': { en: 'P25', hr: 'P25' },
+    'analytics.distribution.p50': { en: 'Median', hr: 'Medijan' },
+    'analytics.distribution.p75': { en: 'P75', hr: 'P75' },
+    'analytics.distribution.p90': { en: 'P90', hr: 'P90' },
+    'analytics.distribution.p95': { en: 'P95', hr: 'P95' },
+    'analytics.distribution.p99': { en: 'P99', hr: 'P99' },
+    'analytics.mix.title': { en: 'Where the money sits', hr: 'Gdje se sredstva nalaze' },
+    'analytics.mix.heatmap': { en: 'Programme activity by year', hr: 'Aktivnost programa po godini' },
+    'analytics.mix.other': { en: 'Other / unattributed', hr: 'Ostalo / nepripisano' },
+    'analytics.concentration.title': { en: 'How attributed funding is distributed', hr: 'Kako su raspoređena pripisana sredstva' },
+    'analytics.concentration.definition': {
+      en: 'Recipient = recorded production company; otherwise recorded applicant. Concentration uses attributed funding as its denominator.',
+      hr: 'Korisnik = zabilježena produkcijska kuća; u suprotnom zabilježeni prijavitelj. Koncentracija koristi pripisana sredstva kao nazivnik.',
+    },
+    'analytics.concentration.coverage': {
+      en: '{amount} of funding value and {rows} of decisions have an attributable recipient.',
+      hr: '{amount} vrijednosti sredstava i {rows} odluka imaju pripisivog korisnika.',
+    },
+    'analytics.concentration.unavailable': {
+      en: 'Concentration is withheld because this scope has fewer than 10 recipients or less than 60% attributed funding coverage.',
+      hr: 'Koncentracija se ne prikazuje jer opseg ima manje od 10 korisnika ili manje od 60% pokrivenosti pripisanim sredstvima.',
+    },
+    'analytics.concentration.lorenz': { en: 'Lorenz curve', hr: 'Lorenzova krivulja' },
+    'analytics.concentration.top_shares': { en: 'Share held by top recipients', hr: 'Udio najvećih korisnika' },
+    'analytics.concentration.recipients': { en: 'Recipients', hr: 'Korisnici' },
+    'analytics.concentration.top_recipients': { en: 'Largest attributed recipients', hr: 'Najveći pripisani korisnici' },
+    'analytics.concentration.pareto': {
+      en: '{n} recipients account for half of attributed funding.',
+      hr: '{n} korisnika čini polovicu pripisanih sredstava.',
+    },
+    'analytics.lifecycle.title': { en: 'How projects move through recorded support', hr: 'Kako se projekti kreću kroz zabilježenu potporu' },
+    'analytics.lifecycle.multi_programme': { en: 'Projects in multiple programmes', hr: 'Projekti u više programa' },
+    'analytics.lifecycle.duration': { en: 'Median observed duration', hr: 'Medijan zabilježenog trajanja' },
+    'analytics.lifecycle.years': { en: '{n} years', hr: '{n} godina' },
+    'analytics.lifecycle.transitions': { en: 'Observed stage pathways', hr: 'Zabilježeni prijelazi faza' },
+    'analytics.lifecycle.note': {
+      en: 'These are observed links between funded records, not application conversion or success rates.',
+      hr: 'Ovo su zabilježene veze među financiranim zapisima, a ne stope prolaza prijava ili uspješnosti.',
+    },
+    'analytics.lifecycle.projects': { en: '{n} matching projects', hr: '{n} odgovarajućih projekata' },
+    'analytics.stage.script': { en: 'Script', hr: 'Scenarij' },
+    'analytics.stage.development': { en: 'Development', hr: 'Razvoj' },
+    'analytics.stage.production': { en: 'Production', hr: 'Proizvodnja' },
+    'analytics.stage.distribution': { en: 'Distribution', hr: 'Distribucija' },
+    'analytics.stage.other': { en: 'Other support', hr: 'Ostala potpora' },
+    'analytics.data.title': { en: 'What the dataset can support', hr: 'Što skup podataka može pouzdano prikazati' },
+    'analytics.data.field': { en: 'Field', hr: 'Polje' },
+    'analytics.data.rows': { en: 'Decision coverage', hr: 'Pokrivenost odluka' },
+    'analytics.data.amount': { en: 'Funding-value coverage', hr: 'Pokrivenost vrijednosti sredstava' },
+    'analytics.data.sources': { en: 'Source and audit coverage', hr: 'Pokrivenost izvora i provjere' },
+    'analytics.data.formulas': { en: 'Definitions and formulas', hr: 'Definicije i formule' },
+    'analytics.data.limitations': { en: 'Important limitations', hr: 'Važna ograničenja' },
+    'analytics.data.no_acceptance': {
+      en: 'Application acceptance rates are not calculated because non-award records are incomplete.',
+      hr: 'Stope prolaza prijava ne izračunavaju se jer zapisi o neodobrenim prijavama nisu potpuni.',
+    },
+    'analytics.data.creator_sparse': {
+      en: 'Director, writer, and narrative fields are incomplete. Their coverage is shown before any interpretation.',
+      hr: 'Polja redatelja, scenarista i obrazloženja nisu potpuna. Pokrivenost se prikazuje prije svake interpretacije.',
+    },
+    'analytics.data.currency': {
+      en: 'HRK amounts use the fixed conversion 1 EUR = {rate} HRK. Values are nominal and not inflation-adjusted.',
+      hr: 'Iznosi u HRK koriste fiksni tečaj 1 EUR = {rate} HRK. Vrijednosti su nominalne i nisu prilagođene inflaciji.',
+    },
+    'analytics.data.source_urls': {
+      en: '{found} of {total} result documents have a canonical HAVC source URL.',
+      hr: '{found} od {total} dokumenata rezultata ima kanonski HAVC izvorni URL.',
+    },
+    'analytics.data.audit': {
+      en: 'Automated official-total checks: {pass} pass, {warn} warnings, {fail} failures.',
+      hr: 'Automatske provjere službenih zbrojeva: {pass} prolazi, {warn} upozorenja, {fail} pogrešaka.',
+    },
+    'analytics.data.formula.median': {
+      en: 'Median: the middle positive award after sorting amounts.',
+      hr: 'Medijan: srednja pozitivna potpora nakon sortiranja iznosa.',
+    },
+    'analytics.data.formula.gini': {
+      en: 'Gini: inequality across cumulative attributed funding per recipient, from 0% equal to 100% maximally concentrated.',
+      hr: 'Gini: nejednakost kumulativnih pripisanih sredstava po korisniku, od 0% jednakosti do 100% maksimalne koncentracije.',
+    },
+    'analytics.data.formula.lifecycle': {
+      en: 'Lifecycle: records sharing one normalized project family, ordered by year and mapped to broad support stages.',
+      hr: 'Životni ciklus: zapisi iste normalizirane projektne porodice, poredani po godini i mapirani u široke faze potpore.',
+    },
+    'analytics.empty.title': { en: 'No records in this scope', hr: 'Nema zapisa u ovom opsegu' },
+    'analytics.empty.body': {
+      en: 'Close analytics and remove a filter or scope to restore a measurable population.',
+      hr: 'Zatvori analitiku i ukloni filtar ili opseg kako bi se vratila mjerljiva populacija.',
+    },
+
+    'timeline.projects.title': {
+      en: 'Project funding timeline',
+      hr: 'Vremenska crta financiranja projekata',
+    },
+    'timeline.projects.summary': {
+      en: '{n} funded projects in the current scope',
+      hr: '{n} financiranih projekata u trenutačnom opsegu',
+    },
+    'timeline.projects.legend': {
+      en: 'Bubble area represents complete lifetime funding',
+      hr: 'Površina kruga prikazuje ukupno financiranje kroz cijeli vijek projekta',
+    },
+    'timeline.projects.placement': {
+      en: 'Placed by the latest matching record',
+      hr: 'Smješteno prema zadnjem zapisu koji odgovara filtrima',
+    },
+    'timeline.projects.hint': {
+      en: 'Hover or use arrow keys to inspect. Click or press Enter to open a project.',
+      hr: 'Prijeđi pokazivačem ili koristi strelice za pregled. Klikni ili pritisni Enter za otvaranje projekta.',
+    },
+    'timeline.projects.empty': {
+      en: 'No projects with a positive recorded lifetime amount match the current filters.',
+      hr: 'Nijedan projekt s pozitivnim zabilježenim ukupnim iznosom ne odgovara trenutačnim filtrima.',
+    },
+    'timeline.projects.lifetime': {
+      en: 'Lifetime funding',
+      hr: 'Ukupno financiranje',
+    },
+    'timeline.projects.matching': {
+      en: '{n} matching decisions',
+      hr: '{n} odluka u opsegu',
+    },
+    'timeline.projects.keyboard': {
+      en: 'Project funding timeline with {n} projects. Use arrow keys to move between projects and Enter to open the selected project.',
+      hr: 'Vremenska crta financiranja s {n} projekata. Koristi strelice za pomicanje među projektima i Enter za otvaranje odabranog projekta.',
+    },
 
     'scope.label':    { en: 'scope', hr: 'opseg' },
-    'scope.empty':    { en: 'nothing scoped — click any bar, group row, or value to narrow',
-                        hr: 'nije sužen opseg — klikni stupić, grupu ili vrijednost' },
+    // Short, because it now shares a line with the live record count instead of
+    // owning a 40px band whose only job was to say nothing was happening. The
+    // "click a bar or a group row" hint moved onto the marks that do the work.
+    'scope.empty':    { en: 'whole registry', hr: 'cijeli registar' },
     'scope.clearAll': { en: 'clear all', hr: 'očisti sve' },
     'scope.kind.producer':  { en: 'producer',  hr: 'producent' },
     'scope.kind.director':  { en: 'director',  hr: 'redatelj' },
     'scope.kind.writer':    { en: 'writer',    hr: 'scenarist' },
-    'scope.kind.year':      { en: 'year',      hr: 'godina' },
+    'scope.kind.years':     { en: 'year',      hr: 'godina' },
     'scope.kind.program':   { en: 'programme', hr: 'program' },
     'scope.kind.cat':       { en: 'category',  hr: 'kategorija' },
     'scope.kind.rok':       { en: 'round',     hr: 'rok' },
-    'scope.kind.sizeBand':  { en: 'amount',    hr: 'iznos' },
+    'scope.kind.recipient': { en: 'recipient', hr: 'korisnik' },
+    'scope.kind.amount':    { en: 'amount',    hr: 'iznos' },
     'scope.kind.project':   { en: 'project',   hr: 'projekt' },
+    'scope.kind.q':         { en: 'search',    hr: 'traži' },
+
+    'year.single': { en: 'only {year}', hr: 'samo {year}.' },
+    'timeline.collapse': { en: 'hide timeline', hr: 'sakrij vremensku crtu' },
+    'timeline.expand':   { en: 'show timeline', hr: 'prikaži vremensku crtu' },
+    'timeline.full':     { en: 'enlarge timeline', hr: 'povećaj vremensku crtu' },
+    'timeline.compact':  { en: 'shrink timeline', hr: 'smanji vremensku crtu' },
 
     'pivot.label':     { en: 'Group by', hr: 'Grupiraj po' },
     'pivot.projects':  { en: 'Projects',  hr: 'Projekti' },
@@ -183,7 +435,6 @@
     'pivot.producer':  { en: 'Producer',  hr: 'Producent' },
     'pivot.director':  { en: 'Director',  hr: 'Redatelj' },
     'pivot.writer':    { en: 'Writer',    hr: 'Scenarist' },
-    'pivot.year':      { en: 'Year',      hr: 'Godina' },
     'pivot.program':   { en: 'Programme', hr: 'Program' },
     'pivot.cat':       { en: 'Category',  hr: 'Kategorija' },
     'pivot.hideUnattributed': { en: 'hide unattributed', hr: 'sakrij neidentificirano' },
@@ -254,8 +505,8 @@
 
     'unfunded.title': { en: 'Discussed but never funded',
                         hr: 'Spominjani, ali nikad financirani' },
-    'unfunded.note':  { en: 'Projects mentioned in jury narratives or decision documents that don\'t appear in any results table. Click one to scope the main view to that title.',
-                        hr: 'Projekti spomenuti u obrazloženjima žirija ili odlukama, ali bez zapisa u rezultatima. Klikni redak da suziš pregled na taj naslov.' },
+    'unfunded.note':  { en: 'Narrative mentions and explicit non-awards are listed only when no verified award exists for the same project family.',
+                        hr: 'Spomeni u obrazloženjima i izričito neodobrene prijave prikazuju se samo kada ista projektna porodica nema potvrđenu potporu.' },
     'unfunded.sources_count': { en: '{n} src', hr: '{n} izv.' },
     'modal.close':    { en: 'close',  hr: 'zatvori' },
     'view.about.load_error': { en: 'failed to load about content — see console', hr: 'učitavanje sadržaja stranice O autoru nije uspjelo — pogledaj konzolu' },
@@ -265,6 +516,15 @@
     'process.timeline.decision': { en: 'Decision', hr: 'Odluka' },
     'process.timeline.result': { en: 'Result', hr: 'Rezultat' },
     'process.timeline.more_context': { en: 'More context', hr: 'Više konteksta' },
+    'helper.tip.label': { en: 'HAVC helper', hr: 'HAVC asistent' },
+    'helper.tip.title': { en: 'Browse HAVC directly', hr: 'Pregledavaj HAVC izravno' },
+    'helper.tip.body': {
+      en: 'HAVC Companion is meant for easier browsing of havc.hr public-calls pages directly, without using this Sredstva web app.',
+      hr: 'HAVC asistent služi za lakše pregledavanje stranica javnih poziva na havc.hr izravno, bez korištenja web aplikacije Sredstva.',
+    },
+    'helper.tip.open_store': { en: 'Open in Chrome Web Store', hr: 'Otvori u Chrome Web Storeu' },
+    'helper.tip.store_aria': { en: 'Open HAVC Companion in Chrome Web Store', hr: 'Otvori HAVC asistent u Chrome Web Storeu' },
+    'repo.open_aria': { en: 'Open GitHub repository', hr: 'Otvori GitHub repozitorij' },
     'boot.loading_registry': { en: 'loading registry…', hr: 'učitavanje registra…' },
     'boot.load_data_error': { en: 'failed to load data.json — see console', hr: 'učitavanje data.json nije uspjelo — pogledaj konzolu' },
 
@@ -315,6 +575,8 @@
 
   const UNATTRIBUTED_KEY = '__unattributed__';
   const SIZE_BUCKETS = [0, 1000, 5000, 20000, 50000, 100000, 250000, 500000, 1000000, Infinity];
+  const HAVC_HELPER_STORE_URL = 'https://chromewebstore.google.com/detail/havc-companion-%E2%80%94-javni-po/jjfmjbmebnljefefcgfdjljenilgmfpg';
+  const HAVC_REPO_URL = 'https://github.com/matijarma/havc-explorer';
 
   // ═══ 2. Data loader + indexers ══════════════════════════════════════
   let DATA = null;
@@ -322,8 +584,9 @@
   let narrativeById = new Map();
   let decisionById = new Map();
   let searchIndex = new Map();           // token -> Set<rowIdx>
-  let rowNormTitles = [];                // rowIdx -> normalized title
-  let projectIndex = new Map();          // normTitle -> aggregated project record
+  let rowNormTitles = [];                // rowIdx -> project family key
+  let projectIndex = new Map();          // family key -> aggregated project record
+  let projectAliasIndex = new Map();     // normalized title alias -> Set<family key>
   let GLOBAL_ANALYTICS = null;           // global dataset analytics snapshot
   let SANITY_REPORT = null;              // optional sanity report summary
 
@@ -336,6 +599,10 @@
   function normTitle(s) {
     if (!s) return '';
     return normalizeText(s).replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+  function projectKeyForRow(row) {
+    const familyId = typeof row.project_family_id === 'string' ? row.project_family_id.trim() : '';
+    return familyId || normTitle(row.family_title || row.title);
   }
   function tokens(s) {
     const out = new Set();
@@ -596,6 +863,17 @@
       rok: doc.rok || null,
       summary: doc.summary || null,
       referenced_projects: asArray(doc.referenced_projects).map(String),
+      project_links: asArray(doc.project_links).map((linkAny) => {
+        const link = asObject(linkAny);
+        return {
+          source_title: link.source_title || null,
+          family_id: link.family_id || null,
+          family_title: link.family_title || null,
+          match_status: link.match_status || 'unmatched',
+          method: link.method || null,
+          confidence: link.confidence || null,
+        };
+      }),
     };
   }
 
@@ -606,7 +884,7 @@
     const filename = src.filename || src.filename_decoded || null;
     const sourceUrl = src.source_url || src.url || null;
 
-    if (isNonFundingDoc(filename)) return { doc: null, rows: [] };
+    if (isNonFundingDoc(filename)) return { doc: null, rows: [], nonAwards: [] };
 
     const docCurrency = doc.currency || 'EUR';
     const docUkupnoRaw = toFiniteNumber(totals.ukupno);
@@ -632,6 +910,7 @@
     };
 
     const outRows = [];
+    const nonAwards = [];
     let nCounter = 0;
     asArray(rec.sections).forEach((section) => {
       const sec = asObject(section);
@@ -652,12 +931,22 @@
         const rawCat = row.category || null;
         const rowCurrency = row.currency || docCurrency;
 
-        outRows.push({
+        const fundingStatus = row.funding_status || null;
+        const familyId = typeof row.project_family_id === 'string'
+          ? row.project_family_id
+          : null;
+        const familyTitle = typeof row.project_family_title === 'string'
+          ? row.project_family_title
+          : null;
+        const outRow = {
           doc: id,
+          row_id: row.row_id || null,
           n: row.row_number != null ? row.row_number : nCounter,
           title,
+          family_title: familyTitle,
+          project_family_id: familyId,
           applicant: row.applicant || null,
-          producer: row.production_company || null,
+          producer: row.production_company || row.entity || null,
           director: row.director || null,
           writer: row.writer || null,
           category: rawCat,
@@ -670,20 +959,28 @@
           year: docYear,
           program,
           flag: null,
-        });
+          funding_status: fundingStatus,
+        };
+        if (fundingStatus === 'awarded') {
+          outRows.push(outRow);
+        } else if (fundingStatus === 'not_awarded') {
+          nonAwards.push(outRow);
+        }
       });
     });
 
-    docEntry.row_count = nCounter;
-    return { doc: docEntry, rows: outRows };
+    docEntry.row_count = outRows.length;
+    docEntry.source_row_count = nCounter;
+    return { doc: docEntry, rows: outRows, nonAwards };
   }
 
   function buildProjectEvents(narratives, decisions) {
     const events = {};
     const seenByKey = new Map();
 
-    function add(kind, doc, projectTitle) {
-      const key = normTitle(projectTitle);
+    function add(kind, doc, projectTitle, link) {
+      const familyId = link && link.family_id ? link.family_id : null;
+      const key = familyId || normTitle(projectTitle);
       if (!key) return;
       const evt = {
         type: kind,
@@ -692,6 +989,9 @@
         program: doc.program,
         summary: doc.summary,
         project: projectTitle,
+        family_id: familyId,
+        family_title: link && link.family_title ? link.family_title : null,
+        match_status: link && link.match_status ? link.match_status : 'unmatched',
       };
 
       let seen = seenByKey.get(key);
@@ -704,34 +1004,107 @@
       events[key].push(evt);
     }
 
-    narratives.forEach((d) => asArray(d.referenced_projects).forEach((p) => add('narrative', d, p)));
-    decisions.forEach((d) => asArray(d.referenced_projects).forEach((p) => add('decision', d, p)));
+    function addDocument(kind, doc) {
+      const links = asArray(doc.project_links);
+      if (links.length) {
+        links.forEach((link) => add(
+          kind,
+          doc,
+          link.source_title || link.family_title || '',
+          link,
+        ));
+        return;
+      }
+      asArray(doc.referenced_projects).forEach((title) => add(kind, doc, title, null));
+    }
+
+    narratives.forEach((doc) => addDocument('narrative', doc));
+    decisions.forEach((doc) => addDocument('decision', doc));
     return events;
   }
 
-  function buildUnfundedMentions(rows, narratives) {
-    const fundedTitles = new Set();
+  function buildUnfundedMentions(rows, narratives, decisions, nonAwards) {
+    const awardedFamilyIds = new Set();
+    const awardedTitles = new Set();
     rows.forEach((r) => {
-      const k = normTitle(r.title);
-      if (k) fundedTitles.add(k);
+      if (r.project_family_id) awardedFamilyIds.add(r.project_family_id);
+      for (const value of [r.title, r.family_title]) {
+        const key = normTitle(value);
+        if (key) awardedTitles.add(key);
+      }
     });
 
     const bucket = new Map();
-    narratives.forEach((n) => {
-      asArray(n.referenced_projects).forEach((proj) => {
-        const key = normTitle(proj);
-        if (!key || fundedTitles.has(key)) return;
-        let entry = bucket.get(key);
-        if (!entry) {
-          entry = { title: proj, narratives: [], first_year: null };
-          bucket.set(key, entry);
-        }
-        if (!entry.narratives.includes(n.id)) entry.narratives.push(n.id);
-        if (Number.isInteger(n.year)) {
-          if (entry.first_year == null || n.year < entry.first_year) entry.first_year = n.year;
-        }
-      });
+    function isFunded(familyId, title) {
+      if (familyId && awardedFamilyIds.has(familyId)) return true;
+      const titleKey = normTitle(title);
+      return !!titleKey && awardedTitles.has(titleKey);
+    }
+    function entryFor(familyId, title) {
+      const titleKey = normTitle(title);
+      if (!titleKey || isFunded(familyId, title)) return null;
+      const key = familyId || ('title:' + titleKey);
+      let entry = bucket.get(key);
+      if (!entry) {
+        entry = {
+          key,
+          family_id: familyId || null,
+          title,
+          narratives: [],
+          decisions: [],
+          non_awards: [],
+          sources: [],
+          first_year: null,
+        };
+        bucket.set(key, entry);
+      }
+      return entry;
+    }
+    function addYear(entry, year) {
+      if (!entry || !Number.isInteger(year)) return;
+      if (entry.first_year == null || year < entry.first_year) entry.first_year = year;
+    }
+    function addSource(entry, sourceKey) {
+      if (entry && !entry.sources.includes(sourceKey)) entry.sources.push(sourceKey);
+    }
+
+    asArray(nonAwards).forEach((row) => {
+      const entry = entryFor(
+        row.project_family_id,
+        row.family_title || row.title,
+      );
+      if (!entry) return;
+      if (!entry.non_awards.includes(row.doc)) entry.non_awards.push(row.doc);
+      addSource(entry, 'result:' + row.doc);
+      addYear(entry, row.year);
     });
+
+    function addDocument(kind, doc) {
+      const links = asArray(doc.project_links);
+      const values = links.length
+        ? links.map((link) => ({
+            title: link.family_title || link.source_title,
+            familyId: link.family_id || null,
+            matchStatus: link.match_status || 'unmatched',
+          }))
+        : asArray(doc.referenced_projects).map((title) => ({
+            title,
+            familyId: null,
+            matchStatus: 'unmatched',
+          }));
+      values.forEach((item) => {
+        if (item.matchStatus === 'awarded' || isFunded(item.familyId, item.title)) return;
+        const entry = entryFor(item.familyId, item.title);
+        if (!entry) return;
+        const target = kind === 'narrative' ? entry.narratives : entry.decisions;
+        if (!target.includes(doc.id)) target.push(doc.id);
+        addSource(entry, kind + ':' + doc.id);
+        addYear(entry, doc.year);
+      });
+    }
+
+    narratives.forEach((doc) => addDocument('narrative', doc));
+    decisions.forEach((doc) => addDocument('decision', doc));
 
     return [...bucket.values()].sort((a, b) => {
       const aNone = a.first_year == null;
@@ -771,6 +1144,7 @@
     const rows = [];
     const narratives = [];
     const decisions = [];
+    const nonAwards = [];
     const usedIds = new Set();
 
     asArray(records).forEach((rec, idx) => {
@@ -782,6 +1156,7 @@
         const out = processResultsRecord(r, id);
         if (out.doc) docs.push(out.doc);
         rows.push(...out.rows);
+        nonAwards.push(...out.nonAwards);
       } else if (docType === 'narrative') {
         narratives.push(extractEventDoc(r, id));
       } else if (docType === 'decision') {
@@ -791,7 +1166,12 @@
 
     const flagged = flagOutliers(rows);
     const projectEvents = buildProjectEvents(narratives, decisions);
-    const unfundedMentions = buildUnfundedMentions(rows, narratives);
+    const unfundedMentions = buildUnfundedMentions(
+      rows,
+      narratives,
+      decisions,
+      nonAwards,
+    );
     const facets = deriveFacets(rows);
 
     return {
@@ -802,6 +1182,7 @@
       docs,
       narratives,
       decisions,
+      non_awards: nonAwards,
       project_events: projectEvents,
       unfunded_mentions: unfundedMentions,
       counts: {
@@ -821,6 +1202,7 @@
     const docs = asArray(base.docs);
     const narratives = asArray(base.narratives);
     const decisions = asArray(base.decisions);
+    const nonAwards = asArray(base.non_awards);
     const projectEvents = asObject(base.project_events);
     const unfundedMentions = asArray(base.unfunded_mentions);
 
@@ -848,6 +1230,7 @@
       docs,
       narratives,
       decisions,
+      non_awards: nonAwards,
       project_events: projectEvents,
       unfunded_mentions: unfundedMentions,
       counts: asObject(base.counts),
@@ -888,9 +1271,20 @@
     }
     return null;
   }
+  // The app boots from havc/data.app.json — the same registry projected onto
+  // just the fields this file reads (built by havc/build_app_payload.py, ~5 MB
+  // instead of ~18 MB). The full data.json stays published as the source of
+  // truth and public download, and remains a working fallback here.
+  async function fetchRegistry() {
+    try {
+      const res = await fetch('havc/data.app.json');
+      if (res.ok) return res;
+    } catch (_) { /* fall through to the full registry */ }
+    return fetch('havc/data.json');
+  }
   async function loadData() {
     const [res, sanityReport] = await Promise.all([
-      fetch('havc/data.json'),
+      fetchRegistry(),
       loadOptionalSanityReport(),
     ]);
     const raw = sanitizeDeep(await res.json());
@@ -901,10 +1295,26 @@
     decisionById = new Map(DATA.decisions.map(d => [d.id, d]));
 
     searchIndex = new Map();
+    projectAliasIndex = new Map();
     rowNormTitles = new Array(DATA.rows.length);
     DATA.rows.forEach((r, i) => {
-      rowNormTitles[i] = normTitle(r.title);
-      const fields = [r.title, r.director, r.producer, r.applicant, r.writer];
+      const projectKey = projectKeyForRow(r);
+      rowNormTitles[i] = projectKey;
+      for (const value of [r.title, r.family_title]) {
+        const alias = normTitle(value);
+        if (!alias || !projectKey) continue;
+        let keys = projectAliasIndex.get(alias);
+        if (!keys) { keys = new Set(); projectAliasIndex.set(alias, keys); }
+        keys.add(projectKey);
+      }
+      const fields = [
+        r.title,
+        r.family_title,
+        r.director,
+        r.producer,
+        r.applicant,
+        r.writer,
+      ];
       for (const f of fields) {
         for (const tok of tokens(f || '')) {
           let bucket = searchIndex.get(tok);
@@ -925,7 +1335,7 @@
       let p = projectIndex.get(key);
       if (!p) {
         p = {
-          title: r.title || '',
+          title: r.family_title || r.title || '',
           normTitle: key,
           rows: [],
           total_eur: 0,
@@ -1174,38 +1584,21 @@
     return acc;
   }
 
-  function dashboardYearBounds() {
-    const ys = DATA && DATA.facets && Array.isArray(DATA.facets.years) ? DATA.facets.years : null;
-    if (!ys || ys.length === 0) return null;
-    return [ys[0], ys[ys.length - 1]];
-  }
-
-  function countActiveFilters() {
-    const f = state.filters;
-    let n = 0;
-    const yrBounds = dashboardYearBounds();
-    if (f.yearRange && yrBounds &&
-        (f.yearRange[0] !== yrBounds[0] || f.yearRange[1] !== yrBounds[1])) n++;
-    if (f.selectedYear != null) n++;
-    if (f.programs.size > 0) n++;
-    if (f.cats.size > 0) n++;
-    if (f.roks.size > 0) n++;
-    if (f.q && f.q.trim()) n++;
-    return n;
-  }
-
   // ═══ 3. State + observer ════════════════════════════════════════════
   const state = {
-    filters: {
-      yearRange: null,
-      programs: new Set(),
-      cats: new Set(),
-      roks: new Set(),
-      normalize: true,
-      q: '',
-      selectedYear: null,
-    },
-    scopes: [],            // {kind, value, label?}
+    // One list for every way the registry can be narrowed, whatever set it:
+    // a rail chip, a drill-down click on a chart or group row, the year slider,
+    // the search box, or an analytics selection. Tokens are {dim, value, label?}.
+    // Semantics: AND across dimensions, OR within one — so two programmes are a
+    // union, while a programme AND a producer intersect. Before this was two
+    // disjoint mechanisms (state.filters + state.scopes) that AND-ed blindly, so
+    // "program=X" from a chart and "program=Y" from the rail silently produced an
+    // empty list with nothing on screen to explain it.
+    narrow: [],
+    normalize: true,       // display-only: original currency vs. normalized €
+    // Produced by the list once it has filtered, consumed by the view bar. Kept
+    // in state rather than read back out of the DOM so the bar has one source.
+    readout: { shown: 0, total: 0, sum: 0 },
     groupBy: 'projects',
     sort: { key: 'title', dir: 'asc' },
     expandedKey: null,     // normTitle of the expanded project (works in projects/decisions)
@@ -1218,9 +1611,67 @@
     showAnalytics: false,
     expandedAnalyticsKpi: null, // KPI key currently expanded inside the analytics modal
     pdfPreview: null, // { title, source_url }
+    showHelperTip: false,
+    showProvenance: false,  // the headline's (i) — the data-origin note
+    // 'collapsed' | 'default' | 'full'. The timeline is the screen's visual
+    // signature, so desktop shows it expanded — the list keeps its guaranteed
+    // floor either way (see "The list always wins" in style.css), which is what
+    // makes that safe on a short viewport. Mobile renders the compact summary
+    // instead and never reaches this. Remembered across sessions.
+    timelineView: localStorage.getItem('sredstva-timeline') || 'default',
     mobileFiltersOpen: false,
     view: 'dashboard', // 'dashboard' | 'about' | 'process'
   };
+
+  // ─── Narrowing dimensions ───────────────────────────────────────────
+  // `get` is the row accessor for plain-equality dimensions, which are the ones
+  // that OR within themselves. `single: true` dimensions replace rather than
+  // accumulate — a year range, an amount band, a project family or a search
+  // string has no useful union with a second one of its kind — and each carries a
+  // bespoke matcher in buildNarrowPlan().
+  const NARROW_DIMS = {
+    program:   { get: (r) => r.program },
+    cat:       { get: (r) => r.cat_type },
+    rok:       { get: (r) => r.rok },
+    producer:  { get: (r) => r.producer },
+    director:  { get: (r) => r.director },
+    writer:    { get: (r) => r.writer },
+    recipient: { get: (r) => (window.SredstvaAnalytics
+      ? window.SredstvaAnalytics.recipientForRow(r)
+      : (r.producer || r.applicant || null)) },
+    years:     { single: true },
+    amount:    { single: true },
+    project:   { single: true },
+    q:         { single: true },
+  };
+  function isNarrowDim(dim) {
+    return Object.prototype.hasOwnProperty.call(NARROW_DIMS, dim);
+  }
+  function isSingleDim(dim) {
+    return !!(NARROW_DIMS[dim] && NARROW_DIMS[dim].single);
+  }
+  function sameNarrowValue(a, b) {
+    if (Array.isArray(a) && Array.isArray(b)) {
+      return a.length === b.length && a.every((v, i) => v === b[i]);
+    }
+    return a === b;
+  }
+  function sameNarrowToken(a, b) {
+    return !!a && !!b && a.dim === b.dim && sameNarrowValue(a.value, b.value);
+  }
+  // First token on a single-cardinality dimension, or null.
+  function narrowOne(dim) {
+    return state.narrow.find(t => t.dim === dim) || null;
+  }
+  // All values present on a multi-cardinality dimension.
+  function narrowSet(dim) {
+    const out = new Set();
+    for (const t of state.narrow) if (t.dim === dim) out.add(t.value);
+    return out;
+  }
+  function hasNarrowToken(dim, value) {
+    return state.narrow.some(t => t.dim === dim && sameNarrowValue(t.value, value));
+  }
 
   const DEFAULT_SORT_BY_PIVOT = {
     projects:  { key: 'title', dir: 'asc' },
@@ -1252,25 +1703,73 @@
     });
   }
 
-  function setFilters(patch) {
-    const keys = Object.keys(patch || {});
-    if (keys.length === 0) return;
-    let changed = false;
-    for (const k of keys) {
-      if (state.filters[k] !== patch[k]) {
-        changed = true;
-        break;
-      }
-    }
-    if (!changed) return;
-    state.filters = { ...state.filters, ...patch };
-    const sy = state.filters.selectedYear;
-    const yr = state.filters.yearRange;
-    if (sy != null && yr && (sy < yr[0] || sy > yr[1])) {
-      state.filters.selectedYear = null;
-    }
+  function commitNarrow(next) {
+    state.narrow = next;
     schedulePersist();
-    fire('filters');
+    fire('narrow');
+  }
+  // opts.switchToProjects: drilling into a group row only makes sense if the list
+  // then shows that group's projects rather than staying on the aggregate pivot.
+  function addNarrow(token, opts) {
+    if (!token || !isNarrowDim(token.dim)) return;
+    if (hasNarrowToken(token.dim, token.value)) return;
+    const next = isSingleDim(token.dim)
+      ? [...state.narrow.filter(t => t.dim !== token.dim), token]
+      : [...state.narrow, token];
+    if (opts && opts.switchToProjects) {
+      state.groupBy = 'projects';
+      state.expandedKey = null;
+    }
+    state.narrow = next;
+    // Field name only, never the value: which filters earn their place is
+    // worth knowing; what people search for is none of our business.
+    window.havcUsage?.('filter', token.dim);
+    schedulePersist();
+    fire(['narrow', 'groupBy']);
+  }
+  function removeNarrow(idx) {
+    if (idx < 0 || idx >= state.narrow.length) return;
+    commitNarrow(state.narrow.filter((_, i) => i !== idx));
+  }
+  // Rail chips and year ticks are toggles: clicking an active value clears it.
+  function toggleNarrow(token) {
+    if (!token || !isNarrowDim(token.dim)) return;
+    if (hasNarrowToken(token.dim, token.value)) {
+      commitNarrow(state.narrow.filter(t => !sameNarrowToken(t, token)));
+      return;
+    }
+    addNarrow(token);
+  }
+  // Replace-or-clear for single-cardinality dimensions (years, amount, q, project).
+  function setNarrowOne(dim, value, label) {
+    if (!isNarrowDim(dim)) return;
+    const without = state.narrow.filter(t => t.dim !== dim);
+    const cleared = value == null || value === '';
+    if (!cleared && hasNarrowToken(dim, value)) return;
+    if (!cleared) window.havcUsage?.('filter', dim);
+    commitNarrow(cleared ? without : [...without, label == null ? { dim, value } : { dim, value, label }]);
+  }
+  function clearNarrow() {
+    if (state.narrow.length === 0) return;
+    commitNarrow([]);
+  }
+  function popNarrow() {
+    if (state.narrow.length === 0) return false;
+    commitNarrow(state.narrow.slice(0, -1));
+    return true;
+  }
+  function setReadout(next) {
+    const cur = state.readout;
+    if (cur.shown === next.shown && cur.total === next.total && cur.sum === next.sum) return;
+    state.readout = next;
+    fire('readout');
+  }
+  function setNormalize(v) {
+    const next = !!v;
+    if (state.normalize === next) return;
+    state.normalize = next;
+    schedulePersist();
+    fire('normalize');
   }
   function setGroupBy(g) {
     state.groupBy = g;
@@ -1295,17 +1794,35 @@
       setSort({ key, dir: 'asc' });
     }
   }
+  // A single year is just a one-year range now — there is no separate
+  // "selectedYear" for the pills row to disagree with the slider about.
   function setSelectedYear(year) {
-    const next = year == null ? null : Number(year);
-    if (state.filters.selectedYear === next) return;
-    state.filters.selectedYear = next;
-    schedulePersist();
-    fire('filters');
+    if (year == null) { setNarrowOne('years', null); return; }
+    const y = Number(year);
+    setNarrowOne('years', [y, y]);
   }
-  function setExpandedKey(key) {
+  function setYearRange(from, to) {
+    const lo = Math.min(from, to), hi = Math.max(from, to);
+    const full = DATA && DATA.facets && DATA.facets.years;
+    // The full span is not a narrowing — drop the token instead of carrying a
+    // no-op chip that claims the view is scoped when it isn't.
+    if (full && full.length && lo <= full[0] && hi >= full[full.length - 1]) {
+      setNarrowOne('years', null);
+      return;
+    }
+    setNarrowOne('years', [lo, hi]);
+  }
+  function setQuery(str) {
+    const q = (str || '').trim();
+    setNarrowOne('q', q || null);
+  }
+  function setExpandedKey(key, source) {
+    const opening = !!key && state.expandedKey !== key;
     state.expandedKey = state.expandedKey === key ? null : key;
+    if (opening) window.havcUsage?.('project_open', source || 'project-row', undefined, key);
     state.expandedRoundIds = new Set();
     state.expandedMentions = false;
+    schedulePersist();
     fire('expanded');
   }
   function toggleRoundExpanded(id) {
@@ -1346,15 +1863,18 @@
   }
   function setHideUnattributed(v) {
     state.hideUnattributed = v;
-    fire(['hideUnattributed', 'filters']);
+    schedulePersist();
+    fire('hideUnattributed');
   }
   function setShowUnfunded(v) {
     state.showUnfunded = v;
     fire('showUnfunded');
   }
   function setShowAnalytics(v) {
+    const opening = !!v && !state.showAnalytics;
     state.showAnalytics = !!v;
     if (!state.showAnalytics) state.expandedAnalyticsKpi = null;
+    if (opening) window.havcUsage?.('studio_open');
     fire('showAnalytics');
   }
   function setExpandedAnalyticsKpi(key) {
@@ -1363,143 +1883,208 @@
   }
   function setPdfPreview(v) {
     state.pdfPreview = v || null;
+    if (state.pdfPreview) window.havcUsage?.('pdf_open');
     fire('pdfPreview');
+  }
+  function setShowHelperTip(v) {
+    const next = !!v;
+    if (state.showHelperTip === next) return;
+    state.showHelperTip = next;
+    fire('helperTip');
+  }
+  // The choice outlives the session — re-collapsing a chart you deliberately
+  // opened, on every reload, is the kind of thing that makes a tool feel like it
+  // is arguing with you.
+  const TIMELINE_VIEWS = ['collapsed', 'default', 'full'];
+  function setTimelineView(v) {
+    const next = TIMELINE_VIEWS.includes(v) ? v : 'default';
+    if (state.timelineView === next) return;
+    state.timelineView = next;
+    try { localStorage.setItem('sredstva-timeline', next); } catch (_) {}
+    fire('viewport');
+  }
+  function setShowProvenance(v) {
+    const next = !!v;
+    if (state.showProvenance === next) return;
+    state.showProvenance = next;
+    fire('provenance');
   }
   function setMobileFiltersOpen(v) {
     const open = !!v;
     if (open && state.view !== 'dashboard') return;
-    if (open && !window.matchMedia('(max-width: 900px)').matches) return;
+    if (open && !isRailDrawer()) return;
     if (state.mobileFiltersOpen === open) return;
     state.mobileFiltersOpen = open;
     document.body.classList.toggle('mobile-filters-open', open);
     fire('mobileFilters');
   }
 
-  // ─── Mobile breakpoint observer ─────────────────────────────────────
-  const MOBILE_MQL = typeof window !== 'undefined' && window.matchMedia
-    ? window.matchMedia('(max-width: 900px)')
+  // ─── Viewport observers ─────────────────────────────────────────────
+  // Width decides the shell (locked panels vs. document scroll); height decides
+  // how much optional chrome we can afford above the list. Both fire 'viewport'.
+  const mq = (q) => (typeof window !== 'undefined' && window.matchMedia)
+    ? window.matchMedia(q)
     : null;
+  // Three independent questions, which one breakpoint used to answer badly:
+  //
+  //  isMobile()     — phone. Document scroll, simplified rows, and the timeline
+  //                   replaced by a compact summary.
+  //  isRailDrawer() — anything not wide enough to spare a 280px column for the
+  //                   rail. A tablet at 1024px lost 27% of its width to it, which
+  //                   is why the registry felt unusable there. Tablets get the
+  //                   drawer but KEEP the desktop shell and the timeline.
+  //  isWide()       — wide enough for all seven grouping buttons in the view bar
+  //                   rather than a select.
+  const MOBILE_MQL = mq('(max-width: 900px)');
+  const RAIL_DRAWER_MQL = mq('(max-width: 1199px)');
+  const WIDE_MQL = mq('(min-width: 1400px)');
   function isMobile() {
     return !!(MOBILE_MQL && MOBILE_MQL.matches);
   }
-  if (MOBILE_MQL) {
-    const onMobileChange = () => {
-      document.body.classList.toggle('is-mobile', isMobile());
-      if (!isMobile() && state.mobileFiltersOpen) {
-        state.mobileFiltersOpen = false;
-        document.body.classList.remove('mobile-filters-open');
-      }
-      fire('mobile');
-    };
-    if (MOBILE_MQL.addEventListener) MOBILE_MQL.addEventListener('change', onMobileChange);
-    else if (MOBILE_MQL.addListener) MOBILE_MQL.addListener(onMobileChange);
+  function isRailDrawer() {
+    return !!(RAIL_DRAWER_MQL && RAIL_DRAWER_MQL.matches);
   }
+  function isWide() {
+    return !!(WIDE_MQL && WIDE_MQL.matches);
+  }
+  function onViewportChange() {
+    document.body.classList.toggle('is-mobile', isMobile());
+    document.body.classList.toggle('is-rail-drawer', isRailDrawer());
+    if (!isRailDrawer() && state.mobileFiltersOpen) {
+      state.mobileFiltersOpen = false;
+      document.body.classList.remove('mobile-filters-open');
+    }
+    fire('viewport');
+  }
+  [MOBILE_MQL, RAIL_DRAWER_MQL, WIDE_MQL].forEach((m) => {
+    if (!m) return;
+    if (m.addEventListener) m.addEventListener('change', onViewportChange);
+    else if (m.addListener) m.addListener(onViewportChange);
+  });
   function setView(view) {
     const next = (view === 'about' || view === 'process') ? view : 'dashboard';
     if (state.view === next) return;
     if (next !== 'dashboard' && state.mobileFiltersOpen) {
       setMobileFiltersOpen(false);
     }
+    state.showHelperTip = false;
     state.view = next;
     document.body.classList.remove('view-dashboard', 'view-about', 'view-process');
     document.body.classList.add('view-' + next);
+    window.havcUsage?.('view', next);
     fire('view');
   }
-  function readViewFromHash() {
-    const h = (location.hash || '').replace(/^#\/?/, '');
-    if (h === 'about') return 'about';
-    if (h === 'process') return 'process';
-    return 'dashboard';
-  }
-  function syncViewFromHash() {
-    setView(readViewFromHash());
-  }
   function navigateView(view) {
-    const path = view === 'dashboard' ? '#/' : ('#/' + view);
-    if (location.hash !== path) {
-      location.hash = path;        // fires hashchange → syncViewFromHash → setView
-    } else {
-      setView(view);                // already there; still toggle in case of programmatic call
-    }
+    setView(view);
+    schedulePersist();
   }
 
-  function scopesEqual(a, b) {
-    if (a.kind !== b.kind) return false;
-    if (Array.isArray(a.value) && Array.isArray(b.value)) {
-      return a.value.length === b.value.length && a.value.every((v, i) => v === b.value[i]);
-    }
-    return a.value === b.value;
-  }
-  function addScope(scope, opts) {
-    const exists = state.scopes.find(s => scopesEqual(s, scope));
-    if (exists) return;
-    state.scopes = [...state.scopes, scope];
-    if (opts && opts.switchToProjects) {
-      state.groupBy = 'projects';
-      state.expandedKey = null;
-    }
+  function openScopedProject(projectKey, projectTitle) {
+    const token = { dim: 'project', value: projectKey, label: projectTitle };
+    state.narrow = [...state.narrow.filter(t => t.dim !== 'project'), token];
+    state.groupBy = 'projects';
+    state.sort = defaultSortFor('projects');
+    state.expandedKey = projectKey;
+    state.expandedRoundIds = new Set();
+    state.expandedMentions = false;
+    window.havcUsage?.('project_open', 'timeline', undefined, projectKey);
     schedulePersist();
-    fire(['scopes', 'groupBy']);
-  }
-  function removeScope(idx) {
-    state.scopes = state.scopes.filter((_, i) => i !== idx);
-    schedulePersist();
-    fire('scopes');
-  }
-  function clearScopes() {
-    if (state.scopes.length === 0) return;
-    state.scopes = [];
-    schedulePersist();
-    fire('scopes');
-  }
-  function popDeepestScope() {
-    if (state.scopes.length === 0) return false;
-    state.scopes = state.scopes.slice(0, -1);
-    schedulePersist();
-    fire('scopes');
-    return true;
+    fire(['narrow', 'groupBy', 'sort', 'expanded']);
+    requestAnimationFrame(() => {
+      const list = document.querySelector('#listwrap .list');
+      if (list && typeof list.scrollTo === 'function') list.scrollTo({ top: 0, left: 0 });
+    });
   }
 
-  // ═══ 4. URL ↔ state ════════════════════════════════════════════════
+  // ═══ 4. Clean URL + explicit share state ════════════════════════════
   let persistTimer = null;
-  function schedulePersist() {
-    clearTimeout(persistTimer);
-    persistTimer = setTimeout(persistToHash, 500);
-  }
-  function persistToHash() {
+  function cleanAppUrl() {
     try {
-      const f = state.filters;
-      const payload = {
-        y: f.yearRange,
-        p: [...f.programs],
-        c: [...f.cats],
-        r: [...f.roks],
-        n: f.normalize ? 1 : 0,
-        q: f.q || '',
-        g: state.groupBy,
-        s: state.scopes,
-        hu: state.hideUnattributed ? 1 : 0,
-        sy: f.selectedYear,
-        so: state.sort,
-      };
-      const enc = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
-      const u = new URL(location.href);
-      u.searchParams.set('f', enc);
-      history.replaceState(null, '', u);
+      history.replaceState(null, '', new URL('/', location.origin));
     } catch (_) {}
   }
-  function readFromHash() {
+  function schedulePersist() {
+    clearTimeout(persistTimer);
+    persistTimer = setTimeout(cleanAppUrl, 120);
+  }
+  function buildShareUrl() {
+    try {
+      const payload = {
+        nw: state.narrow,
+        n: state.normalize ? 1 : 0,
+        g: state.groupBy,
+        hu: state.hideUnattributed ? 1 : 0,
+        so: state.sort,
+        v: state.view,
+      };
+      const enc = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+      const u = new URL('/', location.origin);
+      u.searchParams.set('f', enc);
+      return u;
+    } catch (_) {
+      return new URL('/', location.origin);
+    }
+  }
+  // Share links minted before filters and scopes were merged carry the old
+  // y/p/c/r/q/sy/s keys. Those URLs are already out in the world, so keep
+  // reading them and fold them into the one token list.
+  const LEGACY_SCOPE_DIM = {
+    applicant: 'producer',   // applicant became an alias of producer
+    sizeBand: 'amount',
+    year: 'years',
+  };
+  function readNarrowPayload(payload) {
+    const out = [];
+    const push = (dim, value, label) => {
+      if (!isNarrowDim(dim) || value == null || value === '') return;
+      if (out.some(t => t.dim === dim && sameNarrowValue(t.value, value))) return;
+      out.push(label == null ? { dim, value } : { dim, value, label });
+    };
+    if (Array.isArray(payload.nw)) {
+      for (const t of payload.nw) {
+        if (t && typeof t.dim === 'string') push(t.dim, t.value, t.label);
+      }
+      return out;
+    }
+    // ── legacy shape ──
+    // y (range) and sy (single year) were AND-ed, so sy — being narrower — is
+    // the effective selection whenever both are present. A y covering the whole
+    // registry narrows nothing and must not become a no-op chip.
+    const span = (DATA && DATA.facets && DATA.facets.years) || null;
+    if (typeof payload.sy === 'number') {
+      push('years', [payload.sy, payload.sy]);
+    } else if (Array.isArray(payload.y) && payload.y.length === 2) {
+      const isFullSpan = span && span.length
+        && payload.y[0] <= span[0] && payload.y[1] >= span[span.length - 1];
+      if (!isFullSpan) push('years', payload.y);
+    }
+    if (typeof payload.q === 'string') push('q', payload.q.trim());
+    (Array.isArray(payload.p) ? payload.p : []).forEach(v => push('program', v));
+    (Array.isArray(payload.c) ? payload.c : []).forEach(v => push('cat', v));
+    (Array.isArray(payload.r) ? payload.r : []).forEach(v => push('rok', v));
+    (Array.isArray(payload.s) ? payload.s : []).forEach((s) => {
+      if (!s || typeof s.kind !== 'string') return;
+      const dim = LEGACY_SCOPE_DIM[s.kind] || s.kind;
+      // A legacy single-year scope and a legacy sy key can both be present; push()
+      // dedupes, and 'years' being single-cardinality means the first one wins.
+      push(dim, s.kind === 'year' ? [s.value, s.value] : s.value, s.label);
+    });
+    return out;
+  }
+
+  function readSharedState() {
     try {
       const u = new URL(location.href);
       const f = u.searchParams.get('f');
-      if (!f) return;
+      const legacyView = (u.hash || '').replace(/^#\/?/, '');
+      if (!f) {
+        if (legacyView === 'about' || legacyView === 'process') state.view = legacyView;
+        cleanAppUrl();
+        return;
+      }
       const payload = JSON.parse(decodeURIComponent(escape(atob(f))));
-      if (payload.y) state.filters.yearRange = payload.y;
-      if (Array.isArray(payload.p)) state.filters.programs = new Set(payload.p);
-      if (Array.isArray(payload.c)) state.filters.cats = new Set(payload.c);
-      if (Array.isArray(payload.r)) state.filters.roks = new Set(payload.r);
-      if (typeof payload.n === 'number') state.filters.normalize = !!payload.n;
-      if (typeof payload.q === 'string') state.filters.q = payload.q;
+      state.narrow = readNarrowPayload(payload);
+      if (typeof payload.n === 'number') state.normalize = !!payload.n;
       if (typeof payload.g === 'string') {
         // backward compat: 'project' → 'decisions'; 'year' → 'projects' (year is now a filter, not a pivot)
         // Phase 6: 'applicant' → 'producer' (applicant is now an alias of producer after entity unification)
@@ -1508,14 +2093,7 @@
         if (g === 'applicant') g = 'producer';
         if (PIVOTS.includes(g)) state.groupBy = g;
       }
-      if (Array.isArray(payload.s)) {
-        // Migrate stale applicant scopes to producer (Phase 6).
-        state.scopes = payload.s.map(s =>
-          (s && s.kind === 'applicant') ? Object.assign({}, s, { kind: 'producer' }) : s
-        );
-      }
       if (typeof payload.hu === 'number') state.hideUnattributed = !!payload.hu;
-      if (typeof payload.sy === 'number') state.filters.selectedYear = payload.sy;
       if (payload.so && typeof payload.so === 'object' && typeof payload.so.key === 'string') {
         state.sort = {
           key: payload.so.key,
@@ -1524,7 +2102,45 @@
       } else {
         state.sort = defaultSortFor(state.groupBy);
       }
-    } catch (_) {}
+      if (payload.v === 'about' || payload.v === 'process' || payload.v === 'dashboard') {
+        state.view = payload.v;
+      } else if (legacyView === 'about' || legacyView === 'process') {
+        state.view = legacyView;
+      }
+    } catch (err) {
+      // A malformed or stale share link must never strand the user on a noisy
+      // URL — but swallowing the reason entirely hides real bugs in here, so say
+      // something. The user still lands on a clean, working registry.
+      console.warn('Ignoring unreadable share state:', err);
+    } finally {
+      cleanAppUrl();
+    }
+  }
+
+  async function copyShareUrl() {
+    const shareUrl = buildShareUrl();
+    history.replaceState(null, '', shareUrl);
+    const text = shareUrl.href;
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const helper = document.createElement('textarea');
+        helper.value = text;
+        helper.setAttribute('readonly', '');
+        helper.style.position = 'fixed';
+        helper.style.opacity = '0';
+        document.body.appendChild(helper);
+        helper.select();
+        const copied = document.execCommand('copy');
+        helper.remove();
+        if (!copied) throw new Error('copy command failed');
+      }
+      window.havcUsage?.('share_created', state.view);
+      return true;
+    } catch (_) {
+      return false;
+    }
   }
 
   // ═══ 5. Atoms ═══════════════════════════════════════════════════════
@@ -1726,7 +2342,36 @@
   // ═══ 6. Topbar ═════════════════════════════════════════════════════
   function mountTopbar(root) {
     const VIEW_TABS = ['dashboard', 'about', 'process'];
-    let searchDraft = state.filters.q || '';
+    let searchDraft = (narrowOne('q') || {}).value || '';
+    let shareStatus = 'idle';
+    let shareTimer = null;
+
+    async function shareCurrentView() {
+      clearTimeout(shareTimer);
+      shareStatus = (await copyShareUrl()) ? 'copied' : 'failed';
+      render();
+      const button = root.querySelector('.share-view-btn');
+      if (button) button.focus();
+      shareTimer = setTimeout(() => {
+        shareStatus = 'idle';
+        cleanAppUrl();
+        render();
+      }, 2200);
+    }
+
+    const onDocPointerDown = (e) => {
+      if (!state.showHelperTip) return;
+      const wrap = root.querySelector('.helper-tip-wrap');
+      if (!wrap) return;
+      if (!wrap.contains(e.target)) setShowHelperTip(false);
+    };
+    const onDocKeyDown = (e) => {
+      if (e.key === 'Escape' && state.showHelperTip) {
+        setShowHelperTip(false);
+      }
+    };
+    document.addEventListener('pointerdown', onDocPointerDown);
+    document.addEventListener('keydown', onDocKeyDown);
 
     function viewTabBtn(view, lang) {
       const isActive = state.view === view;
@@ -1743,7 +2388,7 @@
     function render() {
       const lang = state.lang;
       const isDash = state.view === 'dashboard';
-      const filterCount = isDash ? countActiveFilters() : 0;
+      const showMobileFilterToggle = isDash && isRailDrawer();
       const nextLang = lang === 'hr' ? 'en' : 'hr';
       const activeEl = document.activeElement;
       const hadSearchFocus = Boolean(
@@ -1761,7 +2406,7 @@
       if (hadSearchFocus) {
         searchDraft = activeEl.value;
       } else {
-        searchDraft = state.filters.q || '';
+        searchDraft = (narrowOne('q') || {}).value || '';
       }
       const themeIcon = state.theme === 'light'
         ? 'fa-solid fa-sun'
@@ -1770,7 +2415,12 @@
           : 'fa-solid fa-circle-half-stroke';
       root.replaceChildren(
         el('div', { class: 'topbar-row' }, [
-          el('div', { class: 'wordmark' }, [
+          el('a', {
+            class: 'wordmark',
+            href: '/',
+            title: t('wordmark.home', lang),
+            'aria-label': t('wordmark.home', lang),
+          }, [
             t('app.name', lang),
             el('span', { class: 'dot', text: '·' }),
           ]),
@@ -1790,27 +2440,84 @@
                 const val = e.target.value;
                 searchDraft = val;
                 render._searchDebounce = setTimeout(() => {
-                  setFilters({ q: val });
+                  setQuery(val);
                 }, 220);
               },
             }),
           ]) : el('div', { class: 'search-spacer' }),
           el('div', { class: 'toolbar' }, [
-            isDash ? el('button', {
-              class: 'mode-toggle mobile-filter-toggle' +
-                (state.mobileFiltersOpen ? ' is-open' : '') +
-                (filterCount > 0 ? ' has-active' : ''),
+            el('button', {
+              class: 'mode-toggle share-view-btn' + (shareStatus === 'copied' ? ' is-copied' : '') + (shareStatus === 'failed' ? ' is-failed' : ''),
+              type: 'button',
+              title: t(shareStatus === 'copied' ? 'share.copied' : shareStatus === 'failed' ? 'share.failed' : 'share.aria', lang),
+              'aria-label': t(shareStatus === 'copied' ? 'share.copied' : shareStatus === 'failed' ? 'share.failed' : 'share.aria', lang),
+              'aria-live': 'polite',
+              'aria-atomic': 'true',
+              onclick: shareCurrentView,
+            }, [
+              fa(shareStatus === 'copied'
+                ? 'fa-solid fa-check'
+                : shareStatus === 'failed'
+                  ? 'fa-solid fa-triangle-exclamation'
+                  : 'fa-solid fa-share-nodes'),
+              el('span', {
+                class: 'share-view-label',
+                text: t(shareStatus === 'copied' ? 'share.copied' : shareStatus === 'failed' ? 'share.failed' : 'share.label', lang),
+              }),
+            ]),
+            showMobileFilterToggle ? el('button', {
+              class: 'mode-toggle mobile-filter-toggle' + (state.mobileFiltersOpen ? ' is-open' : ''),
               type: 'button',
               title: t('facet.filters', lang),
-              'aria-label': `${t('facet.filters', lang)}${filterCount > 0 ? ` (${filterCount})` : ''}`,
+              'aria-label': t('facet.filters', lang),
               'aria-controls': 'rail',
               'aria-expanded': state.mobileFiltersOpen ? 'true' : 'false',
               onclick: () => setMobileFiltersOpen(!state.mobileFiltersOpen),
             }, [
               fa(state.mobileFiltersOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-sliders'),
-              el('span', { class: 'mode-toggle-k', text: t('facet.filters', lang) }),
-              filterCount > 0 ? el('span', { class: 'mobile-filter-count mono', text: String(filterCount) }) : null,
             ]) : null,
+            el('a', {
+              class: 'mode-toggle repo-link-btn',
+              href: HAVC_REPO_URL,
+              target: '_blank',
+              rel: 'noopener noreferrer',
+              title: t('repo.open_aria', lang),
+              'aria-label': t('repo.open_aria', lang),
+            }, [
+              fa('fa-brands fa-github'),
+            ]),
+            el('div', { class: 'helper-tip-wrap' }, [
+              el('button', {
+                class: 'mode-toggle helper-tip-btn',
+                type: 'button',
+                title: t('helper.tip.label', lang),
+                'aria-haspopup': 'dialog',
+                'aria-expanded': state.showHelperTip ? 'true' : 'false',
+                onclick: (e) => {
+                  e.stopPropagation();
+                  setShowHelperTip(!state.showHelperTip);
+                },
+              }, [
+                fa('fa-brands fa-chrome'),
+                el('span', { class: 'mode-toggle-k', text: t('helper.tip.label', lang) }),
+              ]),
+              state.showHelperTip ? el('div', {
+                class: 'helper-tip-popover',
+                role: 'dialog',
+                'aria-label': t('helper.tip.title', lang),
+              }, [
+                el('h3', { class: 'helper-tip-title display', text: t('helper.tip.title', lang) }),
+                el('p', { class: 'helper-tip-body', text: t('helper.tip.body', lang) }),
+                el('a', {
+                  class: 'btn mono helper-tip-link',
+                  href: HAVC_HELPER_STORE_URL,
+                  target: '_blank',
+                  rel: 'noopener',
+                  'aria-label': t('helper.tip.store_aria', lang),
+                  onclick: () => setShowHelperTip(false),
+                }, [t('helper.tip.open_store', lang)]),
+              ]) : null,
+            ]),
             el('button', {
               class: 'mode-toggle mode-toggle-lang',
               type: 'button',
@@ -1850,7 +2557,9 @@
         }
       }
     }
-    on(['lang', 'theme', 'filters', 'view', 'mobileFilters'], render);
+    // 'viewport' matters here: the mobile filter toggle is the only way to reach
+    // the rail below 900px, so the topbar must rebuild when we cross that line.
+    on(['lang', 'theme', 'narrow', 'view', 'mobileFilters', 'helperTip', 'viewport'], render);
     render();
   }
 
@@ -1867,31 +2576,81 @@
     'admin-cost', 'other',
   ];
 
-  function buildYearSlider(minYear, maxYear) {
-    const range = Math.max(1, maxYear - minYear);
-    const [yrFrom, yrTo] = state.filters.yearRange;
+  // 19 tick marks in a 280px rail is ~14px each, well under the 44px target the
+  // design system asks for on coarse pointers. So touch devices also get a
+  // horizontally-scrollable year list — always in the DOM, revealed by CSS under
+  // @media (pointer: coarse), which keeps pointer sniffing out of the JS. This is
+  // the one place the old #year-pills band still earns its keep: inside the
+  // filter drawer, where it is genuinely the better control.
+  function buildYearPills(minYear, maxYear) {
+    const sel = (narrowOne('years') || {}).value || null;
+    const only = sel && sel[0] === sel[1] ? sel[0] : null;
+    const pills = [el('button', {
+      class: 'btn mono year-pill year-pill-all' + (sel == null ? ' active' : ''),
+      type: 'button',
+      text: t('years.all', state.lang),
+      onclick: () => setNarrowOne('years', null),
+    })];
+    for (let y = minYear; y <= maxYear; y++) {
+      pills.push(el('button', {
+        class: 'btn mono year-pill' + (only === y ? ' active' : ''),
+        type: 'button',
+        text: String(y),
+        'aria-pressed': only === y ? 'true' : 'false',
+        onclick: () => { if (only === y) setNarrowOne('years', null); else setYearRange(y, y); },
+      }));
+    }
+    return el('div', { class: 'year-pills-list' }, pills);
+  }
 
-    let dragFrom = null, dragTo = null;
+  // Year slider, boundary model.
+  //
+  // The thumbs sit on year BOUNDARIES, not on years: the left thumb is 1 January
+  // of its year, the right thumb is 31 December of the year before it. So for
+  // 2008–2026 there are 20 stops for 19 years, and the two thumbs can never
+  // coincide — one step apart already means one whole year, with a highlighted
+  // segment exactly one year wide.
+  //
+  // The old model put both thumbs on years, which made a single-year selection
+  // render as a zero-width bar: picking 2020 left no visible mark anywhere, and
+  // the knob tooltips are only opaque while dragging, so at rest the year filter
+  // had no readout at all.
+  function buildYearSlider(minYear, maxYear) {
+    const lo = minYear, hi = maxYear + 1;        // boundary domain
+    const span = Math.max(1, hi - lo);
+    const sel = (narrowOne('years') || {}).value || [minYear, maxYear];
+    const yrFrom = Math.max(minYear, Math.min(maxYear, sel[0]));
+    const yrTo = Math.max(yrFrom, Math.min(maxYear, sel[1]));
+
+    // Drag state is in boundary units: [a, b) with b >= a + 1.
+    let dragA = null, dragB = null;
     let rafPending = false;
+
+    const pct = (boundary) => ((boundary - lo) / span) * 100;
 
     const trackEl = el('div', { class: 'track' });
     const rangeEl = el('div', { class: 'range' });
     const knobFromEl = el('div', { class: 'knob from' });
     const knobToEl = el('div', { class: 'knob to' });
-    const tipFromEl = el('div', { class: 'knob-tooltip from', text: String(yrFrom) });
-    const tipToEl = el('div', { class: 'knob-tooltip to', text: String(yrTo) });
+    const tipFromEl = el('div', { class: 'knob-tooltip from' });
+    const tipToEl = el('div', { class: 'knob-tooltip to' });
 
-    function applyVisual(from, to) {
-      const pctFrom = ((from - minYear) / range) * 100;
-      const pctTo   = ((to   - minYear) / range) * 100;
-      rangeEl.style.left = pctFrom + '%';
-      rangeEl.style.right = (100 - pctTo) + '%';
-      knobFromEl.style.left = pctFrom + '%';
-      knobToEl.style.left = pctTo + '%';
-      tipFromEl.style.left = pctFrom + '%';
-      tipToEl.style.left = pctTo + '%';
-      tipFromEl.textContent = String(from);
-      tipToEl.textContent = String(to);
+    function applyVisual(a, b) {
+      const pa = pct(a), pb = pct(b);
+      rangeEl.style.left = pa + '%';
+      rangeEl.style.right = (100 - pb) + '%';
+      knobFromEl.style.left = pa + '%';
+      knobToEl.style.left = pb + '%';
+      tipFromEl.style.left = pa + '%';
+      tipToEl.style.left = pb + '%';
+      // Tooltips name the years the thumbs enclose, not the boundary numbers —
+      // "2020" and "2020" for one year, never "2020" and "2021".
+      tipFromEl.textContent = String(a);
+      tipToEl.textContent = String(b - 1);
+      for (const tick of tickEls) {
+        const y = +tick.dataset.year;
+        tick.classList.toggle('in-range', y >= a && y <= b - 1);
+      }
     }
 
     function scheduleVisual() {
@@ -1899,52 +2658,40 @@
       rafPending = true;
       requestAnimationFrame(() => {
         rafPending = false;
-        applyVisual(
-          dragFrom != null ? dragFrom : state.filters.yearRange[0],
-          dragTo   != null ? dragTo   : state.filters.yearRange[1],
-        );
+        applyVisual(dragA != null ? dragA : yrFrom, dragB != null ? dragB : yrTo + 1);
       });
     }
 
     const inputFromEl = el('input', {
-      type: 'range', min: String(minYear), max: String(maxYear), value: String(yrFrom),
-      class: 'from',
+      type: 'range', min: String(lo), max: String(hi - 1), value: String(yrFrom),
+      class: 'from', 'aria-label': t('facet.year', state.lang),
     });
     const inputToEl = el('input', {
-      type: 'range', min: String(minYear), max: String(maxYear), value: String(yrTo),
-      class: 'to',
+      type: 'range', min: String(lo + 1), max: String(hi), value: String(yrTo + 1),
+      class: 'to', 'aria-label': t('facet.year', state.lang),
     });
 
     function onFromInput() {
-      const cur = state.filters.yearRange;
-      const ceiling = dragTo != null ? dragTo : cur[1];
-      const v = Math.min(+inputFromEl.value, ceiling);
-      dragFrom = v;
-      if (dragTo == null) dragTo = cur[1];
+      const ceiling = (dragB != null ? dragB : yrTo + 1) - 1;   // keep 1 year of gap
+      dragA = Math.min(+inputFromEl.value, ceiling);
+      if (dragB == null) dragB = yrTo + 1;
       sliderEl.classList.add('dragging');
       scheduleVisual();
     }
     function onToInput() {
-      const cur = state.filters.yearRange;
-      const floor = dragFrom != null ? dragFrom : cur[0];
-      const v = Math.max(+inputToEl.value, floor);
-      dragTo = v;
-      if (dragFrom == null) dragFrom = cur[0];
+      const floor = (dragA != null ? dragA : yrFrom) + 1;
+      dragB = Math.max(+inputToEl.value, floor);
+      if (dragA == null) dragA = yrFrom;
       sliderEl.classList.add('dragging');
       scheduleVisual();
     }
     function commit() {
       sliderEl.classList.remove('dragging');
-      if (dragFrom == null && dragTo == null) return;
-      const cur = state.filters.yearRange;
-      const newRange = [
-        dragFrom != null ? dragFrom : cur[0],
-        dragTo   != null ? dragTo   : cur[1],
-      ];
-      dragFrom = null; dragTo = null;
-      if (newRange[0] !== cur[0] || newRange[1] !== cur[1]) {
-        setFilters({ yearRange: newRange });
-      }
+      if (dragA == null && dragB == null) return;
+      const a = dragA != null ? dragA : yrFrom;
+      const b = dragB != null ? dragB : yrTo + 1;
+      dragA = null; dragB = null;
+      if (a !== yrFrom || b - 1 !== yrTo) setYearRange(a, b - 1);
     }
 
     inputFromEl.addEventListener('input', onFromInput);
@@ -1962,44 +2709,83 @@
       if (['ArrowLeft', 'ArrowRight'].includes(e.key)) requestAnimationFrame(commit);
     });
 
+    // One tick per year, centred in that year's slot. Clicking it selects that
+    // single year — the common case, which dragging two thumbs onto adjacent
+    // boundaries makes needlessly fiddly.
+    const tickEls = [];
+    for (let y = minYear; y <= maxYear; y++) {
+      const isOnly = y === yrFrom && y === yrTo;
+      const tick = el('button', {
+        class: 'year-tick' + (isOnly ? ' is-only' : ''),
+        type: 'button',
+        title: t('year.single', state.lang, { year: y }),
+        'aria-label': t('year.single', state.lang, { year: y }),
+        'aria-pressed': isOnly ? 'true' : 'false',
+        dataset: { year: String(y) },
+        // Selecting the year you already have selected alone clears it, so the
+        // tick is a toggle like every other narrowing control.
+        onclick: () => { if (isOnly) setNarrowOne('years', null); else setYearRange(y, y); },
+      });
+      tick.style.left = pct(y + 0.5) + '%';
+      tickEls.push(tick);
+    }
+    const ticksEl = el('div', { class: 'year-ticks' }, tickEls);
+
     const sliderEl = el('div', { class: 'year-slider' }, [
-      trackEl, rangeEl, inputFromEl, inputToEl,
+      trackEl, rangeEl, ticksEl, inputFromEl, inputToEl,
       knobFromEl, knobToEl, tipFromEl, tipToEl,
     ]);
 
-    applyVisual(yrFrom, yrTo);
+    applyVisual(yrFrom, yrTo + 1);
     return sliderEl;
   }
 
   function mountFilterRail(root) {
-    const counts = { programs: {}, cats: {}, roks: {} };
-    DATA.rows.forEach(r => {
-      if (r.program) counts.programs[r.program] = (counts.programs[r.program] || 0) + 1;
-      if (r.cat_type) counts.cats[r.cat_type] = (counts.cats[r.cat_type] || 0) + 1;
-      if (r.rok) counts.roks[r.rok] = (counts.roks[r.rok] || 0) + 1;
-    });
-
     const minYear = DATA.facets.years[0];
     const maxYear = DATA.facets.years[DATA.facets.years.length - 1];
-    if (!state.filters.yearRange) state.filters.yearRange = [minYear, maxYear];
 
-    function chipList(items, kind, labelKey) {
+    // Counts were computed once over every row and then never moved, so the rail
+    // read identically whether you had narrowed or not. Recompute them per
+    // change against everything EXCEPT the facet's own dimension — that is what
+    // keeps the other programmes' counts alive so you can still add a second one.
+    // One pass over ~9.5k rows per facet is not worth optimizing.
+    function countsFor(dim, field) {
+      const out = {};
+      for (const i of applyFiltersExcept(dim)) {
+        const v = DATA.rows[i][field];
+        if (v) out[v] = (out[v] || 0) + 1;
+      }
+      return out;
+    }
+
+    // A value whose count has fallen to 0 under the OTHER narrowings is dropped
+    // from the list — except when it is itself active, or you would be unable to
+    // untick the very chip you are looking at a token for.
+    function visibleValues(order, counts, dim) {
+      return order.filter(k => counts[k] || hasNarrowToken(dim, k));
+    }
+
+    function chipList(items, dim, field, labelKey, counts) {
       return items.map(k => el('button', {
-        class: 'chip' + (state.filters[kind].has(k) ? ' active' : ''),
-        onclick: () => {
-          const cur = new Set(state.filters[kind]);
-          cur.has(k) ? cur.delete(k) : cur.add(k);
-          setFilters({ [kind]: cur });
-        },
+        class: 'chip' + (hasNarrowToken(dim, k) ? ' active' : ''),
+        onclick: () => toggleNarrow({
+          dim,
+          value: k,
+          label: labelKey ? t(labelKey + '.' + k, state.lang) : k,
+        }),
       }, [
         el('span', { text: labelKey ? t(labelKey + '.' + k, state.lang) : k }),
-        el('span', { class: 'count', text: String(counts[kind][k] || 0) }),
+        el('span', { class: 'count', text: String(counts[k] || 0) }),
       ]));
     }
 
     function render() {
       const lang = state.lang;
-      const [yrFrom, yrTo] = state.filters.yearRange;
+      const years = (narrowOne('years') || {}).value || [minYear, maxYear];
+      const [yrFrom, yrTo] = years;
+      const programCounts = countsFor('program', 'program');
+      const catCounts = countsFor('cat', 'cat_type');
+      const rokCounts = countsFor('rok', 'rok');
 
       const yearSlider = buildYearSlider(minYear, maxYear);
 
@@ -2031,38 +2817,44 @@
           el('div', { class: 'facet-header' }, [
             el('span', { class: 'kicker', text: t('facet.year', lang) }),
           ]),
-          el('div', { class: 'endpoints' }, [
-            el('span', { class: 'mono', text: String(yrFrom) }),
-            el('span', { class: 'mono', text: String(yrTo) }),
-          ]),
+          // One year reads as a single centred label rather than "2020 2020".
+          yrFrom === yrTo
+            ? el('div', { class: 'endpoints is-single' }, [
+                el('span', { class: 'mono', text: String(yrFrom) }),
+              ])
+            : el('div', { class: 'endpoints' }, [
+                el('span', { class: 'mono', text: String(yrFrom) }),
+                el('span', { class: 'mono', text: String(yrTo) }),
+              ]),
           yearSlider,
+          buildYearPills(minYear, maxYear),
         ]),
         // Programme
         el('div', { class: 'facet' }, [
           el('div', { class: 'facet-header' }, [
             el('span', { class: 'kicker', text: t('facet.program', lang) }),
-            el('span', { class: 'count', text: state.filters.programs.size || t('facet.all', lang) }),
+            el('span', { class: 'count', text: narrowSet('program').size || t('facet.all', lang) }),
           ]),
           el('div', { class: 'facet-list' },
-            chipList(PROGRAM_ORDER.filter(p => counts.programs[p]), 'programs', 'prog')),
+            chipList(visibleValues(PROGRAM_ORDER, programCounts, 'program'), 'program', 'program', 'prog', programCounts)),
         ]),
         // Category
         el('div', { class: 'facet' }, [
           el('div', { class: 'facet-header' }, [
             el('span', { class: 'kicker', text: t('facet.cat', lang) }),
-            el('span', { class: 'count', text: state.filters.cats.size || t('facet.all', lang) }),
+            el('span', { class: 'count', text: narrowSet('cat').size || t('facet.all', lang) }),
           ]),
           el('div', { class: 'facet-list' },
-            chipList(CAT_ORDER.filter(c => counts.cats[c]), 'cats', 'cat')),
+            chipList(visibleValues(CAT_ORDER, catCounts, 'cat'), 'cat', 'cat_type', 'cat', catCounts)),
         ]),
         // Round
         DATA.facets.roks.length > 0 && el('div', { class: 'facet' }, [
           el('div', { class: 'facet-header' }, [
             el('span', { class: 'kicker', text: t('facet.rok', lang) }),
-            el('span', { class: 'count', text: state.filters.roks.size || t('facet.all', lang) }),
+            el('span', { class: 'count', text: narrowSet('rok').size || t('facet.all', lang) }),
           ]),
           el('div', { class: 'facet-list' },
-            chipList(DATA.facets.roks.slice().sort(), 'roks', null)),
+            chipList(visibleValues(DATA.facets.roks.slice().sort(), rokCounts, 'rok'), 'rok', 'rok', null, rokCounts)),
         ]),
         // Currency
         el('div', { class: 'facet' }, [
@@ -2071,14 +2863,14 @@
           ]),
           el('div', { class: 'normalize-toggle' }, [
             el('button', {
-              class: 'btn mono' + (!state.filters.normalize ? ' active' : ''),
+              class: 'btn mono' + (!state.normalize ? ' active' : ''),
               text: t('facet.original', lang),
-              onclick: () => setFilters({ normalize: false }),
+              onclick: () => setNormalize(false),
             }),
             el('button', {
-              class: 'btn mono' + (state.filters.normalize ? ' active' : ''),
+              class: 'btn mono' + (state.normalize ? ' active' : ''),
               text: t('facet.normalize', lang),
-              onclick: () => setFilters({ normalize: true }),
+              onclick: () => setNormalize(true),
             }),
           ]),
           el('span', { class: 'note', text: t('facet.currency_note', lang, { rate: DATA.hrk_to_eur }) }),
@@ -2088,95 +2880,91 @@
           el('div', { class: 'btn-row' }, [
             el('button', {
               class: 'btn mono',
-              onclick: () => {
-                clearScopes();
-                setFilters({
-                  yearRange: [minYear, maxYear],
-                  programs: new Set(), cats: new Set(), roks: new Set(),
-                  q: '',
-                });
-              },
+              onclick: clearNarrow,
             }, [
               fa('fa-solid fa-rotate-left', 'icon-left'),
               t('facet.reset', lang),
-            ]),
-            el('button', {
-              class: 'btn mono',
-              onclick: () => {
-                persistToHash();
-                navigator.clipboard.writeText(location.href);
-              },
-            }, [
-              fa('fa-solid fa-link', 'icon-left'),
-              t('facet.copy', lang),
             ]),
           ]),
           unfundedBlock,
         ]),
       );
     }
-    on(['filters', 'lang'], render);
+    on(['narrow', 'normalize', 'lang'], render);
     render();
   }
 
   // ═══ Filter / derive helpers ════════════════════════════════════════
-  function rowInScope(i, scopes) {
-    const r = DATA.rows[i];
-    for (const s of scopes) {
-      switch (s.kind) {
-        case 'producer':  if (r.producer  !== s.value) return false; break;
-        case 'director':  if (r.director  !== s.value) return false; break;
-        case 'writer':    if (r.writer    !== s.value) return false; break;
-        case 'year':      if (r.year      !== s.value) return false; break;
-        case 'program':   if (r.program   !== s.value) return false; break;
-        case 'cat':       if (r.cat_type  !== s.value) return false; break;
-        case 'rok':       if (r.rok       !== s.value) return false; break;
-        case 'sizeBand': {
-          const a = r.amount_eur || 0;
-          if (a < s.value[0] || a >= s.value[1]) return false;
+  function rowMatchesProjectScope(rowIndex, scopeValue) {
+    const projectKey = rowNormTitles[rowIndex];
+    if (projectKey === scopeValue) return true;
+    const alias = normTitle(scopeValue);
+    const matchingFamilies = projectAliasIndex.get(alias);
+    return !!matchingFamilies && matchingFamilies.has(projectKey);
+  }
+
+  // Compile state.narrow into a shape the row loop can run cheaply: one Set per
+  // active equality dimension (membership = the OR within that dimension) plus
+  // the four bespoke matchers. Built once per call, not once per row.
+  function buildNarrowPlan(tokens) {
+    const eq = [];
+    const byDim = new Map();
+    let years = null, amount = null, project = null, searched = null;
+    for (const t of (tokens || [])) {
+      if (!t || !isNarrowDim(t.dim)) continue;
+      switch (t.dim) {
+        case 'years':   years = t.value; break;
+        case 'amount':  amount = t.value; break;
+        case 'project': project = t.value; break;
+        case 'q': {
+          const q = String(t.value || '').trim();
+          if (q) searched = searchRowIds(q);
           break;
         }
-        case 'project':   if (rowNormTitles[i] !== s.value) return false; break;
+        default: {
+          let set = byDim.get(t.dim);
+          if (!set) { set = new Set(); byDim.set(t.dim, set); }
+          set.add(t.value);
+        }
       }
+    }
+    for (const [dim, values] of byDim) eq.push({ get: NARROW_DIMS[dim].get, values });
+    return { eq, years, amount, project, searched, active: eq.length > 0
+      || years || amount || project != null || searched };
+  }
+
+  function rowMatchesPlan(i, plan) {
+    const r = DATA.rows[i];
+    if (plan.years && r.year && (r.year < plan.years[0] || r.year > plan.years[1])) return false;
+    if (plan.amount) {
+      const a = r.amount_eur || 0;
+      if (a < plan.amount[0] || a >= plan.amount[1]) return false;
+    }
+    if (plan.searched && !plan.searched.has(i)) return false;
+    if (plan.project != null && !rowMatchesProjectScope(i, plan.project)) return false;
+    for (let k = 0; k < plan.eq.length; k++) {
+      if (!plan.eq[k].values.has(plan.eq[k].get(r))) return false;
     }
     return true;
   }
 
   function applyFilters() {
-    const f = state.filters;
-    const yr = f.yearRange;
-    const sy = f.selectedYear;
-    const programs = f.programs, cats = f.cats, roks = f.roks;
-    const searched = f.q.trim() ? searchRowIds(f.q.trim()) : null;
-    const scopes = state.scopes;
-
+    const plan = buildNarrowPlan(state.narrow);
     const out = [];
     for (let i = 0; i < DATA.rows.length; i++) {
-      const r = DATA.rows[i];
-      if (yr && r.year && (r.year < yr[0] || r.year > yr[1])) continue;
-      if (sy != null && r.year !== sy) continue;
-      if (programs.size && !programs.has(r.program)) continue;
-      if (cats.size && !cats.has(r.cat_type)) continue;
-      if (roks.size && !roks.has(r.rok)) continue;
-      if (searched && !searched.has(i)) continue;
-      if (scopes.length && !rowInScope(i, scopes)) continue;
-      out.push(i);
+      if (!plan.active || rowMatchesPlan(i, plan)) out.push(i);
     }
     return out;
   }
 
-  // Filter as `applyFilters` would, but also exclude rows that would land in the
-  // unattributed bucket of the active people-pivot, when the hide-unattributed
-  // toggle is on. Keeps the insights metrics in sync with what the table shows.
-  function applyFiltersAndPivotView() {
-    const ids = applyFilters();
-    if (!state.hideUnattributed) return ids;
-    if (!PIVOTS_WITH_UNATTRIBUTED.has(state.groupBy)) return ids;
-    const field = state.groupBy; // 'producer' | 'director' | 'writer'
+  // Row ids matching everything EXCEPT one dimension. Facet counts need this:
+  // if selecting a programme zeroed every other programme's count, you could
+  // never add a second one.
+  function applyFiltersExcept(dim) {
+    const plan = buildNarrowPlan(state.narrow.filter(t => t.dim !== dim));
     const out = [];
-    for (const i of ids) {
-      const v = DATA.rows[i][field];
-      if (v != null && String(v).trim() !== '') out.push(i);
+    for (let i = 0; i < DATA.rows.length; i++) {
+      if (!plan.active || rowMatchesPlan(i, plan)) out.push(i);
     }
     return out;
   }
@@ -2218,7 +3006,7 @@
       const key = rowNormTitles[i] || UNATTRIBUTED_KEY;
       let p = map.get(key);
       if (!p) p = { key, rows: [], total: 0, yearMin: null, yearMax: null,
-                    title: DATA.rows[i].title || '',
+                    title: DATA.rows[i].family_title || DATA.rows[i].title || '',
                     programs: new Set(), cats: new Set(),
                     producers: new Set(), directors: new Set() };
       p.rows.push(i);
@@ -2246,67 +3034,523 @@
   }
 
   // ═══ 8. Orientation headline ════════════════════════════════════════
+  // One line: what the registry is, plus its global totals.
+  //
+  // The provenance note used to sit here permanently as a 275-character
+  // paragraph — the largest block of copy on the screen, unchanging, and the
+  // single biggest reason the headline cost 156px. It is a trust statement you
+  // read once, so it moved behind the (i), which is where a reader looks for it
+  // when they actually want it.
+  //
+  // These totals are deliberately GLOBAL and stay global (PRODUCT.md keeps
+  // registry facts distinct from the active scope). What changed is that they are
+  // no longer the loudest thing on screen — the scoped count in #viewbar is.
   function mountHeadline(root) {
+    const openAnalytics = () => setShowAnalytics(true);
+
+    const onDocPointerDown = (e) => {
+      if (!state.showProvenance) return;
+      const wrap = root.querySelector('.head-note-wrap');
+      if (wrap && !wrap.contains(e.target)) setShowProvenance(false);
+    };
+    const onDocKeyDown = (e) => {
+      if (e.key === 'Escape' && state.showProvenance) setShowProvenance(false);
+    };
+    document.addEventListener('pointerdown', onDocPointerDown);
+    document.addEventListener('keydown', onDocKeyDown);
+
     function render() {
       const lang = state.lang;
       const maxYear = DATA.facets.years[DATA.facets.years.length - 1];
-      const auditSummary = buildSanityInfoSummary(lang);
+      const fundedProjects = GLOBAL_ANALYTICS ? GLOBAL_ANALYTICS.projectCount : 0;
       root.replaceChildren(
         el('div', { class: 'head-line' }, [
-          el('span', { class: 'head-main', text: t('header.line', lang, { maxYear }) }),
-        ]),
-        el('aside', { class: 'head-infopill', role: 'note' }, [
-          fa('fa-solid fa-circle-info', 'icon-left'),
-          el('div', { class: 'head-infopill-copy' }, [
-            el('span', { class: 'head-infopill-kicker kicker', text: t('header.notice.kicker', lang) }),
-            el('span', { class: 'head-infopill-body', text: t('header.notice.body', lang) })
+          // Truncates before the figures do; the title attribute keeps the full
+          // string reachable when it does.
+          el('span', {
+            class: 'head-main',
+            text: t('header.line', lang, { maxYear }),
+            title: t('header.line', lang, { maxYear }),
+          }),
+          el('div', { class: 'head-note-wrap' }, [
+            el('button', {
+              class: 'head-note-btn',
+              type: 'button',
+              title: t('header.notice.kicker', lang),
+              'aria-label': t('header.notice.kicker', lang),
+              'aria-haspopup': 'dialog',
+              'aria-expanded': state.showProvenance ? 'true' : 'false',
+              onclick: (e) => {
+                e.stopPropagation();
+                setShowProvenance(!state.showProvenance);
+              },
+            }, [fa('fa-solid fa-circle-info')]),
+            state.showProvenance && el('div', {
+              class: 'helper-tip-popover head-note-popover',
+              role: 'dialog',
+              'aria-label': t('header.notice.kicker', lang),
+            }, [
+              el('div', { class: 'helper-tip-title display', text: t('header.notice.kicker', lang) }),
+              el('div', { class: 'helper-tip-body', text: t('header.notice.body', lang) }),
+              // The old statusbar's coverage note belongs with provenance, not
+              // pinned below the table.
+              el('div', {
+                class: 'head-note-coverage mono',
+                text: t('status.coverage', lang, { maxYear }),
+              }),
+            ]),
           ]),
         ]),
-        el('div', { class: 'head-stats mono' }, [
-          el('span', {}, [
-            fa('fa-solid fa-list-check', 'icon-left'),
-            t('header.decisions', lang, { n: DATA.counts.rows.toLocaleString() }),
-          ]),
-          el('span', { class: 'sep', text: '·' }),
-          el('span', {}, [
+        el('button', {
+          class: 'head-stats mono',
+          type: 'button',
+          onclick: openAnalytics,
+          title: t('header.stats.open', lang),
+          'aria-label': t('header.stats.open', lang),
+        }, [
+          el('span', { class: 'head-stat' }, [
             fa('fa-solid fa-coins', 'icon-left'),
             t('header.funded', lang, { amt: formatAmount(DATA.counts.total_amount_eur, 'EUR', lang) }),
           ]),
           el('span', { class: 'sep', text: '·' }),
-          el('span', {}, [
+          el('span', { class: 'head-stat' }, [
+            fa('fa-regular fa-clapperboard', 'icon-left'),
+            t('header.projects', lang, { n: fundedProjects.toLocaleString() }),
+          ]),
+          el('span', { class: 'sep', text: '·' }),
+          el('span', { class: 'head-stat' }, [
+            fa('fa-solid fa-list-check', 'icon-left'),
+            t('header.decisions', lang, { n: DATA.counts.rows.toLocaleString() }),
+          ]),
+          el('span', { class: 'sep', text: '·' }),
+          el('span', { class: 'head-stat' }, [
             fa('fa-regular fa-folder-open', 'icon-left'),
             t('header.calls', lang, { n: DATA.counts.docs_results_tables }),
           ]),
-          el('span', { class: 'sep', text: '·' }),
-          el('span', {}, [
-            fa('fa-solid fa-triangle-exclamation', 'icon-left'),
-            t('header.unfunded', lang, { n: DATA.counts.unfunded_mention_count }),
-          ]),
+          fa('fa-solid fa-arrow-up-right-from-square', 'head-stats-open-icon'),
         ]),
       );
     }
-    on(['lang'], render);
+    on(['lang', 'provenance'], render);
     render();
   }
 
   // ═══ 9. Insights strip ══════════════════════════════════════════════
   function mountInsights(root) {
     const openAnalytics = () => setShowAnalytics(true);
-    root.classList.add('insights-openable');
-    root.tabIndex = 0;
-    root.setAttribute('role', 'button');
+    let timelineCleanup = null;
+
     root.addEventListener('click', (e) => {
+      if (!isMobile()) return;
       const interactive = e.target && e.target.closest('button, a, input, textarea, select');
       if (interactive) return;
       openAnalytics();
     });
     root.addEventListener('keydown', (e) => {
+      if (!isMobile()) return;
       if (e.key !== 'Enter' && e.key !== ' ') return;
       e.preventDefault();
       openAnalytics();
     });
 
+    function hashString(value) {
+      let hash = 2166136261;
+      const input = String(value || '');
+      for (let i = 0; i < input.length; i++) {
+        hash ^= input.charCodeAt(i);
+        hash = Math.imul(hash, 16777619);
+      }
+      return hash >>> 0;
+    }
+
+    function timelineModel() {
+      const fallbackRange = [
+        DATA.facets.years[0],
+        DATA.facets.years[DATA.facets.years.length - 1],
+      ];
+      const range = (narrowOne('years') || {}).value || fallbackRange;
+      const minYear = Number(range[0]);
+      const maxYear = Number(range[1]);
+
+      function rowTimelineTime(rowId, row, projectKey) {
+        const yearStart = Date.UTC(row.year, 0, 1);
+        const nextYearStart = Date.UTC(row.year + 1, 0, 1);
+        const doc = docById.get(row.doc);
+        const dateMatch = doc && typeof doc.decision_date === 'string'
+          ? /^(\d{4})-(\d{2})-(\d{2})/.exec(doc.decision_date)
+          : null;
+
+        if (dateMatch) {
+          const month = Math.max(1, Math.min(12, Number(dateMatch[2]))) - 1;
+          const day = Math.max(1, Math.min(31, Number(dateMatch[3])));
+          const dated = Date.UTC(row.year, month, day);
+          return Math.max(yearStart, Math.min(nextYearStart - 1, dated));
+        }
+
+        const seed = hashString(`${projectKey}:${row.doc}:${row.n}:${rowId}`);
+        const fraction = 0.04 + ((seed % 10007) / 10006) * 0.92;
+        return yearStart + (nextYearStart - yearStart) * fraction;
+      }
+
+      const matches = new Map();
+      for (const rowId of applyFilters()) {
+        const key = rowNormTitles[rowId];
+        const row = DATA.rows[rowId];
+        if (!key || key === UNATTRIBUTED_KEY || row.year == null) continue;
+        const time = rowTimelineTime(rowId, row, key);
+        let item = matches.get(key);
+        if (!item) {
+          item = {
+            key,
+            title: row.title || '',
+            year: row.year,
+            time,
+            matchingCount: 0,
+          };
+          matches.set(key, item);
+        }
+        item.matchingCount += 1;
+        if (time > item.time) {
+          item.time = time;
+          item.year = row.year;
+        }
+      }
+
+      const items = [];
+      for (const item of matches.values()) {
+        const project = projectIndex.get(item.key);
+        if (!project || !(project.total_eur > 0)) continue;
+        items.push({
+          ...item,
+          title: project.title || item.title || t('col.untitled', state.lang),
+          total: project.total_eur,
+        });
+      }
+
+      return {
+        items,
+        minYear,
+        maxYear,
+      };
+    }
+
+    function timelineItemLabel(item, lang) {
+      return [
+        item.title,
+        String(item.year),
+        `${t('timeline.projects.lifetime', lang)}: ${formatAmount(item.total, 'EUR', lang)}`,
+        t('timeline.projects.matching', lang, { n: item.matchingCount.toLocaleString() }),
+      ].join(' · ');
+    }
+
+    function layoutTimelineItems(items, width, height) {
+      const margin = { left: 24, right: 24, top: 12, bottom: 28 };
+      const plotWidth = Math.max(1, width - margin.left - margin.right);
+      const plotHeight = Math.max(1, height - margin.top - margin.bottom);
+      const maxTotal = items.reduce((max, item) => Math.max(max, item.total), 1);
+      const minRadius = 1.35;
+      const maxRadius = Math.max(10, Math.min(18, plotHeight * 0.17));
+      const trackY = margin.top + plotHeight / 2;
+
+      const ordered = items.slice().sort((a, b) =>
+        a.time - b.time || hashString(a.key) - hashString(b.key)
+      );
+      const positionSpan = Math.max(1, ordered.length - 1);
+      const packed = ordered.map((item, index) => {
+        const radius = Math.max(minRadius, Math.sqrt(item.total / maxTotal) * maxRadius);
+        const seed = hashString(item.key);
+        const unit = ((seed % 10007) / 10006) * 2 - 1;
+        const availableJitter = Math.max(0, plotHeight / 2 - radius - 2);
+        const largeBubbleBias = 1 - (radius / maxRadius) * 0.55;
+        return {
+          ...item,
+          radius,
+          x: margin.left + (index / positionSpan) * plotWidth,
+          y: trackY + unit * availableJitter * largeBubbleBias,
+        };
+      });
+
+      return {
+        items: packed.sort((a, b) => a.radius - b.radius || hashString(a.key) - hashString(b.key)),
+        margin,
+        plotWidth,
+        plotHeight,
+        trackY,
+      };
+    }
+
+    function mountTimelineCanvas(plot, canvas, tooltip, option, live, model, lang) {
+      let layout = null;
+      let resizeObserver = null;
+      let frame = null;
+      let activeKey = null;
+      let hoverKey = null;
+      let hasKeyboardFocus = false;
+      let hitGrid = new Map();
+      const hitCellSize = 30;
+
+      function cssVar(name) {
+        return getComputedStyle(document.body).getPropertyValue(name).trim();
+      }
+
+      function itemByKey(key) {
+        return key && layout ? layout.items.find(item => item.key === key) : null;
+      }
+
+      function buildHitGrid() {
+        hitGrid = new Map();
+        if (!layout) return;
+        for (const item of layout.items) {
+          const minX = Math.floor((item.x - item.radius - 2) / hitCellSize);
+          const maxX = Math.floor((item.x + item.radius + 2) / hitCellSize);
+          const minY = Math.floor((item.y - item.radius - 2) / hitCellSize);
+          const maxY = Math.floor((item.y + item.radius + 2) / hitCellSize);
+          for (let gx = minX; gx <= maxX; gx++) {
+            for (let gy = minY; gy <= maxY; gy++) {
+              const key = `${gx}:${gy}`;
+              const bucket = hitGrid.get(key) || [];
+              bucket.push(item);
+              hitGrid.set(key, bucket);
+            }
+          }
+        }
+      }
+
+      function hitTest(x, y) {
+        const bucket = hitGrid.get(`${Math.floor(x / hitCellSize)}:${Math.floor(y / hitCellSize)}`) || [];
+        for (let i = bucket.length - 1; i >= 0; i--) {
+          const item = bucket[i];
+          const dx = x - item.x;
+          const dy = y - item.y;
+          const hitRadius = Math.max(4, item.radius + 1.5);
+          if (dx * dx + dy * dy <= hitRadius * hitRadius) return item;
+        }
+        return null;
+      }
+
+      function showTooltip(item) {
+        if (!item || !layout) {
+          tooltip.hidden = true;
+          return;
+        }
+        tooltip.replaceChildren(
+          el('strong', { class: 'project-timeline-tooltip-title', text: item.title }),
+          el('span', {
+            class: 'project-timeline-tooltip-meta mono',
+            text: `${item.year} · ${formatAmount(item.total, 'EUR', lang)} · ${t('timeline.projects.matching', lang, { n: item.matchingCount.toLocaleString() })}`,
+          }),
+        );
+        tooltip.hidden = false;
+        const width = canvas.clientWidth || 1;
+        const left = Math.max(108, Math.min(width - 108, item.x));
+        const above = item.y > 76;
+        tooltip.classList.toggle('is-below', !above);
+        tooltip.style.left = `${left}px`;
+        tooltip.style.top = `${above ? item.y - item.radius - 8 : item.y + item.radius + 8}px`;
+      }
+
+      function draw() {
+        if (!layout) return;
+        const rect = canvas.getBoundingClientRect();
+        const width = Math.max(1, rect.width);
+        const height = Math.max(1, rect.height);
+        const dpr = Math.min(2, window.devicePixelRatio || 1);
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        const ctx = canvas.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, width, height);
+
+        const rule = cssVar('--rule');
+        const paperDim = cssVar('--paper-dim');
+        const ink = cssVar('--ink');
+        const red = cssVar('--red');
+        const selected = itemByKey(hoverKey) || itemByKey(activeKey);
+
+        ctx.save();
+        ctx.strokeStyle = rule;
+        ctx.lineWidth = 1.5;
+        ctx.globalAlpha = 0.9;
+        ctx.beginPath();
+        ctx.moveTo(layout.margin.left, layout.trackY);
+        ctx.lineTo(width - layout.margin.right, layout.trackY);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(layout.margin.left, layout.trackY - 5);
+        ctx.lineTo(layout.margin.left, layout.trackY + 5);
+        ctx.moveTo(width - layout.margin.right, layout.trackY - 5);
+        ctx.lineTo(width - layout.margin.right, layout.trackY + 5);
+        ctx.stroke();
+        ctx.restore();
+
+        for (const item of layout.items) {
+          const isSelected = selected && selected.key === item.key;
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(item.x, item.y, item.radius, 0, Math.PI * 2);
+          ctx.fillStyle = red;
+          ctx.globalAlpha = isSelected ? 0.98 : 0.46;
+          ctx.fill();
+          if (item.radius >= 5) {
+            ctx.strokeStyle = ink;
+            ctx.lineWidth = isSelected ? 1.8 : 0.8;
+            ctx.globalAlpha = isSelected ? 0.95 : 0.5;
+            ctx.stroke();
+          }
+          if (isSelected) {
+            ctx.beginPath();
+            ctx.arc(item.x, item.y, item.radius + 3, 0, Math.PI * 2);
+            ctx.strokeStyle = red;
+            ctx.lineWidth = 2;
+            ctx.globalAlpha = 0.7;
+            ctx.stroke();
+          }
+          ctx.restore();
+        }
+
+        ctx.save();
+        ctx.fillStyle = paperDim;
+        ctx.font = '9px "JetBrains Mono", monospace';
+        ctx.textBaseline = 'bottom';
+        if (model.minYear === model.maxYear) {
+          ctx.textAlign = 'center';
+          ctx.fillText(String(model.minYear), width / 2, height - 5);
+        } else {
+          ctx.textAlign = 'left';
+          ctx.fillText(String(model.minYear), layout.margin.left, height - 5);
+          ctx.textAlign = 'right';
+          ctx.fillText(String(model.maxYear), width - layout.margin.right, height - 5);
+        }
+        ctx.restore();
+      }
+
+      function setActive(item, announce) {
+        if (!item) return;
+        activeKey = item.key;
+        const label = timelineItemLabel(item, lang);
+        option.textContent = label;
+        option.setAttribute('aria-label', label);
+        if (announce) live.textContent = label;
+        if (hasKeyboardFocus && !hoverKey) showTooltip(item);
+        draw();
+      }
+
+      function moveActive(direction) {
+        if (!layout || !layout.items.length) return;
+        const current = itemByKey(activeKey) || layout.items[layout.items.length - 1];
+        const candidates = layout.items.filter(item => {
+          if (item.key === current.key) return false;
+          if (direction === 'left') return item.x < current.x - 0.5;
+          if (direction === 'right') return item.x > current.x + 0.5;
+          if (direction === 'up') return item.y < current.y - 0.5;
+          return item.y > current.y + 0.5;
+        });
+        if (!candidates.length) return;
+        const horizontal = direction === 'left' || direction === 'right';
+        candidates.sort((a, b) => {
+          const aPrimary = horizontal ? Math.abs(a.x - current.x) : Math.abs(a.y - current.y);
+          const bPrimary = horizontal ? Math.abs(b.x - current.x) : Math.abs(b.y - current.y);
+          const aCross = horizontal ? Math.abs(a.y - current.y) : Math.abs(a.x - current.x);
+          const bCross = horizontal ? Math.abs(b.y - current.y) : Math.abs(b.x - current.x);
+          return (aPrimary + aCross * 0.28) - (bPrimary + bCross * 0.28);
+        });
+        setActive(candidates[0], true);
+      }
+
+      function activate(item) {
+        if (!item) return;
+        openScopedProject(item.key, item.title);
+      }
+
+      function relayout() {
+        const rect = canvas.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        layout = layoutTimelineItems(model.items, rect.width, rect.height);
+        buildHitGrid();
+        if (activeKey && !itemByKey(activeKey)) activeKey = null;
+        draw();
+      }
+
+      function scheduleRelayout() {
+        if (frame != null) cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(() => {
+          frame = null;
+          relayout();
+        });
+      }
+
+      canvas.addEventListener('pointermove', (e) => {
+        if (!layout) return;
+        const rect = canvas.getBoundingClientRect();
+        const item = hitTest(e.clientX - rect.left, e.clientY - rect.top);
+        const nextKey = item ? item.key : null;
+        if (hoverKey === nextKey) return;
+        hoverKey = nextKey;
+        canvas.classList.toggle('is-over-project', !!item);
+        if (item) showTooltip(item);
+        else if (hasKeyboardFocus) showTooltip(itemByKey(activeKey));
+        else showTooltip(null);
+        draw();
+      });
+      canvas.addEventListener('pointerleave', () => {
+        hoverKey = null;
+        canvas.classList.remove('is-over-project');
+        if (hasKeyboardFocus) showTooltip(itemByKey(activeKey));
+        else showTooltip(null);
+        draw();
+      });
+      canvas.addEventListener('click', (e) => {
+        if (!layout) return;
+        const rect = canvas.getBoundingClientRect();
+        activate(hitTest(e.clientX - rect.left, e.clientY - rect.top));
+      });
+      plot.addEventListener('focus', () => {
+        hasKeyboardFocus = true;
+        if (!activeKey && layout && layout.items.length) {
+          setActive(layout.items[layout.items.length - 1], false);
+        } else {
+          showTooltip(itemByKey(activeKey));
+          draw();
+        }
+      });
+      plot.addEventListener('blur', () => {
+        hasKeyboardFocus = false;
+        if (!hoverKey) showTooltip(null);
+        draw();
+      });
+      plot.addEventListener('keydown', (e) => {
+        const keyMap = {
+          ArrowLeft: 'left',
+          ArrowRight: 'right',
+          ArrowUp: 'up',
+          ArrowDown: 'down',
+        };
+        if (keyMap[e.key]) {
+          e.preventDefault();
+          moveActive(keyMap[e.key]);
+          return;
+        }
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activate(itemByKey(activeKey));
+        }
+      });
+
+      resizeObserver = new ResizeObserver(scheduleRelayout);
+      resizeObserver.observe(canvas);
+      scheduleRelayout();
+
+      return () => {
+        if (frame != null) cancelAnimationFrame(frame);
+        if (resizeObserver) resizeObserver.disconnect();
+      };
+    }
+
     function render() {
+      if (timelineCleanup) {
+        timelineCleanup();
+        timelineCleanup = null;
+      }
       const lang = state.lang;
       const a = GLOBAL_ANALYTICS;
       if (!a) {
@@ -2314,10 +3558,11 @@
         return;
       }
 
-      root.setAttribute('aria-label', t('insights.open.hint', lang));
-      root.classList.toggle('insights-mobile', isMobile());
-
       if (isMobile()) {
+        root.className = 'insights insights-openable insights-mobile';
+        root.tabIndex = 0;
+        root.setAttribute('role', 'button');
+        root.setAttribute('aria-label', t('insights.open.hint', lang));
         root.replaceChildren(
           el('div', { class: 'insights-mobile-summary' }, [
             el('span', { class: 'insights-mobile-amount mono', text: formatCompact(a.totalAmount, lang) }),
@@ -2337,121 +3582,207 @@
         return;
       }
 
-      const yearVals = a.yearSeries.map(x => x.amount);
-      const yearTooltips = a.yearSeries.map(x =>
-        `${x.year} · ${formatCompact(x.amount, lang)} · ${x.count.toLocaleString()} ${t('metric.count', lang)}`);
+      // Three sizes: a ~28px strip, the default 178px plot, and a taller "full"
+      // plot for reading the distribution properly. Expanded is the desktop
+      // default — the chart is the main screen's visual signature — and the list's
+      // guaranteed floor plus a scrollable .main is what keeps that safe when the
+      // viewport is short. Browsing the list stays the priority; the chart just
+      // no longer has to be sacrificed pre-emptively to protect it.
+      const view = state.timelineView;
+      const open = view !== 'collapsed';
+      const model = timelineModel();
+      const summary = t('timeline.projects.summary', lang, { n: model.items.length.toLocaleString() });
 
-      const histVals = a.sizeHistogram;
-      const histTooltips = histVals.map((v, i) =>
-        `${bandLabel(SIZE_BUCKETS[i], SIZE_BUCKETS[i + 1])} · ${v.toLocaleString()} ${t('metric.count', lang)}`);
+      root.className = 'insights project-timeline-insights'
+        + (open ? '' : ' is-collapsed')
+        + (view === 'full' ? ' is-full' : '');
+      root.removeAttribute('role');
+      root.removeAttribute('aria-label');
+      root.removeAttribute('tabindex');
 
-      root.replaceChildren(
-        el('div', { class: 'insights-open-hint kicker', text: `${t('insights.open.kicker', lang)} · ${t('insights.open.hint', lang)}` }),
-        el('div', { class: 'metric' }, [
-          el('span', { class: 'label', text: t('metric.total', lang) }),
-          el('span', { class: 'value', text: formatAmount(a.totalAmount, 'EUR', lang) }),
-          el('span', { class: 'sub', text: `${a.rowCount.toLocaleString()} ${t('status.rows', lang)}` }),
+      const sizeBtn = open && el('button', {
+        class: 'timeline-disclosure',
+        type: 'button',
+        title: t(view === 'full' ? 'timeline.compact' : 'timeline.full', lang),
+        'aria-label': t(view === 'full' ? 'timeline.compact' : 'timeline.full', lang),
+        onclick: () => setTimelineView(view === 'full' ? 'default' : 'full'),
+      }, [fa(view === 'full'
+        ? 'fa-solid fa-down-left-and-up-right-to-center'
+        : 'fa-solid fa-up-right-and-down-left-from-center')]);
+
+      const disclosure = el('button', {
+        class: 'timeline-disclosure',
+        type: 'button',
+        title: t(open ? 'timeline.collapse' : 'timeline.expand', lang),
+        'aria-label': t(open ? 'timeline.collapse' : 'timeline.expand', lang),
+        'aria-expanded': open ? 'true' : 'false',
+        onclick: () => setTimelineView(open ? 'collapsed' : 'default'),
+      }, [fa(open ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down')]);
+
+      const head = el('header', { class: 'project-timeline-head' }, [
+        el('div', { class: 'project-timeline-heading' }, [
+          el('span', { class: 'kicker', text: t('timeline.projects.title', lang) }),
+          el('span', { class: 'project-timeline-summary mono', text: summary }),
         ]),
-        el('div', { class: 'metric' }, [
-          el('span', { class: 'label', text: t('metric.decisions', lang) }),
-          el('span', { class: 'value', text: a.rowCount.toLocaleString() }),
-          el('span', { class: 'sub', text: `${a.awardedCount.toLocaleString()} ${t('metric.count', lang)}` }),
-        ]),
-        el('div', { class: 'metric' }, [
-          el('span', { class: 'label', text: t('metric.median', lang) }),
-          el('span', { class: 'value', text: formatAmount(a.medianAmount, 'EUR', lang) }),
-          el('span', { class: 'sub', text: `${t('metric.p90', lang)}: ${formatAmount(a.p90Amount, 'EUR', lang)}` }),
-        ]),
-        el('div', { class: 'metric' }, [
-          el('span', { class: 'label', text: t('metric.top10ProdShare', lang) }),
-          el('span', { class: 'value', text: formatPercent(a.concentration.top10, lang, 1) }),
-          el('span', { class: 'sub', text: t('metric.producers.sub', lang, { n: (a.uniqueProducers || 0).toLocaleString() }) }),
-        ]),
-        el('div', { class: 'metric chart' }, [
-          el('span', { class: 'label', text: t('metric.yearTrend', lang) }),
-          barsChart(yearVals, yearTooltips),
-          el('div', { class: 'bars-labels' }, [
-            el('span', { text: a.yearSeries.length ? String(a.yearSeries[0].year) : '' }),
-            el('span', { text: a.yearSeries.length ? String(a.yearSeries[a.yearSeries.length - 1].year) : '' }),
+        // The legend explains marks you cannot see while collapsed, so it goes
+        // with them. The hover hint moved onto the plot's own title attribute —
+        // it belongs on the thing it describes, not on a line of its own.
+        open && el('div', { class: 'project-timeline-legend mono' }, [
+          el('span', { class: 'project-timeline-legend-dots', 'aria-hidden': 'true' }, [
+            el('span', { class: 'project-timeline-legend-dot is-small' }),
+            el('span', { class: 'project-timeline-legend-dot is-large' }),
           ]),
+          el('span', { text: t('timeline.projects.legend', lang) }),
+          el('span', { class: 'sep', text: '·' }),
+          el('span', { text: t('timeline.projects.placement', lang) }),
         ]),
-        el('div', { class: 'metric chart' }, [
-          el('span', { class: 'label', text: t('metric.distrib', lang) }),
-          barsChart(histVals, histTooltips),
-          el('div', { class: 'bars-labels' }, [
-            el('span', { text: '€0' }),
-            el('span', { text: '€1M+' }),
-          ]),
-        ]),
-      );
-    }
-    on(['lang', 'mobile'], render);
-    render();
-  }
+        el('div', { class: 'timeline-controls' }, [sizeBtn, disclosure]),
+      ]);
 
-  // ═══ 10. Scope-chip row ═════════════════════════════════════════════
-  function mountScopeRow(root) {
-    function chipLabel(s, lang) {
-      const kindLabel = t('scope.kind.' + s.kind, lang);
-      let val;
-      if (s.kind === 'program') val = t('prog.' + s.value, lang);
-      else if (s.kind === 'cat') val = t('cat.' + s.value, lang);
-      else if (s.kind === 'project') val = s.label || t('col.untitled', lang);
-      else if (s.kind === 'sizeBand') val = s.label || bandLabel(s.value[0], s.value[1]);
-      else val = s.label != null ? s.label : String(s.value);
-      return [kindLabel, val];
-    }
-
-    function render() {
-      const lang = state.lang;
-      if (state.scopes.length === 0) {
-        root.replaceChildren(
-          el('span', { class: 'scope-kicker kicker', text: t('scope.label', lang) }),
-          el('span', { class: 'scope-empty', text: t('scope.empty', lang) }),
-        );
-        root.classList.add('empty');
+      if (!open) {
+        root.replaceChildren(head);
         return;
       }
-      root.classList.remove('empty');
-      const chips = state.scopes.map((s, idx) => {
-        const [k, v] = chipLabel(s, lang);
-        return el('button', {
-          class: 'scope-chip',
-          title: t('scope.label', lang),
-          onclick: () => removeScope(idx),
-        }, [
-          el('span', { class: 'k mono', text: k }),
-          el('span', { class: 'eq', text: '=' }),
-          el('span', { class: 'v', text: v }),
-          el('span', { class: 'x' }, [fa('fa-solid fa-xmark')]),
-        ]);
+
+      if (!model.items.length) {
+        root.replaceChildren(
+          head,
+          el('div', { class: 'project-timeline-empty' }, [
+            fa('fa-regular fa-circle', 'icon-left'),
+            el('span', { text: t('timeline.projects.empty', lang) }),
+          ]),
+        );
+        return;
+      }
+
+      const canvas = el('canvas', {
+        class: 'project-timeline-canvas',
+        'aria-hidden': 'true',
       });
-      root.replaceChildren(
-        el('span', { class: 'scope-kicker kicker', text: t('scope.label', lang) }),
-        ...chips,
-        el('button', {
-          class: 'btn mono scope-clear',
-          text: t('scope.clearAll', lang),
-          onclick: clearScopes,
-        }),
-      );
+      const tooltip = el('div', {
+        class: 'project-timeline-tooltip',
+        role: 'tooltip',
+        hidden: true,
+      });
+      const optionId = 'project-timeline-active-option';
+      const option = el('div', {
+        class: 'sr-only',
+        id: optionId,
+        role: 'option',
+        'aria-selected': 'true',
+      });
+      const live = el('div', {
+        class: 'sr-only',
+        'aria-live': 'polite',
+        'aria-atomic': 'true',
+      });
+      const plot = el('div', {
+        class: 'project-timeline-plot',
+        role: 'listbox',
+        tabindex: '0',
+        'aria-activedescendant': optionId,
+        'aria-label': t('timeline.projects.keyboard', lang, { n: model.items.length.toLocaleString() }),
+        title: t('timeline.projects.hint', lang),
+      }, [canvas, tooltip, option, live]);
+      root.replaceChildren(head, plot);
+      timelineCleanup = mountTimelineCanvas(plot, canvas, tooltip, option, live, model, lang);
     }
-    on(['scopes', 'lang'], render);
+    on(['narrow', 'lang', 'theme', 'viewport'], render);
     render();
   }
 
-  // ═══ 11. Pivot chips ════════════════════════════════════════════════
+  // ═══ 10/11. View bar ════════════════════════════════════════════════
   const PIVOTS = ['projects', 'decisions', 'producer', 'director', 'writer', 'program', 'cat'];
   const PIVOTS_WITH_UNATTRIBUTED = new Set(['producer', 'director', 'writer']);
 
-  function mountPivot(root) {
+  // One bar that answers "what am I looking at?" — the live record count, every
+  // active narrowing as a removable token, and the grouping control. It replaces
+  // three stacked bands (scope row + pivot + year pills, 136–164px) with ~44px,
+  // and it is where narrowing finally becomes visible: the count sits next to the
+  // tokens that caused it, and the bar itself tints when the view is a subset.
+  //
+  // Before, the loudest numbers on screen lived in #headline, which subscribed to
+  // ['lang'] alone and therefore never moved when you filtered; the only truthful
+  // readout was a 34px statusbar pinned to the bottom of the window.
+  function mountViewBar(root) {
+    function tokenLabel(token, lang) {
+      const kind = t('scope.kind.' + token.dim, lang);
+      let val;
+      if (token.dim === 'program') val = t('prog.' + token.value, lang);
+      else if (token.dim === 'cat') val = t('cat.' + token.value, lang);
+      else if (token.dim === 'project') val = token.label || t('col.untitled', lang);
+      else if (token.dim === 'amount') val = token.label || bandLabel(token.value[0], token.value[1]);
+      else if (token.dim === 'years') {
+        val = token.value[0] === token.value[1]
+          ? String(token.value[0])
+          : `${token.value[0]}–${token.value[1]}`;
+      } else val = token.label != null ? token.label : String(token.value);
+      return [kind, val];
+    }
+
+    // Re-render is driven by both 'narrow' and 'readout', and one user action
+    // fires both. Skip the redundant pass so a token's × doesn't get rebuilt
+    // out from under the pointer twice.
+    let lastSig = null;
+
     function render() {
       const lang = state.lang;
-      const showUnattributedToggle = PIVOTS_WITH_UNATTRIBUTED.has(state.groupBy);
+      const narrowed = state.narrow.length > 0;
+      const { shown, total, sum } = state.readout;
+      const sig = JSON.stringify([state.narrow, shown, total, sum, lang,
+        state.groupBy, state.hideUnattributed, isWide(), isMobile()]);
+      if (sig === lastSig) return;
+      lastSig = sig;
 
-      let left;
-      if (isMobile()) {
-        const select = el('select', {
+      // ── readout ──
+      const readout = el('div', { class: 'vb-readout' }, [
+        el('span', { class: 'vb-count mono', text: shown.toLocaleString() }),
+        narrowed
+          ? el('span', { class: 'vb-of mono', text: `${t('status.of', lang)} ${total.toLocaleString()} ${t('status.rows', lang)}` })
+          : el('span', { class: 'vb-of mono', text: t('status.rows', lang) }),
+        el('span', { class: 'vb-sum mono', text: '· ' + formatAmount(sum, 'EUR', lang) }),
+      ]);
+
+      // ── tokens ──
+      const tokens = el('div', { class: 'vb-tokens' });
+      if (!narrowed) {
+        tokens.appendChild(el('span', { class: 'scope-empty', text: t('scope.empty', lang) }));
+      } else {
+        state.narrow.forEach((token, idx) => {
+          const [k, v] = tokenLabel(token, lang);
+          tokens.appendChild(el('button', {
+            class: 'scope-chip',
+            title: t('scope.clearAll', lang),
+            onclick: () => removeNarrow(idx),
+          }, [
+            el('span', { class: 'k mono', text: k }),
+            el('span', { class: 'eq', text: '=' }),
+            el('span', { class: 'v', text: v }),
+            el('span', { class: 'x' }, [fa('fa-solid fa-xmark')]),
+          ]));
+        });
+        tokens.appendChild(el('button', {
+          class: 'btn mono scope-clear',
+          text: t('scope.clearAll', lang),
+          onclick: clearNarrow,
+        }));
+      }
+
+      // ── grouping ──
+      // Seven buttons plus the readout only fit on genuinely wide screens; below
+      // that fall back to the select the mobile layout already uses rather than
+      // letting the bar wrap into a second row.
+      const group = el('div', { class: 'vb-group' }, [
+        el(isWide() ? 'span' : 'label', { class: 'kicker', text: t('pivot.label', lang) }),
+      ]);
+      if (isWide()) {
+        PIVOTS.forEach(p => group.appendChild(el('button', {
+          class: 'btn mono' + (state.groupBy === p ? ' active' : ''),
+          text: t('pivot.' + p, lang),
+          onclick: () => setGroupBy(p),
+        })));
+      } else {
+        group.appendChild(el('select', {
           class: 'pivot-select mono',
           'aria-label': t('pivot.label', lang),
           onchange: (e) => setGroupBy(e.target.value),
@@ -2459,39 +3790,24 @@
           const opt = el('option', { value: p, text: t('pivot.' + p, lang) });
           if (state.groupBy === p) opt.selected = true;
           return opt;
-        }));
-        left = el('div', { class: 'pivot-left' }, [
-          el('label', { class: 'kicker', text: t('pivot.label', lang) }),
-          select,
-        ]);
-      } else {
-        left = el('div', { class: 'pivot-left' }, [
-          el('span', { class: 'kicker', text: t('pivot.label', lang) }),
-          ...PIVOTS.map(p => el('button', {
-            class: 'btn mono' + (state.groupBy === p ? ' active' : ''),
-            text: t('pivot.' + p, lang),
-            onclick: () => setGroupBy(p),
-          })),
-        ]);
+        })));
       }
 
-      const right = el('div', { class: 'pivot-right' });
-      if (showUnattributedToggle) {
-        right.appendChild(el('button', {
+      if (PIVOTS_WITH_UNATTRIBUTED.has(state.groupBy)) {
+        group.appendChild(el('button', {
           class: 'btn mono unattributed-toggle' + (state.hideUnattributed ? ' active' : ''),
           text: t('pivot.hideUnattributed', lang),
           onclick: () => setHideUnattributed(!state.hideUnattributed),
         }));
         if (state.hideUnattributed) {
           const field = state.groupBy; // 'producer' | 'director' | 'writer'
-          const baseIds = applyFilters();
           let hiddenCount = 0;
-          for (const i of baseIds) {
+          for (const i of applyFilters()) {
             const v = DATA.rows[i][field];
             if (v == null || String(v).trim() === '') hiddenCount++;
           }
           if (hiddenCount > 0) {
-            right.appendChild(el('span', {
+            group.appendChild(el('span', {
               class: 'kicker unattributed-caption',
               text: hiddenCount.toLocaleString() + ' ' + t('pivot.hiddenSuffix', lang),
             }));
@@ -2499,9 +3815,10 @@
         }
       }
 
-      root.replaceChildren(left, right);
+      root.classList.toggle('is-narrowed', narrowed);
+      root.replaceChildren(readout, tokens, group);
     }
-    on(['groupBy', 'lang', 'hideUnattributed', 'filters', 'scopes', 'mobile'], render);
+    on(['narrow', 'readout', 'lang', 'groupBy', 'hideUnattributed', 'viewport'], render);
     render();
   }
 
@@ -2580,7 +3897,6 @@
     scrollEl.appendChild(spacer);
 
     const headerEl = el('div', { class: 'list-header-wrap' });
-    let statusbar;
 
     function headerCell(label, key, extraClass) {
       const isActive = state.sort.key === key;
@@ -2683,7 +3999,7 @@
 
     function paint() {
       const lang = state.lang;
-      const normalize = state.filters.normalize;
+      const normalize = state.normalize;
 
       if (filteredIds.length === 0) {
         spacer.replaceChildren(el('div', { class: 'list-empty', text: t('status.empty', lang) }));
@@ -2762,7 +4078,7 @@
       return el('div', {
         class: 'row' + (expanded ? ' expanded' : ''),
         style: `top:${top}px; height:${DECISION_ROW_H}px`,
-        onclick: () => setExpandedKey(key),
+        onclick: () => setExpandedKey(key, 'decision-row'),
       }, [
         el('div', { class: 'col n', text: doc ? (r.n + ' · ' + doc.id) : String(r.n) }),
         el('div', { class: 'col title' }, [
@@ -2799,7 +4115,7 @@
       return el('div', {
         class: 'row project-row' + (expanded ? ' expanded' : ''),
         style: `top:${top}px; height:${PROJECT_ROW_H}px`,
-        onclick: () => setExpandedKey(p.key),
+        onclick: () => setExpandedKey(p.key, 'project-row'),
       }, [
         el('div', { class: 'col n mono', text: p.rows.length + '×' }),
         el('div', { class: 'col title' }, [
@@ -2833,8 +4149,11 @@
 
       const clickHandler = () => {
         if (g.isUnattributed || value == null) return;
-        addScope({
-          kind: dim, value,
+        // Drilling into a group row produces exactly the token a rail chip
+        // produces for the same value, so the rail lights up and the two can
+        // never disagree — they are the same state now.
+        addNarrow({
+          dim, value,
           label: dim === 'program' ? t('prog.' + value, lang)
                : dim === 'cat'     ? t('cat.' + value, lang)
                                    : String(value),
@@ -2873,7 +4192,7 @@
           dots.push(el('div', {
             class: 'timeline-dot',
             style: `left:${pct}%; width:${radius * 2}px; height:${radius * 2}px; transform:translate(calc(-50% + ${offset}px), -50%);`,
-            title: `${y} · ${t('prog.' + (r.program || 'other'), lang)} · ${formatAmount(r.amount_eur, 'EUR', lang)}`,
+            title: `${r.title || t('col.untitled', lang)} · ${y} · ${t('prog.' + (r.program || 'other'), lang)} · ${formatAmount(r.amount_eur, 'EUR', lang)}`,
           }));
         });
       }
@@ -2945,7 +4264,7 @@
             class: 'btn mono',
             onclick: (e) => {
               e.stopPropagation();
-              addScope({ kind: 'project', value: project.normTitle, label: project.title });
+              addNarrow({ dim: 'project', value: project.normTitle, label: project.title });
               setExpandedKey(null);
             },
           }, [
@@ -3026,7 +4345,7 @@
             onclick: (e) => {
               e.stopPropagation();
               if (!r.program) return;
-              addScope({ kind: 'program', value: r.program, label: t('prog.' + r.program, lang) });
+              addNarrow({ dim: 'program', value: r.program, label: t('prog.' + r.program, lang) });
             },
             title: t('profile.scope_short', lang),
           }),
@@ -3036,7 +4355,7 @@
             onclick: (e) => {
               e.stopPropagation();
               if (!r.cat_type || r.cat_type === 'other') return;
-              addScope({ kind: 'cat', value: r.cat_type, label: t('cat.' + r.cat_type, lang) });
+              addNarrow({ dim: 'cat', value: r.cat_type, label: t('cat.' + r.cat_type, lang) });
             },
             title: t('profile.scope_short', lang),
           }),
@@ -3156,21 +4475,13 @@
       return wrap;
     }
 
+    // The list owns the filtered set, so it owns the count. It publishes it and
+    // the view bar renders it, which is why there is no longer a statusbar
+    // stranded below the fold to hold this number.
     function updateStatus() {
-      if (!statusbar) return;
-      const lang = state.lang;
-      const total = DATA.rows.length;
-      const shown = filteredIds.length;
-      const sum = filteredIds.reduce((s, i) => s + (DATA.rows[i].amount_eur || 0), 0);
-      statusbar.replaceChildren(
-        el('span', {}, [
-          t('status.showing', lang) + ' ',
-          el('b', { text: shown.toLocaleString() }),
-          ' ' + t('status.of', lang) + ' ' + total.toLocaleString() + ' ' + t('status.rows', lang) + ' · ',
-          formatAmount(sum, 'EUR', lang) + ' ' + t('status.total', lang),
-        ]),
-        el('span', { text: t('status.coverage', lang, { maxYear: DATA.facets.years[DATA.facets.years.length - 1] }) }),
-      );
+      let sum = 0;
+      for (const i of filteredIds) sum += (DATA.rows[i].amount_eur || 0);
+      setReadout({ shown: filteredIds.length, total: DATA.rows.length, sum });
     }
 
     let rafQueued = false;
@@ -3183,25 +4494,30 @@
     window.addEventListener('scroll', requestPaint, { passive: true });
     window.addEventListener('resize', paint);
 
-    on(['filters', 'scopes', 'groupBy', 'sort', 'expanded', 'hideUnattributed', 'lang'], () => {
+    on(['narrow', 'normalize', 'groupBy', 'sort', 'expanded', 'hideUnattributed', 'lang'], () => {
       recomputeData();
     });
-    on(['mobile'], paint);
+    on(['viewport'], paint);
 
     root.replaceChildren(headerEl, scrollEl);
-
-    statusbar = el('div', { class: 'statusbar' });
-    root.parentElement.appendChild(statusbar);
 
     recomputeData();
   }
 
   // ═══ 13. Analytics modal ════════════════════════════════════════════
-  function mountAnalyticsModal() {
+  function mountAnalyticsModalLegacy() {
     let host = null;
     let keyHandler = null;
 
     function close() { setShowAnalytics(false); }
+
+    function overviewStat(label, value, sub) {
+      return el('article', { class: 'analytics-overview-stat' }, [
+        el('span', { class: 'label', text: label }),
+        el('span', { class: 'value', text: value }),
+        sub ? el('span', { class: 'sub', text: sub }) : null,
+      ]);
+    }
 
     function kpiCard(spec, lang) {
       const isOpen = state.expandedAnalyticsKpi === spec.key;
@@ -3391,6 +4707,17 @@
             ]),
           ]),
           el('div', { class: 'modal-body analytics-body' }, [
+            el('section', { class: 'analytics-overview-block' }, [
+              el('div', { class: 'analytics-section-title kicker', text: t('analytics.overview', lang) }),
+              el('div', { class: 'analytics-overview' }, [
+                overviewStat(t('metric.total', lang), formatAmount(a.totalAmount, 'EUR', lang)),
+                overviewStat(t('analytics.projects', lang), a.projectCount.toLocaleString()),
+                overviewStat(t('metric.decisions', lang), a.rowCount.toLocaleString()),
+                overviewStat(t('analytics.calls', lang), DATA.counts.docs_results_tables.toLocaleString()),
+                overviewStat(t('metric.median', lang), formatAmount(a.medianAmount, 'EUR', lang)),
+                overviewStat(t('analytics.unfunded', lang), DATA.counts.unfunded_mention_count.toLocaleString()),
+              ]),
+            ]),
             el('section', { class: 'analytics-kpis' }, buildKpiSpecs(a, lang).map((spec) => kpiCard(spec, lang))),
             el('section', { class: 'analytics-grid' }, [
               el('article', { class: 'analytics-card analytics-card-year' }, [
@@ -3447,6 +4774,37 @@
   }
 
   // ═══ 14. Unfunded mentions modal ════════════════════════════════════
+  function mountAnalyticsModal() {
+    if (typeof window.createSredstvaAnalyticsStudio !== 'function') {
+      console.error('analytics-studio.js did not load');
+      return;
+    }
+    const controller = window.createSredstvaAnalyticsStudio({
+      Analytics: window.SredstvaAnalytics,
+      getData: () => DATA,
+      getSanityReport: () => SANITY_REPORT,
+      state,
+      subscribe: on,
+      setShowAnalytics,
+      setSelectedYear,
+      addNarrow,
+      narrowOne,
+      narrowSet,
+      applyFilters,
+      t,
+      el,
+      fa,
+      formatAmount,
+      formatPercent,
+      bandLabel,
+      asObject,
+      toFiniteInt,
+      HRK_TO_EUR,
+      SIZE_BUCKETS,
+    });
+    controller.sync();
+  }
+
   function mountUnfundedModal() {
     let host = null;
     function close() { setShowUnfunded(false); }
@@ -3473,13 +4831,19 @@
             ...list.map(u => el('button', {
               class: 'unfunded-row clickable',
               onclick: () => {
-                addScope({ kind: 'project', value: normTitle(u.title), label: u.title });
+                addNarrow({
+                  dim: 'project',
+                  value: u.family_id || normTitle(u.title),
+                  label: u.title,
+                });
                 close();
               },
             }, [
               el('span', { class: 'y mono', text: u.first_year != null ? String(u.first_year) : '—' }),
               el('span', { class: 't', text: u.title }),
-              el('span', { class: 'n mono', text: t('unfunded.sources_count', lang, { n: u.narratives.length }) }),
+              el('span', { class: 'n mono', text: t('unfunded.sources_count', lang, {
+                n: asArray(u.sources).length || asArray(u.narratives).length,
+              }) }),
             ])),
           ]),
         ]),
@@ -3616,20 +4980,23 @@
           state.expandedRoundIds = new Set();
           state.expandedMentions = false;
           fire('expanded');
-        } else if (state.scopes.length > 0) {
-          popDeepestScope();
+        } else if (state.narrow.length > 0) {
+          popNarrow();
         }
       }
     });
   }
 
+  // Widening past the drawer breakpoint puts the rail back in the layout, so an
+  // open drawer must not linger on top of it.
   function installMobileFilterViewportGuard() {
-    const mq = window.matchMedia('(max-width: 900px)');
     const sync = () => {
-      if (!mq.matches) setMobileFiltersOpen(false);
+      if (!isRailDrawer()) setMobileFiltersOpen(false);
     };
-    if (typeof mq.addEventListener === 'function') mq.addEventListener('change', sync);
-    else if (typeof mq.addListener === 'function') mq.addListener(sync);
+    if (RAIL_DRAWER_MQL) {
+      if (typeof RAIL_DRAWER_MQL.addEventListener === 'function') RAIL_DRAWER_MQL.addEventListener('change', sync);
+      else if (typeof RAIL_DRAWER_MQL.addListener === 'function') RAIL_DRAWER_MQL.addListener(sync);
+    }
     sync();
   }
 
@@ -3658,6 +5025,7 @@
     }
 
     function renderError(err) {
+      window.havcUsage?.('load_error', 'about');
       root.replaceChildren(el('div', { class: 'about-view' }, [
         el('div', { class: 'kicker', text: t('nav.about', state.lang) }),
         el('p', { class: 'view-error', text: t('view.about.load_error', state.lang) }),
@@ -3777,6 +5145,7 @@
     }
 
     function renderError(err) {
+      window.havcUsage?.('load_error', 'process');
       root.replaceChildren(el('div', { class: 'process-view' }, [
         el('div', { class: 'kicker', text: t('nav.process', state.lang) }),
         el('p', { class: 'view-error', text: t('view.process.load_error', state.lang) }),
@@ -3844,6 +5213,9 @@
       const sourceUrlMissingCount = docs.reduce((acc, d) => (
         acc + ((d && (!d.source_url || d.source_url_missing === true)) ? 1 : 0)
       ), 0);
+      const projectFamilyCount = new Set(
+        rows.map((row) => row && row.project_family_id).filter(Boolean),
+      ).size;
 
       return {
         record_count: docs.length + narratives.length + decisions.length,
@@ -3851,31 +5223,36 @@
         narrative_count: narratives.length,
         decision_count: decisions.length,
         row_count: rows.length,
+        awarded_count: rows.length,
+        not_awarded_count: DATA && Array.isArray(DATA.non_awards) ? DATA.non_awards.length : 0,
+        project_family_count: projectFamilyCount,
         source_url_missing_count: sourceUrlMissingCount,
         year_range: years.length ? `${years[0]}–${years[years.length - 1]}` : '—',
         hrk_to_eur: DATA && DATA.hrk_to_eur ? String(DATA.hrk_to_eur) : '—',
       };
     }
 
-    function formatLiveFactValue(item, facts) {
+    function formatLiveFactValue(item, facts, lang) {
       if (!item || typeof item !== 'object') return '—';
       let raw = item.data_key ? facts[item.data_key] : item.value;
       if (raw == null || raw === '') return '—';
       if (typeof raw === 'number') {
-        if (item.format === 'int' || item.format === 'number') return raw.toLocaleString();
+        if (item.format === 'int' || item.format === 'number') {
+          return raw.toLocaleString(lang === 'hr' ? 'hr-HR' : 'en-US');
+        }
         return String(raw);
       }
       return String(raw);
     }
 
-    function renderLiveFacts(liveFactsCfg) {
+    function renderLiveFacts(liveFactsCfg, lang) {
       if (!liveFactsCfg || !Array.isArray(liveFactsCfg.items) || !liveFactsCfg.items.length) return null;
       const facts = computeLiveFacts();
       return el('section', { class: 'process-live-facts' }, [
         liveFactsCfg.title ? el('h2', { class: 'process-section-title', text: liveFactsCfg.title }) : null,
         liveFactsCfg.subtitle ? el('p', { class: 'process-live-facts-subhead', text: liveFactsCfg.subtitle }) : null,
         el('div', { class: 'live-facts-grid' }, liveFactsCfg.items.map((it) => el('article', { class: 'live-fact-card' }, [
-          el('div', { class: 'live-fact-value display', text: formatLiveFactValue(it, facts) }),
+          el('div', { class: 'live-fact-value display', text: formatLiveFactValue(it, facts, lang) }),
           el('div', { class: 'live-fact-label kicker', text: it.label || '' }),
           it.note ? el('div', { class: 'live-fact-note mono', text: it.note }) : null,
           renderSourceChips(it.sources),
@@ -4320,15 +5697,14 @@
 
     function renderComparison(cmp, eras, lang) {
       if (!cmp || !Array.isArray(cmp.rows) || cmp.rows.length === 0) return null;
-      const headers = el('div', { class: 'cmp-row cmp-header' }, [
+      const gridStyle = `--cmp-era-count:${Math.max(1, eras.length)};`;
+      const headers = el('div', { class: 'cmp-row cmp-header', style: gridStyle }, [
         el('div', { class: 'cmp-cell cmp-cell-metric kicker', text: cmp.metric_label || '' }),
         ...eras.map(e => el('div', { class: 'cmp-cell kicker', text: e.label })),
       ]);
-      const body = cmp.rows.map(row => el('div', { class: 'cmp-row' }, [
+      const body = cmp.rows.map(row => el('div', { class: 'cmp-row', style: gridStyle }, [
         el('div', { class: 'cmp-cell cmp-cell-metric', text: row.metric }),
-        el('div', { class: 'cmp-cell', text: row.era1 || '—' }),
-        el('div', { class: 'cmp-cell', text: row.era2 || '—' }),
-        el('div', { class: 'cmp-cell', text: row.era3 || '—' }),
+        ...eras.map(era => el('div', { class: 'cmp-cell', text: row[era.id] || '—' })),
       ]));
       return el('section', { class: 'process-comparison' }, [
         cmp.title ? el('h2', { class: 'process-section-title', text: cmp.title }) : null,
@@ -4348,11 +5724,14 @@
           c.hero && c.hero.subhead ? renderClaimBlock('p', 'process-subhead', c.hero.subhead) : null,
         ]),
 
-        renderLiveFacts(c.live_facts),
+        renderLiveFacts(c.live_facts, lang),
 
         eras.length > 0 && el('section', { class: 'process-diagram-section' }, [
           el('h2', { class: 'process-section-title', text: t('process.diagram', lang) }),
-          el('div', { class: 'process-diagram' }, eras.map(e => renderEraColumn(e, lang))),
+          el('div', {
+            class: 'process-diagram',
+            style: `--process-era-count:${Math.max(1, eras.length)};`,
+          }, eras.map(e => renderEraColumn(e, lang))),
         ]),
 
         eras.length > 0 && el('section', { class: 'process-eras' },
@@ -4393,49 +5772,15 @@
     proc.classList.toggle('is-hidden', state.view !== 'process');
   }
 
-  // ═══ Year pills (single-select year filter row) ═════════════════════
-  function mountYearPills(root) {
-    function render() {
-      const lang = state.lang;
-      const f = state.filters;
-      const allYears = DATA && DATA.facets && Array.isArray(DATA.facets.years) ? DATA.facets.years : [];
-      if (allYears.length === 0) {
-        root.replaceChildren();
-        return;
-      }
-      const [lo, hi] = f.yearRange || [allYears[0], allYears[allYears.length - 1]];
-      const yearsInRange = allYears.filter(y => y >= lo && y <= hi);
-
-      const allBtn = el('button', {
-        class: 'btn mono year-pill year-pill-all' + (f.selectedYear == null ? ' active' : ''),
-        type: 'button',
-        text: t('years.all', lang),
-        onclick: () => setSelectedYear(null),
-      });
-
-      const yearBtns = yearsInRange.map(y => el('button', {
-        class: 'btn mono year-pill' + (f.selectedYear === y ? ' active' : ''),
-        type: 'button',
-        text: String(y),
-        onclick: () => setSelectedYear(f.selectedYear === y ? null : y),
-      }));
-
-      root.replaceChildren(
-        el('span', { class: 'kicker year-pills-kicker', text: t('years.label', lang) }),
-        el('div', { class: 'year-pills-list' }, [allBtn, ...yearBtns]),
-      );
-    }
-    on(['filters', 'lang'], render);
-    render();
-  }
-
   // ═══ 18. Boot ═══════════════════════════════════════════════════════
   async function boot() {
+    const bootStarted = performance.now();
     syncDocumentI18n(state.lang);
     document.body.classList.add('theme-' + state.theme);
     document.body.classList.remove('mobile-filters-open');
     document.body.classList.toggle('is-mobile', isMobile());
-    state.view = readViewFromHash();
+    document.body.classList.toggle('is-rail-drawer', isRailDrawer());
+    state.view = 'dashboard';
     document.body.classList.add('view-' + state.view);
 
     const app = document.getElementById('app');
@@ -4444,21 +5789,26 @@
       el('div', { class: 'label', text: t('boot.loading_registry', state.lang) }),
     ]));
 
+    const loadStarted = performance.now();
     try {
       await loadData();
     } catch (err) {
+      window.havcUsage?.('load_error', 'registry');
       app.replaceChildren(el('div', { class: 'boot' }, [
         el('div', { class: 'label', text: t('boot.load_data_error', state.lang) }),
       ]));
       console.error(err);
       return;
     }
+    window.havcUsage?.('data_loaded', '', performance.now() - loadStarted);
+    window.havcUsage?.('session_start', state.lang + '|' + state.theme);
 
-    readFromHash();
+    readSharedState();
+    document.body.classList.remove('view-dashboard', 'view-about', 'view-process');
+    document.body.classList.add('view-' + state.view);
 
-    if (!state.filters.yearRange) {
-      state.filters.yearRange = [DATA.facets.years[0], DATA.facets.years[DATA.facets.years.length - 1]];
-    }
+    // No year seeding: the full span IS the unnarrowed state, so it needs no
+    // token. The slider reads its own bounds from DATA.facets.years.
 
     app.className = 'app';
     app.replaceChildren(
@@ -4471,12 +5821,13 @@
             id: 'filter-drawer-backdrop',
             onclick: () => setMobileFiltersOpen(false),
           }),
+          // Three bands, not six. #scope-row, #pivot and #year-pills merged into
+          // #viewbar, and .statusbar is gone — its count moved up into the bar,
+          // beside the tokens that produce it.
           el('main', { class: 'main' }, [
             el('section', { class: 'headline', id: 'headline' }),
             el('section', { class: 'insights', id: 'insights' }),
-            el('section', { class: 'scope-row', id: 'scope-row' }),
-            el('nav', { class: 'pivot', id: 'pivot' }),
-            el('section', { class: 'year-pills', id: 'year-pills' }),
+            el('section', { class: 'viewbar', id: 'viewbar' }),
             el('section', { class: 'list-wrap', id: 'listwrap' }),
           ]),
         ]),
@@ -4490,10 +5841,10 @@
     installMobileFilterViewportGuard();
     mountHeadline(document.getElementById('headline'));
     mountInsights(document.getElementById('insights'));
-    mountScopeRow(document.getElementById('scope-row'));
-    mountPivot(document.getElementById('pivot'));
-    mountYearPills(document.getElementById('year-pills'));
+    // Mount the list before the view bar so the bar's first render already has a
+    // readout to show instead of 0.
     mountList(document.getElementById('listwrap'));
+    mountViewBar(document.getElementById('viewbar'));
     mountAbout(document.getElementById('view-about'));
     mountProcess(document.getElementById('view-process'));
     mountAnalyticsModal();
@@ -4503,7 +5854,7 @@
 
     applyViewVisibility();
     on('view', applyViewVisibility);
-    window.addEventListener('hashchange', syncViewFromHash);
+    window.havcUsage?.('app_ready', '', performance.now() - bootStarted);
   }
 
   document.addEventListener('DOMContentLoaded', boot);

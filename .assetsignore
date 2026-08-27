@@ -1,0 +1,53 @@
+# Files NOT uploaded as public static assets.
+#
+# `assets.directory` in wrangler.jsonc is the repo root, so anything absent from
+# this list is served publicly at havc.matijar.info. Before this file existed,
+# the whole repo was — including .git/, the Python curation pipeline, and the
+# test suites.
+#
+# The app's actual runtime set is: index.html, main.js, style.css, usage.js,
+# analytics-core.js, analytics-studio.js, favicon.svg, havc/data.app.json,
+# havc/data.json, havc/10_sanity_check_official.json, content/*.json,
+# extension-privacy/. Nothing else is fetched at runtime — verified against
+# every fetch() call in main.js (lines 1265, 1280, 1283, 5009). Do not exclude
+# any of the above.
+
+# Version control and local tooling state
+.git/
+.gitignore
+.gitattributes
+.wrangler/
+.assetsignore
+
+# Worker source: bundled by wrangler via `main`, never served as an asset
+worker/
+
+# Build/config files
+wrangler.jsonc
+package.json
+package-lock.json
+node_modules/
+
+# Secrets — belong in `wrangler secret put`, never in an asset directory
+.dev.vars
+.dev.vars.*
+
+# Documentation and design source (not fetched by the app)
+*.md
+DESIGN.json
+
+# Test suites and their caches
+test/
+tests/
+.pytest_cache/
+
+# Data-curation pipeline inputs and audit ledgers. `havc/data.json` and
+# `havc/10_sanity_check_official.json` ARE shipped and must stay out of this list.
+havc/build_app_payload.py
+havc/clean_data.py
+havc/codex-audit-input.json
+havc/__pycache__/
+havc/data-curation-audit.json
+havc/data-curation-decisions.json
+havc/normalize-decision.json
+havc/source-corrections.json

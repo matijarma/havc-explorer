@@ -1,14 +1,77 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "havc-explorer",
-  "compatibility_date": "2026-07-27",
-  "observability": {
-    "enabled": true
-  },
-  "assets": {
-    "directory": "."
-  },
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "havc-explorer",
+	"main": "worker/index.js",
+	// Matches the date the live Worker already reports, so this file taking over
+	// from the dashboard config changes no runtime behaviour.
+	"compatibility_date": "2026-07-31",
+	"compatibility_flags": ["nodejs_compat"],
+	"workers_dev": false,
+	"preview_urls": false,
+
+	// The custom domain is the only public route. The Worker also enforces this
+	// host at runtime, so a future route/config regression cannot expose /stats
+	// through a workers.dev or preview hostname.
+	"routes": [
+		{ "pattern": "havc.matijar.info", "custom_domain": true }
+	],
+
+	"vars": {
+		"PUBLIC_HOST": "havc.matijar.info",
+		"ACCESS_ISSUER": "https://kompmajstor.cloudflareaccess.com",
+		"ACCESS_AUD": "1bc8c9b9d46cf2f5a27e8863d823f1094801d2b6144c15900a5352b0ce3e98f3",
+		"CF_ACCOUNT_ID": "8c662765d8a5778fee4feb508fc6832c",
+		"CF_ZONE_ID": "1897e74066f50e638792e906af204cc1"
+	},
+
+	// Workers Builds applies THIS file on every push to master and replaces
+	// dashboard-held settings. Every value below was read back off the live
+	// Worker before this file existed — do not drop one assuming it is a default.
+	"observability": { "enabled": true },
+
+	"assets": {
+		// The repo root. `.assetsignore` controls what is actually public.
+		"directory": ".",
+		"binding": "ASSETS"
+		// No `run_worker_first`: assets are matched first and served free, and
+		// non-asset paths fall through to the Worker on their own. Setting it to
+		// true would bill every page load against the account-wide request budget.
+	},
+
+	// Usage-measurement store (see worker/schema.sql). D1 keeps permanent daily
+	// first-party history and hourly Cloudflare edge aggregates. /stats refreshes
+	// current data; a Durable Object alarm preserves it beyond the edge lookback.
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "havc-explorer-db",
+			"database_id": "86eca9f4-0bfd-43dc-b15b-7c066a68f715"
+		}
+	],
+
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "ANALYTICS_SCHEDULER",
+				"class_name": "AnalyticsScheduler"
+			}
+		]
+	},
+
+	"migrations": [
+		{
+			"tag": "analytics-scheduler-v1",
+			"new_sqlite_classes": ["AnalyticsScheduler"]
+		}
+	],
+
+	// Throttles the public /api/u beacon per client IP. The IP is only a
+	// transient rate-limit key at the edge; it is never stored.
+	"ratelimits": [
+		{
+			"name": "RL_HIT",
+			"namespace_id": "2001",
+			"simple": { "limit": 30, "period": 60 }
+		}
+	]
 }
