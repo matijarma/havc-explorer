@@ -45,6 +45,7 @@ tests/
 # `havc/10_sanity_check_official.json` ARE shipped and must stay out of this list.
 havc/build_app_payload.py
 havc/clean_data.py
+havc/ingest_2026_third_round.py
 havc/codex-audit-input.json
 havc/__pycache__/
 havc/data-curation-audit.json
