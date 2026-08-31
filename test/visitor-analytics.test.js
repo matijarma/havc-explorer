@@ -420,6 +420,13 @@ test('private application dossier requires Access and reaches assets locally', a
 	assert.equal(local.headers.get('cache-control'), 'private, no-store, max-age=0');
 	assert.equal(local.headers.get('x-robots-tag'), 'noindex, nofollow, noarchive');
 
+	const cookieRequest = new Request('https://havc.matijar.info/prijava', {
+		headers: { cookie: 'session=opaque; CF_Authorization=fake; other=value' },
+	});
+	const cookieResponse = await worker.fetch(cookieRequest, env, {});
+	assert.equal(cookieResponse.status, 403);
+	assert.equal(assetCalls, 1);
+
 	const method = await prijava(
 		new Request('http://localhost/prijava', { method: 'POST' }),
 		env,
