@@ -127,14 +127,7 @@ export async function prijava(request, env, url = new URL(request.url)) {
 		}
 	}
 
-	const assetUrl = new URL(request.url);
-	if (assetUrl.pathname === '/prijava' || assetUrl.pathname === '/prijava/') {
-		assetUrl.pathname = '/prijava/index.html';
-	}
-	const assetRequest = assetUrl.toString() === request.url
-		? request
-		: new Request(assetUrl, request);
-	const response = await env.ASSETS.fetch(assetRequest);
+	const response = await env.ASSETS.fetch(request);
 	const headers = new Headers(response.headers);
 	headers.set('cache-control', 'private, no-store, max-age=0');
 	headers.set('x-robots-tag', 'noindex, nofollow, noarchive');
