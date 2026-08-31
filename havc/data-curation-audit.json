@@ -1,8 +1,8 @@
 {
   "version": "2.0",
-  "generated_at": "2026-07-30T17:33:24Z",
-  "input": "D:\\scratch\\havc\\dash\\havc\\data.json",
-  "input_sha256": "5c434afd229cb555788042ee8458816c981501c6ae0a808bf562bdf04fe5f542",
+  "generated_at": "2026-08-31T15:33:11Z",
+  "input": "E:\\aningfilm\\miniapps\\havc\\web\\havc\\data.json",
+  "input_sha256": "f85d098bbde2abe8e719c578ed30e456fd1dec5ba4be357eccd274878776d6ee",
   "counts": {
     "source_documents_reconciled": 1,
     "haiku_repairs": 620,
@@ -10,8 +10,8 @@
   },
   "validation": {
     "summary": {
-      "status_awarded": 9542,
-      "awarded_eur_equivalent": 164886104.13,
+      "status_awarded": 9560,
+      "awarded_eur_equivalent": 165280604.13,
       "status_not_awarded": 1
     },
     "errors": []
