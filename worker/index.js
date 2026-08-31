@@ -108,7 +108,7 @@ export async function prijava(request, env, url = new URL(request.url)) {
 	}
 
 	if (!localDevelopment(url)) {
-		const token = accessToken(request);
+		const token = request.headers.get('cf-access-jwt-assertion');
 		const claims = await verifyAccessJwt(token, {
 			issuer: env.ACCESS_ISSUER || DEFAULT_ACCESS_ISSUER,
 			audience: env.ACCESS_AUD || DEFAULT_ACCESS_AUD,
@@ -136,19 +136,6 @@ export async function prijava(request, env, url = new URL(request.url)) {
 		statusText: response.statusText,
 		headers,
 	});
-}
-
-function accessToken(request) {
-	const assertion = request.headers.get('cf-access-jwt-assertion');
-	if (assertion) return assertion;
-	const cookie = request.headers.get('cookie') || '';
-	const match = cookie.match(/(?:^|;\s*)CF_Authorization=([^;]+)/i);
-	if (!match) return '';
-	try {
-		return decodeURIComponent(match[1]);
-	} catch (_) {
-		return '';
-	}
 }
 
 /* Public ingest ---------------------------------------------------------- */
@@ -548,7 +535,7 @@ async function stats(request, env, url) {
 	}
 
 	if (!localDevelopment(url)) {
-		const token = accessToken(request);
+		const token = request.headers.get('cf-access-jwt-assertion');
 		const claims = await verifyAccessJwt(token, {
 			issuer: env.ACCESS_ISSUER || DEFAULT_ACCESS_ISSUER,
 			audience: env.ACCESS_AUD || DEFAULT_ACCESS_AUD,
