@@ -6,6 +6,7 @@ import worker, {
 	ingest,
 	nextArchiveAlarm,
 	prijava,
+	prijavaNotes,
 	syncArchive,
 	verifyAccessJwt,
 } from '../worker/index.js';
@@ -192,6 +193,37 @@ class FakeD1 {
 		for (const statement of statements) this.mutate(next, statement.sql, statement.params);
 		this.state = next;
 		return statements.map(() => ({ success: true }));
+	}
+}
+
+class NoteD1 {
+	constructor() {
+		this.notes = [];
+		this.nextId = 1;
+	}
+
+	prepare(sql) {
+		return {
+			bind: (...params) => ({
+				all: async () => {
+					const item = params[0];
+					const rows = item
+						? this.notes.filter((note) => note.item === item)
+						: this.notes;
+					return { results: rows.map((note) => ({ ...note })).reverse() };
+				},
+				run: async () => {
+					const [item, body, author, createdAt] = params;
+					const id = this.nextId++;
+					this.notes.push({ id, item, body, author, created_at: createdAt });
+					return { meta: { last_row_id: id } };
+				},
+			}),
+		};
+	}
+
+	batch() {
+		return Promise.resolve([]);
 	}
 }
 
@@ -456,6 +488,44 @@ test('private application dossier uses the Access login bridge and reaches asset
 		localBridge.headers.get('location'),
 		'http://localhost/prijava/03-troskovnik.pdf',
 	);
+});
+
+test('private application notes are validated, stored, and listed only on the dossier route', async () => {
+	const db = new NoteD1();
+	const env = { DB: db };
+	const post = new Request('http://localhost/prijava/api/notes', {
+		method: 'POST',
+		headers: {
+			origin: 'http://localhost',
+			'content-type': 'application/json',
+		},
+		body: JSON.stringify({
+			item: 'portal-odgovori',
+			body: 'Provjeriti ograničenje znakova prije kopiranja.',
+		}),
+	});
+	const created = await prijavaNotes(post, env);
+	assert.equal(created.status, 201);
+	assert.equal(created.headers.get('cache-control'), 'private, no-store, max-age=0');
+	assert.equal((await created.json()).note.author, 'local');
+
+	const list = await prijavaNotes(new Request(
+		'http://localhost/prijava/api/notes?item=portal-odgovori',
+	), env);
+	assert.equal(list.status, 200);
+	const payload = await list.json();
+	assert.equal(payload.notes.length, 1);
+	assert.equal(payload.notes[0].body, 'Provjeriti ograničenje znakova prije kopiranja.');
+
+	const invalid = await prijavaNotes(new Request('http://localhost/prijava/api/notes', {
+		method: 'POST',
+		headers: {
+			origin: 'http://localhost',
+			'content-type': 'application/json',
+		},
+		body: JSON.stringify({ item: '../bad', body: 'Nope' }),
+	}), env);
+	assert.equal(invalid.status, 400);
 });
 
 test('Durable Object scheduler arms the next 02:15 UTC alarm without a cron slot', async () => {

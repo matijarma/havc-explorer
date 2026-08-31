@@ -57,3 +57,16 @@ CREATE TABLE IF NOT EXISTS edge_sync_state (
   k TEXT PRIMARY KEY,
   v TEXT NOT NULL
 );
+
+-- Private review notes for the HAVC application dossier. These are readable
+-- only through the Access-protected /prijava API and are intentionally kept
+-- separate from anonymous usage analytics.
+CREATE TABLE IF NOT EXISTS application_notes (
+  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  item       TEXT    NOT NULL,
+  body       TEXT    NOT NULL,
+  author     TEXT    NOT NULL DEFAULT '',
+  created_at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_application_notes_item_created
+  ON application_notes(item, created_at DESC);
