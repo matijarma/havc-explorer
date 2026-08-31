@@ -1,0 +1,67 @@
+# Tim i reference
+
+## Podnositelj — Aning Film d.o.o.
+
+Aning Film je zagrebačka produkcijska kuća koja od 2010. djeluje u području filma, međunarodnih koprodukcija, transmedije, kulturnih programa i digitalnih alata. Tvrtka spaja produkcijsko razumijevanje audiovizualnog sektora s praktičnim razvojem sustava koji olakšavaju rad autora, producenata, istraživača i publike.
+
+Za konačnu prijavu iz HAVC-ova profila ili aktualnog sudskog izvatka prepisati:
+
+- puni registrirani naziv;
+- sjedište i adresa;
+- OIB i MBS;
+- osoba ovlaštena za zastupanje;
+- djelatnosti relevantne za audiovizualno stvaralaštvo, izdavaštvo, mrežne portale ili obradu podataka.
+
+## Voditelj, autor i urednik — Matija Radeljak
+
+Matija Radeljak je filmski producent, autor i programer te osnivač Aning Filma. Od 2009. radi na razvoju i produkciji audiovizualnih projekata, međunarodnim koprodukcijama, programima za filmske profesionalce i transmedijskim projektima. Aning Film vodi od 2010. godine.
+
+Za projekt Sredstva osmislio je podatkovni model i uredničku metodologiju, razvio sustav za ekstrakciju i obradu službenih dokumenata, proveo višefaznu kontrolu podataka te izradio javni portal, analitičke prikaze i preglednički modul HAVC Companion. Projekt objedinjuje njegovo poznavanje filmske produkcije, javnih poziva, projektne dokumentacije, strukturiranih podataka i razvoja mrežnih aplikacija.
+
+### Odgovornosti u programu
+
+- produkcijsko i financijsko vođenje;
+- glavni urednički standard i metodologija;
+- podatkovna shema i tehnička arhitektura;
+- izbor, obuka i nadzor suradnika;
+- odluke u spornim slučajevima;
+- razvoj i održavanje alata za provjeru;
+- završna validacija, objava i primopredaja.
+
+### Reference koje treba provjeriti i po potrebi priložiti
+
+- javni portal Sredstva i otvoreni repozitorij;
+- razvoj i vođenje Aning Filma od 2010.;
+- iskustvo međunarodne filmske produkcije i koprodukcije;
+- stručna usavršavanja EAVE, MAIA i TorinoFilmLab;
+- koprodukcijski i kulturni projekti navedeni u portfelju Aning Filma;
+- prethodno iskustvo razvoja digitalnih i transmedijskih projekata.
+
+Ne navoditi festival, nagradu, članstvo žirija ili edukaciju bez provjerljive poveznice ili dokumenta.
+
+## Privremeni suradnici za provjeru podataka
+
+Suradnici se angažiraju nakon odluke o financiranju. U prijavi ih treba opisati kao operativne suradnike koji rade prema metodologiji imenovanog urednika, a ne kao nenavedene nositelje ključnih autorskih odluka.
+
+### Profil
+
+- precizan rad s PDF dokumentima i tablicama;
+- vrlo dobro znanje hrvatskoga jezika i dijakritike;
+- digitalna pismenost i osnovno razumijevanje strukture podataka;
+- sposobnost razlikovanja izvornog navoda od uredničke normalizacije;
+- poželjno iskustvo u arhivistici, informacijskim znanostima, filmologiji, produkciji, novinarstvu ili istraživanju.
+
+### Izbor i obuka
+
+1. kratka prijava i dostupnost tijekom planiranog razdoblja;
+2. kratki plaćeni praktični zadatak za kandidate koji uđu u uži izbor, na istom skupu oglednih dokumenata;
+3. usporedba točnosti, dosljednosti i brzine;
+4. obuka prema priručniku;
+5. probni radni paket i pregled rezultata prije većeg angažmana.
+
+### Podjela odgovornosti
+
+- primarni auditor provjerava zapis i bilježi dokaz;
+- QA auditor ponovno provjerava izmjene, nerazriješene slučajeve i kontrolni uzorak;
+- voditelj donosi konačnu uredničku odluku;
+- sustav bilježi tko je, kada i zašto promijenio podatak.

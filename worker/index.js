@@ -12,7 +12,7 @@ import { renderStats } from './render.js';
 
 const DEFAULT_HOST = 'havc.matijar.info';
 const DEFAULT_ACCESS_ISSUER = 'https://kompmajstor.cloudflareaccess.com';
-const DEFAULT_ACCESS_AUD = '1bc8c9b9d46cf2f5a27e8863d823f1094801d2b6144c15900a5352b0ce3e98f3';
+const DEFAULT_ACCESS_AUD = '825762fe6b56c69352a66ad8bd1307bdbf9d22d81305438316e8375fd4b7529e';
 const ARCHIVE_VERSION = 'v2';
 const RAW_RETENTION_DAYS = 30;
 const MAX_BODY_BYTES = 8192;
@@ -79,7 +79,11 @@ export default {
 		}
 
 		if (url.pathname === '/api/u') return ingest(request, env, ctx, url);
+		if (url.pathname === '/stats/prijava-auth') return prijavaAuth(request, env, url);
 		if (url.pathname === '/stats' || url.pathname === '/stats/') return stats(request, env, url);
+		if (url.pathname === '/prijava' || url.pathname.startsWith('/prijava/')) {
+			return prijava(request, env, url);
+		}
 		return env.ASSETS.fetch(request);
 	},
 	async scheduled(controller, env, ctx) {
@@ -95,6 +99,116 @@ export function isAllowedHost(hostname, expectedHost = DEFAULT_HOST) {
 
 function localDevelopment(url) {
 	return url.hostname === 'localhost' || url.hostname === '127.0.0.1';
+}
+
+/* Private application dossier ----------------------------------------- */
+
+export async function prijava(request, env, url = new URL(request.url)) {
+	if (request.method !== 'GET' && request.method !== 'HEAD') {
+		return new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, HEAD' } });
+	}
+
+	if (!localDevelopment(url)) {
+		const serviceAllowed = serviceTokenMatches(request, env);
+		const token = accessSessionToken(request);
+		const claims = serviceAllowed ? {} : await verifyAccessJwt(token, accessOptions(env));
+		if (!claims) {
+			const returnTo = `${url.pathname}${url.search}`;
+			const login = new URL('/stats/prijava-auth', url.origin);
+			login.searchParams.set('return', returnTo);
+			return new Response(null, {
+				status: 302,
+				headers: {
+					location: login.toString(),
+					'cache-control': 'private, no-store, max-age=0',
+					'x-robots-tag': 'noindex, nofollow, noarchive',
+				},
+			});
+		}
+	}
+
+	const assetUrl = new URL(request.url);
+	if (assetUrl.pathname === '/prijava' || assetUrl.pathname === '/prijava/') {
+		assetUrl.pathname = '/prijava/index.html';
+	}
+	const assetRequest = assetUrl.toString() === request.url
+		? request
+		: new Request(assetUrl, request);
+	const response = await env.ASSETS.fetch(assetRequest);
+	const headers = new Headers(response.headers);
+	headers.set('cache-control', 'private, no-store, max-age=0');
+	headers.set('x-robots-tag', 'noindex, nofollow, noarchive');
+	headers.set('referrer-policy', 'no-referrer');
+	headers.set('x-content-type-options', 'nosniff');
+	headers.set('x-frame-options', 'DENY');
+	headers.set('cross-origin-opener-policy', 'same-origin');
+	return new Response(request.method === 'HEAD' ? null : response.body, {
+		status: response.status,
+		statusText: response.statusText,
+		headers,
+	});
+}
+
+export async function prijavaAuth(request, env, url = new URL(request.url)) {
+	if (request.method !== 'GET' && request.method !== 'HEAD') {
+		return new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, HEAD' } });
+	}
+
+	if (!localDevelopment(url)) {
+		const token = request.headers.get('cf-access-jwt-assertion');
+		const claims = await verifyAccessJwt(token, accessOptions(env));
+		if (!claims) return new Response('Forbidden', { status: 403 });
+	}
+
+	const requested = url.searchParams.get('return') || '/prijava';
+	const target = requested === '/prijava' || requested.startsWith('/prijava/')
+		? requested
+		: '/prijava';
+	return new Response(null, {
+		status: 302,
+		headers: {
+			location: new URL(target, url.origin).toString(),
+			'cache-control': 'private, no-store, max-age=0',
+			'x-robots-tag': 'noindex, nofollow, noarchive',
+		},
+	});
+}
+
+function accessOptions(env) {
+	return {
+		issuer: env.ACCESS_ISSUER || DEFAULT_ACCESS_ISSUER,
+		audience: env.ACCESS_AUD || DEFAULT_ACCESS_AUD,
+	};
+}
+
+function accessSessionToken(request) {
+	const assertion = request.headers.get('cf-access-jwt-assertion');
+	if (assertion) return assertion;
+	const cookie = request.headers.get('cookie') || '';
+	const match = cookie.match(/(?:^|;\s*)CF_Authorization=([^;]+)/i);
+	if (!match) return '';
+	try {
+		return decodeURIComponent(match[1]);
+	} catch (_) {
+		return '';
+	}
+}
+
+export function serviceTokenMatches(request, env) {
+	const expectedId = env.ACCESS_SERVICE_CLIENT_ID || '';
+	const expectedSecret = env.ACCESS_SERVICE_CLIENT_SECRET || '';
+	if (!expectedId || !expectedSecret) return false;
+	return safeEqual(request.headers.get('cf-access-client-id') || '', expectedId)
+		&& safeEqual(request.headers.get('cf-access-client-secret') || '', expectedSecret);
+}
+
+function safeEqual(value, expected) {
+	if (value.length !== expected.length) return false;
+	let difference = 0;
+	for (let index = 0; index < value.length; index++) {
+		difference |= value.charCodeAt(index) ^ expected.charCodeAt(index);
+	}
+	return difference === 0;
 }
 
 /* Public ingest ---------------------------------------------------------- */

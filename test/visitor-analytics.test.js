@@ -5,6 +5,7 @@ import worker, {
 	cleanEvent,
 	ingest,
 	nextArchiveAlarm,
+	prijava,
 	syncArchive,
 	verifyAccessJwt,
 } from '../worker/index.js';
@@ -376,6 +377,85 @@ test('direct workers.dev host and a fake stats header are denied before D1 acces
 	);
 	assert.equal(fakeHeader.status, 403);
 	assert.equal(assetCalls, 0);
+});
+
+test('private application dossier uses the Access login bridge and reaches assets when authorized', async () => {
+	let assetCalls = 0;
+	let receivedPath = '';
+	const env = {
+		ACCESS_SERVICE_CLIENT_ID: 'service-id.access',
+		ACCESS_SERVICE_CLIENT_SECRET: 'service-secret',
+		ASSETS: {
+			fetch: (request) => {
+				assetCalls++;
+				receivedPath = new URL(request.url).pathname;
+				return new Response('dossier', { headers: { etag: '"dossier"' } });
+			},
+		},
+	};
+
+	const login = await worker.fetch(
+		new Request('https://havc.matijar.info/prijava', {
+			headers: { 'cf-access-jwt-assertion': 'fake' },
+		}),
+		env,
+		{},
+	);
+	assert.equal(login.status, 302);
+	assert.equal(
+		login.headers.get('location'),
+		'https://havc.matijar.info/stats/prijava-auth?return=%2Fprijava',
+	);
+	assert.equal(assetCalls, 0);
+
+	const service = await worker.fetch(
+		new Request('https://havc.matijar.info/prijava', {
+			headers: {
+				'cf-access-client-id': 'service-id.access',
+				'cf-access-client-secret': 'service-secret',
+			},
+		}),
+		env,
+		{},
+	);
+	assert.equal(service.status, 200);
+	assert.equal(assetCalls, 1);
+
+	const direct = await worker.fetch(
+		new Request('https://havc-explorer.kompmajstor4.workers.dev/prijava'),
+		env,
+		{},
+	);
+	assert.equal(direct.status, 404);
+	assert.equal(assetCalls, 1);
+
+	const local = await worker.fetch(
+		new Request('http://localhost/prijava'),
+		env,
+		{},
+	);
+	assert.equal(local.status, 200);
+	assert.equal(receivedPath, '/prijava/index.html');
+	assert.equal(local.headers.get('cache-control'), 'private, no-store, max-age=0');
+	assert.equal(local.headers.get('x-robots-tag'), 'noindex, nofollow, noarchive');
+
+	const method = await prijava(
+		new Request('http://localhost/prijava', { method: 'POST' }),
+		env,
+	);
+	assert.equal(method.status, 405);
+	assert.equal(method.headers.get('allow'), 'GET, HEAD');
+
+	const localBridge = await worker.fetch(
+		new Request('http://localhost/stats/prijava-auth?return=/prijava/03-troskovnik.pdf'),
+		env,
+		{},
+	);
+	assert.equal(localBridge.status, 302);
+	assert.equal(
+		localBridge.headers.get('location'),
+		'http://localhost/prijava/03-troskovnik.pdf',
+	);
 });
 
 test('Durable Object scheduler arms the next 02:15 UTC alarm without a cron slot', async () => {
