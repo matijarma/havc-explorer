@@ -435,7 +435,7 @@ test('private application dossier uses the Access login bridge and reaches asset
 		{},
 	);
 	assert.equal(local.status, 200);
-	assert.equal(receivedPath, '/prijava/index.html');
+	assert.equal(receivedPath, '/prijava');
 	assert.equal(local.headers.get('cache-control'), 'private, no-store, max-age=0');
 	assert.equal(local.headers.get('x-robots-tag'), 'noindex, nofollow, noarchive');
 
