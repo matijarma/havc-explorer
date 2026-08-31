@@ -2,9 +2,10 @@
   "name": "sredstva-web",
   "private": true,
   "type": "module",
-  "scripts": {
-    "test": "node --test test/*.test.js",
-    "test:browser": "node test/analytics-browser-smoke.mjs",
-    "test:stats-browser": "node test/stats-browser-smoke.mjs"
-  }
+	"scripts": {
+		"test": "node --test test/*.test.js",
+		"test:browser": "node test/analytics-browser-smoke.mjs",
+		"test:prijava-browser": "node test/prijava-browser-smoke.mjs",
+		"test:stats-browser": "node test/stats-browser-smoke.mjs"
+	}
 }
