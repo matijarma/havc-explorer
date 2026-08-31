@@ -32,10 +32,13 @@
 	"assets": {
 		// The repo root. `.assetsignore` controls what is actually public.
 		"directory": ".",
-		"binding": "ASSETS"
-		// No `run_worker_first`: assets are matched first and served free, and
-		// non-asset paths fall through to the Worker on their own. Setting it to
-		// true would bill every page load against the account-wide request budget.
+		"binding": "ASSETS",
+		// The application dossier is an owner-only review surface. These paths
+		// must reach `worker/index.js` before static-asset matching so the
+		// Access JWT is checked for the index and every download.
+		"run_worker_first": ["/prijava", "/prijava/*"]
+		// All other assets remain static-first and free. Non-asset paths still
+		// fall through to the Worker on their own.
 	},
 
 	// Usage-measurement store (see worker/schema.sql). D1 keeps permanent daily
