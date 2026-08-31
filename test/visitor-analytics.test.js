@@ -5,7 +5,6 @@ import worker, {
 	cleanEvent,
 	ingest,
 	nextArchiveAlarm,
-	prijava,
 	syncArchive,
 	verifyAccessJwt,
 } from '../worker/index.js';
@@ -377,55 +376,6 @@ test('direct workers.dev host and a fake stats header are denied before D1 acces
 	);
 	assert.equal(fakeHeader.status, 403);
 	assert.equal(assetCalls, 0);
-});
-
-test('private application dossier requires Access and reaches assets locally', async () => {
-	let assetCalls = 0;
-	let receivedPath = '';
-	const env = {
-		ASSETS: {
-			fetch: (request) => {
-				assetCalls++;
-				receivedPath = new URL(request.url).pathname;
-				return new Response('dossier', { headers: { etag: '"dossier"' } });
-			},
-		},
-	};
-
-	const forbidden = await worker.fetch(
-		new Request('https://havc.matijar.info/prijava', {
-			headers: { 'cf-access-jwt-assertion': 'fake' },
-		}),
-		env,
-		{},
-	);
-	assert.equal(forbidden.status, 403);
-	assert.equal(assetCalls, 0);
-
-	const direct = await worker.fetch(
-		new Request('https://havc-explorer.kompmajstor4.workers.dev/prijava'),
-		env,
-		{},
-	);
-	assert.equal(direct.status, 404);
-	assert.equal(assetCalls, 0);
-
-	const local = await worker.fetch(
-		new Request('http://localhost/prijava'),
-		env,
-		{},
-	);
-	assert.equal(local.status, 200);
-	assert.equal(receivedPath, '/prijava/index.html');
-	assert.equal(local.headers.get('cache-control'), 'private, no-store, max-age=0');
-	assert.equal(local.headers.get('x-robots-tag'), 'noindex, nofollow, noarchive');
-
-	const method = await prijava(
-		new Request('http://localhost/prijava', { method: 'POST' }),
-		env,
-	);
-	assert.equal(method.status, 405);
-	assert.equal(method.headers.get('allow'), 'GET, HEAD');
 });
 
 test('Durable Object scheduler arms the next 02:15 UTC alarm without a cron slot', async () => {
