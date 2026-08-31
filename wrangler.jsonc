@@ -19,7 +19,7 @@
 	"vars": {
 		"PUBLIC_HOST": "havc.matijar.info",
 		"ACCESS_ISSUER": "https://kompmajstor.cloudflareaccess.com",
-		"ACCESS_AUD": "1bc8c9b9d46cf2f5a27e8863d823f1094801d2b6144c15900a5352b0ce3e98f3",
+		"ACCESS_AUD": "825762fe6b56c69352a66ad8bd1307bdbf9d22d81305438316e8375fd4b7529e",
 		"CF_ACCOUNT_ID": "8c662765d8a5778fee4feb508fc6832c",
 		"CF_ZONE_ID": "1897e74066f50e638792e906af204cc1"
 	},
@@ -32,10 +32,13 @@
 	"assets": {
 		// The repo root. `.assetsignore` controls what is actually public.
 		"directory": ".",
-		"binding": "ASSETS"
-		// No `run_worker_first`: assets are matched first and served free, and
-		// non-asset paths fall through to the Worker on their own. Setting it to
-		// true would bill every page load against the account-wide request budget.
+		"binding": "ASSETS",
+		// The application dossier is an owner-only review surface. These paths
+		// must reach `worker/index.js` before static-asset matching so the
+		// Access JWT is checked for the index and every download.
+		"run_worker_first": ["/prijava", "/prijava/*"]
+		// All other assets remain static-first and free. Non-asset paths still
+		// fall through to the Worker on their own.
 	},
 
 	// Usage-measurement store (see worker/schema.sql). D1 keeps permanent daily
