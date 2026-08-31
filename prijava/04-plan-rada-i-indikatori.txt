@@ -1,0 +1,92 @@
+# Plan rada, kontrolne točke i pokazatelji
+
+## Polazni presjek
+
+Presjek treba ponovno izračunati neposredno prije predaje i označiti datumom.
+
+| Pokazatelj | Trenutačno stanje |
+|---|---:|
+| Izvorni dokumenti | 1.021 |
+| Dokumenti rezultata | 557 |
+| Obrazloženja | 328 |
+| Pojedinačne odluke | 51 |
+| Strukturirani retci financiranja | 9.561 |
+| Potvrđene dodjele | 9.560 |
+| Povezane porodice projekata | 6.593 |
+| Dokumenti bez pouzdano utvrđene godine | 173 |
+| Dokumenti bez potpuno utvrđene programske kategorije | 85 |
+| Dokumenti bez aktivne izvorne poveznice | 148 |
+| Dokumenti s upozorenjem za dodatnu provjeru | 341 |
+
+## Radni paketi
+
+### RP1 — Izvori i arhiv
+
+- Zamrznuti početni presjek baze i izraditi kontrolne sažetke.
+- Usporediti korpus sa službenim stranicama, godišnjim planovima i izvještajima.
+- Izraditi popis nedostajućih, oštećenih i nedostupnih dokumenata.
+- Uputiti HAVC-u formalni i precizan zahtjev za dopunu građe.
+- Za svaki nedostupan izvor evidentirati provedene korake i posljedice za podatke.
+
+### RP2 — Shema i protokol provjere
+
+- Definirati JSON Schema i CSV rječnik.
+- Uvesti stabilne identifikatore i zapis provenijencije.
+- Definirati statuse: `verified`, `corrected`, `unresolved`, `not_applicable`.
+- Izraditi priručnik s primjerima čestih pogrešaka i pravilima odlučivanja.
+- Izraditi praktični test i kratku obuku za suradnike.
+
+### RP3 — Primarna ručna provjera
+
+- Otvoriti svaki zapis uz pripadajući izvor.
+- Potvrditi ili ispraviti sve ključne podatke.
+- Ne mijenjati izvornu vrijednost bez revizijskog zapisa.
+- Sve nejasnoće usmjeriti voditelju na uredničku odluku.
+
+### RP4 — Drugi pregled i usklađivanje
+
+- Ponovno provjeriti sve ispravljene i nerazriješene zapise.
+- Ponovno provjeriti najmanje 10% slučajno odabranih neizmijenjenih zapisa.
+- Usporediti godišnje zbrojeve s raspoloživim službenim pregledima.
+- Ukloniti ili dokumentirati svako odstupanje veće od 1%.
+
+### RP5 — Objavljivanje i primopredaja
+
+- Generirati kanonski JSON, dokumentirani CSV i mali aplikacijski paket.
+- Objaviti verziju, datum, promjene, pokrivenost i poznata ograničenja.
+- Uskladiti portal Sredstva i HAVC Companion s istim kanonskim izdanjem.
+- Provesti instalaciju i unos nove odluke prema priručniku na čistom računalu.
+- Predati HAVC-u repozitorij, podatke, shemu, alate, testove, priručnik i završni izvještaj.
+
+## Vremenski raspored
+
+| Razdoblje | Glavne aktivnosti | Kontrolna točka |
+|---|---|---|
+| siječanj – ožujak 2027. | RP1 i RP2; izbor i obuka suradnika | potvrđen inventar, shema v2 i uspješna pilot-provjera |
+| travanj – lipanj 2027. | RP1 i RP3; povijesne praznine i rizični dokumenti | obrađena prva polovica prioritetnog korpusa |
+| srpanj – rujan 2027. | RP3 i RP4; glavni ciklus provjere | svaki redak prošao primarnu provjeru ili ima obrazloženi otvoreni status |
+| listopad – prosinac 2027. | RP4 i RP5; završna kontrola i predaja | završno izdanje, izvještaj i uspješan test primopredaje |
+
+## Mjerljivi pokazatelji
+
+- 100% zapisa završnog izdanja ima status provjere.
+- 100% ispravljenih i nerazriješenih zapisa ima drugi pregled.
+- Najmanje 10% neizmijenjenih zapisa ima dodatnu nasumičnu kontrolu.
+- 100% javno objavljenih iznosa ima poveznicu na izvor ili obrazložen status nedostupnosti.
+- Nema neobjašnjenog odstupanja većeg od 1% u usporedivim godišnjim zbrojevima.
+- Nova službena odluka može se obraditi i objaviti prema dokumentiranom postupku.
+- JSON, CSV i aplikacijski paket prolaze istu automatsku validaciju i daju jednake zbrojeve.
+- Portal ostaje dostupan na hrvatskom i engleskom jeziku te uporabljiv tipkovnicom i na mobilnim uređajima.
+- Ostvareno je najmanje 5.000 posjeta portalu tijekom 2027., mjerenih zbirno i bez trajnog identifikatora.
+- HAVC-u je do 31. prosinca 2027. dostavljen potpuni otvoreni paket za održavanje i razvoj.
+
+## Upravljanje rizicima
+
+| Rizik | Odgovor |
+|---|---|
+| HAVC ne može dostaviti dio arhive | Program se dovršava iz javnih izvora, a svaka praznina ostaje eksplicitno dokumentirana. |
+| Izvor je skeniran ili oštećen | OCR služi kao pomoć; konačnu vrijednost potvrđuje čovjek ili zapis ostaje nerazriješen. |
+| Suradnik radi nedosljedno | Ulazni test, obuka, radni uzorci, drugi pregled i revizijski trag. |
+| Opseg novih podataka premaši plan | Prioritet su odluke o financiranju; pomoćni dokumenti obrađuju se prema riziku, bez snižavanja standarda zapisa koji se objavljuju. |
+| Promjena HAVC-ove strukture stranica | Izvorni registar odvaja podatkovnu shemu od načina preuzimanja, pa se mijenja samo adapter za unos. |
+| Sustav ostane ovisan o autoru | Završni test provodi druga osoba isključivo prema priručniku. |

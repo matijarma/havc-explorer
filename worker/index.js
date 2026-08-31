@@ -80,6 +80,9 @@ export default {
 
 		if (url.pathname === '/api/u') return ingest(request, env, ctx, url);
 		if (url.pathname === '/stats' || url.pathname === '/stats/') return stats(request, env, url);
+		if (url.pathname === '/prijava' || url.pathname.startsWith('/prijava/')) {
+			return prijava(request, env, url);
+		}
 		return env.ASSETS.fetch(request);
 	},
 	async scheduled(controller, env, ctx) {
@@ -95,6 +98,44 @@ export function isAllowedHost(hostname, expectedHost = DEFAULT_HOST) {
 
 function localDevelopment(url) {
 	return url.hostname === 'localhost' || url.hostname === '127.0.0.1';
+}
+
+/* Private application dossier ----------------------------------------- */
+
+export async function prijava(request, env, url = new URL(request.url)) {
+	if (request.method !== 'GET' && request.method !== 'HEAD') {
+		return new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, HEAD' } });
+	}
+
+	if (!localDevelopment(url)) {
+		const token = request.headers.get('cf-access-jwt-assertion');
+		const claims = await verifyAccessJwt(token, {
+			issuer: env.ACCESS_ISSUER || DEFAULT_ACCESS_ISSUER,
+			audience: env.ACCESS_AUD || DEFAULT_ACCESS_AUD,
+		});
+		if (!claims) return new Response('Forbidden', { status: 403 });
+	}
+
+	const assetUrl = new URL(request.url);
+	if (assetUrl.pathname === '/prijava' || assetUrl.pathname === '/prijava/') {
+		assetUrl.pathname = '/prijava/index.html';
+	}
+	const assetRequest = assetUrl.toString() === request.url
+		? request
+		: new Request(assetUrl, request);
+	const response = await env.ASSETS.fetch(assetRequest);
+	const headers = new Headers(response.headers);
+	headers.set('cache-control', 'private, no-store, max-age=0');
+	headers.set('x-robots-tag', 'noindex, nofollow, noarchive');
+	headers.set('referrer-policy', 'no-referrer');
+	headers.set('x-content-type-options', 'nosniff');
+	headers.set('x-frame-options', 'DENY');
+	headers.set('cross-origin-opener-policy', 'same-origin');
+	return new Response(request.method === 'HEAD' ? null : response.body, {
+		status: response.status,
+		statusText: response.statusText,
+		headers,
+	});
 }
 
 /* Public ingest ---------------------------------------------------------- */
