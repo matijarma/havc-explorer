@@ -1,7 +1,7 @@
 {
   "version": "2.0",
   "generated_at": "2026-08-31T15:33:11Z",
-  "input": "E:\\aningfilm\\miniapps\\havc\\web\\havc\\data.json",
+  "input": "havc/data.json",
   "input_sha256": "f85d098bbde2abe8e719c578ed30e456fd1dec5ba4be357eccd274878776d6ee",
   "counts": {
     "source_documents_reconciled": 1,

@@ -238,7 +238,7 @@
           "kind": "metric",
           "label": "Pipeline modula",
           "value": "~45",
-          "note": "D:\\scratch\\havc\\havc_pipeline\\"
+          "note": "havc_pipeline/ (lokalno, neobjavljeno)"
         },
         {
           "kind": "metric",
@@ -1957,7 +1957,7 @@
     ]
   },
   "footnote": {
-    "text": "Sve tvrdnje na ovoj stranici imaju uporište u lokalnim artefaktima u D:\\scratch\\havc\\. Žive kartice računaju se iz trenutno učitanog skupa podataka nadzorne ploče.",
+    "text": "Sve tvrdnje na ovoj stranici imaju uporište u autorovoj lokalnoj radnoj kopiji cjevovoda, koja nije objavljena; artefakti objavljeni u repozitoriju nalaze se u mapi havc/. Žive kartice računaju se iz trenutno učitanog skupa podataka nadzorne ploče.",
     "sources": [
       {
         "label": "dash/content/process.hr.json",

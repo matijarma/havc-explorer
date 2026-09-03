@@ -6,19 +6,6 @@ Sredstva su neovisno izdanje Aning Filma d.o.o. Podnositelj, urednik i suradnici
 
 Aning Film d.o.o. je zagrebačka produkcijska kuća koja od 2010. djeluje u području filma, međunarodnih koprodukcija i programa za filmske profesionalce; od 2026. izdaje registar Sredstva. Tvrtka je manjinski koproducent igranog filma Život kao novčić (2013., redatelj Franco Dipietro) i nositelj programa komplementarnih djelatnosti Croatia goes cross media (potpora Centra 2013. i 2014.). U izvorima do 2014. tvrtka nastupa kao Aning usluge d.o.o., od 2015. kao Aning film d.o.o. Aning Film je sve prethodne ugovorne obveze prema Centru uredno ispunio.
 
-Napomene za provjeru prije predaje:
-
-- potvrditi godinu promjene naziva (Aning usluge d.o.o. → Aning film d.o.o.) u sudskom registru i prema potrebi ispraviti godine u rečenici o nazivu;
-- potvrditi da je ugovor za film Violinist, naveden u Godišnjem planu Centra za 2024., zaključen; ako nije, rečenicu o ugovornim obvezama zamijeniti s: „Aning Film nema dospjelih neispunjenih obveza prema Centru.”
-
-Za konačnu prijavu iz profila podnositelja u portalu Centra ili aktualnog sudskog izvatka prepisati:
-
-- puni registrirani naziv;
-- sjedište i adresa;
-- OIB i MBS;
-- osoba ovlaštena za zastupanje;
-- djelatnosti relevantne za audiovizualno stvaralaštvo, izdavaštvo, mrežne portale ili obradu podataka.
-
 ## Urednik — Matija Radeljak
 
 Matija Radeljak je autor i urednik registra Sredstva (2026.: koncepcija, podatkovni model, četiri datirana izdanja, javno objavljen kod); uz potporu Centra sudjelovao je na programima EAVE European Producers Workshop 2014, EAVE Film Finance Forum 2012, AdaptLab 2012 (TorinoFilmLab), BDC Discoveries 2014 i Media Business School 2013; redatelj je i suscenarist eksperimentalnog filma Violinist (Studio Kubus, potpora Centra 2010.), autor i redatelj projekata Jabuka i Odbjegli Twingo (potpora Centra za razvoj, 2014.) te voditelj programa komplementarnih djelatnosti Croatia goes cross media (potpora Centra 2013. i 2014.); osnivač je Aning Filma (2010.)
@@ -47,8 +34,6 @@ Za izdanje Sredstva osmislio je uredničku metodologiju i podatkovni model, razv
 - Jabuka i Odbjegli Twingo, autor i redatelj (potpora Centra za razvoj, 2014.);
 - Croatia goes cross media, voditelj programa komplementarnih djelatnosti (potpora Centra 2013. i 2014.);
 - Život kao novčić, manjinska koprodukcija tvrtke (2013., redatelj Franco Dipietro).
-
-Ne navoditi MAIA (redovi u registru pripadaju drugom producentu). Ne navoditi festival, nagradu, članstvo žirija ili edukaciju bez provjerljive poveznice ili dokumenta. Rečenica „od 2015. razvoj digitalnih alata za sektor” izbrisana je iz 01, 02 i 05; vratiti je samo uz izričitu potvrdu podnositelja.
 
 ## Suradnici
 

@@ -1,9 +1,9 @@
 {
   "generated_at": "2026-05-23T21:34:48Z",
   "inputs": {
-    "data": "dash\\havc\\data.json",
+    "data": "havc/data.json",
     "source_manifest": "reports\\sanity_sources.json",
-    "normalize_decision": "D:\\scratch\\havc\\dash\\havc\\normalize-decision.json",
+    "normalize_decision": "havc/normalize-decision.json",
     "official_override": null
   },
   "metadata": {
@@ -27,7 +27,7 @@
       "parser": "havc_annual_plan_2024_recap",
       "comparability": "direct",
       "public_url": "https://havc.hr/o-nama/havc/godisnji-planovi-i-izvjestaji-o-radu",
-      "local_path": "D:\\scratch\\havc\\dataset\\records\\520c8a7f_21122023_godisnji_plan_provedbe_nacionalnog_programa_za_2024.json",
+      "local_path": null,
       "declared_year_coverage": {
         "from": 2008,
         "to": 2023
@@ -55,7 +55,7 @@
       "parser": "havc_financial_notes_2023",
       "comparability": "contextual",
       "public_url": "https://havc.hr/o-nama/havc/godisnji-planovi-i-izvjestaji-o-radu",
-      "local_path": "D:\\scratch\\havc\\dataset\\records\\bc761afd_biljeske_financ_izvj_2023.json",
+      "local_path": null,
       "declared_year_coverage": {
         "from": 2022,
         "to": 2023
@@ -79,7 +79,7 @@
       "parser": "pr_ras_summary",
       "comparability": "contextual",
       "public_url": "https://mfin.gov.hr/",
-      "local_path": "D:\\scratch\\havc\\dataset\\records\\7a59c027_pr_ras_31_12_17.json",
+      "local_path": null,
       "declared_year_coverage": {
         "from": 2016,
         "to": 2017
