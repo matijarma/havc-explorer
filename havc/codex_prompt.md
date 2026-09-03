@@ -1,6 +1,6 @@
 # Audit task: verify normalize-pass plan
 
-You are auditing a normalization pass on a Croatian audiovisual funding registry (HAVC). The dataset is `D:\scratch\havc\dash\havc\data.json`. 18 `results_table` records have no `source.source_url` (no link to the official HAVC PDF). A deterministic Python pre-pass produced `D:\scratch\havc\dash\havc\codex-audit-input.json` containing:
+You are auditing a normalization pass on a Croatian audiovisual funding registry (HAVC). The dataset is `havc/data.json`. 18 `results_table` records have no `source.source_url` (no link to the official HAVC PDF). A deterministic Python pre-pass produced `havc/codex-audit-input.json` containing:
 
 - `plan`: per-doc, per-row classification (deterministic match by `(normTitle(project_title), approved_amount, program_type)`)
 - `urlless_docs`: full source/document/sections for the 18 urlless records (keyed by sha256)
@@ -24,7 +24,7 @@ For each urlless doc, verify that the per-row decisions are correct by examining
 
 ## Output
 
-Write your verified decisions to `D:\scratch\havc\dash\havc\normalize-decision.json` as an array with the same shape as `plan` (each entry needs `doc_sha`, `classification`, and `rows` with `row_index` and `row_decision`). Keep entries even when you make no changes. Do not modify `data.json` or any other file.
+Write your verified decisions to `havc/normalize-decision.json` as an array with the same shape as `plan` (each entry needs `doc_sha`, `classification`, and `rows` with `row_index` and `row_decision`). Keep entries even when you make no changes. Do not modify `data.json` or any other file.
 
 Be conservative: when in doubt, keep `flag_row` (the row stays, just without a PDF link) rather than risk dropping a legitimate funding decision.
 

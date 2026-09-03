@@ -238,7 +238,7 @@
           "kind": "metric",
           "label": "Pipeline modules",
           "value": "~45",
-          "note": "D:\\scratch\\havc\\havc_pipeline\\"
+          "note": "havc_pipeline/ (local, unpublished)"
         },
         {
           "kind": "metric",
@@ -1957,7 +1957,7 @@
     ]
   },
   "footnote": {
-    "text": "All claims on this page point to local artifacts in D:\\scratch\\havc\\. Live snapshot cards are computed from the currently loaded dashboard data payload.",
+    "text": "All claims on this page point to the author's local pipeline workspace, which is not published; the artifacts published in the repository are under havc/. Live snapshot cards are computed from the currently loaded dashboard data payload.",
     "sources": [
       {
         "label": "dash/content/process.en.json",
