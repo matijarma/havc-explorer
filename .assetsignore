@@ -52,3 +52,15 @@ havc/data-curation-audit.json
 havc/data-curation-decisions.json
 havc/normalize-decision.json
 havc/source-corrections.json
+
+# Internal working notes for the HAVC application. They are gitignored, so a
+# Workers Builds deploy never sees them; this list also stops a local
+# `wrangler deploy` from publishing the on-disk copies. The application
+# documents in prijava/ (01-05 and their PDF/DOCX/XLSX builds) ARE served,
+# behind Cloudflare Access, and must stay out of this list.
+prijava/00-podaci-za-potvrdu.txt
+prijava/06-dokazi-i-prilozi.txt
+prijava/07-predaja-checklist.txt
+prijava/IZVORI.txt
+prijava/README.txt
+prijava/VALIDACIJA.txt
