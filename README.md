@@ -12,7 +12,7 @@
 
 ## Why this exists
 
-HAVC publishes public funding decisions, but mostly as PDFs distributed across an old website. That makes the information technically public yet practically difficult to use: it cannot be searched across years, filtered consistently, aggregated safely, or followed from one funding round to the next.
+HAVC publishes its public funding decisions regularly and in full, but as PDF documents on its website. What is missing is not transparency but form: the information is technically public yet practically difficult to use because it cannot be searched across years, filtered consistently, aggregated safely, or followed from one funding round to the next.
 
 Sredstva is a practical answer to that gap. It is an independent, non-commercial tool for filmmakers, producers, researchers, journalists, and anyone who wants to inspect how Croatian audiovisual public funding is allocated.
 
@@ -32,11 +32,11 @@ The project does not replace the original documents. It makes them usable—and 
 
 The checked-in registry currently contains:
 
-| Coverage | Current checkout |
+| Coverage | Current checkout (as of 31 August 2026) |
 | --- | ---: |
-| Source documents | 1,017 |
-| Funding rows | 9,543 |
-| Verified awarded rows | 9,542 |
+| Source documents | 1,021 |
+| Funding rows | 9,561 |
+| Verified awarded rows | 9,560 |
 | Year range | 2008–2026 |
 | Full source-of-truth dataset | 18 MiB |
 
@@ -66,7 +66,7 @@ The pipeline combines deterministic extraction and curation work:
 4. The full registry remains published as `data.json`; the browser boots from the smaller `data.app.json` projection.
 5. Audit and sanity-check artifacts remain in the repository so the work can be examined, challenged, and improved.
 
-This is public-data interpretation, not an official HAVC service. For high-stakes use, always inspect the linked source PDF and treat the dataset, its source coverage, and its documented limitations as part of the result.
+This is public-data interpretation, not an official HAVC service. Every record carries a publicly marked verification status. For high-stakes use, always inspect the linked source PDF and treat the dataset, its source coverage, and its documented limitations as part of the result.
 
 ## 🧱 Technology
 
@@ -159,7 +159,17 @@ Sredstva has a small first-party usage system so the maintainer can understand w
 - 📉 Stored data is aggregate feature and performance information such as app readiness, filter type, opened source PDFs, and Web Vitals.
 - 🔒 The `/stats` dashboard is protected behind Cloudflare Access.
 
-See [`extension-privacy/index.html`](extension-privacy/index.html) for the full bilingual privacy policy, including the separate HAVC Companion browser extension.
+See [`extension-privacy/index.html`](extension-privacy/index.html) for the full bilingual privacy policy, including the separate HAVC Companion browser extension (version 0.2.0, packaged and not yet published).
+
+## 📜 Licence
+
+Sredstva is published under two open licences, one for code and one for content:
+
+- **Code** (`*.js`, `*.py`, `*.html`, `*.css`, the Worker and the test suites) is licensed under the **European Union Public Licence v. 1.2 (EUPL-1.2)**. See [`LICENSE`](LICENSE). SPDX identifier: `EUPL-1.2`.
+- **Schema, documentation and the independently created structured data** (the record structure, field dictionary, curation notes, and the normalised fields in `havc/data.json` and `havc/data.app.json`: projects, recipients, authors, programmes, rounds, years, amounts, statuses and links) are licensed under **Creative Commons Attribution 4.0 International (CC BY 4.0)**. Suggested attribution: *“Source: HAVC, via the Sredstva registry (Aning Film), edition YYYY.MM.”*
+- **Full-text fields reproduced from HAVC's public documents** (for example `raw_text` and the quoted jury narratives) are **excluded from the CC BY 4.0 grant**. They are included only for provenance and verification, always together with a link to the source document, and the rights to them remain with their publisher, the Croatian Audiovisual Centre.
+
+Rights holder for the code, schema, documentation and structured data: Aning Film d.o.o., Zagreb (author: Matija Radeljak).
 
 ## 🤝 Contributing
 

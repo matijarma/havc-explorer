@@ -26,7 +26,7 @@
   // ═══ 1. i18n ════════════════════════════════════════════════════════
   const T = {
     'app.name': { en: 'Sredstva', hr: 'Sredstva' },
-    'app.title': { en: 'Sredstva · HAVC Open Registry', hr: 'Sredstva · HAVC otvoreni registar' },
+    'app.title': { en: 'Sredstva · open registry of AV public funding', hr: 'Sredstva · otvoreni registar javnog financiranja AV djelatnosti' },
     'app.subtitle': { en: 'Croatian audiovisual public funding — open registry',
                       hr: 'Hrvatski audiovizualni javni poticaji — otvoreni registar' },
 
