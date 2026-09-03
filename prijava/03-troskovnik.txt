@@ -1,46 +1,52 @@
 # Detaljno specificirani troškovnik programa
 
-**Program:** Portal otvorenih podataka Hrvatskog audiovizualnog centra  
+**Program:** Sredstva: otvoreni registar javnog financiranja audiovizualnih djelatnosti  
+**Podnositelj:** Aning Film d.o.o.  
 **Razdoblje:** 1. siječnja – 31. prosinca 2027.
+
+Troškovnik obuhvaća cijeli program 2027. i slijedi glavne skupine troškova iz Naputka Hrvatskog audiovizualnog centra (dalje: Centar). Sve stavke iskazane su u eurima, kao ukupni trošak podnositelja.
 
 | R.br. | Glavna stavka | Podstavka i obračun | Ukupno | HAVC | Aning Film |
 |---:|---|---|---:|---:|---:|
-| 1 | Honorari suradnika | Primarna ručna provjera zapisa: 40 radnih dana × 125 EUR | 5.000,00 | 5.000,00 | 0,00 |
-| 2 | Honorari suradnika | Istraživanje i pribavljanje nedostajućih izvora: 12 radnih dana × 125 EUR | 1.500,00 | 1.500,00 | 0,00 |
-| 3 | Honorari suradnika | Drugi pregled ispravaka i kontrolni uzorak: 8 radnih dana × 125 EUR | 1.000,00 | 1.000,00 | 0,00 |
-| 4 | Plaće | Razmjerni bruto trošak rada voditelja, urednika podataka i arhitekta sustava tijekom 2027.: 160 sati × 25 EUR | 4.000,00 | 0,00 | 4.000,00 |
-| 5 | Online sustavi i tehnički troškovi | Hosting i izvršavanje javnog portala: 12 mjeseci × 15 EUR | 180,00 | 0,00 | 180,00 |
-| 6 | Online sustavi i tehnički troškovi | Pohrana izvora i sigurnosne kopije: 12 mjeseci × 5 EUR | 60,00 | 0,00 | 60,00 |
-| 7 | Online sustavi i tehnički troškovi | Domena i DNS usluge: godišnji trošak | 20,00 | 0,00 | 20,00 |
-| 8 | Online sustavi i tehnički troškovi | Nužni OCR/API alati za obradu iznimaka: ograničeni godišnji paket | 40,00 | 0,00 | 40,00 |
-| 9 | Administracija i primopredaja | Razmjerni računovodstveni trošak programa: 12 mjeseci × 10 EUR | 120,00 | 0,00 | 120,00 |
-| 10 | Administracija i primopredaja | Provjera licenci i priprema završnog paketa | 80,00 | 0,00 | 80,00 |
+| 1 | Plaće, autorski honorari i intelektualne usluge | Honorari suradnika: istraživači-redaktori, primarna urednička provjera svakog zapisa prema izvornom dokumentu. Obračun: 32 radna dana × 125 EUR | 4.000,00 | 4.000,00 | 0,00 |
+| 2 | Plaće, autorski honorari i intelektualne usluge | Honorari suradnika: istraživanje i pribavljanje nedostupnih izvora, unos novopronađenih dokumenata i evidentiranje sjedišta korisnika. Obračun: 8 radnih dana × 125 EUR | 1.000,00 | 1.000,00 | 0,00 |
+| 3 | Plaće, autorski honorari i intelektualne usluge | Honorari suradnika: drugi pregled izmijenjenih i nerazriješenih zapisa i kontrolni uzorak 10 %. Obračun: 6 radnih dana × 125 EUR | 750,00 | 750,00 | 0,00 |
+| 4 | Plaće, autorski honorari i intelektualne usluge | Autorski honorari: četiri tematske analize vanjskih autora (800–1.500 riječi; autorskim ugovorom prenosi se pravo objave na portalu, HR/EN, i u godišnjem pregledu). Obračun: 4 autorska teksta × 200 EUR | 800,00 | 800,00 | 0,00 |
+| 5 | Plaće, autorski honorari i intelektualne usluge | Plaća: urednik i voditelj programa (uređivanje izdanja i autorski tekstovi, metodologija, obuka i nadzor suradnika, odluke o spornim zapisima, objava izdanja), razmjerni bruto trošak. Obračun: 160 sati × 25 EUR | 4.000,00 | 0,00 | 4.000,00 |
+| 6 | Plaće, autorski honorari i intelektualne usluge | Intelektualne usluge: provjera licenci i priprema paketa za ponovnu uporabu. Obračun: 1 × 80 EUR (paušalno) | 80,00 | 0,00 | 80,00 |
+| 7 | Prijevod i lektura, priprema, grafičko oblikovanje | Lektura hrvatskih tekstova: tematske analize, metodološke bilješke i godišnji pregled (oko 50 kartica; pregledi rokova i uredničke bilješke lektoriraju se u uredništvu), prijevod na engleski (oko 17 kartica) i grafičko oblikovanje godišnjeg pregleda (PDF). Obračun: 1 × 550 EUR (paušalno) | 550,00 | 550,00 | 0,00 |
+| 8 | Prezentacija i promocija programa | Dva javna predstavljanja izdanja, jedno izvan Zagreba, u prostorima ustanova domaćina bez najma (putni trošak, oprema, jednostrani tiskani materijal). Obračun: 2 predstavljanja × 200 EUR | 400,00 | 400,00 | 0,00 |
+| 9 | Uredski troškovi | Poslužiteljske usluge (smještaj i rad portala), pohrana izvornika i sigurnosnih kopija, domena i DNS (12 mjeseci). Obračun: 12 mjeseci, 260 EUR godišnje | 260,00 | 0,00 | 260,00 |
+| 10 | Uredski troškovi | Alati za strojno čitanje skeniranih dokumenata (OCR). Obračun: 1 × 40 EUR (paušalno) | 40,00 | 0,00 | 40,00 |
+| 11 | Uredski troškovi | Razmjerni računovodstveni trošak programa. Obračun: 12 mjeseci × 10 EUR | 120,00 | 0,00 | 120,00 |
 |  | **UKUPNO** |  | **12.000,00** | **7.500,00** | **4.500,00** |
+
+Zbroj po skupinama: A. Plaće, autorski honorari i intelektualne usluge 10.630,00 EUR (Centar 6.550,00; Aning Film 4.080,00); B. Prijevod i lektura, priprema, grafičko oblikovanje 550,00 EUR (Centar 550,00; Aning Film 0,00); C. Prezentacija i promocija programa 400,00 EUR (Centar 400,00; Aning Film 0,00); D. Uredski troškovi 420,00 EUR (Centar 0,00; Aning Film 420,00).
 
 ## Plan financiranja
 
 | Izvor | Status | Iznos | Udio |
 |---|---|---:|---:|
-| Hrvatski audiovizualni centar | zatraženo | 7.500,00 EUR | 62,50% |
-| Aning Film d.o.o. | vlastita sredstva i razmjerni trošak rada u 2027. | 4.500,00 EUR | 37,50% |
-| **UKUPNO** |  | **12.000,00 EUR** | **100,00%** |
+| Hrvatski audiovizualni centar | zatraženo | 7.500,00 EUR | 62,50 % |
+| Aning Film d.o.o. | vlastita sredstva i razmjerni trošak rada u 2027. | 4.500,00 EUR | 37,50 % |
+| **UKUPNO** |  | **12.000,00 EUR** | **100,00 %** |
 
 ## Obrazloženje stavki
 
-**Primarna ručna provjera zapisa** obuhvaća usporedbu svakog zapisa završne baze s izvornim dokumentom, provjeru iznosa, valute, godine, roka, kategorije, naziva projekta i korisnika te evidentiranje statusa provjere.
+**Što potpora financira.** Zatraženih 7.500,00 EUR u cijelosti namijenjeno je honorarima i vanjskim uslugama: 46 radnih dana uredničke provjere i istraživanja izvora (stavke 1–3), četiri autorska teksta vanjskih autora (stavka 4), lekturu, prijevod i oblikovanje godišnjeg pregleda (stavka 7) te dva javna predstavljanja (stavka 8). Aning Film d.o.o. snosi plaću urednika, pripremu paketa za ponovnu uporabu i sve uredske troškove (stavke 5, 6, 9, 10 i 11).
 
-**Istraživanje i pribavljanje nedostajućih izvora** obuhvaća usporedbu postojećeg korpusa sa službenim objavama i godišnjim pregledima, traženje neaktivnih ili premještenih poveznica, pripremu popisa građe koja se traži od HAVC-a te unos novopronađenih dokumenata.
+**Honorari suradnika (stavke 1–3).** Istraživači-redaktori provjeravaju svaki zapis registra prema izvornom dokumentu u sedam polja (naziv projekta, korisnik i imenovani autori, program, godina i rok, iznos i valuta, status financiranja, poveznica na izvor), istražuju i pribavljaju dokumente koji više nisu dostupni na mreži, unose novopronađene dokumente i evidentiraju sjedište korisnika. Redaktor zatim u drugom pregledu provjerava sve izmijenjene i nerazriješene zapise te kontrolni uzorak od najmanje 10 %. Jedinična cijena od 125,00 EUR po radnom danu iskazana je kao ukupni trošak podnositelja (uključuje poreze i doprinose prema ugovornom obliku: studentski ugovor ili ugovor o djelu); 46 radnih dana raspoređeno je na dvoje suradnika tijekom devet mjeseci. Uz 32 radna dana primarne provjere to je u prosjeku oko 300 zapisa po radnom danu, u sučelju koje usporedno prikazuje izvorni dokument i njegove zapise (priprema u siječnju–ožujku), pa se tablični rezultati s više desetaka zapisa provjeravaju u jednom prolazu. Noviji tablični dokumenti provjeravat će se znatno brže, a ušteđeno vrijeme usmjerit će se na skenirane i starije dokumente.
 
-**Drugi pregled i kontrolni uzorak** obuhvaća neovisnu provjeru svih ispravljenih i nerazriješenih zapisa te nasumičnu ponovnu provjeru najmanje deset posto zapisa koji nisu mijenjani u prvom prolazu.
+**Autorski honorari (stavka 4).** Za četiri tematske analize vanjskih autora (800–1.500 riječi, s tablicama i engleskim sažetkom) sklapa se ugovor o autorskom djelu kojim se prenosi pravo objave na portalu (HR/EN) i u godišnjem pregledu. Preostale dvije analize, preglede rokova, metodološke bilješke i godišnji pregled piše urednik.
 
-**Rad voditelja programa** obuhvaća uredničku metodologiju, razvoj sheme, pripremu alata, obuku i nadzor suradnika, odlučivanje u spornim slučajevima, validaciju, objavu i završnu primopredaju. Trošak se odnosi isključivo na razmjerni bruto trošak rada tijekom 2027.
+**Plaća urednika (stavka 5).** Obuhvaća uređivanje dvanaest izdanja i autorske tekstove, metodologiju i shemu, obuku i nadzor suradnika, odluke o spornim zapisima te objavu izdanja. Iskazano je 160 sati uredničkog rada kao razmjerni bruto trošak plaće; sav rad urednika iznad tog opsega Aning Film osigurava izvan troškovnika. Izradu sučelja za provjeru, tehničko održavanje portala i tehničku objavu izdanja Aning Film osigurava vlastitim resursima izvan troškovnika, kao dio postojeće infrastrukture izdanja razvijene 2026.
 
-**Online sustavi i tehnički troškovi** obuhvaćaju samo nužne i izravno vezane troškove provedbe. Postojeći razvoj i oprema ne terete program.
+**Prijevod, lektura i oblikovanje (stavka 7).** Lektura tematskih analiza, metodoloških bilježaka i godišnjeg pregleda (oko 50 kartica; pregledi rokova i uredničke bilješke lektoriraju se u uredništvu), prijevod sažetaka i godišnjeg pregleda na engleski (oko 17 kartica) i grafičko oblikovanje godišnjeg pregleda u PDF-u nabavljaju se kao vanjske usluge.
 
-## Knjigovodstvena provjera prije predaje
+**Prezentacija i promocija (stavka 8).** Dva javna predstavljanja izdanja tijekom 2027., jedno u Zagrebu i jedno izvan Zagreba, u prostorima ustanova domaćina bez najma: putni trošak, oprema i jednostrani tiskani materijal.
 
-- potvrditi stvarni razmjerni bruto trošak Matijina rada i prema potrebi promijeniti broj sati ili jediničnu cijenu uz zadržavanje iznosa od 4.000,00 EUR;
-- potvrditi način angažiranja privremenih suradnika i naziv troškovne kategorije;
-- potvrditi porezni tretman svih honorara i jesu li jedinične cijene iskazane kao puni trošak podnositelja;
-- potvrditi da se vlastiti udio u planu financiranja može dokazati obračunima plaće i plaćenim računima;
-- ne uključivati niti jedan trošak nastao prije 1. siječnja 2027.
+**Uredski troškovi (stavke 9–11) i intelektualne usluge (stavka 6).** Obuhvaćaju samo nužne troškove izravno vezane uz provedbu: poslužiteljske usluge (smještaj i rad portala), pohranu izvornika i sigurnosnih kopija, domenu i DNS, OCR/API alate za skenirane iznimke, razmjerni računovodstveni trošak te provjeru licenci i pripremu paketa za ponovnu uporabu.
+
+**Vlastiti udio i prihodi.** Vlastiti udio iznosi 37,5 % ukupnog troška programa. Aning Film pokriva ga iz redovitih prihoda produkcijske djelatnosti. Program ne planira prihode od korisnika (besplatan, bez oglasa). Vrijednost razvoja iz 2026. nije uračunata u vlastiti udio. Provjera povijesnog korpusa jednokratan je trošak uspostave; od 2028. održavanje zahtijeva samo obradu novih odluka i uredničke tekstove.
+
+**Odobrenje manjeg iznosa.** U slučaju odobrenja manjeg iznosa urednički plan i kontinuitet ažuriranja ostaju nepromijenjeni, a razmjerno se smanjuje opseg jednokratne provjere povijesnog korpusa počevši od najstarijih godina; svaka neprovjerena godina ostaje javno označena.

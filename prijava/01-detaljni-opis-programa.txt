@@ -1,112 +1,89 @@
 # DETALJNI OPIS PROGRAMA
 
-**Naziv programa:** Portal otvorenih podataka Hrvatskog audiovizualnog centra  
-**Podnositelj:** Aning Film d.o.o.  
-**Kategorija:** Izdavaštvo u području audiovizualnih djelatnosti — online portali i izdanja  
+**Naziv programa:** Sredstva: otvoreni registar javnog financiranja audiovizualnih djelatnosti
+
+**Podnositelj:** Aning Film d.o.o.
+
+**Kategorija:** Izdavaštvo u području audiovizualnih djelatnosti – online portali i izdanja
+
 **Razdoblje provedbe:** 1. siječnja – 31. prosinca 2027.
 
-## 1. Polazište, potreba i značaj programa
+**Zatraženo od Hrvatskog audiovizualnog centra:** 7.500,00 EUR od ukupno 12.000,00 EUR (vlastiti udio 4.500,00 EUR)
 
-Hrvatski audiovizualni centar tijekom godina objavio je velik broj odluka, rezultata javnih poziva, obrazloženja umjetničkih savjetnika i drugih dokumenata važnih za razumijevanje razvoja hrvatske audiovizualne djelatnosti. Dokumenti su javno dostupni, ali su raspoređeni kroz velik broj mrežnih stranica i pretežito objavljeni u PDF obliku. Takav je oblik primjeren objavi pojedinačne odluke, ali otežava pretraživanje kroz više godina, povezivanje različitih faza istoga projekta, usporedbu programa i korisnika te ponovnu uporabu podataka u stručnom, istraživačkom, obrazovnom i novinarskom radu.
+## Sažetak
 
-Aning Film je tijekom 2026. vlastitim sredstvima razvio radni javni prototip pod nazivom **Sredstva** te pripadajući preglednički modul **HAVC Companion**. Prototip pokazuje da je službene dokumente moguće pretvoriti u pregledan, pretraživ i provjerljiv registar bez odvajanja podatka od izvora. Trenutačna radna baza obuhvaća 1.021 dokument iz razdoblja 2008.–2026., među kojima su 557 tabličnih dokumenata s rezultatima, 328 obrazloženja i 51 pojedinačna odluka. Sadrži 9.561 redak financiranja i 6.593 povezane porodice projekata. Svaki prikazani iznos vodi prema izvornom dokumentu, a puni skup podataka javno je dostupan.
+Sredstva su neovisno, besplatno i dvojezično mrežno izdanje koje od svibnja 2026. objavljuje provjerljiv i pretraživ registar javnog financiranja audiovizualnih djelatnosti u Hrvatskoj (2008.–2026.), izgrađen isključivo iz dokumenata koje je javno objavio Hrvatski audiovizualni centar (dalje: Centar); uz svaki iznos naveden je izvorni dokument. U 2027. izlazi dvanaest mjesečnih izdanja i najmanje 30 tekstova, uključujući pregled svakog novoobjavljenog roka, a cijeli povijesni korpus prolazi uredničku provjeru zapis po zapis. Urednik: Matija Radeljak.
 
-Postojeći rezultat ujedno pokazuje zašto je potreban financirani program. Automatizirano preuzimanje i obrada mogu ubrzati rad, ali ne mogu pouzdano razriješiti oštećene ili skenirane dokumente, neujednačene tablice, promjene naziva pravnih osoba, različite zapise istog projekta, pogrešno navedene valute, prekinute poveznice i dokumente koji nisu dostupni u cjelovitom javnom arhivu. U sadašnjem skupu 173 dokumenta nemaju dovoljno pouzdano utvrđenu godinu, 85 nema potpuno razriješenu programsku kategoriju, 148 nema aktivnu izvornu poveznicu, a 341 dokument nosi oznaku za dodatnu provjeru. Usporedbe s godišnjim službenim zbrojevima pokazuju i povijesna razdoblja koja zahtijevaju dodatno istraživanje.
+## 1. Koncepcija, fokus i značaj izdanja
 
-Program za 2027. zato nije prvenstveno razvoj nove aplikacije. Njegova je jezgra plaćeni ljudski rad potreban za pregled izvora, ručnu provjeru svakog zapisa, pronalaženje nedostajuće građe, ispravak podataka i uspostavu trajnog uredničkog protokola. Softver, mrežni portal i pregledničko proširenje služe kao infrastruktura za objavu rezultata toga rada.
+Sredstva nisu službena stranica Centra i ne nastupaju u njegovo ime; izdavač je Aning Film d.o.o., a sav sadržaj temelji se isključivo na dokumentima koje je Centar javno objavio.
 
-Opći cilj programa jest do 31. prosinca 2027. uspostaviti cjelovit, verzioniran, javno dostupan i održiv sustav za objavu podataka o hrvatskom audiovizualnom javnom financiranju, uz jasan trag od svakog strukturiranog podatka do izvornog dokumenta.
+Fokus je jedno pitanje: tko je, kada, u kojem programu i s kojim iznosom primio javnu potporu, uz izvorni dokument za svaki podatak. Centar svoje odluke objavljuje redovito i javno; Sredstva im ne dodaju nove informacije, nego oblik u kojem se pojedinačne PDF-odluke mogu uspoređivati po godinama i pratiti u više programa. Objava javnih informacija i u strojno čitljivom, otvorenom obliku smjer je koji zagovaraju Zakon o pravu na pristup informacijama (ponovna uporaba informacija) i Direktiva (EU) 2019/1024; Sredstva taj oblik nude već danas, iz postojećih službenih objava i bez ikakva dodatnog posla za Centar.
 
-Posebni ciljevi su:
+Značaj je izdanja u tome što sektor na jednom mjestu dobiva pretraživ, provjerljiv i ponovljiv uvid u vlastito javno financiranje: od prijavitelja i autora do istraživača, novinara i tijela javne vlasti. Registar opisuje stanje i kretanja, a ne ocjenjuje pojedinačne odluke; službenu objavu Centra nadopunjuje, ne zamjenjuje.
 
-- popisati i razvrstati cjelokupnu dostupnu izvornu građu te jasno označiti nedostupne dokumente i praznine;
-- provesti najmanje jednu ručnu provjeru svakog zapisa koji ulazi u završni skup;
-- uvesti drugi pregled svih ispravljenih, spornih ili nepotpunih zapisa i kontrolni uzorak ostalih zapisa;
-- izraditi stabilnu podatkovnu shemu, pravila imenovanja, validatore i evidenciju svake izmjene;
-- objaviti provjerene podatke u oblicima razumljivima ljudima i prikladnima za ponovnu računalnu uporabu;
-- predati HAVC-u cjelovit otvoreni sustav, dokumentaciju i protokol kojim se buduće odluke mogu unositi redovito, brzo i uz nizak trošak održavanja.
+## 2. Shematska koncepcija
 
-<!-- PAGE BREAK -->
+Sredstva objavljuju četiri vrste sadržaja: mjesečna izdanja registra s uredničkom bilješkom, preglede rezultata svakog roka, tematske analize i godišnji pregled. U 2027. portal se uređuje u sedam rubrika: Registar, Projekti, Korisnici i autori, Analitika, Obrazloženja, Metodologija i Preuzimanja. Svaki zapis nastaje iz jednog izvornog dokumenta, navedenog poveznicom i digitalnim otiskom datoteke (kontrolnim brojem koji dokazuje da dokument nije mijenjan), i odgovara jednoj dodijeljenoj potpori (projekt, korisnik, autori, program, rok, godina, iznos, status provjere). Kanali su portal na hrvatskom i engleskom i otvoreni skup podataka (JSON, od izdanja v2027.01 i CSV; CC BY 4.0).
 
-## 2. Programske aktivnosti i metodologija
+## 3. Dosadašnji kontinuitet (2026.)
 
-### 2.1. Inventar izvora i nadopuna arhiva
-
-Na početku provedbe izradit će se jedinstveni registar službenih izvora. Za svaki dokument vodit će se naziv datoteke, vrsta dokumenta, godina, javni poziv, rok, datum objave, izvorna poveznica, status dostupnosti, kontrolni sažetak datoteke i bilješka o kvaliteti izvora. Postojeći dokumenti usporedit će se sa stranicama javnih poziva, godišnjim planovima i izvještajima te drugim službenim evidencijama.
-
-HAVC-u će se dostaviti strukturiran popis utvrđenih praznina i molba za pristup dokumentima koji nisu dostupni na mrežnim stranicama ili su dostupni samo u nepotpunom obliku. Provedba programa neće ovisiti o pozitivnom odgovoru: za svaki nedostupan izvor zabilježit će se što je pretraženo, kada je zatraženo i na koji način nedostupnost utječe na konačni podatak. Dobiveni dokumenti neće se javno preslikavati bez odgovarajućeg dopuštenja; mogu se evidentirati kontrolnim sažetkom i opisom izvora.
-
-### 2.2. Ručna provjera i ispravak podataka
-
-Privremeni suradnici za obradu podataka bit će angažirani nakon odobrenja sredstava. Prije rada prolaze kratku obuku, praktični test na reprezentativnom uzorku i upoznavanje s priručnikom za provjeru. Rad se provodi u nadziranom sučelju koje istodobno prikazuje izvorni dokument i strukturirani zapis.
-
-Svaki redak završne baze prolazi primarnu ljudsku provjeru. Provjeravaju se naslov projekta ili programa, podnositelj i druge navedene pravne ili fizičke osobe, kategorija, godina i rok, odobreni iznos, valuta, status financiranja te veza s izvornom stranicom dokumenta. Suradnik zapis označava kao potvrđen, ispravljen ili nerazriješen te prilaže kratku bilješku kada je potrebna urednička odluka.
-
-Svi ispravljeni i nerazriješeni zapisi prolaze drugi neovisni pregled. Dodatno se nasumično ponovno provjerava najmanje deset posto zapisa koji u prvom prolazu nisu mijenjani. Voditelj programa odlučuje u slučaju neslaganja, pri čemu se izvorna vrijednost uvijek čuva u revizijskom tragu. Cilj nije prikriti neizvjesnost, nego osigurati da nijedna pretpostavka nije predstavljena kao potvrđena činjenica.
-
-Posebni radni paketi obuhvatit će normalizaciju naziva korisnika, povezivanje različitih izdanja istog projekta, rekonstrukciju nedostajućih godina i kategorija, provjeru valuta i preračunavanja, uklanjanje stvarnih duplikata te usporedbu godišnjih zbrojeva s dostupnim službenim pregledima. Svako odstupanje veće od jednog postotka mora biti uklonjeno ili popraćeno javno razumljivim objašnjenjem i popisom izvora koji nedostaju.
-
-### 2.3. Podatkovni standard i sustav ažuriranja
-
-Razvit će se druga verzija javne podatkovne sheme. Ona će zasebno opisivati izvorni dokument, zapis o financiranju, projekt, pravnu ili fizičku osobu, događaj provjere i objavljeno izdanje baze. Svaki će zapis imati stabilni identifikator, izvorni i normalizirani oblik podatka, poveznicu i oznaku stranice izvora, status provjere, vrijeme izmjene i vezu s revizijskim zapisom.
-
-Postupak budućeg ažuriranja bit će sveden na ponovljiv slijed: pronalazak novog dokumenta, evidentiranje i kontrolni sažetak, strojna početna ekstrakcija, ljudska provjera, kontrola kvalitete, automatska validacija, objava nove verzije i zapis promjena. Automatizacija će uklanjati ponavljajući tehnički posao, ali neće zamijeniti ljudsku potvrdu podataka.
+Registar Sredstva javno je dostupan od svibnja 2026. (javni repozitorij i puni skup podataka od 17. svibnja). Do kraja kolovoza izišla su četiri datirana izdanja: svibanj (prvo izdanje, 2008.–2026.), lipanj (rezultati sjednica Hrvatskog audiovizualnog vijeća iz lipnja, 1. i 2. rok 2026.), srpanj (urednički pregled dokumenata) i kolovoz (rezultati 3. roka 2026.); rezultati su uneseni u mjesecu objave. Četiri izdanja u četiri mjeseca izišla su vlastitim ulaganjem podnositelja; godina 2027. prva je s uredničkim planom, plaćenim suradnicima i mjesečnim ritmom od dvanaest izdanja.
 
 <!-- PAGE BREAK -->
 
-## 3. Rezultati, tim i plan provedbe
+## 4. Opseg i struktura sadržaja
 
-### 3.1. Glavni rezultati
+Registar na dan 31. kolovoza 2026. obuhvaća 1.021 dokument, 9.561 zapis, 6.593 skupine povezanih projekata i 13 programskih skupina javnih poziva (uključujući skupinu ostalo) iz razdoblja 2008.–2026. Dokumenti su 557 tabličnih rezultata, 328 obrazloženja, 51 pojedinačna odluka i 85 pomoćnih dokumenata bez podataka o financiranju (pravilnici, godišnji planovi); 9.561 zapis odgovara 9.560 dodijeljenih potpora, jer je jedan odobreni projekt odustao od ugovora. Zapisi se pretražuju po godini, programu, roku, korisniku, autoru i projektu, a stranice projekata, korisnika i autora okupljaju sve njihove zapise s izvornim dokumentima. Sučelje i sažeci su na hrvatskom i engleskom; iznosi u kunama preračunani su fiksnim tečajem konverzije (7,5345 kuna za euro) uz prikaz izvornog iznosa, bez usklađivanja s inflacijom.
 
-Do završetka programa bit će objavljeni i predani:
+## 5. Sadržaj – urednički plan 2027.
 
-1. provjereni kanonski skup podataka s jasnim statusom svakog zapisa;
-2. katalog izvora s evidencijom dostupnosti, kontrolnim sažecima i popisom utvrđenih praznina;
-3. javna podatkovna shema, rječnik polja i pravila normalizacije;
-4. strojno čitljivi izvozi u JSON i CSV obliku te sažeti podatkovni paket za mrežnu aplikaciju;
-5. alat za vođenje reda provjere, bilježenje ispravaka i kontrolu kvalitete;
-6. automatizirani testovi ukupnih iznosa, broja zapisa, obveznih polja, duplikata i izvornih poveznica;
-7. održavani javni portal Sredstva i preglednički modul HAVC Companion;
-8. priručnik za unos novih odluka, rješavanje iznimaka, objavu verzije, sigurnosno kopiranje i obnovu sustava;
-9. završni izvještaj o pokrivenosti, ispravcima, preostalim prazninama i metodologiji;
-10. cjelovit paket izvornog koda, podataka, dokumentacije i uputa za instalaciju i moguću operativnu primopredaju HAVC-u.
+Mjesečno izdanje registra jest datirana objava registra s brojem izdanja i uredničkom bilješkom o promjenama. Plan za 2027. (vrsta, broj, ritam, jezik):
 
-Kod će biti objavljen pod licencom EUPL 1.2, a podatkovna shema, dokumentacija i samostalno izrađena strukturirana baza pod licencom CC BY 4.0. Izvorni HAVC-ovi dokumenti ostaju pod postojećim pravima njihova izdavatelja. HAVC dobiva trajno neisključivo pravo korištenja, prilagodbe i samostalnog održavanja predanog sustava.
+- Mjesečna izdanja registra v2027.01–v2027.12 s uredničkom bilješkom (što je dodano, ispravljeno i otvoreno): 12, svaki mjesec, HR/EN.
+- Pregled rezultata svakog objavljenog roka po programu, 300–600 riječi, u pravilu unutar deset radnih dana od objave Centra: procjena 20–25 godišnje (2024.: 21, 2025.: 23 objavljene kombinacije programa i roka), HR.
+- Tematske analize, 800–1.500 riječi, s tablicama, preuzimanjem podataka i engleskim sažetkom: 6, od toga četiri pišu vanjski autori. Naslovi: (1) Devetnaest godina javnog financiranja audiovizualnih djelatnosti u brojkama; (2) Od razvoja do kina: putanja projekta kroz programe Centra; (3) Komplementarne djelatnosti 2008.–2026.: festivali, izdavaštvo, filmska kultura; (4) Debitantske kategorije i programi za djecu i mlade u javnim pozivima 2008.–2026. (prema oznakama u izvornim dokumentima); (5) Regionalna raspodjela potpora 2008.–2026. po sjedištu korisnika (sjedište po gradu i županiji dopunjuje se u registru tijekom istraživanja izvora); (6) Manjinske koprodukcije i međunarodna suradnja 2008.–2026., s bilješkom o pokrivenosti izvora.
+- Metodološke bilješke: 3 (ožujak, lipanj, studeni), HR: shema i rječnik polja; pokrivenost arhiva po godinama i preračun valuta; „Kako čitati registar” za novinare i istraživače.
+- Godišnji pregled „Javno financiranje audiovizualnih djelatnosti u Hrvatskoj 2008.–2027. (stanje na dan objave)”: 1, prosinac, HR/EN, na portalu i u PDF-u; referentni dokument za analizu i razvoj sektora čije se tablice mogu ponovno izračunati iz otvorenog registra.
 
-### 3.2. Nositelj i suradnici
+Ukupno najmanje 12 izdanja i 30 tekstova godišnje (najmanje 20 pregleda rokova, 6 analiza, 3 metodološke bilješke i godišnji pregled), uz uredničku bilješku u svakom izdanju. Svaki tekst nastaje iz provjerenog registra i svaki broj u njemu vodi do izvornog dokumenta: urednička je provjera zapisa standard izdanja, a ne zaseban projekt. Program 2027. financira jedno godište: dvanaest mjesečnih izdanja registra, najmanje 30 tekstova i status provjere za svaki zapis završnog izdanja (na dan 31. kolovoza 2026.: 9.561 zapis). Najveći trošak toga godišta jest urednička provjera zapis po zapis; provodi se po izvornom dokumentu, u sučelju koje usporedno prikazuje dokument i njegove zapise, pa se tablični rezultati s više desetaka zapisa provjeravaju u jednom prolazu, a ušteđeno vrijeme namijenjeno je skeniranim i starijim dokumentima.
 
-Aning Film je zagrebačka produkcijska kuća koja od 2010. djeluje u području filma, međunarodnih koprodukcija, transmedije, kulturnih programa i digitalnih alata za audiovizualni sektor. Program vodi Matija Radeljak, producent i autor projekta, koji je osmislio postojeću podatkovnu arhitekturu, razvio aplikaciju, izradio postupke obrade i proveo dosadašnje revizije.
+## 6. Urednički standard: provjera svakog zapisa
 
-Matija Radeljak odgovoran je za urednički standard, metodologiju, izbor i obuku suradnika, rješavanje spornih zapisa, razvoj podatkovne sheme, tehničku integraciju, javnu objavu i završnu primopredaju. Njegov rad tijekom 2027. Aning Film sufinancira razmjernim troškom plaće.
+Svaki zapis prolazi primarnu provjeru prema izvornom dokumentu u sedam polja: naziv projekta, korisnik i imenovani autori, program, godina i rok, iznos i valuta, status financiranja te poveznica na izvor. Istraživač-redaktor označava zapis kao potvrđen, ispravljen ili nerazriješen. Sve izmijenjene i nerazriješene zapise te nasumični uzorak od 10 % ostalih u drugom pregledu provjerava redaktor (drugi suradnik); o spornim zapisima odlučuje urednik. Izvorna vrijednost nikada se ne briše, nego ostaje u javnom dnevniku izmjena. Shema je javno objavljena, a pravila provjere objavljuju se s prvom metodološkom bilješkom (ožujak 2027.), pa provjeru svatko može ponoviti. Cilj nije prikriti neizvjesnost, nego osigurati da nijedna pretpostavka nije predstavljena kao potvrđena činjenica.
 
-Suradnici za ručnu provjeru angažirat će se nakon odobrenja projekta. Nije riječ o autorskim ili programskim pozicijama koje određuju koncepciju, nego o operativnim istraživačkim poslovima prema unaprijed definiranim pravilima. Kriteriji su visoka razina digitalne pismenosti, preciznost u radu s tablicama i PDF dokumentima, razumijevanje hrvatskoga jezika i osnovno poznavanje audiovizualnog sektora. Prednost će imati studenti i mlađi stručnjaci iz područja informacijskih znanosti, arhivistike, produkcije, filmologije, novinarstva i srodnih disciplina.
-
-### 3.3. Vremenski plan
-
-**Siječanj – ožujak:** završetak inventara izvora; službeni zahtjev HAVC-u; izrada sheme i priručnika; priprema alata za provjeru; izbor i obuka suradnika; pilot-provjera reprezentativnog uzorka.
-
-**Travanj – lipanj:** pronalaženje i unos nedostajućih izvora; ručna provjera starijih i tehnički najrizičnijih dokumenata; ispravci godina, kategorija, valuta i naziva korisnika; prva interna kontrola ukupnih iznosa.
-
-**Srpanj – rujan:** glavni produkcijski ciklus provjere svih redaka; povezivanje projekata i osoba; drugi pregled izmijenjenih i nerazriješenih zapisa; redovita objava potvrđenih verzija baze.
-
-**Listopad – prosinac:** nasumična kontrola najmanje deset posto neizmijenjenih zapisa; završno usklađivanje sa službenim zbrojevima; test održavanja na čistoj instalaciji; završni izvještaj, javno izdanje i predaja cjelovitog sustava HAVC-u.
+Opseg posla za 2027. poznat je: 341 dokument nosi oznaku za dodatnu provjeru (cilj do kraja 2027.: manje od 50), 173 nemaju pouzdano utvrđenu godinu, a 148 nema aktivnu izvornu poveznicu. Za pojedine godine (u proizvodnji osobito 2017., 2018. i 2021., u komplementarnim djelatnostima 2008. i 2022.) registar još ne doseže zbrojeve iz godišnjih planova Centra jer dio starije građe više nije na mreži, dio postoji samo kao sken, a struktura programa se mijenjala; u pojedinim godinama zbroj registra je i veći, što upućuje na dvostruke zapise u registru. I manjak i višak uklanja ista urednička provjera. Za građu koja više nije dostupna na mreži zamolit ćemo stručnu službu Centra za dopunu; provedba ne ovisi o odgovoru, a što se ne pronađe bit će javno popisano po godinama.
 
 <!-- PAGE BREAK -->
 
-## 4. Publika, dostupnost, vidljivost i održivost
+**Metoda i pokrivenost.** Podaci su iz dokumenata najprije izvučeni računalno (programskim skriptama i modelima za strojno čitanje dokumenata), a svaki takav automatski korak zabilježen je; to ubrzava rad, ali ne jamči točnost, pa program financira uredničku provjeru svakog zapisa, a ne daljnju automatizaciju. Gdje se zbroj registra razlikuje od usporedivog službenog zbroja (pregled dodjela 2008.–2023. u Godišnjem planu za 2024.) za više od jedan posto, objavljuje se objašnjenje s popisom dokumenata koji nedostaju; gdje je uzrok u registru, odstupanje se uklanja.
 
-Primarne skupine korisnika su filmski producenti, autori i drugi audiovizualni profesionalci kojima je potreban pregled prethodnih odluka i putanje pojedinog projekta; istraživači, studenti i nastavnici koji proučavaju hrvatsku kinematografiju i kulturne politike; novinari i organizacije civilnog društva koje rade s javnim podacima; javna tijela i ustanove koje pripremaju izvještaje; te zainteresirana javnost.
+## 7. Urednik i suradnici – reference
 
-Portal ostaje besplatan, bez registracije i bez oglašavanja. Omogućavat će pretraživanje i filtriranje prema godini, programu, kategoriji, roku, korisniku, autoru i projektu, pregled povijesti financiranja pojedinog projekta, analitičke prikaze te izravan pristup izvorima. Hrvatsko i englesko sučelje, prilagodba mobilnim uređajima, potpuna uporaba tipkovnicom, vidljiv fokus, tablične alternative grafovima i kontrast usklađen sa zahtjevima WCAG AA ostaju obvezni standardi.
+Program vodi i uređuje Matija Radeljak, producent i autor registra Sredstva (koncepcija, podatkovni model, četiri izdanja u 2026., javno objavljen kôd). Uz potporu Centra sudjelovao je u programima EAVE European Producers Workshop 2014, EAVE Film Finance Forum 2012, AdaptLab 2012 (TorinoFilmLab), BDC Discoveries 2014 i Media Business School 2013. Redatelj je i suscenarist eksperimentalnog filma „Violinist” (Studio Kubus, potpora Centra 2010.), autor i redatelj projekata „Jabuka” i „Odbjegli Twingo” (potpora Centra za razvoj 2014.) te voditelj programa komplementarnih djelatnosti „Croatia goes cross media” (potpora Centra 2013. i 2014.). Osnivač je Aning Filma (2010.); potpore navedene u zagradama provjerljive su u registru Sredstva. Aning Film d.o.o. producent je manjinske koprodukcije „Život kao novčić” (2013.); u izvorima do 2014. nastupa kao Aning usluge d.o.o., od 2015. kao Aning film d.o.o. Aning Film je sve prethodne ugovorne obveze prema Centru uredno ispunio, a vlastiti udio pokriva iz redovitih prihoda produkcijske djelatnosti.
 
-HAVC Companion ostaje pomoćni kanal pristupa. Na stranicama javnih poziva dodaje pretraživanje, oznake vrste dokumenta, pregled PDF-a i poveznicu na cjeloviti registar, bez brisanja ili mijenjanja službenog sadržaja. Korisnik može u svakom trenutku vratiti izvorni prikaz. Proširenje ne prikuplja osobne podatke niti povijest pregledavanja.
+Suradnici: dvoje istraživača-redaktora (studenti završnih godina ili mlađi stručnjaci informacijskih znanosti, arhivistike, filmologije ili produkcije), odabrani javnim pozivom otvorenim za cijelu Hrvatsku u siječnju 2027. i plaćenim probnim zadatkom na istom uzorku od 50 zapisa, s radom na daljinu; četvero vanjskih autora tematskih analiza iz redova filmskih kritičara i istraživača, poziv u veljači 2027.; lektor/lektorica hrvatskih tekstova i prevoditelj/prevoditeljica engleskih sažetaka i godišnjeg pregleda. Kriteriji za istraživače-redaktore su digitalna pismenost, preciznost u radu s tablicama i PDF dokumentima te osnovno poznavanje audiovizualnog sektora. Suradnici se biraju javnim pozivom, pa se njihove reference utvrđuju u postupku odabira prema navedenim kriterijima; popis odabranih suradnika s imenima i životopisima dostavlja se Centru prije potpisa ugovora.
 
-Vidljivost će se graditi objavom završnog izdanja i izravnim predstavljanjem strukovnim udrugama, produkcijskim kućama, filmskim školama, istraživačima, kulturnim redakcijama i organizacijama koje se bave otvorenim podacima. Planira se najmanje 5.000 posjeta portalu tijekom 2027. Mjerenje će biti zbirno i bez trajnog identifikatora korisnika. U javnoj komunikaciji jasno će se razlikovati službeni izvorni dokumenti HAVC-a od njihove neovisne strukturirane interpretacije.
+## 8. Ciljana publika i planirana posjećenost
 
-Održivost programa ne temelji se na trajnom financiranju opsežnog razvoja. Najveći trošak 2027. jest jednokratna dubinska ručna provjera povijesnog korpusa i uspostava standarda. Nakon toga se novi dokument obrađuje kroz unaprijed pripremljen, djelomično automatiziran postupak koji zahtijeva samo kratku ljudsku provjeru. Time se godišnji rad potreban za ažuriranje svodi na razumnu mjeru.
+Primarnu publiku čine oni čiji je rad u registru zabilježen: približno 900 korisnika potpora (pravnih i fizičkih osoba, nakon ujednačavanja naziva) i više od 1.500 imenovanih autora (redatelja, scenarista i autora predložaka), kojima je vlastita povijest financiranja izravno relevantna, te producenti koji pripremaju prijave. Sekundarnu publiku čine studenti i nastavnici filmskih, produkcijskih i informacijskih studija, istraživači kulturnih politika, novinari kulturnih redakcija, tijela javne vlasti te inozemni koproducenti i istraživači (englesko sučelje). Planirana posjećenost: najmanje 5.000 posjeta u 2027. Procjena je namjerno konzervativna donja granica; najveće korištenje očekujemo nakon svake objave rezultata, koju portal obradi unutar deset radnih dana. Mjerenje je zbirno, bez kolačića i bez praćenja pojedinačnih korisnika; ukupne vrijednosti od početka mjerenja (kolovoz 2026.) objavit će se u prvom izdanju 2027. Uz posjećenost prate se i ciljne vrijednosti: najmanje 300 preuzimanja skupa podataka (brojeno na poslužitelju, bez automatiziranih posjeta), najmanje 10 javnih navođenja evidentiranih u godišnjem pregledu i smanjenje broja dokumenata s oznakom za provjeru s 341 na manje od 50.
 
-Na kraju programa druga osoba, koja nije autor sustava, mora moći prema priručniku instalirati sustav, unijeti novu odluku, provesti kontrolu i objaviti novu valjanu verziju baze. Taj praktični test primopredaje bit će završni kriterij tehničke i organizacijske održivosti.
+## 9. Plan provedbe 2027.
 
-Program je izvediv i ako HAVC ne može dostaviti dodatnu arhivsku građu. U tom će slučaju završni skup transparentno razlikovati potvrđene podatke, podatke koji se mogu rekonstruirati iz više službenih izvora i zapise koji se zbog nedostupnosti izvora ne mogu potvrditi. Ako HAVC omogući pristup potpunijem arhivu, isti postupak omogućuje njegov kontrolirani unos bez promjene osnovne arhitekture.
+**Siječanj–ožujak:** izdanja v2027.01–03; najava programa, javni poziv istraživačima-redaktorima (siječanj) i vanjskim autorima (veljača); shema, priručnik i sučelje za provjeru; plaćeni probni zadatak na 50 zapisa i obuka; analiza 1; metodološka bilješka 1. **Travanj–lipanj:** v2027.04–06; analize 2 i 3; bilješka 2; provjera najstarijih i skeniranih dokumenata; istraživanje izvora i evidentiranje sjedišta korisnika; prvo predstavljanje. **Srpanj–rujan:** v2027.07–09; analiza 4; glavni ciklus provjere; drugi pregled izmijenjenih i nerazriješenih zapisa. **Listopad–prosinac:** v2027.10–12; analize 5 i 6; bilješka 3; kontrolni uzorak 10 %; godišnji pregled do 20. prosinca 2027.; paket za ponovnu uporabu i test instalacije; drugo predstavljanje; izvještaj. Pregledi rokova izlaze tijekom cijele godine. Raspored se prilagođava datumu potpisa ugovora: probni zadatak i obuka počinju vlastitim sredstvima. U slučaju odobrenja manjeg iznosa urednički plan i kontinuitet ažuriranja ostaju nepromijenjeni, a razmjerno se smanjuje opseg jednokratne provjere povijesnog korpusa, počevši od najstarijih godina; svaka neprovjerena godina ostaje javno označena.
 
-Projekt tako službenu objavu pojedinačnih odluka nadopunjuje trajnim javnim izdanjem koje podatke čini pretraživima, usporedivima, ponovljivo upotrebljivima i provjerljivima. Završni rezultat nije samo mrežna stranica, nego dokumentiran urednički i tehnički sustav koji se može održavati, preuzeti i dalje razvijati.
+<!-- PAGE BREAK -->
+
+## 10. Dostupnost, vidljivost i komunikacija
+
+Portal je besplatan, bez registracije i oglasa, na hrvatskom i engleskom, prilagođen mobilnim uređajima, u cijelosti upotrebljiv tipkovnicom, sa svakim grafičkim prikazom dostupnim i kao tablica te s kontrastom prema smjernicama pristupačnosti WCAG (razina AA). Komunikacija prati ritam izdanja. Prije početka: u siječnju 2027. najava programa, javni poziv istraživačima-redaktorima i objava uredničkog plana; u veljači poziv vanjskim autorima. Tijekom godine: uz svako mjesečno izdanje bilješka na portalu i objava na društvenim mrežama; uz svaku analizu sažetak za kulturne redakcije; pregled svakog roka u pravilu unutar deset radnih dana. Na kraju: u prosincu 2027. godišnji pregled i izvještaj o pokrivenosti, ispravcima i posjećenosti. Planirana su dva javna predstavljanja, jedno u Zagrebu i jedno izvan Zagreba (Split, Osijek ili Rijeka), koja će se ponuditi filmskim akademijama i fakultetima (npr. ADU, UMAS) i strukovnim udrugama (npr. HDFD, HFS); pozivi se šalju u siječnju 2027., a provedba ne ovisi o odgovoru. Planirana je i razmjena poveznica s postojećim filmskim portalima i inicijativama za otvorene podatke. Kao pomoćni kanal pristupa registru pripremljen je i neovisan preglednički dodatak Aning Filma (inačica 0.2.0), koji radi isključivo u korisnikovu pregledniku, ne mijenja službeni sadržaj mrežnih stranica Centra i nikamo ne šalje podatke; prijava za objavu u Chrome Web Storeu planirana je do 28. veljače 2027.
+
+## 11. Prava i otvorenost
+
+Aning Film d.o.o. osigurava sva prava na registar, tekstove, prijevode, oblikovanje i kôd (autor: Matija Radeljak) i objavit će ih pod otvorenim licencama: EUPL 1.2 za kôd, CC BY 4.0 za strukturirane podatke, shemu, dokumentaciju i tekstove. Licence ne obuhvaćaju tekstove izvornih dokumenata Centra: u skupu podataka reproduciraju se isključivo radi provjerljivosti, uvijek s poveznicom na izvor i digitalnim otiskom, a prava na njih pripadaju Centru. Registar sadrži samo osobne podatke koje je Centar već objavio u odlukama (imena podnositelja i autora uz projekt i iznos) i ne spaja ih s drugim izvorima; svatko može zatražiti ispravak putem kontaktne adrese podnositelja, a ispravci se bilježe u dnevniku izmjena. Preporučeni navod: „Izvor: javno objavljeni dokumenti HAVC-a, obrađeni u registru Sredstva (Aning Film), izdanje 2027.x”.
+
+## 12. Održivost i financijski okvir
+
+Urednička provjera povijesnog korpusa jednokratan je trošak uspostave. Od 2028. održavanje zahtijeva samo obradu novih odluka i uredničke tekstove. Kôd će biti objavljen pod licencom EUPL 1.2, a shema, dokumentacija i samostalno izrađena strukturirana baza pod CC BY 4.0, pa ih Centar ili bilo koja druga javna ustanova može bez naknade preuzeti, prilagoditi i održavati. Do 31. prosinca 2027. pripremit ćemo paket za ponovnu uporabu, ponuditi ga Centru i predložiti da provjereni skup objavi kao vlastiti otvoreni skup na data.gov.hr; pokazatelj uspjeha bit će objavljeni paket za ponovnu uporabu i uspješan test instalacije i unosa nove odluke koji provodi osoba koja nije autor. Provedba i održavanje izdanja ne ovise o toj odluci.
+
+Potpora od 7.500 EUR u cijelosti je namijenjena honorarima i vanjskim uslugama: 46 radnih dana uredničke provjere i istraživanja izvora, četiri vanjska autorska teksta, lektura, prijevod i oblikovanje godišnjeg pregleda te dva predstavljanja, što je manje od jednog eura po zapisu (9.561 zapis, 19 godina, 13 programskih skupina). Nijedan euro potpore nije namijenjen podnositelju ni uredniku. Vlastiti udio od 4.500 EUR (37,50 %) pokriva rad urednika, poslužiteljske usluge i uredske troškove; izradu sučelja za provjeru i tehničko održavanje portala Aning Film osigurava izvan troškovnika, kao dio infrastrukture razvijene 2026. Program ne planira prihode od korisnika (besplatan, bez oglasa), a vrijednost razvoja iz 2026. nije uračunata u vlastiti udio. Traženi iznos odgovara opsegu godišta: dvanaest izdanja i najmanje 30 tekstova (kontinuitet i periodičnost), publika koja obuhvaća cijeli sektor i inozemne istraživače (raznovrsnost), registar zapis po zapis s izvorom za svaki iznos (složenost i inovativnost) te godišnji pregled kao referentni dokument za analizu i razvoj sektora (značaj). Sredstva službenu objavu pojedinačnih odluka nadopunjuju trajnim, provjerenim i otvorenim izdanjem koje sektoru na jednom mjestu daje pretraživ, provjerljiv i ponovljiv uvid u vlastito javno financiranje.

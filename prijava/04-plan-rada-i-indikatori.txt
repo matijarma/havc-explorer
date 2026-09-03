@@ -1,92 +1,141 @@
 # Plan rada, kontrolne točke i pokazatelji
 
+Interni radni dokument uz prijavu programa „Sredstva: otvoreni registar javnog financiranja audiovizualnih djelatnosti” (Aning Film d.o.o., urednik Matija Radeljak) na javni poziv Hrvatskog audiovizualnog centra (dalje: Centar) za poticanje komplementarnih djelatnosti u 2027. Svi brojevi preuzeti su iz project.json; urednički plan i raspored moraju mjesec po mjesec odgovarati detaljnom opisu programa (01) i odgovorima za prijavnicu (02). Dokument se ne renderira u paketu za predaju.
+
+## Pokazatelji izdanja
+
+### Obveze programa
+
+- Dvanaest mjesečnih izdanja registra (v2027.01–v2027.12), svako s uredničkom bilješkom o promjenama (što je dodano, ispravljeno, otvoreno), HR/EN. Izdanje je datirana objava registra s brojem izdanja i uredničkom bilješkom o promjenama.
+- Najmanje 30 tekstova godišnje: pregledi rokova (procjena 20–25; 2024.: 21, 2025.: 23 objavljene kombinacije programa i roka; 300–600 riječi), šest tematskih analiza (800–1.500 riječi, od toga četiri vanjskih autora) i tri metodološke bilješke (ožujak, lipanj, studeni).
+- Pregled rezultata svakog objavljenog roka 2027. po programu, u pravilu unutar deset radnih dana od objave Centra; rezultati roka uneseni su u registar u istom razdoblju.
+- Godišnji pregled „Javno financiranje audiovizualnih djelatnosti u Hrvatskoj 2008.–2027.” (stanje na dan objave), HR/EN, web i PDF, objavljen do 20. prosinca 2027.
+- Svaki zapis završnog izdanja nosi status provjere (potvrđen / ispravljen / nerazriješen) i poveznicu na izvorni dokument ili obrazložen status nedostupnosti; svaki izmijenjeni i nerazriješeni zapis ima drugi pregled; kontrolni uzorak od 10 % ostalih zapisa.
+- Dva javna predstavljanja izdanja, jedno u Zagrebu i jedno izvan Zagreba (Split, Osijek ili Rijeka) (Split, Osijek ili Rijeka).
+- Neslužbeni preglednički dodatak HAVC Companion (inačica 0.2.0) predan na objavu u Chrome Web Storeu do 28. veljače 2027.
+- Objavljen paket za ponovnu uporabu (kôd EUPL 1.2; shema, dokumentacija i strukturirana baza CC BY 4.0) i uspješan test instalacije i unosa nove odluke koji provodi osoba koja nije autor.
+
+### Pokazatelji koji se prate
+
+- Najmanje 5.000 posjeta u 2027. Mjerenje je zbirno, bez kolačića i praćenja pojedinačnih korisnika; zbirne vrijednosti od početka mjerenja (kolovoz 2026.) objavljuju se u izdanju v2027.01, a stanje se navodi u svakoj uredničkoj bilješci.
+- Najmanje 300 preuzimanja skupa podataka. Preuzimanje se broji kao zahtjev na poslužitelju za datoteke skupa (JSON i CSV) bez poznatih robota; broje se zahtjevi, ne osobe.
+- Najmanje 10 javnih navođenja registra (mediji, znanstveni i stručni radovi, prijave na javne pozive, službeni dokumenti). Navođenja se prikupljaju tijekom godine i evidentiraju u godišnjem pregledu; broje se samo navođenja koja se mogu javno provjeriti.
+- Trajni identifikator za citiranje godišnjeg izdanja, dodijeljen pri objavi u prosincu 2027. i naveden u preporučenom navodu.
+- Broj dokumenata s oznakom za dodatnu provjeru smanjen s 341 (stanje 31. kolovoza 2026.) na manje od 50; stanje se objavljuje u svakoj uredničkoj bilješci.
+
 ## Polazni presjek
 
-Presjek treba ponovno izračunati neposredno prije predaje i označiti datumom.
+Presjek odgovara stanju registra na dan 31. kolovoza 2026. (project.json, blok baseline). Neposredno prije predaje ponovno ga izračunati iz data.json i, ako se promijenio, uskladiti u svim dokumentima prijave.
 
-| Pokazatelj | Trenutačno stanje |
+| Pokazatelj | Stanje 31. kolovoza 2026. |
 |---|---:|
 | Izvorni dokumenti | 1.021 |
-| Dokumenti rezultata | 557 |
+| Tablični dokumenti rezultata | 557 |
 | Obrazloženja | 328 |
 | Pojedinačne odluke | 51 |
-| Strukturirani retci financiranja | 9.561 |
+| Zapisi financiranja (retci) | 9.561 |
 | Potvrđene dodjele | 9.560 |
-| Povezane porodice projekata | 6.593 |
+| Skupine povezanih projekata | 6.593 |
 | Dokumenti bez pouzdano utvrđene godine | 173 |
-| Dokumenti bez potpuno utvrđene programske kategorije | 85 |
+| Pomoćni dokumenti bez podataka o financiranju (bez programske skupine) | 85 |
 | Dokumenti bez aktivne izvorne poveznice | 148 |
-| Dokumenti s upozorenjem za dodatnu provjeru | 341 |
+| Dokumenti s oznakom za dodatnu provjeru | 341 |
+
+Napomene uz presjek:
+
+- Razlika između 9.561 retka i 9.560 potvrđenih dodjela: jedan odobreni projekt (2020., kratkometražni film) odustao je od sklapanja ugovora o sufinanciranju pa se ne broji kao dodjela. Redak ostaje u registru s odgovarajućim statusom.
+- Javno objavljena datoteka usporedbe sa službenim zbrojevima (web/havc/10_sanity_check_official.json, izrađena 23. svibnja 2026.; 10.682 → 9.350 redaka nakon uklanjanja dvostrukih zapisa) starija je od presjeka na dan 31. kolovoza 2026. i ne odgovara današnjem broju zapisa. Ponovno se izrađuje i objavljuje uz izdanje v2027.01; do tada se u prijavi navode samo godine s odstupanjem, bez postotaka.
+- Četiri objave registra u 2026. (svibanj, lipanj, srpanj, kolovoz) vode se kao datirana ažuriranja, bez oznake inačice u repozitoriju. Verzionirana izdanja s uredničkom bilješkom počinju s v2027.01.
+- Brojevi 173, 148 i 341 nisu nedostaci koje treba skrivati, nego opseg posla za 2027.: svaki od tih dokumenata prolazi RP1 ili RP3. 85 pomoćnih dokumenata (pravilnici, godišnji planovi, obavijesti, skenovi bez podataka) ne sadrže zapise i nisu predmet provjere zapisa.
 
 ## Radni paketi
 
-### RP1 — Izvori i arhiv
+### RP1 — Izvori i nadopuna arhiva
 
-- Zamrznuti početni presjek baze i izraditi kontrolne sažetke.
-- Usporediti korpus sa službenim stranicama, godišnjim planovima i izvještajima.
-- Izraditi popis nedostajućih, oštećenih i nedostupnih dokumenata.
-- Uputiti HAVC-u formalni i precizan zahtjev za dopunu građe.
-- Za svaki nedostupan izvor evidentirati provedene korake i posljedice za podatke.
+- Zamrznuti početni presjek registra i izraditi digitalni otisak svake izvorne datoteke.
+- Usporediti korpus sa stranicama javnih poziva, godišnjim planovima i izvještajima Centra.
+- Izraditi popis dokumenata koji više nisu dostupni na mreži, koji su oštećeni ili postoje samo kao sken.
+- Za dokumente koji više nisu dostupni na mrežnim stranicama zamoliti stručnu službu Centra za dopunu građe; svaki nedostupan izvor bit će jasno označen, a provedba ne ovisi o odgovoru.
+- Za svaki nedostupan izvor evidentirati što je pretraženo, kada je zamoljeno i kako nedostupnost utječe na podatak; popis po godinama objavljuje se u metodološkoj bilješci 2 (lipanj) i u godišnjem pregledu.
+- Evidentirati sjedište korisnika (grad/županija) kao dopunu registra za analizu 5.
 
-### RP2 — Shema i protokol provjere
+### RP2 — Shema, priručnik i sučelje za provjeru
 
-- Definirati JSON Schema i CSV rječnik.
-- Uvesti stabilne identifikatore i zapis provenijencije.
-- Definirati statuse: `verified`, `corrected`, `unresolved`, `not_applicable`.
-- Izraditi priručnik s primjerima čestih pogrešaka i pravilima odlučivanja.
-- Izraditi praktični test i kratku obuku za suradnike.
+- Objaviti shemu i rječnik polja (JSON Schema, dokumentirani CSV) kao metodološku bilješku 1 (ožujak).
+- Uvesti stabilne identifikatore i zapis o podrijetlu svakog podatka (izvorni dokument, stranica, digitalni otisak).
+- Definirati statuse provjere: potvrđen / ispravljen / nerazriješen.
+- Izraditi priručnik za provjeru s primjerima čestih pogrešaka i pravilima odlučivanja.
+- Pripremiti sučelje za provjeru koje usporedno prikazuje izvorni dokument i zapis.
+- Izraditi plaćeni probni zadatak na uzorku od 50 zapisa (isti uzorak za sve kandidate) i kratku obuku.
 
-### RP3 — Primarna ručna provjera
+### RP3 — Primarna urednička provjera (istraživači-redaktori)
 
-- Otvoriti svaki zapis uz pripadajući izvor.
-- Potvrditi ili ispraviti sve ključne podatke.
-- Ne mijenjati izvornu vrijednost bez revizijskog zapisa.
-- Sve nejasnoće usmjeriti voditelju na uredničku odluku.
+- Otvoriti svaki zapis uz pripadajući izvorni dokument.
+- Potvrditi ili ispraviti sedam polja: naslov projekta ili programa, podnositelj i druge navedene osobe, program i skupina, godina i rok, iznos, valuta i preračun, status financiranja, veza s izvornom stranicom dokumenta.
+- Označiti zapis kao potvrđen, ispravljen ili nerazriješen i priložiti kratku bilješku kad je potrebna urednička odluka.
+- Ne mijenjati izvornu vrijednost bez zapisa u dnevniku izmjena; izvorna vrijednost uvijek se čuva.
+- Sve nejasnoće usmjeriti uredniku na odluku.
+- Redoslijed: najprije najstariji i skenirani dokumenti (travanj–lipanj), zatim glavni ciklus po godinama (srpanj–rujan). Referentni tempo: oko 300 zapisa po radnom danu u sučelju za provjeru, 32 radna dana.
 
-### RP4 — Drugi pregled i usklađivanje
+### RP4 — Drugi pregled i usporedba sa službenim zbrojevima (redaktor, drugi pregled)
 
 - Ponovno provjeriti sve ispravljene i nerazriješene zapise.
-- Ponovno provjeriti najmanje 10% slučajno odabranih neizmijenjenih zapisa.
-- Usporediti godišnje zbrojeve s raspoloživim službenim pregledima.
-- Ukloniti ili dokumentirati svako odstupanje veće od 1%.
+- Ponovno provjeriti najmanje 10 % slučajno odabranih zapisa koji u prvom prolazu nisu mijenjani.
+- Usporediti zbrojeve registra po godini i programu s usporedivim službenim zbrojevima (pregled dodjela 2008.–2023. u Godišnjem planu za 2024.).
+- Za svaku godinu i program gdje se zbroj registra razlikuje za više od jedan posto objaviti javno objašnjenje s popisom dokumenata koji nedostaju; gdje je uzrok u registru, odstupanje ukloniti.
+- Ujednačiti nazive korisnika, autora i projekata te ukloniti stvarne dvostruke zapise; svaka promjena ostaje u dnevniku izmjena.
+- Redaktor ne pregledava zapise koje je sam primarno provjerio.
 
-### RP5 — Objavljivanje i primopredaja
+### RP5 — Izdanja, paket za ponovnu uporabu i test instalacije
 
-- Generirati kanonski JSON, dokumentirani CSV i mali aplikacijski paket.
-- Objaviti verziju, datum, promjene, pokrivenost i poznata ograničenja.
-- Uskladiti portal Sredstva i HAVC Companion s istim kanonskim izdanjem.
-- Provesti instalaciju i unos nove odluke prema priručniku na čistom računalu.
-- Predati HAVC-u repozitorij, podatke, shemu, alate, testove, priručnik i završni izvještaj.
+- Svako mjesečno izdanje objaviti kao glavno izdanje registra (JSON i CSV) s oznakom inačice, datumom, uredničkom bilješkom, pokrivenošću i poznatim ograničenjima.
+- Portal, otvoreni skup podataka i preglednički dodatak nastaju iz istoga glavnog izdanja registra.
+- Pripremiti paket za ponovnu uporabu: kôd, shema, dokumentacija, podaci, upute za instalaciju i unos nove odluke, pod otvorenim licencama.
+- Provesti test instalacije i unosa nove odluke koji provodi osoba koja nije autor, isključivo prema dokumentaciji; test se ponavlja dok ne prođe bez pomoći autora.
+- Paket ponuditi Centru i predložiti objavu provjerenog skupa na data.gov.hr; provedba i održavanje izdanja ne ovise o toj odluci.
+
+### RP6 — Uredništvo: izdanja i tekstovi (siječanj–prosinac)
+
+- Mjesečna izdanja v2027.01–v2027.12 s uredničkom bilješkom, HR/EN.
+- Pregled rezultata svakog objavljenog roka po programu, 300–600 riječi, u pravilu unutar deset radnih dana od objave Centra.
+- Šest tematskih analiza redom: (1) Devetnaest godina javnog financiranja audiovizualnih djelatnosti u brojkama; (2) Od razvoja do kina: putanja projekta kroz programe Centra; (3) Komplementarne djelatnosti 2008.–2026.: festivali, izdavaštvo, filmska kultura; (4) Debitantske kategorije i programi za djecu i mlade u javnim pozivima 2008.–2026. (prema oznakama u izvornim dokumentima); (5) Regionalna raspodjela potpora 2008.–2026. po sjedištu korisnika (uz dopunu registra sjedištem korisnika iz RP1); (6) Manjinske koprodukcije i međunarodna suradnja 2008.–2026. (objavljuje se s bilješkom o pokrivenosti izvora). Analize opisuju stanje i kretanja, ne ocjenjuju pojedinačne odluke. Vanjski autori pišu četiri analize; urednik piše dvije.
+- Tri metodološke bilješke: 1 shema i rječnik polja (ožujak); 2 pokrivenost arhiva po godinama, uključujući preračun kuna u eure fiksnim tečajem 7,5345 u nominalnim vrijednostima (lipanj); 3 „Kako čitati registar” za novinare i istraživače (studeni).
+- Godišnji pregled do 20. prosinca 2027.; lektura, prijevod i grafičko oblikovanje godišnjeg pregleda u studenom i prosincu, lektura i prijevod ostalih tekstova u ritmu izdanja.
+- Javni poziv istraživačima-redaktorima (siječanj) i vanjskim autorima (veljača); dva javna predstavljanja; završni izvještaj o pokrivenosti, ispravcima i posjećenosti (prosinac).
 
 ## Vremenski raspored
 
-| Razdoblje | Glavne aktivnosti | Kontrolna točka |
-|---|---|---|
-| siječanj – ožujak 2027. | RP1 i RP2; izbor i obuka suradnika | potvrđen inventar, shema v2 i uspješna pilot-provjera |
-| travanj – lipanj 2027. | RP1 i RP3; povijesne praznine i rizični dokumenti | obrađena prva polovica prioritetnog korpusa |
-| srpanj – rujan 2027. | RP3 i RP4; glavni ciklus provjere | svaki redak prošao primarnu provjeru ili ima obrazloženi otvoreni status |
-| listopad – prosinac 2027. | RP4 i RP5; završna kontrola i predaja | završno izdanje, izvještaj i uspješan test primopredaje |
+Raspored je prilagodljiv datumu ugovora: pilot i obuka počinju vlastitim sredstvima. Urednički izlaz u ovoj tablici mora odgovarati planu provedbe u 01 (§9).
 
-## Mjerljivi pokazatelji
+| Razdoblje | Urednički izlaz (RP6) | Provjera, izvori i alati (RP1–RP5) | Kontrolna točka |
+|---|---|---|---|
+| siječanj – ožujak 2027. | izdanja v2027.01–v2027.03; najava programa i javni poziv istraživačima-redaktorima (siječanj); poziv vanjskim autorima (veljača); pregledi rokova objavljenih u razdoblju; analiza 1 (veljača–ožujak); metodološka bilješka 1 (ožujak); dodatak predan na objavu do 28. veljače | RP1 inventar izvora i zamolba za dopunu građe; RP2 shema, priručnik i sučelje za provjeru; plaćeni probni zadatak na 50 zapisa i obuka; RP5 postupak objave izdanja | tri izdanja objavljena; shema i priručnik javni; dvoje istraživača-redaktora odabrano i obučeno; dodatak predan |
+| travanj – lipanj 2027. | izdanja v2027.04–v2027.06; analize 2 i 3; pregledi rokova; metodološka bilješka 2 s popisom nedostupnih izvora po godinama (lipanj); prvo javno predstavljanje | RP3 provjera najstarijih i skeniranih dokumenata; RP1 istraživanje izvora, unos novopronađenih dokumenata i evidentiranje sjedišta korisnika | izdanja v2027.01–v2027.06 i analize 1–3 objavljene; najstariji i skenirani dokumenti prošli primarnu provjeru; popis nedostupnih izvora javan |
+| srpanj – rujan 2027. | izdanja v2027.07–v2027.09; analiza 4; pregledi rokova (uključujući rezultate sjednica iz ljeta) | RP3 glavni ciklus primarne provjere; RP4 drugi pregled izmijenjenih i nerazriješenih zapisa počinje | devet izdanja objavljenih; svaki zapis prošao primarnu provjeru ili nosi status nerazriješen s obrazloženjem |
+| listopad – prosinac 2027. | izdanja v2027.10–v2027.12; analize 5 (listopad) i 6 (s bilješkom o pokrivenosti izvora); metodološka bilješka 3 (studeni); godišnji pregled do 20. prosinca (HR/EN, web i PDF); drugo javno predstavljanje; završni izvještaj | RP4 kontrolni uzorak 10 % i usporedba sa službenim zbrojevima; RP5 paket za ponovnu uporabu i test instalacije koji provodi osoba koja nije autor | dvanaest izdanja i najmanje 30 tekstova objavljeni; godišnji pregled s trajnim identifikatorom; test instalacije prošao; izvještaj predan |
 
-- 100% zapisa završnog izdanja ima status provjere.
-- 100% ispravljenih i nerazriješenih zapisa ima drugi pregled.
-- Najmanje 10% neizmijenjenih zapisa ima dodatnu nasumičnu kontrolu.
-- 100% javno objavljenih iznosa ima poveznicu na izvor ili obrazložen status nedostupnosti.
-- Nema neobjašnjenog odstupanja većeg od 1% u usporedivim godišnjim zbrojevima.
-- Nova službena odluka može se obraditi i objaviti prema dokumentiranom postupku.
-- JSON, CSV i aplikacijski paket prolaze istu automatsku validaciju i daju jednake zbrojeve.
-- Portal ostaje dostupan na hrvatskom i engleskom jeziku te uporabljiv tipkovnicom i na mobilnim uređajima.
-- Ostvareno je najmanje 5.000 posjeta portalu tijekom 2027., mjerenih zbirno i bez trajnog identifikatora.
-- HAVC-u je do 31. prosinca 2027. dostavljen potpuni otvoreni paket za održavanje i razvoj.
+## Pokazatelji uredničke provjere
+
+- 100 % zapisa završnog izdanja ima status provjere (potvrđen / ispravljen / nerazriješen).
+- 100 % ispravljenih i nerazriješenih zapisa ima drugi pregled koji nije proveo isti suradnik.
+- Najmanje 10 % zapisa koji u prvom prolazu nisu mijenjani ima dodatnu nasumičnu kontrolu.
+- 100 % javno objavljenih iznosa ima poveznicu na izvorni dokument i digitalni otisak ili obrazložen status nedostupnosti.
+- Nema nedokumentiranog odstupanja većeg od jedan posto u usporedivim zbrojevima po godini i programu: za svako takvo odstupanje objavljeno je javno objašnjenje s popisom dokumenata koji nedostaju, a odstupanja s uzrokom u registru uklonjena su.
+- Nova odluka Centra unosi se i objavljuje prema dokumentiranom postupku; rezultati svakog roka 2027. uneseni su u pravilu unutar deset radnih dana.
+- JSON, CSV i podatkovni paket za portal prolaze istu automatsku provjeru i daju jednake zbrojeve.
+- Portal ostaje dostupan na hrvatskom i engleskom jeziku, uporabljiv tipkovnicom i na mobilnim uređajima (WCAG AA).
+- Objavljen je paket za ponovnu uporabu i uspješno je proveden test instalacije i unosa nove odluke koji provodi osoba koja nije autor.
 
 ## Upravljanje rizicima
 
 | Rizik | Odgovor |
 |---|---|
-| HAVC ne može dostaviti dio arhive | Program se dovršava iz javnih izvora, a svaka praznina ostaje eksplicitno dokumentirana. |
-| Izvor je skeniran ili oštećen | OCR služi kao pomoć; konačnu vrijednost potvrđuje čovjek ili zapis ostaje nerazriješen. |
-| Suradnik radi nedosljedno | Ulazni test, obuka, radni uzorci, drugi pregled i revizijski trag. |
-| Opseg novih podataka premaši plan | Prioritet su odluke o financiranju; pomoćni dokumenti obrađuju se prema riziku, bez snižavanja standarda zapisa koji se objavljuju. |
-| Promjena HAVC-ove strukture stranica | Izvorni registar odvaja podatkovnu shemu od načina preuzimanja, pa se mijenja samo adapter za unos. |
-| Sustav ostane ovisan o autoru | Završni test provodi druga osoba isključivo prema priručniku. |
+| Dio starije građe nije dostupan na mreži ni nakon zamolbe stručnoj službi Centra | Program se dovršava iz javnih izvora; svaki nedostupan izvor ostaje jasno označen i javno popisan po godinama. Provedba ne ovisi o odgovoru. |
+| Izvor je skeniran ili oštećen | OCR služi kao pomoć; konačnu vrijednost potvrđuje čovjek ili zapis ostaje nerazriješen s obrazloženjem. |
+| Suradnik radi nedosljedno | Plaćeni probni zadatak na istom uzorku od 50 zapisa, obuka, priručnik, drugi pregled i dnevnik izmjena; urednik odlučuje o spornim zapisima. |
+| Centar objavi više rokova ili odluka nego što je procijenjeno (20–25) | Prednost imaju unos rezultata i pregled roka unutar deset radnih dana; pomoćni dokumenti obrađuju se prema važnosti, bez snižavanja standarda zapisa koji se objavljuju. Broj tekstova time raste, ne pada. |
+| Vanjski autor ne isporuči analizu na vrijeme | Urednik piše zamjenski tekst ili se poziva drugi autor s liste iz javnog poziva; najmanje 30 tekstova godišnje ostaje obveza. |
+| Promjena strukture mrežnih stranica Centra | Registar odvaja podatke od načina preuzimanja pa se mijenja samo dio postupka za preuzimanje stranica; preglednički dodatak ažurira se u sljedećem izdanju. |
+| Ugovor se potpiše kasnije od siječnja | Pilot, obuka i izdanja v2027.01–v2027.03 počinju vlastitim sredstvima; raspored provjere pomiče se unutar godine, urednički plan ostaje. |
+| Odobren manji iznos | Urednički plan i kontinuitet ažuriranja ostaju nepromijenjeni, a razmjerno se smanjuje opseg jednokratne provjere povijesnog korpusa počevši od najstarijih godina; svaka neprovjerena godina ostaje javno označena. |
+| Izdanje ostane ovisno o autoru | Test instalacije i unosa nove odluke provodi osoba koja nije autor, isključivo prema dokumentaciji; test se ponavlja dok ne prođe. |

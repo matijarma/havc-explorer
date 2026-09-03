@@ -1,29 +1,17 @@
 const documents = {
-	'00-podaci-za-potvrdu.txt': 'Podaci za potvrdu prije predaje',
 	'01-detaljni-opis-programa.txt': 'Izvor detaljnog opisa programa',
 	'02-portal-odgovori.txt': 'Odgovori za HAVC-ovu online prijavnicu',
 	'03-troskovnik.txt': 'Izvor troškovnika',
 	'04-plan-rada-i-indikatori.txt': 'Plan rada i indikatori',
 	'05-tim-i-reference.txt': 'Tim i reference',
-	'06-dokazi-i-prilozi.txt': 'Dokazi i prilozi',
-	'07-predaja-checklist.txt': 'Završna kontrolna lista',
-	'IZVORI.txt': 'Službeni izvori',
-	'README.txt': 'Pregled prijavnog paketa',
-	'VALIDACIJA.txt': 'Validacija prijavnog paketa',
 };
 
 const noteItems = {
-	'00-podaci-za-potvrdu.txt': 'potvrde',
 	'01-detaljni-opis-programa.txt': 'program-opis',
 	'02-portal-odgovori.txt': 'portal-odgovori',
 	'03-troskovnik.txt': 'troskovnik',
 	'04-plan-rada-i-indikatori.txt': 'plan-rada',
 	'05-tim-i-reference.txt': 'tim-reference',
-	'06-dokazi-i-prilozi.txt': 'dokazi-prilozi',
-	'07-predaja-checklist.txt': 'checklist',
-	'IZVORI.txt': 'arhiva',
-	'README.txt': 'arhiva',
-	'VALIDACIJA.txt': 'validacija',
 };
 
 const requested = new URLSearchParams(location.search).get('doc') || '';

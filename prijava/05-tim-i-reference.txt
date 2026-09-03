@@ -1,10 +1,17 @@
 # Tim i reference
 
+Sredstva su neovisno izdanje Aning Filma d.o.o. Podnositelj, urednik i suradnici opisani su u nastavku; u prijavu se prenose samo provjerene reference. Sve potpore Hrvatskog audiovizualnog centra (dalje: Centar) navedene u zagradama provjerljive su u registru Sredstva.
+
 ## Podnositelj — Aning Film d.o.o.
 
-Aning Film je zagrebačka produkcijska kuća koja od 2010. djeluje u području filma, međunarodnih koprodukcija, transmedije, kulturnih programa i digitalnih alata. Tvrtka spaja produkcijsko razumijevanje audiovizualnog sektora s praktičnim razvojem sustava koji olakšavaju rad autora, producenata, istraživača i publike.
+Aning Film d.o.o. je zagrebačka produkcijska kuća koja od 2010. djeluje u području filma, međunarodnih koprodukcija i programa za filmske profesionalce; od 2026. izdaje registar Sredstva. Tvrtka je manjinski koproducent igranog filma Život kao novčić (2013., redatelj Franco Dipietro) i nositelj programa komplementarnih djelatnosti Croatia goes cross media (potpora Centra 2013. i 2014.). U izvorima do 2014. tvrtka nastupa kao Aning usluge d.o.o., od 2015. kao Aning film d.o.o. Aning Film je sve prethodne ugovorne obveze prema Centru uredno ispunio.
 
-Za konačnu prijavu iz HAVC-ova profila ili aktualnog sudskog izvatka prepisati:
+Napomene za provjeru prije predaje:
+
+- potvrditi godinu promjene naziva (Aning usluge d.o.o. → Aning film d.o.o.) u sudskom registru i prema potrebi ispraviti godine u rečenici o nazivu;
+- potvrditi da je ugovor za film Violinist, naveden u Godišnjem planu Centra za 2024., zaključen; ako nije, rečenicu o ugovornim obvezama zamijeniti s: „Aning Film nema dospjelih neispunjenih obveza prema Centru.”
+
+Za konačnu prijavu iz profila podnositelja u portalu Centra ili aktualnog sudskog izvatka prepisati:
 
 - puni registrirani naziv;
 - sjedište i adresa;
@@ -12,56 +19,72 @@ Za konačnu prijavu iz HAVC-ova profila ili aktualnog sudskog izvatka prepisati:
 - osoba ovlaštena za zastupanje;
 - djelatnosti relevantne za audiovizualno stvaralaštvo, izdavaštvo, mrežne portale ili obradu podataka.
 
-## Voditelj, autor i urednik — Matija Radeljak
+## Urednik — Matija Radeljak
 
-Matija Radeljak je filmski producent, autor i programer te osnivač Aning Filma. Od 2009. radi na razvoju i produkciji audiovizualnih projekata, međunarodnim koprodukcijama, programima za filmske profesionalce i transmedijskim projektima. Aning Film vodi od 2010. godine.
+Matija Radeljak je autor i urednik registra Sredstva (2026.: koncepcija, podatkovni model, četiri datirana izdanja, javno objavljen kod); uz potporu Centra sudjelovao je na programima EAVE European Producers Workshop 2014, EAVE Film Finance Forum 2012, AdaptLab 2012 (TorinoFilmLab), BDC Discoveries 2014 i Media Business School 2013; redatelj je i suscenarist eksperimentalnog filma Violinist (Studio Kubus, potpora Centra 2010.), autor i redatelj projekata Jabuka i Odbjegli Twingo (potpora Centra za razvoj, 2014.) te voditelj programa komplementarnih djelatnosti Croatia goes cross media (potpora Centra 2013. i 2014.); osnivač je Aning Filma (2010.)
 
-Za projekt Sredstva osmislio je podatkovni model i uredničku metodologiju, razvio sustav za ekstrakciju i obradu službenih dokumenata, proveo višefaznu kontrolu podataka te izradio javni portal, analitičke prikaze i preglednički modul HAVC Companion. Projekt objedinjuje njegovo poznavanje filmske produkcije, javnih poziva, projektne dokumentacije, strukturiranih podataka i razvoja mrežnih aplikacija.
+Za izdanje Sredstva osmislio je uredničku metodologiju i podatkovni model, razvio postupak strojnog čitanja službenih dokumenata, uredio četiri izdanja registra u 2026. te izradio javni portal, analitičke prikaze i preglednički dodatak HAVC Companion (dovršen, još neobjavljen). Izdanje spaja njegovo poznavanje filmske produkcije, javnih poziva i projektne dokumentacije s iskustvom u obradi strukturiranih podataka i razvoju mrežnih aplikacija.
 
 ### Odgovornosti u programu
 
-- produkcijsko i financijsko vođenje;
-- glavni urednički standard i metodologija;
-- podatkovna shema i tehnička arhitektura;
-- izbor, obuka i nadzor suradnika;
-- odluke u spornim slučajevima;
-- razvoj i održavanje alata za provjeru;
-- završna validacija, objava i primopredaja.
+- produkcijsko i financijsko vođenje programa;
+- urednički standard i metodologija provjere;
+- uredništvo dvanaest izdanja i autorski tekstovi: pregledi rokova, dvije tematske analize, tri metodološke bilješke i godišnji pregled;
+- shema podataka i sučelje za provjeru;
+- javni pozivi, izbor, obuka i nadzor suradnika;
+- konačne odluke o spornim zapisima;
+- objava izdanja, priprema paketa za ponovnu uporabu i izvještaj Centru.
 
-### Reference koje treba provjeriti i po potrebi priložiti
+### Provjerene reference (u registru Sredstva)
 
-- javni portal Sredstva i otvoreni repozitorij;
-- razvoj i vođenje Aning Filma od 2010.;
-- iskustvo međunarodne filmske produkcije i koprodukcije;
-- stručna usavršavanja EAVE, MAIA i TorinoFilmLab;
-- koprodukcijski i kulturni projekti navedeni u portfelju Aning Filma;
-- prethodno iskustvo razvoja digitalnih i transmedijskih projekata.
+- registar Sredstva: javni portal, otvoreni skup podataka i javni repozitorij koda, četiri izdanja u 2026.;
+- EAVE European Producers Workshop 2014 (potpora Centra za usavršavanje);
+- EAVE Film Finance Forum 2012 (potpora Centra za usavršavanje);
+- AdaptLab 2012, TorinoFilmLab (potpora Centra za usavršavanje);
+- BDC Discoveries 2014 (potpora Centra za usavršavanje);
+- Media Business School 2013 (potpora Centra za usavršavanje);
+- Violinist, eksperimentalni film, Studio Kubus, redatelj i suscenarist (potpora Centra 2010.);
+- Jabuka i Odbjegli Twingo, autor i redatelj (potpora Centra za razvoj, 2014.);
+- Croatia goes cross media, voditelj programa komplementarnih djelatnosti (potpora Centra 2013. i 2014.);
+- Život kao novčić, manjinska koprodukcija tvrtke (2013., redatelj Franco Dipietro).
 
-Ne navoditi festival, nagradu, članstvo žirija ili edukaciju bez provjerljive poveznice ili dokumenta.
+Ne navoditi MAIA (redovi u registru pripadaju drugom producentu). Ne navoditi festival, nagradu, članstvo žirija ili edukaciju bez provjerljive poveznice ili dokumenta. Rečenica „od 2015. razvoj digitalnih alata za sektor” izbrisana je iz 01, 02 i 05; vratiti je samo uz izričitu potvrdu podnositelja.
 
-## Privremeni suradnici za provjeru podataka
+## Suradnici
 
-Suradnici se angažiraju nakon odluke o financiranju. U prijavi ih treba opisati kao operativne suradnike koji rade prema metodologiji imenovanog urednika, a ne kao nenavedene nositelje ključnih autorskih odluka.
+Suradnici se angažiraju nakon odluke o financiranju i rade prema uredničkom planu i metodologiji imenovanog urednika. Imena i životopisi dostavljaju se Centru prije potpisa ugovora. Vlastiti udio Aning Film pokriva iz redovitih prihoda produkcijske djelatnosti.
 
-### Profil
+### Istraživači-redaktori (2)
+
+Dvoje istraživača-redaktora: studenti završnih godina ili mlađi stručnjaci informacijskih znanosti, arhivistike, filmologije ili produkcije. Odabiru se javnim pozivom otvorenim za cijelu Hrvatsku u siječnju 2027. i plaćenim probnim zadatkom na istom uzorku od 50 zapisa. Rad se odvija na daljinu. Ukupno 46 radnih dana raspoređeno je kroz devet mjeseci.
+
+#### Profil
 
 - precizan rad s PDF dokumentima i tablicama;
 - vrlo dobro znanje hrvatskoga jezika i dijakritike;
 - digitalna pismenost i osnovno razumijevanje strukture podataka;
-- sposobnost razlikovanja izvornog navoda od uredničke normalizacije;
+- sposobnost razlikovanja izvornog navoda od uredničkog ujednačavanja;
 - poželjno iskustvo u arhivistici, informacijskim znanostima, filmologiji, produkciji, novinarstvu ili istraživanju.
 
-### Izbor i obuka
+#### Izbor i obuka
 
-1. kratka prijava i dostupnost tijekom planiranog razdoblja;
-2. kratki plaćeni praktični zadatak za kandidate koji uđu u uži izbor, na istom skupu oglednih dokumenata;
+1. javni poziv u siječnju 2027.: kratka prijava i dostupnost tijekom planiranog razdoblja;
+2. plaćeni probni zadatak za kandidate u užem izboru, na istom uzorku od 50 zapisa;
 3. usporedba točnosti, dosljednosti i brzine;
-4. obuka prema priručniku;
+4. obuka prema priručniku za provjeru;
 5. probni radni paket i pregled rezultata prije većeg angažmana.
 
-### Podjela odgovornosti
+#### Podjela odgovornosti
 
-- primarni auditor provjerava zapis i bilježi dokaz;
-- QA auditor ponovno provjerava izmjene, nerazriješene slučajeve i kontrolni uzorak;
-- voditelj donosi konačnu uredničku odluku;
-- sustav bilježi tko je, kada i zašto promijenio podatak.
+- istraživač-redaktor (prva provjera) uspoređuje zapis s izvornim dokumentom, bilježi dokaz i status (potvrđen, ispravljen, nerazriješen);
+- redaktor (drugi pregled) ponovno pregledava sve izmijenjene i nerazriješene zapise te kontrolni uzorak od najmanje 10 %;
+- urednik donosi konačnu odluku o spornim zapisima;
+- dnevnik izmjena bilježi tko je, kada i zašto promijenio podatak; izvorna vrijednost nikad se ne briše.
+
+### Vanjski autori tematskih analiza (4)
+
+Četvero vanjskih autora iz redova filmskih kritičara i istraživača piše četiri od šest tematskih analiza (800–1.500 riječi, s tablicama, preuzimanjem podataka i engleskim sažetkom). Poziv se objavljuje u veljači 2027. Autorskim ugovorom prenosi se pravo objave na portalu (HR/EN) i u godišnjem pregledu. Autori dobivaju pristup provjerenom registru i uredničku podršku pri izračunima; analize opisuju stanje i kretanja, ne ocjenjuju pojedinačne odluke.
+
+### Lektor/ica i prevoditelj/ica
+
+Lektor/ica hrvatskih tekstova izdanja (oko 50 kartica) i prevoditelj/ica engleskih sažetaka i godišnjeg pregleda (oko 17 kartica) angažiraju se kao vanjske usluge tijekom cijele godine, u ritmu izdanja.

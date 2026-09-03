@@ -1,7 +1,9 @@
 {
-  "title": "Portal otvorenih podataka Hrvatskog audiovizualnog centra",
+  "title": "Sredstva: otvoreni registar javnog financiranja audiovizualnih djelatnosti",
+  "short_title": "Sredstva",
   "applicant": "Aning Film d.o.o.",
-  "category": "Izdavaštvo u području audiovizualnih djelatnosti — online portali i izdanja",
+  "editor": "Matija Radeljak",
+  "category": "Izdavaštvo u području audiovizualnih djelatnosti – online portali i izdanja",
   "period": "1. siječnja – 31. prosinca 2027.",
   "total_budget": 12000,
   "havc_requested": 7500,
@@ -21,30 +23,71 @@
     "documents_missing_source_url": 148,
     "documents_with_warnings": 341
   },
+  "editorial": {
+    "editions": 12,
+    "edition_definition": "datirana objava registra s brojem izdanja i uredničkom bilješkom o promjenama",
+    "rok_reviews_estimate": "20–25",
+    "rok_reviews_basis": "2024.: 21, 2025.: 23 objavljene kombinacije programa i roka",
+    "review_sla_working_days": 10,
+    "analyses": 6,
+    "analyses_external": 4,
+    "analysis_titles": [
+      "Devetnaest godina javnog financiranja audiovizualnih djelatnosti u brojkama",
+      "Od razvoja do kina: putanja projekta kroz programe Centra",
+      "Komplementarne djelatnosti 2008.–2026.: festivali, izdavaštvo, filmska kultura",
+      "Debitantske kategorije i programi za djecu i mlade u javnim pozivima 2008.–2026.",
+      "Regionalna raspodjela potpora 2008.–2026. po sjedištu korisnika",
+      "Manjinske koprodukcije i međunarodna suradnja 2008.–2026."
+    ],
+    "method_notes": 3,
+    "method_note_months": "ožujak, lipanj, studeni",
+    "annual_overview": 1,
+    "annual_overview_title": "Javno financiranje audiovizualnih djelatnosti u Hrvatskoj 2008.–2027.",
+    "annual_overview_due": "20. prosinca 2027.",
+    "texts_floor": 30,
+    "presentations": 2,
+    "downloads_target": 300,
+    "citations_target": 10,
+    "visits_floor": 5000,
+    "extension_version": "0.2.0",
+    "extension_submit_by": "28. veljače 2027.",
+    "unresolved_target": "manje od 50",
+    "collaborator_days": 46,
+    "primary_check_days": 32,
+    "records_per_day": 300,
+    "collaborator_day_rate": 125,
+    "editor_hours": 160,
+    "editor_hour_rate": 25,
+    "editions_2026": [
+      "svibanj",
+      "lipanj",
+      "srpanj",
+      "kolovoz"
+    ],
+    "public_since": "svibanj 2026.",
+    "first_public_data": "17. svibnja 2026.",
+    "commits": 70,
+    "tests": 56,
+    "recipients_approx": "približno 900",
+    "authors_approx": "više od 1.500",
+    "program_groups": 13,
+    "hrk_to_eur": "7,5345",
+    "rok_reviews_floor": 20
+  },
   "budget": [
     {
-      "group": "Honorari suradnika",
-      "item": "Primarna ručna provjera zapisa",
-      "calculation": "40 radnih dana × 125 EUR",
-      "quantity": 40,
+      "group": "Plaće, autorski honorari i intelektualne usluge",
+      "item": "Honorari suradnika: istraživači-redaktori, primarna urednička provjera svakog zapisa prema izvornom dokumentu",
+      "calculation": "32 radna dana × 125 EUR",
+      "quantity": 32,
       "unit": "radni dan",
       "unit_price": 125,
-      "havc": 5000,
+      "havc": 4000,
       "aning_film": 0
     },
     {
-      "group": "Honorari suradnika",
-      "item": "Istraživanje i pribavljanje nedostajućih izvora",
-      "calculation": "12 radnih dana × 125 EUR",
-      "quantity": 12,
-      "unit": "radni dan",
-      "unit_price": 125,
-      "havc": 1500,
-      "aning_film": 0
-    },
-    {
-      "group": "Honorari suradnika",
-      "item": "Drugi pregled ispravaka i kontrolni uzorak",
+      "group": "Plaće, autorski honorari i intelektualne usluge",
+      "item": "Honorari suradnika: istraživanje i pribavljanje nedostupnih izvora, unos novopronađenih dokumenata i evidentiranje sjedišta korisnika",
       "calculation": "8 radnih dana × 125 EUR",
       "quantity": 8,
       "unit": "radni dan",
@@ -53,9 +96,29 @@
       "aning_film": 0
     },
     {
-      "group": "Plaće",
-      "item": "Voditelj, urednik podataka i arhitekt sustava",
-      "calculation": "160 sati × 25 EUR razmjernog bruto troška",
+      "group": "Plaće, autorski honorari i intelektualne usluge",
+      "item": "Honorari suradnika: drugi pregled izmijenjenih i nerazriješenih zapisa i kontrolni uzorak 10 %",
+      "calculation": "6 radnih dana × 125 EUR",
+      "quantity": 6,
+      "unit": "radni dan",
+      "unit_price": 125,
+      "havc": 750,
+      "aning_film": 0
+    },
+    {
+      "group": "Plaće, autorski honorari i intelektualne usluge",
+      "item": "Autorski honorari: četiri tematske analize vanjskih autora (800–1.500 riječi; autorskim ugovorom prenosi se pravo objave na portalu, HR/EN, i u godišnjem pregledu)",
+      "calculation": "4 autorska teksta × 200 EUR",
+      "quantity": 4,
+      "unit": "autorski tekst",
+      "unit_price": 200,
+      "havc": 800,
+      "aning_film": 0
+    },
+    {
+      "group": "Plaće, autorski honorari i intelektualne usluge",
+      "item": "Plaća: urednik i voditelj programa (uređivanje izdanja i autorski tekstovi, metodologija, obuka i nadzor suradnika, odluke o spornim zapisima, objava izdanja), razmjerni bruto trošak",
+      "calculation": "160 sati × 25 EUR",
       "quantity": 160,
       "unit": "sat",
       "unit_price": 25,
@@ -63,39 +126,49 @@
       "aning_film": 4000
     },
     {
-      "group": "Online sustavi i tehnički troškovi",
-      "item": "Hosting i izvršavanje javnog portala",
-      "calculation": "12 mjeseci × 15 EUR",
-      "quantity": 12,
-      "unit": "mjesec",
-      "unit_price": 15,
+      "group": "Plaće, autorski honorari i intelektualne usluge",
+      "item": "Intelektualne usluge: provjera licenci i priprema paketa za ponovnu uporabu",
+      "calculation": "1 × 80 EUR (paušalno)",
+      "quantity": 1,
+      "unit": "paket",
+      "unit_price": 80,
       "havc": 0,
-      "aning_film": 180
+      "aning_film": 80
     },
     {
-      "group": "Online sustavi i tehnički troškovi",
-      "item": "Pohrana izvora i sigurnosne kopije",
-      "calculation": "12 mjeseci × 5 EUR",
-      "quantity": 12,
-      "unit": "mjesec",
-      "unit_price": 5,
-      "havc": 0,
-      "aning_film": 60
+      "group": "Prijevod i lektura, priprema, grafičko oblikovanje",
+      "item": "Lektura hrvatskih tekstova: tematske analize, metodološke bilješke i godišnji pregled (oko 50 kartica; pregledi rokova i uredničke bilješke lektoriraju se u uredništvu), prijevod na engleski (oko 17 kartica) i grafičko oblikovanje godišnjeg pregleda (PDF)",
+      "calculation": "1 × 550 EUR (paušalno)",
+      "quantity": 1,
+      "unit": "paket",
+      "unit_price": 550,
+      "havc": 550,
+      "aning_film": 0
     },
     {
-      "group": "Online sustavi i tehnički troškovi",
-      "item": "Domena i DNS usluge",
-      "calculation": "godišnji trošak",
+      "group": "Prezentacija i promocija programa",
+      "item": "Dva javna predstavljanja izdanja, jedno izvan Zagreba, u prostorima ustanova domaćina bez najma (putni trošak, oprema, jednostrani tiskani materijal)",
+      "calculation": "2 predstavljanja × 200 EUR",
+      "quantity": 2,
+      "unit": "predstavljanje",
+      "unit_price": 200,
+      "havc": 400,
+      "aning_film": 0
+    },
+    {
+      "group": "Uredski troškovi",
+      "item": "Poslužiteljske usluge (smještaj i rad portala), pohrana izvornika i sigurnosnih kopija, domena i DNS (12 mjeseci)",
+      "calculation": "12 mjeseci, 260 EUR godišnje",
       "quantity": 1,
       "unit": "godina",
-      "unit_price": 20,
+      "unit_price": 260,
       "havc": 0,
-      "aning_film": 20
+      "aning_film": 260
     },
     {
-      "group": "Online sustavi i tehnički troškovi",
-      "item": "Nužni OCR/API alati za obradu iznimaka",
-      "calculation": "ograničeni godišnji paket",
+      "group": "Uredski troškovi",
+      "item": "Alati za strojno čitanje skeniranih dokumenata (OCR)",
+      "calculation": "1 × 40 EUR (paušalno)",
       "quantity": 1,
       "unit": "paket",
       "unit_price": 40,
@@ -103,7 +176,7 @@
       "aning_film": 40
     },
     {
-      "group": "Administracija i primopredaja",
+      "group": "Uredski troškovi",
       "item": "Razmjerni računovodstveni trošak programa",
       "calculation": "12 mjeseci × 10 EUR",
       "quantity": 12,
@@ -111,16 +184,6 @@
       "unit_price": 10,
       "havc": 0,
       "aning_film": 120
-    },
-    {
-      "group": "Administracija i primopredaja",
-      "item": "Provjera licenci i priprema završnog paketa",
-      "calculation": "projektni paket",
-      "quantity": 1,
-      "unit": "paket",
-      "unit_price": 80,
-      "havc": 0,
-      "aning_film": 80
     }
   ]
 }

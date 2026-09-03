@@ -5,3 +5,13 @@ __pycache__/
 .wrangler/
 havc/data.backup.*.json
 havc/data-old.json
+
+# Internal working notes for the HAVC application: kept on disk and behind
+# Cloudflare Access, never in the public repo. The application documents
+# themselves (01, 02, 03, 04, 05 and their PDF/DOCX/XLSX builds) stay tracked.
+prijava/00-podaci-za-potvrdu.txt
+prijava/06-dokazi-i-prilozi.txt
+prijava/07-predaja-checklist.txt
+prijava/IZVORI.txt
+prijava/README.txt
+prijava/VALIDACIJA.txt
