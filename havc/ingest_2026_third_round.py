@@ -230,6 +230,10 @@ def main() -> int:
         if (record.get("source") or {}).get("source_url") not in new_urls
     ]
     records.extend(new_records)
+    # Never publish third parties' personal data: see redact_personal_data.py.
+    from redact_personal_data import sanitize_documents
+
+    print(f"personal-data pass: {json.dumps(sanitize_documents(records), ensure_ascii=False)}")
     DATA_PATH.write_text(
         json.dumps(records, ensure_ascii=False, separators=(",", ":")) + "\n",
         encoding="utf-8",

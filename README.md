@@ -38,7 +38,7 @@ The checked-in registry currently contains:
 | Funding rows | 9,561 |
 | Verified awarded rows | 9,560 |
 | Year range | 2008–2026 |
-| Full source-of-truth dataset | 18 MiB |
+| Full source-of-truth dataset | 17 MiB |
 
 These are a snapshot of the repository’s current data, not a claim that the archive is complete or permanently final. The app calculates its visible figures from the loaded dataset, so its live totals follow the deployed data.
 
@@ -93,6 +93,7 @@ The visual system is intentionally closer to a public ledger than a SaaS dashboa
 ├── content/                   # Bilingual About and Process content
 ├── havc/
 │   ├── data.json              # Full curated registry — public source of truth
+│   ├── redact_personal_data.py # Keeps third parties' personal data out of the registry
 │   ├── data.app.json          # Slim payload fetched by the app
 │   ├── clean_data.py          # Curation and validation workflow
 │   ├── build_app_payload.py   # Full-registry → browser-payload projection
@@ -160,6 +161,15 @@ Sredstva has a small first-party usage system so the maintainer can understand w
 - 🔒 The `/stats` dashboard is protected behind Cloudflare Access.
 
 See [`extension-privacy/index.html`](extension-privacy/index.html) for the full bilingual privacy policy, including the separate HAVC Companion browser extension (version 0.2.0, packaged and not yet published).
+
+### Personal data
+
+The registry is built from documents HAVC publishes itself, and it keeps each source document's extracted text so any figure can be checked against its origin. Two rules keep third parties' personal data out of it, implemented in [`havc/redact_personal_data.py`](havc/redact_personal_data.py) and asserted by [`tests/test_personal_data.py`](tests/test_personal_data.py):
+
+1. **Auxiliary documents ship without their extracted text.** Supplier-payment reports, financial statements, regulations, public-consultation submissions and press kits carry no funding rows, but their text pairs named individuals with OIB numbers, home towns, private e-mail addresses and mobile numbers. Their records keep the filename, checksum, classification and source link; the text itself is withheld.
+2. **Personal identifiers are masked in the text that is kept.** E-mail addresses, phone numbers and OIB numbers are replaced with markers unless they are HAVC's own published contact details, which appear in every document footer and are what makes the letterhead verifiable.
+
+To request a correction or removal, write to info@umjetnostzasve.hr.
 
 ## 📜 Licence
 
