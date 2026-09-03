@@ -2365,6 +2365,15 @@ def main() -> int:
         return 1
 
     if args.apply:
+        # Third parties' personal data never reaches the published registry:
+        # auxiliary documents ship without their extracted text, and personal
+        # identifiers are masked in the text that is kept. See
+        # redact_personal_data.py for the rules and tests/test_personal_data.py
+        # for the assertion that guards them.
+        from redact_personal_data import sanitize_documents
+
+        redaction = sanitize_documents(records)
+        print(f"personal-data pass: {json.dumps(redaction, ensure_ascii=False)}")
         write_json_min(args.data, records)
         write_json(args.cache, cache)
         write_json(args.audit, final_audit)
