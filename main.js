@@ -96,8 +96,8 @@
       hr: 'Podrijetlo podataka',
     },
     'header.notice.body': {
-      en: 'All registry data is machine-extracted from public funding results published on havc.hr. Each project, decision, and amount links directly to the source HAVC PDF. No human review has been performed yet; human review is planned if HAVC approves the project under Komplementarne.',
-      hr: 'Svi podaci u registru strojno su izdvojeni iz javno objavljenih rezultata financiranja na havc.hr. Svaki projekt, odluka i iznos imaju izravnu poveznicu na izvorni HAVC PDF. Ručna provjera još nije provedena; planirana je ako HAVC odobri projekt u okviru poziva Komplementarne.',
+      en: 'All registry data is machine-extracted from public funding results published on havc.hr and has not yet been confirmed against source tables. Each project, decision, and amount links directly to the source HAVC PDF; corrections can be requested at the contact address on the About page.',
+      hr: 'Svi podaci u registru strojno su izdvojeni iz javno objavljenih rezultata financiranja na havc.hr i još nisu potvrđeni prema izvornim tablicama. Svaki projekt, odluka i iznos imaju izravnu poveznicu na izvorni HAVC PDF; ispravak se može zatražiti na kontaktnu adresu sa stranice O projektu.',
     },
     'header.notice.audit': {
       en: 'Automated cross-check {ts}: official totals alignment (PASS {pass}, WARN {warn}, FAIL {fail}); rows {raw}->{dedup}.',
