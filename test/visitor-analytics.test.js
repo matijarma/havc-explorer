@@ -378,7 +378,7 @@ test('direct workers.dev host and a fake stats header are denied before D1 acces
 	assert.equal(assetCalls, 0);
 });
 
-test('retired /prijava paths are ordinary missing assets and cannot reach the former note service', async () => {
+test('retired /prijava paths are denied before the asset fallback and cannot reach the former note service', async () => {
 	const requested = [];
 	const env = {
 		ASSETS: {
@@ -405,7 +405,7 @@ test('retired /prijava paths are ordinary missing assets and cannot reach the fo
 		{},
 	);
 	assert.equal(archive.status, 200);
-	assert.deepEqual(requested, ['/prijava/api/notes', '/application/01-detaljni-opis-programa.pdf']);
+	assert.deepEqual(requested, ['/application/01-detaljni-opis-programa.pdf']);
 });
 
 test('Durable Object scheduler arms the next 02:15 UTC alarm without a cron slot', async () => {

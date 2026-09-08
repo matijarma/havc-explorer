@@ -78,6 +78,11 @@ export default {
 			return new Response('Not found', { status: 404 });
 		}
 
+		// The funding-application workbench was deliberately retired. Explicitly
+		// deny it before the asset layer's SPA fallback can return index.html.
+		if (url.pathname === '/prijava' || url.pathname.startsWith('/prijava/')) {
+			return new Response('Not found', { status: 404 });
+		}
 		if (url.pathname === '/api/u') return ingest(request, env, ctx, url);
 		if (url.pathname === '/stats' || url.pathname === '/stats/') return stats(request, env, url);
 		return env.ASSETS.fetch(request);
