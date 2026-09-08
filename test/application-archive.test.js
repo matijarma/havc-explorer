@@ -31,6 +31,10 @@ test('the public application archive contains only approved final submission ass
 	assert.equal(git('check-ignore', '--no-index', '-q', 'application/unapproved-draft.txt') || '', '');
 	assert.match(fs.readFileSync(path.join(root, '.gitignore'), 'utf8'), /^prijava\/$/m);
 	assert.match(fs.readFileSync(path.join(root, '.assetsignore'), 'utf8'), /^prijava\/$/m);
+	assert.match(
+		fs.readFileSync(path.join(root, 'wrangler.jsonc'), 'utf8'),
+		/"run_worker_first": \["\/prijava", "\/prijava\/\*"\]/,
+	);
 
 	const tracked = git('ls-files');
 	assert.deepEqual(

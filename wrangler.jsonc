@@ -32,7 +32,11 @@
 	"assets": {
 		// The repo root. `.assetsignore` controls what is actually public.
 		"directory": ".",
-		"binding": "ASSETS"
+		"binding": "ASSETS",
+		// Static assets normally win before the Worker. Route the retired
+		// workbench through the Worker first so it is an actual 404, rather
+		// than the static SPA fallback.
+		"run_worker_first": ["/prijava", "/prijava/*"]
 	},
 
 	// Usage-measurement store (see worker/schema.sql). D1 keeps permanent daily
