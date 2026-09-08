@@ -170,7 +170,7 @@ The registry is built from documents HAVC publishes itself, and it keeps each so
 1. **Auxiliary documents ship without their extracted text.** Supplier-payment reports, financial statements, regulations, public-consultation submissions and press kits carry no funding rows, but their text pairs named individuals with OIB numbers, home towns, private e-mail addresses and mobile numbers. Their records keep the filename, checksum, classification and source link; the text itself is withheld.
 2. **Personal identifiers are masked in the text that is kept.** E-mail addresses, phone numbers and OIB numbers are replaced with markers unless they are HAVC's own published contact details, which appear in every document footer and are what makes the letterhead verifiable.
 
-To request a correction or removal, write to [removed].
+To request a correction or removal, open an issue in the repository.
 
 ## 📜 Licence
 

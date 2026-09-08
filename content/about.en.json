@@ -25,7 +25,7 @@
       "I have been studying art and computing from about as early as a person can. It started before primary school, and not long after came the drama studio of the Zagreb Youth Theatre, where I grew up and spent my formative years. A love of drama and screen acting turned into something else once I came of age and failed the acting entrance exam at Zagreb's Academy of Dramatic Art: first into film directing, then into creative producing.",
       "While all that growing up was happening on stage and in Zagreb's cinemas, I was also following every hertz and every byte of every electronic device I was allowed to touch. Devouring books, films and plays with one hand and taking apart every piece of software and hardware within reach with the other, I settled on drama and computing as the two fields I would work in and draw from. That is why I treat computing not merely as a tool, but as a means of standardisation and transparency and a guarantee of the efficient systems that the fragile budgets of independent art depend on.",
       "This registry is the simplest possible demonstration of that approach: data that has always been publicly available on the Centre's official website, arranged in a form in which it can be searched, compared and re-used.",
-      "Corrections, additions, requests to remove a personal detail, and questions are welcome at [[removed]](mailto:[removed]). Every correction is recorded in the repository's public change history."
+      "Corrections and additions are recorded in the repository's public change history."
     ]
   },
   "links": [
@@ -33,11 +33,6 @@
       "label": "github.com/matijarma/havc-explorer",
       "href": "https://github.com/matijarma/havc-explorer",
       "note": "Source code of this registry and the full development history"
-    },
-    {
-      "label": "[removed]",
-      "href": "mailto:[removed]",
-      "note": "Corrections, additions and questions about the registry"
     }
   ],
   "signature": "— Matija Radeljak · Zagreb · September 2026"

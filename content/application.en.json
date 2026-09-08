@@ -4,7 +4,7 @@
     "headline": "Sredstva: 2027 application",
     "subhead": "Complementary activities support · publishing, online portals and editions",
     "status": "Submitted 7 September 2026 · funding decision pending.",
-    "note": "This is the public archive of the submitted application. The application itself remains in its original Croatian, as submitted to the Croatian Audiovisual Centre."
+    "note": "This English edition is an editorial summary of the Croatian application submitted to HAVC. It is not a translation. Switch to Croatian for the complete submitted text."
   },
   "facts": [
     { "label": "Applicant", "value": "Aning Film d.o.o." },
@@ -13,49 +13,49 @@
     { "label": "Amount requested", "value": "EUR 7,500.00" }
   ],
   "documents_label": "Application documents",
-  "original_pdf_label": "Original PDF submitted to HAVC",
+  "original_pdf_label": "Original Croatian PDF submitted to HAVC",
   "documents": [
     {
       "id": "opis",
-      "label": "01 · Submitted document",
-      "title": "Detailed programme description",
-      "description": "A responsive reading version of the complete submitted description. The original PDF remains available for checking its submitted layout.",
-      "format": "html",
-      "source": "application/01-detaljni-opis-programa.html",
-      "pdf": "application/01-detaljni-opis-programa.pdf"
+      "label": "01 · English summary",
+      "title": "Programme summary",
+      "description": "An English editorial summary of the submitted Croatian programme description.",
+      "format": "markdown",
+      "pdf": "application/01-detaljni-opis-programa.pdf",
+      "summary": "## Purpose\n\nSredstva is a free bilingual online publication by Aning Film. It makes Croatian audiovisual public-funding decisions searchable and verifiable, using only documents publicly released by the Croatian Audiovisual Centre (HAVC). Every recorded amount links back to its source document.\n\n## 2027 programme\n\nThe programme proposes twelve monthly registry editions and at least 30 accompanying texts: public-call result reviews, six thematic analyses, three methodological notes and an annual review. The registry covers awards from 2008 to 2027 and remains a public archive.\n\n## Open-data handover\n\nAlongside the editorial work, the project will publish a documented open-data workflow: a data schema and field dictionary, a validated results-table template, a browser-based validation and conversion tool, a guide, a public change-log specification and a consolidated 2008–2027 dataset. Code is intended for EUPL 1.2 licensing; data, documentation and texts for CC BY 4.0 licensing.\n\n## Intended public value\n\nThe proposal does not replace or evaluate HAVC decisions. It gives producers, authors, researchers, journalists and the public a way to inspect funding information across years, while offering HAVC a reusable method for publishing structured results if it chooses to do so from 2028.\n\n## Funding\n\nThe programme value is EUR 12,000. The application requests EUR 7,500 from HAVC, with EUR 4,500 contributed by Aning Film."
     },
     {
       "id": "portal",
-      "label": "02 · Submitted content",
+      "label": "02 · English summary",
       "title": "Online application answers",
-      "description": "Answers entered into the Centre’s online application fields.",
+      "description": "A concise English account of the eight Croatian portal answers.",
       "format": "markdown",
-      "source": "application/02-portal-odgovori.txt"
+      "summary": "## What was submitted\n\nThe portal application identifies Sredstva as an online publishing programme by Aning Film, implemented in Zagreb and online throughout Croatia from 1 January to 31 December 2027.\n\n## Objectives\n\nThe submitted answers combine editorial, organisational and financial objectives: publish twelve monthly bilingual editions and at least 30 texts; make each public-call result easier to inspect; and publish a practical, documented route from a results table to validated JSON, CSV and a printable public page.\n\n## Reach and communication\n\nThe programme is free, registration-free and ad-free. It plans Croatian and English access, WCAG AA-oriented use, public calls for collaborators, monthly editorial updates, result reviews generally within ten working days of HAVC publication, two public presentations and targeted communication with sector, media and academic audiences.\n\n## Sustainability\n\nThe requested funding is one-off. The archive, data schema, template, tool and guide remain available under open licences. The aim is for HAVC to be able to publish structured results itself if it finds that useful, while Sredstva remains an archive.\n\n## Expected results\n\nThe submitted targets include twelve editions, at least 30 texts, six thematic analyses, three methodological notes, an annual review, a tested browser-based conversion tool, a documented 2008–2027 dataset, at least 5,000 visits, 300 dataset downloads and ten public citations."
     },
     {
       "id": "troskovnik",
-      "label": "03 · Submitted document",
+      "label": "03 · English summary",
       "title": "Budget and financing plan",
-      "description": "A responsive reading version of the detailed budget. The original PDF remains available for checking the submitted document.",
-      "format": "html",
-      "source": "application/03-troskovnik.html",
-      "pdf": "application/03-troskovnik.pdf"
+      "description": "A concise English budget summary. The original Croatian PDF is available for verification.",
+      "format": "markdown",
+      "pdf": "application/03-troskovnik.pdf",
+      "summary": "## Funding plan\n\n| Source | Share | Amount |\n|---|---:|---:|\n| HAVC, complementary activities | 62.50% | EUR 7,500.00 |\n| Aning Film d.o.o. | 37.50% | EUR 4,500.00 |\n| **Programme total** | **100.00%** | **EUR 12,000.00** |\n\n## Budget by category\n\n| Category | Share | Amount |\n|---|---:|---:|\n| Salaries, author fees and intellectual services | 77.70% | EUR 9,324.00 |\n| Editing, translation, preparation and graphic design | 6.67% | EUR 800.00 |\n| Programme presentation and promotion | 4.17% | EUR 500.00 |\n| Website, database and online systems | 2.17% | EUR 260.00 |\n| Office costs | 2.30% | EUR 276.00 |\n| Production-company fee, 7% | 7.00% | EUR 840.00 |\n| **Total** | **100.00%** | **EUR 12,000.00** |\n\n## How the funding is used\n\nThe main cost is editorial and data work. The budget covers 700 editor hours across publication editing, data infrastructure, dataset consolidation and the guide, test and final report. It also covers an external second reviewer, four thematic-analysis fees, proofreading, English translation, graphic design, two public presentations, hosting, accounting and a 7% production-company fee.\n\nHAVC funding is assigned to EUR 5,000 of editor salary and EUR 2,500 of other programme costs. Aning Film contributes EUR 4,500 from its regular business income, including the remaining editorial work, the guide and test, two analysis fees, travel, hosting, accounting, machine-reading contingency tools and the production-company fee."
     },
     {
       "id": "plan",
-      "label": "04 · Submitted content",
+      "label": "04 · English summary",
       "title": "Work plan and indicators",
-      "description": "Implementation schedule, deliverables, indicators and risk management.",
+      "description": "A concise English account of the submitted schedule, deliverables and controls.",
       "format": "markdown",
-      "source": "application/04-plan-rada-i-indikatori.txt"
+      "summary": "## Delivery schedule\n\nThe work plan runs through four 2027 quarters. The first quarter covers the schema, field dictionary and change-log specification. The second delivers the validated table template and a working tool version. The third delivers tool version 1.0 and a guide draft. The final quarter delivers the tested guide, consolidated dataset, annual review and final report.\n\n## Core deliverables\n\nThe submitted plan commits to twelve registry editions, at least 30 texts, a bilingual schema and field dictionary, a reusable results-table template, a browser-based validation and conversion tool, a guide for publishing public-call results as open data, a public test carried out by someone other than the author and a consolidated 2008–2027 dataset.\n\n## Quality controls\n\nEvery public amount should retain a source-document link and provenance. Each dataset record receives a public status. Changed, reconciled and unresolved records receive an independent second review, and a random sample of source-table-confirmed records is checked by the external reviewer.\n\n## Delivery risks\n\nThe programme can proceed from public PDFs if HAVC does not provide original tables. In that case, records retain a clear machine-extracted, unconfirmed status. The plan also covers heterogeneous source tables, delayed contracts, reduced funding and the absence of a contributor, without assuming access to HAVC systems or private files."
     },
     {
       "id": "tim",
-      "label": "05 · Submitted content",
+      "label": "05 · English summary",
       "title": "Team and references",
-      "description": "Applicant, editor, references and planned collaborators.",
+      "description": "A concise English summary of the applicant, editor and planned collaborators.",
       "format": "markdown",
-      "source": "application/05-tim-i-reference.txt"
+      "summary": "## Applicant and editor\n\nAning Film d.o.o. is the applicant and publisher. Matija Radeljak is the programme editor and author of the Sredstva registry, its data model and 2026 editions. His programme responsibilities include editorial and financial management, data-status methodology, the twelve editions, the open-data workflow, collaborator selection and supervision, the consolidated dataset and the final report.\n\n## Relevant experience\n\nThe submitted references include Sredstva itself, EAVE and TorinoFilmLab professional programmes, directing and writing credits, and previous HAVC-supported complementary-activities work. The cited HAVC support can be checked in the Sredstva registry.\n\n## Planned collaborators\n\nThe proposal provides for one external second reviewer, selected through a public Croatian call and a paid sample task; four external authors for thematic analyses; plus proofreading, English translation and graphic-design services. Names and CVs are to be supplied to HAVC before the contract is signed.\n\n## Safeguards\n\nThe external reviewer does not review their own work. They review changed and unresolved records, a random sample of source-table-confirmed records and independently perform the publication test described in the work plan."
     }
   ]
 }

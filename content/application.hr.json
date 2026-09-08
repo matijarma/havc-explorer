@@ -36,8 +36,8 @@
       "id": "troskovnik",
       "label": "03 · Predani dokument",
       "title": "Troškovnik i plan financiranja",
-      "description": "Prilagođen prikaz detaljnog troškovnika. Izvorni PDF ostaje dostupan za provjeru predanog dokumenta.",
-      "format": "html",
+      "description": "Čitljiv prikaz svake stavke predanog troškovnika. Izvorni PDF ostaje dostupan za provjeru predanog dokumenta.",
+      "format": "budget",
       "source": "application/03-troskovnik.html",
       "pdf": "application/03-troskovnik.pdf"
     },

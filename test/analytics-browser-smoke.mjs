@@ -18,6 +18,7 @@ const output = {
   mix: path.join(workspace, 'verify-analytics-studio-mix.png'),
   concentration: path.join(workspace, 'verify-analytics-studio-concentration.png'),
   application: path.join(workspace, 'verify-application-archive.png'),
+  applicationBudget: path.join(workspace, 'verify-application-budget.png'),
   applicationMobile: path.join(workspace, 'verify-application-archive-mobile.png'),
   mobile: path.join(workspace, 'verify-analytics-studio-mobile.png'),
 };
@@ -249,7 +250,28 @@ try {
   }))()`);
   await screenshot(cdp, output.application);
   await evaluate(cdp, `document.querySelectorAll('.application-doc-tab')[2].click()`);
-  await waitFor(cdp, `document.querySelector('.application-document .application-imported table')`);
+  await waitFor(cdp, `document.querySelectorAll('.application-budget .budget-line').length >= 16`);
+  const budgetState = await evaluate(cdp, `(() => ({
+    sections: document.querySelectorAll('.application-budget .budget-section').length,
+    lines: document.querySelectorAll('.application-budget .budget-line').length,
+    overflow: document.documentElement.scrollWidth > innerWidth,
+  }))()`);
+  await evaluate(cdp, `document.querySelector('.application-budget .budget-lines')
+    .scrollIntoView({ block: 'start' })`);
+  await delay(80);
+  await screenshot(cdp, output.applicationBudget);
+  await evaluate(cdp, `document.querySelectorAll('.application-doc-tab')[0].click()`);
+  await waitFor(cdp, `document.querySelector('.application-document .application-imported .page')`);
+  await evaluate(cdp, `document.querySelector('.mode-toggle-lang').click()`);
+  await waitFor(cdp, `document.querySelector('.application-document h2')?.textContent.includes('Programme summary')
+    && document.querySelector('.application-reader')?.textContent.includes('Purpose')`);
+  const englishApplicationState = await evaluate(cdp, `(() => ({
+    heading: document.querySelector('.application-document h2')?.textContent,
+    isSummary: document.querySelector('.application-reader')?.textContent.includes('Open-data handover'),
+    hasCroatianSource: document.querySelector('.application-reader')?.textContent.includes('Detaljni opis programa'),
+  }))()`);
+  await evaluate(cdp, `document.querySelector('.mode-toggle-lang').click()`);
+  await waitFor(cdp, `document.querySelector('.application-document h2')?.textContent.includes('Detaljni opis programa')`);
 
   await evaluate(cdp, `localStorage.setItem('sredstva-theme', 'light')`);
   await cdp.send('Page.navigate', { url: baseUrl });
@@ -276,10 +298,16 @@ try {
     .find((tab) => tab.textContent.includes('Prijava'))).click()`);
   await waitFor(cdp, `!document.getElementById('view-application').classList.contains('is-hidden')
     && document.querySelector('.application-doc-tab')`);
+  await evaluate(cdp, `document.querySelectorAll('.application-doc-tab')[2].click()`);
+  await waitFor(cdp, `document.querySelector('.application-budget .budget-line')`);
+  await evaluate(cdp, `document.querySelector('.application-budget .budget-lines')
+    .scrollIntoView({ block: 'start' })`);
+  await delay(80);
   await screenshot(cdp, output.applicationMobile);
   const applicationMobileState = await evaluate(cdp, `(() => ({
     overflow: document.documentElement.scrollWidth > innerWidth,
     documentNavScrollable: document.querySelector('.application-doc-nav').scrollWidth >= document.querySelector('.application-doc-nav').clientWidth,
+    budgetLines: document.querySelectorAll('.application-budget .budget-line').length,
     tabTargets: [...document.querySelectorAll('.application-doc-tab')]
       .map((tab) => Math.round(tab.getBoundingClientRect().height)),
   }))()`);
@@ -300,7 +328,15 @@ try {
     throw new Error(`Application archive did not expose the original PDF: ${JSON.stringify(applicationState)}`);
   }
   if (applicationState.overflow) throw new Error('Application archive overflowed the desktop viewport');
-  if (applicationMobileState.overflow) throw new Error('Application archive overflowed the mobile viewport');
+  if (budgetState.sections !== 6 || budgetState.lines !== 16 || budgetState.overflow) {
+    throw new Error(`Submitted budget is not readable or complete: ${JSON.stringify(budgetState)}`);
+  }
+  if (!englishApplicationState.isSummary || englishApplicationState.hasCroatianSource) {
+    throw new Error(`English application view exposed Croatian submission text: ${JSON.stringify(englishApplicationState)}`);
+  }
+  if (applicationMobileState.overflow || applicationMobileState.budgetLines !== 16) {
+    throw new Error(`Application budget did not fit on mobile: ${JSON.stringify(applicationMobileState)}`);
+  }
   if (!applicationMobileState.documentNavScrollable) throw new Error('Application document navigation is not scrollable on mobile');
   if (applicationMobileState.tabTargets.some((height) => height < 38)) {
     throw new Error(`Application document tab is too small: ${JSON.stringify(applicationMobileState)}`);
@@ -318,6 +354,8 @@ try {
     recipientRoundTrip,
     emptyState,
     applicationState,
+    budgetState,
+    englishApplicationState,
     applicationMobileState,
     mobileState,
     screenshots: output,

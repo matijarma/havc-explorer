@@ -50,20 +50,42 @@ test('the public application archive contains only approved final submission ass
 	}
 });
 
-test('both archive manifests expose the same approved document set', () => {
-	for (const locale of ['hr', 'en']) {
-		const manifest = JSON.parse(fs.readFileSync(path.join(root, 'content', `application.${locale}.json`), 'utf8'));
-		const sources = manifest.documents.map((document) => document.source);
-		assert.deepEqual(sources, [
-			'application/01-detaljni-opis-programa.html',
-			'application/02-portal-odgovori.txt',
-			'application/03-troskovnik.html',
-			'application/04-plan-rada-i-indikatori.txt',
-			'application/05-tim-i-reference.txt',
-		]);
-		assert.deepEqual(
-			manifest.documents.filter((document) => document.pdf).map((document) => document.pdf),
-			['application/01-detaljni-opis-programa.pdf', 'application/03-troskovnik.pdf'],
-		);
+test('Croatian archive exposes submitted sources while English uses summaries only', () => {
+	const hr = JSON.parse(fs.readFileSync(path.join(root, 'content', 'application.hr.json'), 'utf8'));
+	assert.deepEqual(hr.documents.map((document) => document.source), [
+		'application/01-detaljni-opis-programa.html',
+		'application/02-portal-odgovori.txt',
+		'application/03-troskovnik.html',
+		'application/04-plan-rada-i-indikatori.txt',
+		'application/05-tim-i-reference.txt',
+	]);
+	assert.equal(hr.documents.find((document) => document.id === 'troskovnik').format, 'budget');
+	assert.deepEqual(
+		hr.documents.filter((document) => document.pdf).map((document) => document.pdf),
+		['application/01-detaljni-opis-programa.pdf', 'application/03-troskovnik.pdf'],
+	);
+
+	const en = JSON.parse(fs.readFileSync(path.join(root, 'content', 'application.en.json'), 'utf8'));
+	assert.match(en.hero.note, /summary/i);
+	assert.deepEqual(en.documents.map((document) => document.id), hr.documents.map((document) => document.id));
+	assert.ok(en.documents.every((document) => typeof document.summary === 'string' && document.summary.length > 120));
+	assert.ok(en.documents.every((document) => !Object.hasOwn(document, 'source')));
+	assert.deepEqual(
+		en.documents.filter((document) => document.pdf).map((document) => document.pdf),
+		['application/01-detaljni-opis-programa.pdf', 'application/03-troskovnik.pdf'],
+	);
+});
+
+test('the unrelated legacy domain is absent from public project surfaces', () => {
+	const legacyDomain = ['umjetnost', 'zasve'].join('');
+	for (const file of [
+		'README.md',
+		'content/about.hr.json',
+		'content/about.en.json',
+		'extension-privacy/index.html',
+		'content/application.hr.json',
+		'content/application.en.json',
+	]) {
+		assert.doesNotMatch(fs.readFileSync(path.join(root, file), 'utf8'), new RegExp(legacyDomain, 'i'), file);
 	}
 });

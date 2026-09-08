@@ -5885,14 +5885,166 @@
           for (const attribute of [...node.attributes]) {
             const name = attribute.name.toLowerCase();
             const value = attribute.value.trim().toLowerCase();
-            if (name.startsWith('on') || (name === 'href' && value.startsWith('javascript:'))) {
+            if (name === 'style' || name.startsWith('on') || (name === 'href' && value.startsWith('javascript:'))) {
               node.removeAttribute(attribute.name);
             }
           }
         });
         output.append(clone);
       }
+      for (const table of [...output.querySelectorAll('table')]) {
+        const scroll = el('div', { class: 'application-table-scroll' });
+        table.replaceWith(scroll);
+        scroll.append(table);
+      }
       return output;
+    }
+
+    function sourceCellText(cell) {
+      return (cell && cell.textContent ? cell.textContent : '').replace(/\s+/g, ' ').trim();
+    }
+
+    function sourceTableRows(table) {
+      return [...table.rows]
+        .map((row) => ({
+          className: row.className || '',
+          cells: [...row.cells].map(sourceCellText),
+        }))
+        .filter((row) => row.cells.some(Boolean));
+    }
+
+    function compactBudgetTable(rows, className = '') {
+      const [header, ...body] = rows;
+      if (!header || !header.cells.length) return null;
+      return el('div', { class: `application-table-scroll application-budget-table-scroll ${className}`.trim() }, [
+        el('table', { class: 'application-table application-budget-table' }, [
+          el('thead', null, [
+            el('tr', null, header.cells.map((cell) => el('th', { text: cell }))),
+          ]),
+          el('tbody', null, body.map((row) => el('tr', null,
+            header.cells.map((_, index) => el('td', { text: row.cells[index] || '—' }))))),
+        ]),
+      ]);
+    }
+
+    function budgetMoney(value) {
+      return value && value !== '–' ? `${value} EUR` : '—';
+    }
+
+    function budgetAllocation(label, percent, amount, { money = true } = {}) {
+      const value = amount && amount !== '–'
+        ? `${percent && percent !== '–' ? `${percent} · ` : ''}${money ? budgetMoney(amount) : amount}`
+        : '—';
+      return el('div', null, [
+        el('dt', { class: 'kicker', text: label }),
+        el('dd', { text: value }),
+      ]);
+    }
+
+    function budgetDocument(markup) {
+      const parsed = new DOMParser().parseFromString(markup, 'text/html');
+      const tables = [...parsed.querySelectorAll('table')];
+      if (tables.length < 3) return sanitizedHtmlDocument(markup);
+
+      const financeRows = sourceTableRows(tables[0]);
+      const summaryRows = sourceTableRows(tables[1]);
+      const detailedRows = sourceTableRows(tables[2]);
+      const sections = [];
+      let current = null;
+      let grandTotal = null;
+
+      for (const row of detailedRows.slice(1)) {
+        if (/\btotal\b/i.test(row.className)) {
+          grandTotal = row.cells;
+          continue;
+        }
+        if (/\bgrp\b/i.test(row.className)) {
+          current = {
+            code: row.cells[0] || '',
+            title: row.cells[1] || '',
+            total: row.cells[2] || '',
+            centre: row.cells[4] || '',
+            aning: row.cells[6] || '',
+            items: [],
+          };
+          sections.push(current);
+          continue;
+        }
+        if (!current) continue;
+        current.items.push({
+          number: row.cells[0] || '',
+          title: row.cells[1] || '',
+          description: row.cells[2] || '',
+          quantity: row.cells[3] || '',
+          unit: row.cells[4] || '',
+          unitPrice: row.cells[5] || '',
+          total: row.cells[6] || '',
+          centrePercent: row.cells[7] || '',
+          centre: row.cells[8] || '',
+          aningPercent: row.cells[9] || '',
+          aning: row.cells[10] || '',
+        });
+      }
+
+      if (!sections.length) return sanitizedHtmlDocument(markup);
+
+      const notes = [...parsed.querySelectorAll('.note')]
+        .map(sourceCellText)
+        .filter(Boolean);
+      return el('div', { class: 'application-budget' }, [
+        el('div', { class: 'application-budget-overview' }, [
+          el('section', { class: 'application-budget-summary' }, [
+            el('h3', { text: 'Plan financiranja' }),
+            compactBudgetTable(financeRows),
+          ]),
+          el('section', { class: 'application-budget-summary' }, [
+            el('h3', { text: 'Rekapitulacija' }),
+            compactBudgetTable(summaryRows),
+          ]),
+        ]),
+        el('section', { class: 'application-budget-ledger' }, [
+          el('div', { class: 'application-budget-ledger-head' }, [
+            el('div', { class: 'kicker', text: 'Detaljne stavke' }),
+            el('p', { text: 'Svaka stavka preuzeta je iz predanog troškovnika, u prikazu prilagođenom čitanju.' }),
+          ]),
+          ...sections.map((section) => el('section', { class: 'budget-section' }, [
+            el('header', { class: 'budget-section-head' }, [
+              el('div', { class: 'budget-section-title' }, [
+                el('div', { class: 'kicker', text: section.code }),
+                el('h3', { text: section.title }),
+              ]),
+              el('dl', { class: 'budget-section-allocation' }, [
+                budgetAllocation('Ukupno', '', section.total),
+                budgetAllocation('Centar', '', section.centre),
+                budgetAllocation('Aning Film', '', section.aning),
+              ]),
+            ]),
+            el('div', { class: 'budget-lines' }, section.items.map((line) => el('article', { class: 'budget-line' }, [
+              el('div', { class: 'budget-line-index mono', text: `${section.code}${line.number}` }),
+              el('div', { class: 'budget-line-body' }, [
+                el('h4', { text: line.title }),
+                line.description ? el('p', { text: line.description }) : null,
+                el('dl', { class: 'budget-line-metrics' }, [
+                  budgetAllocation('Količina', '', [line.quantity, line.unit].filter(Boolean).join(' '), { money: false }),
+                  budgetAllocation('Jed. cijena', '', line.unitPrice),
+                  budgetAllocation('Ukupno', '', line.total),
+                  budgetAllocation('Centar', line.centrePercent, line.centre),
+                  budgetAllocation('Aning Film', line.aningPercent, line.aning),
+                ]),
+              ]),
+            ]))),
+          ])),
+          grandTotal ? el('dl', { class: 'budget-grand-total' }, [
+            budgetAllocation(grandTotal[1] || 'Ukupno', '', grandTotal[2]),
+            budgetAllocation('Centar', grandTotal[3], grandTotal[4]),
+            budgetAllocation('Aning Film', grandTotal[5], grandTotal[6]),
+          ]) : null,
+        ]),
+        notes.length ? el('section', { class: 'application-budget-notes' }, [
+          el('div', { class: 'kicker', text: 'Napomena iz predanog dokumenta' }),
+          ...notes.map((note) => el('p', { text: note })),
+        ]) : null,
+      ]);
     }
 
     function renderLoading() {
@@ -5912,14 +6064,23 @@
     }
 
     async function loadDocument(doc, target, requestToken) {
+      if (typeof doc.summary === 'string' && doc.summary.trim()) {
+        target.replaceChildren(markdownDocument(doc.summary));
+        return;
+      }
       try {
+        if (!doc.source) throw new Error('application document has no source');
         const response = await fetch(`./${doc.source}`);
         if (!response.ok) throw new Error(`fetch failed: ${doc.source} (${response.status})`);
         const source = await response.text();
         if (requestToken !== token) return;
-        target.replaceChildren(doc.format === 'html'
-          ? sanitizedHtmlDocument(source)
-          : markdownDocument(source));
+        target.replaceChildren(
+          doc.format === 'budget'
+            ? budgetDocument(source)
+            : doc.format === 'html'
+              ? sanitizedHtmlDocument(source)
+              : markdownDocument(source),
+        );
       } catch (error) {
         if (requestToken !== token) return;
         target.replaceChildren(el('p', {

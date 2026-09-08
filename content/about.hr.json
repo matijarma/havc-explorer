@@ -25,7 +25,7 @@
       "Umjetnost i računarstvo proučavam od najranije dobi, prije osnovne škole, a ubrzo zatim i u dramskom studiju Zagrebačkog kazališta mladih u kojem sam odrastao i proveo formativne godine. Ljubav prema drami i filmskoj glumi je s punoljetnošću, i nakon neuspjeha na prijemnom za glumu na zagrebačkoj ADU, evoluirala: isprva u filmsku režiju, a potom u kreativnu produkciju.",
       "Usporedno s odrastanjem na daskama i u zagrebačkim kinodvoranama pratio sam svaki herc i bajt svakog elektroničkog uređaja koji mi je bilo dopušteno dodirnuti. Gutajući knjige, filmove i kazališne komade te kopajući po svakom komadu softvera i hardvera koji mi je došao pod ruku, dramsku umjetnost i računalnu tehnologiju prihvatio sam kao svoje domene djelovanja i inspiracije. Zato računalnu tehnologiju doživljavam ne samo kao alat, nego i kao sredstvo standardizacije i transparentnosti te jamstvo učinkovitih sustava presudnih za krhke proračune nezavisnih umjetničkih produkcija.",
       "Ovaj registar najjednostavnija je moguća demonstracija takvog pristupa: podaci koji su oduvijek javno dostupni na službenim stranicama Centra, složeni u oblik u kojem se mogu pretraživati, uspoređivati i ponovno upotrijebiti.",
-      "Ispravke, dopune, zahtjeve za uklanjanje osobnog podatka i pitanja primam na adresu [[removed]](mailto:[removed]). Svaki ispravak zabilježen je u javnoj povijesti izmjena repozitorija."
+      "Ispravci i dopune evidentiraju se u javnoj povijesti izmjena repozitorija."
     ]
   },
   "links": [
@@ -33,11 +33,6 @@
       "label": "github.com/matijarma/havc-explorer",
       "href": "https://github.com/matijarma/havc-explorer",
       "note": "Izvorni kod ovog registra i cijela povijest razvoja"
-    },
-    {
-      "label": "[removed]",
-      "href": "mailto:[removed]",
-      "note": "Ispravci, dopune i pitanja o registru"
     }
   ],
   "signature": "— Matija Radeljak · Zagreb · rujan 2026."
