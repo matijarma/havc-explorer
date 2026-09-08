@@ -61,15 +61,14 @@ const STUDIO_CHAPTERS = new Set([
 ]);
 
 const PROJECT_SOURCES = new Set(['decision-row', 'project-row', 'timeline', 'shared-link']);
-const VIEW_NAMES = new Set(['dashboard', 'about', 'process']);
-const LOAD_ERROR_STAGES = new Set(['registry', 'about', 'process', 'analytics']);
+const VIEW_NAMES = new Set(['dashboard', 'about', 'process', 'application']);
+const LOAD_ERROR_STAGES = new Set(['registry', 'about', 'process', 'application', 'analytics']);
 const VITAL_NAMES = new Set(['ttfb', 'fcp', 'lcp', 'inp', 'cls']);
 const UA_BOT_RE = /bot|crawl|spider|slurp|headless|lighthouse|phantomjs|selenium|puppeteer|playwright|python-requests|curl|wget|httpclient|monitor|uptime|scan/i;
 const PROJECT_RE = /^[a-z0-9][a-z0-9 _-]{0,79}$/;
 const SESSION_RE = /^[A-Za-z0-9_-]{16,64}$/;
 
 const accessKeyCache = new Map();
-let notesSchemaReady = null;
 
 export default {
 	async fetch(request, env, ctx) {
@@ -80,12 +79,7 @@ export default {
 		}
 
 		if (url.pathname === '/api/u') return ingest(request, env, ctx, url);
-		if (url.pathname === '/stats/prijava-auth') return prijavaAuth(request, env, url);
 		if (url.pathname === '/stats' || url.pathname === '/stats/') return stats(request, env, url);
-		if (url.pathname === '/prijava/api/notes') return prijavaNotes(request, env, url);
-		if (url.pathname === '/prijava' || url.pathname.startsWith('/prijava/')) {
-			return prijava(request, env, url);
-		}
 		return env.ASSETS.fetch(request);
 	},
 	async scheduled(controller, env, ctx) {
@@ -103,210 +97,11 @@ function localDevelopment(url) {
 	return url.hostname === 'localhost' || url.hostname === '127.0.0.1';
 }
 
-/* Private application dossier ----------------------------------------- */
-
-export async function prijava(request, env, url = new URL(request.url)) {
-	if (request.method !== 'GET' && request.method !== 'HEAD') {
-		return new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, HEAD' } });
-	}
-
-	if (!localDevelopment(url)) {
-		const identity = await prijavaIdentity(request, env, url);
-		if (!identity) {
-			const returnTo = `${url.pathname}${url.search}`;
-			const login = new URL('/stats/prijava-auth', url.origin);
-			login.searchParams.set('return', returnTo);
-			return new Response(null, {
-				status: 302,
-				headers: {
-					location: login.toString(),
-					'cache-control': 'private, no-store, max-age=0',
-					'x-robots-tag': 'noindex, nofollow, noarchive',
-				},
-			});
-		}
-	}
-
-	const response = await env.ASSETS.fetch(request);
-	const headers = new Headers(response.headers);
-	headers.set('cache-control', 'private, no-store, max-age=0');
-	headers.set('x-robots-tag', 'noindex, nofollow, noarchive');
-	headers.set('referrer-policy', 'no-referrer');
-	headers.set('x-content-type-options', 'nosniff');
-	headers.set('x-frame-options', 'DENY');
-	headers.set('cross-origin-opener-policy', 'same-origin');
-	return new Response(request.method === 'HEAD' ? null : response.body, {
-		status: response.status,
-		statusText: response.statusText,
-		headers,
-	});
-}
-
-export async function prijavaNotes(request, env, url = new URL(request.url)) {
-	if (request.method !== 'GET' && request.method !== 'POST') {
-		return new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, POST' } });
-	}
-
-	const identity = await prijavaIdentity(request, env, url);
-	if (!identity) return new Response('Forbidden', { status: 403 });
-	await ensureNotesSchema(env);
-
-	if (request.method === 'GET') {
-		const item = normalizeNoteItem(url.searchParams.get('item') || '');
-		const statement = item
-			? env.DB.prepare(
-				'SELECT id, item, body, author, created_at FROM application_notes WHERE item = ? ORDER BY created_at DESC LIMIT 100',
-			).bind(item)
-			: env.DB.prepare(
-				'SELECT id, item, body, author, created_at FROM application_notes ORDER BY created_at DESC LIMIT 300',
-			);
-		const result = await statement.all();
-		return Response.json({ notes: result.results || [] }, { headers: privateApiHeaders() });
-	}
-
-	if (!sameOrigin(request, url)) return new Response('Forbidden', { status: 403 });
-	const contentType = request.headers.get('content-type') || '';
-	if (!contentType.toLowerCase().startsWith('application/json')) {
-		return new Response('Unsupported media type', { status: 415 });
-	}
-
-	let payload;
-	try {
-		payload = await request.json();
-	} catch (_) {
-		return new Response('Invalid JSON', { status: 400 });
-	}
-	const item = normalizeNoteItem(payload?.item || '');
-	const body = normalizeNoteBody(payload?.body || '');
-	if (!item || !body) return new Response('Invalid note', { status: 400 });
-
-	const createdAt = Date.now();
-	const author = identity.author || '';
-	const result = await env.DB.prepare(
-		'INSERT INTO application_notes (item, body, author, created_at) VALUES (?, ?, ?, ?)',
-	).bind(item, body, author, createdAt).run();
-	return Response.json({
-		note: {
-			id: Number(result.meta?.last_row_id) || null,
-			item,
-			body,
-			author,
-			created_at: createdAt,
-		},
-	}, { status: 201, headers: privateApiHeaders() });
-}
-
-export async function prijavaAuth(request, env, url = new URL(request.url)) {
-	if (request.method !== 'GET' && request.method !== 'HEAD') {
-		return new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, HEAD' } });
-	}
-
-	if (!localDevelopment(url)) {
-		const token = request.headers.get('cf-access-jwt-assertion');
-		const claims = await verifyAccessJwt(token, accessOptions(env));
-		if (!claims) return new Response('Forbidden', { status: 403 });
-	}
-
-	const requested = url.searchParams.get('return') || '/prijava';
-	const target = requested === '/prijava' || requested.startsWith('/prijava/')
-		? requested
-		: '/prijava';
-	return new Response(null, {
-		status: 302,
-		headers: {
-			location: new URL(target, url.origin).toString(),
-			'cache-control': 'private, no-store, max-age=0',
-			'x-robots-tag': 'noindex, nofollow, noarchive',
-		},
-	});
-}
-
 function accessOptions(env) {
 	return {
 		issuer: env.ACCESS_ISSUER || DEFAULT_ACCESS_ISSUER,
 		audience: env.ACCESS_AUD || DEFAULT_ACCESS_AUD,
 	};
-}
-
-async function prijavaIdentity(request, env, url) {
-	if (localDevelopment(url)) return { author: 'local' };
-	if (serviceTokenMatches(request, env)) return { author: 'service-token' };
-	const claims = await verifyAccessJwt(accessSessionToken(request), accessOptions(env));
-	if (!claims) return null;
-	const email = typeof claims.email === 'string' ? claims.email.trim().slice(0, 160) : '';
-	return { author: email || 'Access user' };
-}
-
-function normalizeNoteItem(value) {
-	return typeof value === 'string' && /^[a-z0-9][a-z0-9-]{1,63}$/.test(value)
-		? value
-		: '';
-}
-
-function normalizeNoteBody(value) {
-	if (typeof value !== 'string') return '';
-	const body = value.replace(/\r\n?/g, '\n').trim();
-	if (!body || body.length > 5000) return '';
-	return body;
-}
-
-function privateApiHeaders() {
-	return {
-		'cache-control': 'private, no-store, max-age=0',
-		'x-robots-tag': 'noindex, nofollow, noarchive',
-		'content-type': 'application/json; charset=utf-8',
-	};
-}
-
-async function ensureNotesSchema(env) {
-	if (!notesSchemaReady) {
-		const statements = [
-			env.DB.prepare(
-				'CREATE TABLE IF NOT EXISTS application_notes (id INTEGER PRIMARY KEY AUTOINCREMENT, item TEXT NOT NULL, body TEXT NOT NULL, author TEXT NOT NULL DEFAULT \'\', created_at INTEGER NOT NULL)',
-			),
-			env.DB.prepare(
-				'CREATE INDEX IF NOT EXISTS idx_application_notes_item_created ON application_notes(item, created_at DESC)',
-			),
-		];
-		notesSchemaReady = (typeof env.DB.batch === 'function'
-			? env.DB.batch(statements)
-			: Promise.all(statements.map((statement) => statement.run()))
-		).catch((error) => {
-			notesSchemaReady = null;
-			throw error;
-		});
-	}
-	return notesSchemaReady;
-}
-
-function accessSessionToken(request) {
-	const assertion = request.headers.get('cf-access-jwt-assertion');
-	if (assertion) return assertion;
-	const cookie = request.headers.get('cookie') || '';
-	const match = cookie.match(/(?:^|;\s*)CF_Authorization=([^;]+)/i);
-	if (!match) return '';
-	try {
-		return decodeURIComponent(match[1]);
-	} catch (_) {
-		return '';
-	}
-}
-
-export function serviceTokenMatches(request, env) {
-	const expectedId = env.ACCESS_SERVICE_CLIENT_ID || '';
-	const expectedSecret = env.ACCESS_SERVICE_CLIENT_SECRET || '';
-	if (!expectedId || !expectedSecret) return false;
-	return safeEqual(request.headers.get('cf-access-client-id') || '', expectedId)
-		&& safeEqual(request.headers.get('cf-access-client-secret') || '', expectedSecret);
-}
-
-function safeEqual(value, expected) {
-	if (value.length !== expected.length) return false;
-	let difference = 0;
-	for (let index = 0; index < value.length; index++) {
-		difference |= value.charCodeAt(index) ^ expected.charCodeAt(index);
-	}
-	return difference === 0;
 }
 
 /* Public ingest ---------------------------------------------------------- */

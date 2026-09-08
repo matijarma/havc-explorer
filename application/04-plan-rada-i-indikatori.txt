@@ -1,0 +1,178 @@
+# Plan rada, kontrolne točke i pokazatelji
+
+Interni radni dokument uz prijavu programa „Sredstva: otvoreni registar javnog financiranja audiovizualnih djelatnosti” (Aning Film d.o.o., urednik Matija Radeljak) na javni poziv Hrvatskog audiovizualnog centra (dalje: Centar) za poticanje komplementarnih djelatnosti u 2027. Svi brojevi preuzeti su iz project.json (blokovi baseline, editorial, pay_basis, handover, budget_groups i budget); urednički plan, isporuke i raspored moraju odgovarati detaljnom opisu programa (01, osobito §5, §7, §8 i §11), odgovorima za prijavnicu (02) i troškovniku (03). Dokument se ne renderira u paketu za predaju, ali prolazi istu provjeru zabranjenih izraza kao dokumenti koji se predaju (zabranjeni-izrazi.txt).
+
+Okosnica 2027.: dvanaest mjesečnih izdanja registra i najmanje 30 tekstova izlaze u svakom slučaju, a isti urednički tok (izvorna tablica ili javni PDF → predložak → provjera i pretvorba → JSON, CSV i ispisna stranica → izdanje) dokumentira se i do 31. prosinca 2027. objavljuje pod otvorenim licencama te stavlja Centru na raspolaganje. Suradnja stručne službe Centra traži se zamolbom i nije pretpostavka provedbe: bez izvornih tablica sve isporuke nastaju jednako, samo zapisi povijesnog skupa nose status „strojno izvučen, nepotvrđen”.
+
+## Obveze programa
+
+Obveze su samo ono što podnositelj sam kontrolira (project.json → handover.deliverables). Rok je krajnji datum objave; sve se objavljuje na portalu i u javnom repozitoriju.
+
+| # | Isporuka | Mjera | Rok |
+|---|---|---|---|
+| 1 | Shema i rječnik polja (HR/EN) | objavljeni kao metodološka bilješka 1; kao prijedlog ako primjedbe stručne službe nisu zaprimljene; dopunjena inačica do 30. studenoga | 31. ožujka 2027. |
+| 2 | Predložak tablice za rezultate roka u otvorenom formatu | CSV kao osnovni oblik, po potrebi i inačica za proračunske tablice; dopuštene vrijednosti, ispunjen primjer, uputa na jednoj stranici | 30. lipnja 2027. |
+| 3 | Alat za provjeru i pretvorbu | radi bez instalacije i bez vanjskih usluga, ne šalje podatke, poruke na hrvatskom; ulaz predložak, izlaz JSON, CSV, zapis u dnevnik izmjena i ispisna stranica roka i registra (PDF ispisom iz preglednika); kôd EUPL 1.2 | radna inačica 30. lipnja, inačica 1.0 do 30. rujna 2027. |
+| 4 | Specifikacija dnevnika izmjena i stabilnih identifikatora | objavljena uz shemu | 31. ožujka 2027. |
+| 5 | Priručnik „Kako objaviti rezultate javnog poziva kao otvorene podatke” | 8–12 stranica i kratka uputa na jednoj stranici; lektoriran; CC BY 4.0 | nacrt 30. rujna, konačni 31. listopada 2027. |
+| 6 | Test s osobom koja nije autor | vanjski redaktor prema priručniku unosi, provjerava i objavljuje jedan rok; ponavlja se do prolaza; zapisnik javan | 15. prosinca 2027. |
+| 7 | Objedinjeni skup 2008.–2027. | CSV po godini i JSON; 100 % zapisa s jednim od pet statusa, podrijetlo svakog zapisa (dokument, digitalni otisak), pokrivenost po godinama, ponovljena usporedba sa službenim zbrojevima (godine, ne postotci); stavljen Centru na raspolaganje s prijedlogom za data.gov.hr | 20. prosinca 2027. |
+| 8 | Dvanaest izdanja i najmanje 30 tekstova | 12 izdanja v2027.01–v2027.12 (HR/EN, JSON i CSV); najmanje 20 pregleda rokova, 6 analiza (4 vanjskih autora), 3 metodološke bilješke i godišnji pregled izrađen alatom, s trajnim identifikatorom | mjesečno; godišnji pregled do 20. prosinca 2027. |
+| 9 | Dva javna predstavljanja izdanja i alata | jedno u Zagrebu i jedno izvan Zagreba (Split, Osijek ili Rijeka) | drugo tromjesečje i do 30. studenoga 2027. |
+| 10 | Završni izvještaj | pokrivenost, ispravci, popis nedostupnih izvora po godinama, evidencija sati po stavkama | 31. prosinca 2027. |
+
+Izdanja i tekstovi (isporuka 8, razrada prema project.json → editorial; istovjetno u 01 §5 i 02):
+
+- Dvanaest mjesečnih izdanja registra (v2027.01–v2027.12), HR/EN, JSON i CSV od v2027.01, svako s uredničkom bilješkom o promjenama (dodano, ispravljeno, otvoreno). Izdanje je datirana objava registra s brojem izdanja i uredničkom bilješkom o promjenama.
+- Najmanje 30 tekstova: najmanje 20 pregleda rokova (procjena 20–25; 2024.: 21, 2025.: 23 objavljene kombinacije programa i roka; 300–600 riječi, u pravilu unutar deset radnih dana od objave Centra), 6 tematskih analiza (800–1.500 riječi, engleski sažetak; četiri pišu vanjski autori, dvije financira Centar, dvije Aning Film; dvije piše urednik), 3 metodološke bilješke (ožujak: shema i rječnik polja; lipanj: pokrivenost arhiva po godinama i usklađenost s izvornim tablicama; studeni: „Kako čitati registar”) i godišnji pregled „Javno financiranje audiovizualnih djelatnosti u Hrvatskoj 2008.–2027.” (HR/EN, web i PDF koji izrađuje isporučeni alat, trajni identifikator) do 20. prosinca 2027. Priručnik i izvještaji su isporuke, ne tekstovi.
+- Rezultati svakog objavljenog roka 2027. uneseni su u registar u istom razdoblju kao i pregled roka.
+
+## Uz suradnju Centra (mogućnosti, ne obveze)
+
+Sljedeće stavke ovise o odluci Centra i zato nisu obveze programa ni mjere uspjeha; navode se kao mogućnosti (project.json → handover.with_centre):
+
+- izvorne tablice rezultata za rokove 2027. i, koliko postoje, za arhiv;
+- usuglašena shema i oblik alata u prvom tromjesečju;
+- jedna probna objava rezultata roka u strukturiranom obliku ili interni test u stručnoj službi;
+- kratko predstavljanje alata stručnoj službi.
+
+Izvan opsega programa: rad u informacijskim sustavima Centra, poslužiteljski kôd i plaćene usluge; objavu na havc.hr ili data.gov.hr izvodi Centar ako i kada to ocijeni korisnim. Odziv stručne službe ne prati se i ne objavljuje kao pokazatelj ni po izdanjima ni po tromjesečjima; javna informacija o tome što je usklađeno s izvorom jest status i podrijetlo svakog zapisa, ništa više.
+
+## Pokazatelji koji se prate
+
+- 12 izdanja v2027.01–v2027.12 objavljena, svako s uredničkom bilješkom, JSON-om i CSV-om.
+- Najmanje 30 tekstova objavljeno (najmanje 20 pregleda rokova, 6 analiza, 3 metodološke bilješke, godišnji pregled).
+- 100 % zapisa objedinjenog skupa nosi jedan od pet statusa (potvrđen izvornom tablicom / usklađen / strojno izvučen, nepotvrđen / ispravljen / nerazriješen), izvorni dokument i digitalni otisak ili obrazložen status nedostupnosti.
+- Udio zapisa sa statusom „potvrđen izvornom tablicom” ili „usklađen” po godinama objavljen u metodološkoj bilješci 2 i u godišnjem pregledu, kao neutralan podatak o podrijetlu zapisa, ne kao mjera Centra.
+- Isporuke 1–7 objavljene do rokova iz tablice obveza.
+- Test s osobom koja nije autor prošao; zapisnik javan.
+- Najmanje 5.000 posjeta u 2027. Mjerenje je zbirno, bez kolačića i praćenja pojedinačnih korisnika; zbirne vrijednosti od početka mjerenja (kolovoz 2026.) objavljuju se u izdanju v2027.01, a stanje se navodi u svakoj uredničkoj bilješci.
+- Najmanje 300 preuzimanja skupa podataka. Preuzimanje se broji kao zahtjev na poslužitelju za datoteke skupa (JSON i CSV) bez poznatih robota; broje se zahtjevi, ne osobe.
+- Najmanje 10 javnih navođenja registra (mediji, znanstveni i stručni radovi, prijave na javne pozive, službeni dokumenti); prikupljaju se tijekom godine i evidentiraju u godišnjem pregledu; broje se samo javno provjerljiva navođenja.
+- Trajni identifikator (DOI, Zenodo) godišnjeg pregleda, dodijeljen pri objavi u prosincu 2027. i naveden u preporučenom navodu.
+
+## Polazni presjek
+
+Presjek odgovara stanju registra na dan 31. kolovoza 2026. (project.json, blok baseline). Neposredno prije predaje ponovno ga izračunati iz data.json i, ako se promijenio, uskladiti u svim dokumentima prijave.
+
+| Pokazatelj | Stanje 31. kolovoza 2026. |
+|---|---:|
+| Izvorni dokumenti | 1.021 |
+| Tablični dokumenti rezultata | 557 |
+| Obrazloženja | 328 |
+| Pojedinačne odluke | 51 |
+| Zapisi financiranja (retci) | 9.561 |
+| Potvrđene dodjele | 9.560 |
+| Skupine povezanih projekata | 6.593 |
+| Dokumenti bez pouzdano utvrđene godine | 173 |
+| Pomoćni dokumenti bez podataka o financiranju (bez programske skupine) | 85 |
+| Dokumenti bez aktivne izvorne poveznice | 148 |
+| Dokumenti s oznakom za dodatnu provjeru | 341 |
+
+Napomene uz presjek:
+
+- Razlika između 9.561 retka i 9.560 potvrđenih dodjela: jedan odobreni projekt (2020., kratkometražni film) odustao je od sklapanja ugovora o sufinanciranju pa se ne broji kao dodjela. Redak ostaje u registru s odgovarajućim statusom.
+- Javno objavljena datoteka usporedbe sa službenim zbrojevima (web/havc/10_sanity_check_official.json, izrađena 23. svibnja 2026.; 10.682 → 9.350 redaka nakon uklanjanja dvostrukih zapisa) starija je od presjeka na dan 31. kolovoza 2026. i ne odgovara današnjem broju zapisa. Ponovno se izrađuje i objavljuje uz izdanje v2027.01; do tada se u prijavi navode samo godine s odstupanjem, bez postotaka.
+- Četiri objave registra u 2026. (svibanj, lipanj, srpanj, kolovoz) vode se kao datirana ažuriranja, bez oznake inačice u repozitoriju; mjesečne objave planirane su do kraja 2026. Verzionirana izdanja s uredničkom bilješkom počinju s v2027.01.
+- Svi zapisi presjeka izvučeni su računalno iz javnih PDF-dokumenata i u v2027.01 dobivaju početni status „strojno izvučen, nepotvrđen”; statusi se mijenjaju kroz RP4. Brojevi 173, 148 i 341 nisu nedostaci koje treba skrivati, nego opseg posla za 2027.: dokumenti bez godine ili poveznice prolaze RP1 (izvorne tablice, koliko postoje) i RP4 (usklađivanje i statusi). 85 pomoćnih dokumenata (pravilnici, godišnji planovi, obavijesti, skenovi bez podataka) ne sadrže zapise, objavljuju se bez teksta i nisu predmet usklađivanja.
+- Uzorak podrijetla PDF-dokumenata (project.json → pdf_sample, 7. rujna 2026.): od 73 tablična dokumenta rezultata 2008.–2026., 71 u metapodacima nosi oznaku uredskog programa (60 program za proračunske tablice, 11 za obradu teksta), 0 skenova. Pokazuje kako je PDF izrađen, ne i čuva li Centar izvorne datoteke; to je razlog zamolbe u RP1, ne tvrdnja o tome što Centar ima.
+
+## Radni paketi
+
+Sati urednika po paketima odgovaraju stavkama troškovnika (glava I.): I.1 uredništvo izdanja 280 sati (RP6; 48 % financira Centar, 52 % Aning Film), I.2 urednička infrastruktura izdanja 210 sati (RP2 i RP3; Centar), I.3 objedinjavanje i usklađivanje skupa 2008.–2027. 140 sati (RP4; Centar), I.4 priručnik, test i izvještaj 70 sati (RP5, uključujući predstavljanje alata stručnoj službi; Aning Film); ukupno 700 sati, od čega Centar financira 5.000,00 EUR (oko 485 sati), Aning Film 2.224,00 EUR (oko 215 sati). Satnica od 10,32 EUR jest bruto plaća urednika (1.600,00 EUR mjesečno) podijeljena sa 155 sati mjesečnog radnog vremena prema obračunu plaće; urednik je jedini zaposlenik Aning Filma, a evidencija radnog vremena vodi se po stavkama pa se nijedan sat ne obračunava dvaput. Sati iznad 700 i razvoj iz 2026. ne uračunavaju se. Vanjski redaktor (I.5) radi paušalno za definirani opseg (900,00 EUR, Centar): drugi pregled izmijenjenih zapisa i kontrolnog uzorka od 10 %, odstupanja od službenih zbrojeva i test unosa kao osoba koja nije autor (RP4 i RP5); prethodi mu plaćeni probni zadatak dvaju kandidata (I.6, 2 × 100,00 EUR, vlastiti udio). Vanjski autori (I.7): četiri analize po paušalu od 250,00 EUR, dvije financira Centar (naslovi 4 i 5), dvije Aning Film (naslovi 3 i 6).
+
+Troškovnik po glavama (istovjetno u 03): I. Plaće, autorski honorari i intelektualne usluge 9.324,00 EUR (Centar 6.400,00; Aning Film 2.924,00); II. Prijevod i lektura, priprema, grafičko oblikovanje 800,00 (Centar; lektura 20 sati × 15,00, prijevod 15 kartica × 20,00, grafičko oblikovanje paušal 200,00); III. Prezentacija i promocija programa 500,00 (Centar 300,00 za dva predstavljanja; Aning Film 200,00 putni trošak); IV. Internetska stranica, baza i online sustavi 260,00 (Aning Film); V. Uredski troškovi 276,00 (Aning Film; računovodstvo 12 mj × 18,00, alati za strojno čitanje 60,00); VI. Naknada produkcijske kuće 7 % 840,00 (Aning Film, kao u svim prijavama Aning Filma). Ukupno 12.000,00 EUR: Centar 7.500,00 (62,50 %), Aning Film 4.500,00 (37,50 %). Vlastiti udio čine 2.224,00 EUR sati urednika, 1.436,00 EUR troškova s računima (dvoje vanjskih autora 500,00, probni zadatak 200,00, putni trošak 200,00, poslužitelj 260,00, računovodstvo 216,00, alati 60,00) i naknada 840,00.
+
+### RP1 – Suradnja i izvorne tablice (siječanj–prosinac)
+
+- Zamolba stručnoj službi Centra u siječnju 2027., uz prijedlog radnog sastanka: što program radi, koje bi tablice bile korisne (rezultati svakog roka 2027. i, koliko postoje, arhiv), u kojem obliku i ritmu; o opsegu, obliku i ritmu odlučuje Centar.
+- Tablice se preuzimaju u tranšama prema dostupnosti; nema roka koji bi se postavljao Centru. Zamolba se, ako odgovora nema, ponavlja najviše dvaput tijekom godine (npr. travanj i rujan), kratko i bez pritiska; nakon toga program nastavlja iz javnih dokumenata.
+- Protokol prijema radnih datoteka: dostavljene datoteke pohranjuju se izvan javnog repozitorija, na pohrani Aning Filma s kontrolom pristupa i sigurnosnom kopijom; iz njih se preuzimaju samo polja koja Centar već objavljuje u odlukama (projekt, korisnik, autori, program, rok, godina, iznos, status); ostali stupci ne pohranjuju se u registar i ne prosljeđuju nikome; dostavljene datoteke nikad se ne objavljuju; u dnevniku izmjena bilježi se samo da je zapis potvrđen izvornom tablicom, bez sadržaja datoteke.
+- Za dokumente koji više nisu dostupni na mrežnim stranicama Centra vodi se popis po godinama (što je pretraženo, kada, kako nedostupnost utječe na podatak); popis se objavljuje u metodološkoj bilješci 2 (lipanj) i u završnom izvještaju. Dopuna građe iz stručne službe dio je iste zamolbe, a provedba ne ovisi o odgovoru.
+- Početni presjek registra zamrzava se u v2027.01 s digitalnim otiskom svake izvorne datoteke.
+
+### RP2 – Shema, rječnik polja, predložak i dnevnik izmjena (siječanj–lipanj; dopuna do studenoga)
+
+- Shema i rječnik polja HR/EN (isporuka 1) objavljuju se kao metodološka bilješka 1 do 31. ožujka; ako primjedbe stručne službe do tada nisu zaprimljene, objavljuju se kao prijedlog, a dopunjena inačica izlazi do 30. studenoga.
+- Specifikacija dnevnika izmjena i stabilnih identifikatora (isporuka 4) objavljuje se uz shemu: identifikator zapisa vezan je uz izvorni dokument i njegov digitalni otisak; svaka promjena vrijednosti ostavlja zapis (staro, novo, razlog, datum, tko).
+- Predložak tablice za rezultate roka (isporuka 2) do 30. lipnja: CSV kao osnovni oblik razmjene, po potrebi inačica za proračunske tablice s istim stupcima; dopuštene vrijednosti po polju, ispunjen primjer stvarnoga roka, uputa na jednoj stranici.
+- Rječnik polja piše se za osobu koja unosi rezultate, ne za programera: svako polje ima naziv, opis, primjer i pravilo provjere.
+
+### RP3 – Alat za provjeru i pretvorbu i ispisni prikazi (veljača–rujan)
+
+- Načela su fiksna: radi bez instalacije, u pregledniku na uobičajenom uredskom računalu; bez vanjskih usluga i bez slanja podataka; poruke na hrvatskom; CSV kao osnovni oblik razmjene, JSON kao izlaz za registar; otvoreni formati bez ovisnosti o vlasničkom softveru; kôd EUPL 1.2. Konkretan oblik usuglašava se sa stručnom službom u prvom tromjesečju ako Centar sudjeluje; ako ne, oblik odabire uredništvo prema istim načelima.
+- Ulaz je ispunjeni predložak; izlaz su JSON i CSV roka, zapis u dnevnik izmjena i ispisna stranica roka i registra (HTML, PDF ispisom iz preglednika). Iz iste tablice nastaju i PDF i otvoreni podaci.
+- Radna inačica do 30. lipnja (koristi se za izdanja od v2027.07), inačica 1.0 do 30. rujna (isporuka 3). Svako izdanje od v2027.07 proizvodi se tim tokom; alat je urednička infrastruktura izdanja, a zatim se objavljuje za svakoga.
+- Grafičko oblikovanje predloška ispisa i godišnjeg pregleda (II.3, paušal) ugrađuje se u ispisne prikaze u listopadu i studenom.
+
+### RP4 – Usklađivanje povijesnog skupa i statusi (travanj–prosinac)
+
+- Dva puta, jedna shema. (a) Izvorna tablica dostupna: registar se s njom automatski usklađuje zapis za zapisom; neslaganja rješava uredništvo. (b) Tablice nema: zapis ostaje iz javnog PDF-a, a ručna provjera prema PDF-u ide po prioritetu: najprije rokovi 2027., zatim godine s odstupanjem od službenih zbrojeva, zatim ostalo, koliko sati dopušta (I.3, 140 sati).
+- Pet statusa, definicije za rječnik polja: „potvrđen izvornom tablicom” (zapis se u svim poljima slaže s dostavljenom izvornom tablicom); „usklađen” (neslaganje s izvornom tablicom razriješeno uredničkom odlukom, zabilježeno u dnevniku); „strojno izvučen, nepotvrđen” (preuzet iz javnog PDF-a strojnim čitanjem, bez potvrde iz izvorne tablice i bez ručne provjere); „ispravljen” (vrijednost izmijenjena nakon ručne provjere prema izvornom dokumentu, izvorna vrijednost u dnevniku); „nerazriješen” (izvori proturječni ili nedostupni; obrazloženje javno). Izvorna vrijednost nikad se ne briše.
+- Program ne obećava ručnu provjeru svih zapisa, nego javni status za svaki zapis, izvorni dokument za svaki iznos i kontaktnu adresu za ispravke. Ujednačavanje naziva korisnika, autora i projekata i uklanjanje stvarnih dvostrukih zapisa ostaje u dnevniku izmjena.
+- Vanjski redaktor (I.5; paušal 900,00 EUR za definirani opseg, financira Centar; rad na daljinu; javni poziv u siječnju, plaćeni probni zadatak za dva kandidata na istom uzorku od 50 zapisa, I.6, 2 × 100,00 EUR iz vlastitog udjela, zatim obuka odabranog kandidata): neovisno provjerava sve zapise sa statusom „usklađen”, „ispravljen” i „nerazriješen” te nasumični uzorak od 10 % zapisa sa statusom „potvrđen izvornom tablicom”; provodi test iz isporuke 6; nikad ne pregledava vlastiti rad. Urednik odlučuje o spornim zapisima.
+- Usporedba sa službenim zbrojevima: zbrojevi registra po godini i programu uspoređuju se s usporedivim službenim zbrojevima (pregled dodjela 2008.–2023. u Godišnjem planu za 2024.); usporedba iz svibnja 2026. ponovno se izrađuje uz v2027.01 i ponavlja uz objedinjeni skup. Za svaku godinu i program s odstupanjem većim od jedan posto objavljuje se objašnjenje s popisom dokumenata koji nedostaju; odstupanja s uzrokom u registru uklanjaju se. U javnim tekstovima odstupanja se navode po godinama, bez postotaka.
+
+### RP5 – Priručnik, test, objedinjeni skup, prijedlog za data.gov.hr i završni izvještaj (srpanj–prosinac)
+
+- Priručnik „Kako objaviti rezultate javnog poziva kao otvorene podatke” (isporuka 5): nacrt do 30. rujna, konačni lektorirani tekst do 31. listopada, 8–12 stranica i kratka uputa na jednoj stranici, CC BY 4.0; sadrži metapodatke skupa na jednoj stranici kao prijedlog za data.gov.hr.
+- Test s osobom koja nije autor (isporuka 6) do 15. prosinca: vanjski redaktor prema priručniku i bez pomoći autora unosi, provjerava i objavljuje jedan rok; ponavlja se do prolaza; svaki pokušaj ima javni zapisnik; svaki neuspjeh ispravlja se u priručniku ili alatu, ne u testu.
+- Objedinjeni skup 2008.–2027. (isporuka 7) do 20. prosinca: CSV po godini i JSON, 100 % zapisa sa statusom, podrijetlo, pokrivenost po godinama, ponovljena usporedba sa službenim zbrojevima; stavlja se Centru na raspolaganje s prijedlogom za data.gov.hr. Objavu na data.gov.hr izvodi Centar ako i kada to ocijeni korisnim; skup je u svakom slučaju javan na portalu i u repozitoriju.
+- Kratko predstavljanje alata stručnoj službi i potpora probnoj objavi (unutar I.4), ako Centar sudjeluje; ako ne, isti sati idu u priručnik i nadzor testa.
+- Završni izvještaj (isporuka 10) do 31. prosinca: pokrivenost, ispravci, popis nedostupnih izvora po godinama, evidencija sati po stavkama I.1–I.4, pregled pokazatelja.
+
+### RP6 – Uredništvo: izdanja, tekstovi, pozivi i predstavljanja (siječanj–prosinac)
+
+- Mjesečna izdanja v2027.01–v2027.12 s uredničkom bilješkom, HR/EN, JSON i CSV; portal i otvoreni skup nastaju iz istoga glavnog izdanja registra.
+- Pregled rezultata svakog objavljenog roka po programu, 300–600 riječi, u pravilu unutar deset radnih dana od objave Centra; rezultati roka uneseni su u istom razdoblju (od v2027.07 kroz predložak i alat).
+- Šest tematskih analiza: (1) Devetnaest godina javnog financiranja audiovizualnih djelatnosti u brojkama (urednik); (2) Od razvoja do kina: putanja projekta kroz programe Centra (urednik); (3) Komplementarne djelatnosti 2008.–2026.: festivali, izdavaštvo, filmska kultura (vanjski autor, Aning Film); (4) Debitantske kategorije i programi za djecu i mlade u javnim pozivima 2008.–2026. (vanjski autor, Centar); (5) Regionalna raspodjela potpora 2008.–2026. prema podacima u izvornim dokumentima (vanjski autor, Centar); (6) Manjinske koprodukcije i međunarodna suradnja 2008.–2026. (vanjski autor, Aning Film; s bilješkom o pokrivenosti izvora). Analize opisuju stanje i kretanja, ne ocjenjuju pojedinačne odluke.
+- Tri metodološke bilješke: 1 shema i rječnik polja (ožujak); 2 pokrivenost arhiva po godinama i usklađenost s izvornim tablicama, uključujući preračun kuna u eure fiksnim tečajem 7,5345 u nominalnim vrijednostima (lipanj); 3 „Kako čitati registar” za novinare i istraživače (studeni).
+- Godišnji pregled do 20. prosinca 2027., izrađen isporučenim alatom iz otvorenog skupa, HR/EN, web i PDF, trajni identifikator; lektura (II.1, po satu, 20 sati), prijevod (II.2, po kartici, 15 kartica) u studenom i prosincu; grafičko oblikovanje (II.3, paušal) u listopadu i studenom, lektura i prijevod ostalih tekstova u ritmu izdanja.
+- Javni poziv za vanjskog redaktora (siječanj) i vanjske autore (veljača); dva javna predstavljanja izdanja i alata (III.1, putni trošak III.2); komunikacija uz svako izdanje i analizu prema 01 §12.
+- Neslužbeni preglednički dodatak HAVC Companion (inačica 0.2.0, dovršen, još neobjavljen) predan na objavu do 28. veljače 2027.; nije predmet troškovnika ni obveza prema Centru.
+
+## Vremenski raspored
+
+Raspored je prilagodljiv datumu ugovora: izdanja, pozivi i nacrt sheme počinju vlastitim sredstvima. Urednički izlaz u ovoj tablici mora odgovarati planu provedbe u 01 (§11).
+
+| Razdoblje | Urednički izlaz (RP6) | Suradnja, podaci i alati (RP1–RP5) | Kontrolna točka |
+|---|---|---|---|
+| siječanj – ožujak 2027. | izdanja v2027.01–v2027.03; najava programa i uredničkog plana; javni poziv za redaktora (siječanj) i vanjske autore (veljača); pregledi rokova objavljenih u razdoblju; analiza 1 (veljača–ožujak); metodološka bilješka 1 (ožujak); dodatak predan na objavu do 28. veljače | RP1 zamolba stručnoj službi i prijedlog radnog sastanka (siječanj); RP2 shema, rječnik polja i specifikacija dnevnika izmjena (31. ožujka); RP3 oblik alata usuglašen sa stručnom službom ako Centar sudjeluje, početak razvoja; RP4 svi zapisi dobivaju početni status u v2027.01, ponovljena usporedba sa službenim zbrojevima; probni zadatak i obuka redaktora | tri izdanja objavljena; shema, rječnik i specifikacija javni; zamolba upućena; redaktor odabran i obučen; dodatak predan |
+| travanj – lipanj 2027. | izdanja v2027.04–v2027.06; analize 2 i 3; pregledi rokova; metodološka bilješka 2 s pokrivenošću po godinama, udjelom statusa i popisom nedostupnih izvora (lipanj); prvo javno predstavljanje | RP2 predložak tablice (30. lipnja); RP3 radna inačica alata (30. lipnja); RP4 usklađivanje s dostavljenim tablicama koliko ih ima, ručna provjera rokova 2027. po prioritetu; RP1 tranše tablica prema dostupnosti | izdanja v2027.01–v2027.06 i analize 1–3 objavljene; predložak i radna inačica javni; rokovi 2027. iz prvog polugodišta potvrđeni ili ispravljeni; popis nedostupnih izvora javan |
+| srpanj – rujan 2027. | izdanja v2027.07–v2027.09 (od v2027.07 proizvedena predloškom i alatom); analiza 4; pregledi rokova (uključujući rezultate sjednica iz ljeta) | RP3 alat 1.0 (30. rujna); RP5 nacrt priručnika (30. rujna); RP4 glavni ciklus usklađivanja, drugi pregled redaktora počinje; probna objava ili interni test u stručnoj službi ako Centar sudjeluje; RP1 ponovljena zamolba ako odgovora nema | devet izdanja objavljenih; alat 1.0 i nacrt priručnika javni; svaki zapis nosi jedan od pet statusa s obrazloženjem gdje je „nerazriješen” |
+| listopad – prosinac 2027. | izdanja v2027.10–v2027.12; analize 5 (listopad) i 6 (s bilješkom o pokrivenosti izvora); metodološka bilješka 3 (studeni); godišnji pregled do 20. prosinca (HR/EN, web i PDF izrađen alatom, trajni identifikator); drugo javno predstavljanje (do 30. studenoga) | RP5 konačni priručnik (31. listopada), test s osobom koja nije autor (15. prosinca), objedinjeni skup s prijedlogom za data.gov.hr (20. prosinca), završni izvještaj (31. prosinca); RP4 kontrolni uzorak 10 % i ponovljena usporedba sa službenim zbrojevima; RP2 dopunjena shema (30. studenoga); kratko predstavljanje alata stručnoj službi ako Centar sudjeluje | dvanaest izdanja i najmanje 30 tekstova objavljeni; test prošao, zapisnik javan; objedinjeni skup i dopunjena shema javni i stavljeni Centru na raspolaganje; godišnji pregled s trajnim identifikatorom; izvještaj s evidencijom sati predan |
+
+## Pokazatelji
+
+- 100 % zapisa objedinjenog skupa ima jedan od pet statusa; udio statusa po godinama javno objavljen.
+- 100 % zapisa sa statusom „usklađen”, „ispravljen” i „nerazriješen” ima drugi pregled koji nije proveo autor izmjene.
+- Najmanje 10 % zapisa sa statusom „potvrđen izvornom tablicom” ima nasumičnu kontrolu redaktora.
+- 100 % javno objavljenih iznosa ima poveznicu na izvorni dokument i digitalni otisak ili obrazložen status nedostupnosti.
+- Nema nedokumentiranog odstupanja većeg od jedan posto u usporedivim zbrojevima po godini i programu: za svako takvo odstupanje objavljeno je objašnjenje s popisom dokumenata koji nedostaju, a odstupanja s uzrokom u registru uklonjena su; u javnim tekstovima navode se godine, ne postotci.
+- Rezultati svakog roka 2027. uneseni su i pregled roka objavljen u pravilu unutar deset radnih dana od objave Centra.
+- Od v2027.07 svako izdanje proizvedeno je predloškom i alatom; JSON, CSV i ispisna stranica prolaze istu provjeru i daju jednake zbrojeve.
+- Isporuke 1–7 objavljene do rokova; test s osobom koja nije autor prošao; zapisnik javan.
+- Portal ostaje dostupan na hrvatskom i engleskom, upotrebljiv tipkovnicom i na mobilnim uređajima (WCAG AA).
+- Evidencija sati po stavkama I.1–I.4 priložena završnom izvještaju; ukupno najviše 700 sati uračunato.
+
+## Upravljanje rizicima
+
+| Rizik | Odgovor |
+|---|---|
+| Stručna služba ne odgovori na zamolbu ili ne može dostaviti tablice | Program se u cijelosti provodi iz javno objavljenih dokumenata; sva izdanja, tekstovi, alati i priručnik nastaju jednako, a zapisi povijesnog skupa nose status „strojno izvučen, nepotvrđen”. Zamolba se ponavlja najviše dvaput, bez pritiska; glavni cilj (objava na izvoru od 2028.) ostaje ponuda koju Centar može prihvatiti kad to ocijeni korisnim. Odziv se ne objavljuje kao pokazatelj. |
+| Dostavljene tablice su heterogene (različiti stupci i nazivi po godinama i programima) | Shema određuje ciljna polja, a za svaku tranšu piše se kratka tablica preslikavanja stupaca; preuzimaju se samo polja koja Centar već objavljuje. Zapisi koji se ne mogu pouzdano preslikati zadržavaju status „strojno izvučen, nepotvrđen” ili dobivaju „nerazriješen” s obrazloženjem; heterogenost se opisuje u bilješci 2. |
+| Stručna služba nema kapaciteta za probnu objavu ili interni test | Probna objava je mogućnost, ne obveza ni mjera. Test iz isporuke 6 provodi vanjski redaktor neovisno o Centru; priručnik i alat isporučuju se jednako. |
+| Ograničenja alata u pregledniku (velike datoteke, razlike među preglednicima, bez pristupa datotečnom sustavu) | CSV je osnovni oblik razmjene i čitljiv je bez alata; alat obrađuje jedan rok po unosu, a objedinjeni skup gradi postupak izdanja iz pojedinačnih rokova; ispisni prikaz izvodi se ispisom iz preglednika; provjera na dva raširena preglednika i dokumentirana ograničenja u priručniku. |
+| Ocjenjivači kontinuitet mjere brojem dosadašnjih izdanja (četiri datirana u 2026.) | Mjesečne objave nastavljaju se do kraja 2026. vlastitim sredstvima; v2027.01 izlazi u siječnju bez obzira na datum ugovora; u prijavi se navode samo datirana izdanja koja su izišla. |
+| Traženih 7.500 EUR i udio plaće urednika mogu djelovati kao financiranje autora, ne programa | Transparentno u 01 §14, 02 i 03: potpora od 7.500 EUR financira 5.000 EUR plaće urednika (ujedno autora registra) – oko 485 sati po satnici od 10,32 EUR, koliko iznosi bruto plaća od 1.600 EUR podijeljena sa 155 sati mjesečno prema obračunu plaće: urednička infrastruktura izdanja 210 sati, usklađivanje podataka 140 sati i 48 % uredništva izdanja – te vanjskog redaktora, dvoje vanjskih autora, lekturu, prijevod, grafičko oblikovanje i dva predstavljanja (2.500 EUR), uz evidenciju sati po stavkama. Aning Film snosi 52 % uredništva izdanja te priručnik i test (2.224 EUR, oko 215 sati), dvoje vanjskih autora, probni zadatak, putni trošak, poslužitelj, računovodstvo i alate (1.436 EUR) te naknadu produkcijske kuće od 7 % (840 EUR), ukupno 4.500 EUR ili 37,50 %. Računovodstvo potvrđuje oblik ugovora sa suradnicima i obračun plaće prije predaje. |
+| Satnica i sati urednika ovise o obračunu plaće za 2027. | Satnica se iskazuje prema stvarnom obračunu plaće; evidencija radnog vremena vodi se po stavkama I.1–I.4; iznosi po stavkama ostaju, a broj sati se prilagođava u završnom izvještaju. |
+| Jedan razvijatelj (urednik) privremeno nedostupan | Kôd, shema i rječnik javni od ožujka; CSV čitljiv bez alata; redaktor obučen za unos i objavu roka prema priručniku; izdanja se u nuždi objavljuju postojećim postupkom iz javnih PDF-dokumenata; rokovi isporuka 3 i 5 imaju pričuvu od jednog mjeseca unutar tromjesečja. |
+| Osobni podaci u radnim tablicama stručne službe | Protokol prijema iz RP1: pohrana izvan javnog repozitorija s kontrolom pristupa; preuzimaju se samo polja koja Centar već objavljuje; ostali stupci ne pohranjuju se ni prosljeđuju; datoteke se nikad ne objavljuju i brišu se nakon usklađivanja, uz zabilješku o brisanju u završnom izvještaju. Na portalu se pomoćni dokumenti objavljuju bez teksta, a identifikatori trećih osoba u tekstu izvornika zamijenjeni su oznakom; ispravci putem kontaktne adrese. |
+| Ugovor se potpiše kasnije od siječnja | Izdanja v2027.01–v2027.03, pozivi, zamolba i nacrt sheme počinju vlastitim sredstvima; plaćeni dijelovi (redaktor, autori, lektura, prijevod, oblikovanje) pomiču se unutar godine; rokovi isporuka ostaju do 31. prosinca. |
+| Odobren manji iznos | Dvanaest izdanja, pregledi rokova, shema, predložak, alat, priručnik i objedinjeni skup ostaju; smanjuju se redom: dubina usklađivanja arhiva (I.3; najstarije godine ostaju „strojno izvučen, nepotvrđen”), drugo predstavljanje (III.1), grafičko oblikovanje (II.3), jedna vanjska analiza koju financira Centar (I.7; i dalje najmanje tri vanjska autora), opseg redaktora (I.5), zatim razmjerno sati urednika na infrastrukturi (I.2). Naknada produkcijske kuće ostaje 7 % revidirane ukupne vrijednosti; vlastiti udio ostaje 4.500 EUR ako pravila Centra ne traže razmjerno smanjenje (računovodstvo potvrđuje). |
+| Pretpostavka o podrijetlu PDF-dokumenata ne potvrdi se (izvorne datoteke ne postoje ili nisu sačuvane) | Uzorak metapodataka pokazuje samo kako je PDF izrađen. Put (b) iz RP4 vrijedi za arhiv; za rokove 2027. predložak i alat vrijede neovisno o arhivu, jer se od prvog roka rezultati mogu pripremati u predlošku. Popis godina bez izvorne tablice javan je u bilješci 2 i izvještaju. |
+| Vanjski autor ne isporuči analizu na vrijeme | Urednik piše zamjenski tekst ili se poziva sljedeći autor s liste iz javnog poziva; najmanje 30 tekstova i najmanje tri vanjska autora ostaju obveza; honorar se isplaćuje samo za objavljeni tekst. |
+| Centar objavi više rokova ili odluka nego što je procijenjeno (20–25) | Prednost imaju unos rezultata i pregled roka unutar deset radnih dana; pomoćni dokumenti obrađuju se prema važnosti bez snižavanja standarda zapisa. Broj tekstova time raste, ne pada; sati iznad 700 ne uračunavaju se. |
+| Širenje opsega prema informacijskim sustavima Centra (zahtjevi za ugradnju, poslužiteljski kôd, održavanje) | Izvan opsega, dogovoreno unaprijed: nastaju statične datoteke i alat koji radi u pregledniku; nema rada u sustavima Centra, poslužiteljskog kôda ni plaćenih usluga; objavu na havc.hr ili data.gov.hr izvodi Centar ako i kada to ocijeni korisnim. Zamolbe izvan opsega upućuju se na priručnik i otvorene licence. |
+| Promjena strukture mrežnih stranica Centra | Registar odvaja podatke od načina preuzimanja pa se mijenja samo dio postupka za preuzimanje stranica; preglednički dodatak ažurira se u sljedećem izdanju. |
+| Izvor je skeniran ili oštećen | Alati za strojno čitanje skenova (V.2) služe kao pričuvni postupak; konačnu vrijednost potvrđuje čovjek ili zapis ostaje „nerazriješen” s obrazloženjem. |

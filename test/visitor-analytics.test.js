@@ -5,8 +5,6 @@ import worker, {
 	cleanEvent,
 	ingest,
 	nextArchiveAlarm,
-	prijava,
-	prijavaNotes,
 	syncArchive,
 	verifyAccessJwt,
 } from '../worker/index.js';
@@ -196,37 +194,6 @@ class FakeD1 {
 	}
 }
 
-class NoteD1 {
-	constructor() {
-		this.notes = [];
-		this.nextId = 1;
-	}
-
-	prepare(sql) {
-		return {
-			bind: (...params) => ({
-				all: async () => {
-					const item = params[0];
-					const rows = item
-						? this.notes.filter((note) => note.item === item)
-						: this.notes;
-					return { results: rows.map((note) => ({ ...note })).reverse() };
-				},
-				run: async () => {
-					const [item, body, author, createdAt] = params;
-					const id = this.nextId++;
-					this.notes.push({ id, item, body, author, created_at: createdAt });
-					return { meta: { last_row_id: id } };
-				},
-			}),
-		};
-	}
-
-	batch() {
-		return Promise.resolve([]);
-	}
-}
-
 test('aggregate keys preserve delimiters and session reach deduplicates repeated actions', () => {
 	const rows = [
 		rawRow({
@@ -411,121 +378,34 @@ test('direct workers.dev host and a fake stats header are denied before D1 acces
 	assert.equal(assetCalls, 0);
 });
 
-test('private application dossier uses the Access login bridge and reaches assets when authorized', async () => {
-	let assetCalls = 0;
-	let receivedPath = '';
+test('retired /prijava paths are ordinary missing assets and cannot reach the former note service', async () => {
+	const requested = [];
 	const env = {
-		ACCESS_SERVICE_CLIENT_ID: 'service-id.access',
-		ACCESS_SERVICE_CLIENT_SECRET: 'service-secret',
 		ASSETS: {
 			fetch: (request) => {
-				assetCalls++;
-				receivedPath = new URL(request.url).pathname;
-				return new Response('dossier', { headers: { etag: '"dossier"' } });
+				const path = new URL(request.url).pathname;
+				requested.push(path);
+				return new Response(path.startsWith('/application/') ? 'public archive' : 'Not found', {
+					status: path.startsWith('/application/') ? 200 : 404,
+				});
 			},
 		},
 	};
 
-	const login = await worker.fetch(
-		new Request('https://havc.matijar.info/prijava', {
-			headers: { 'cf-access-jwt-assertion': 'fake' },
-		}),
+	const retired = await worker.fetch(
+		new Request('https://havc.matijar.info/prijava/api/notes'),
 		env,
 		{},
 	);
-	assert.equal(login.status, 302);
-	assert.equal(
-		login.headers.get('location'),
-		'https://havc.matijar.info/stats/prijava-auth?return=%2Fprijava',
-	);
-	assert.equal(assetCalls, 0);
+	assert.equal(retired.status, 404);
 
-	const service = await worker.fetch(
-		new Request('https://havc.matijar.info/prijava', {
-			headers: {
-				'cf-access-client-id': 'service-id.access',
-				'cf-access-client-secret': 'service-secret',
-			},
-		}),
+	const archive = await worker.fetch(
+		new Request('https://havc.matijar.info/application/01-detaljni-opis-programa.pdf'),
 		env,
 		{},
 	);
-	assert.equal(service.status, 200);
-	assert.equal(assetCalls, 1);
-
-	const direct = await worker.fetch(
-		new Request('https://havc-explorer.kompmajstor4.workers.dev/prijava'),
-		env,
-		{},
-	);
-	assert.equal(direct.status, 404);
-	assert.equal(assetCalls, 1);
-
-	const local = await worker.fetch(
-		new Request('http://localhost/prijava'),
-		env,
-		{},
-	);
-	assert.equal(local.status, 200);
-	assert.equal(receivedPath, '/prijava');
-	assert.equal(local.headers.get('cache-control'), 'private, no-store, max-age=0');
-	assert.equal(local.headers.get('x-robots-tag'), 'noindex, nofollow, noarchive');
-
-	const method = await prijava(
-		new Request('http://localhost/prijava', { method: 'POST' }),
-		env,
-	);
-	assert.equal(method.status, 405);
-	assert.equal(method.headers.get('allow'), 'GET, HEAD');
-
-	const localBridge = await worker.fetch(
-		new Request('http://localhost/stats/prijava-auth?return=/prijava/03-troskovnik.pdf'),
-		env,
-		{},
-	);
-	assert.equal(localBridge.status, 302);
-	assert.equal(
-		localBridge.headers.get('location'),
-		'http://localhost/prijava/03-troskovnik.pdf',
-	);
-});
-
-test('private application notes are validated, stored, and listed only on the dossier route', async () => {
-	const db = new NoteD1();
-	const env = { DB: db };
-	const post = new Request('http://localhost/prijava/api/notes', {
-		method: 'POST',
-		headers: {
-			origin: 'http://localhost',
-			'content-type': 'application/json',
-		},
-		body: JSON.stringify({
-			item: 'portal-odgovori',
-			body: 'Provjeriti ograničenje znakova prije kopiranja.',
-		}),
-	});
-	const created = await prijavaNotes(post, env);
-	assert.equal(created.status, 201);
-	assert.equal(created.headers.get('cache-control'), 'private, no-store, max-age=0');
-	assert.equal((await created.json()).note.author, 'local');
-
-	const list = await prijavaNotes(new Request(
-		'http://localhost/prijava/api/notes?item=portal-odgovori',
-	), env);
-	assert.equal(list.status, 200);
-	const payload = await list.json();
-	assert.equal(payload.notes.length, 1);
-	assert.equal(payload.notes[0].body, 'Provjeriti ograničenje znakova prije kopiranja.');
-
-	const invalid = await prijavaNotes(new Request('http://localhost/prijava/api/notes', {
-		method: 'POST',
-		headers: {
-			origin: 'http://localhost',
-			'content-type': 'application/json',
-		},
-		body: JSON.stringify({ item: '../bad', body: 'Nope' }),
-	}), env);
-	assert.equal(invalid.status, 400);
+	assert.equal(archive.status, 200);
+	assert.deepEqual(requested, ['/prijava/api/notes', '/application/01-detaljni-opis-programa.pdf']);
 });
 
 test('Durable Object scheduler arms the next 02:15 UTC alarm without a cron slot', async () => {

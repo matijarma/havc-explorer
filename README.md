@@ -6,7 +6,8 @@
 
 🌐 **Live app:** [havc.matijar.info](https://havc.matijar.info)<br>
 🗃️ **Full public registry:** [`havc/data.json`](https://havc.matijar.info/havc/data.json)<br>
-📄 **Primary source:** [HAVC public calls](https://havc.hr/o-nama/javni-pozivi)
+📄 **Primary source:** [HAVC public calls](https://havc.hr/o-nama/javni-pozivi)<br>
+📝 **2027 application:** open the **Prijava 2027** tab in the live app for the public archive of the submitted HAVC application.
 
 <br />
 

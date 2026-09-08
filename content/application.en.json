@@ -1,0 +1,61 @@
+{
+  "hero": {
+    "kicker": "HAVC application · complementary activities",
+    "headline": "Sredstva: 2027 application",
+    "subhead": "Complementary activities support · publishing, online portals and editions",
+    "status": "Submitted 7 September 2026 · funding decision pending.",
+    "note": "This is the public archive of the submitted application. The application itself remains in its original Croatian, as submitted to the Croatian Audiovisual Centre."
+  },
+  "facts": [
+    { "label": "Applicant", "value": "Aning Film d.o.o." },
+    { "label": "Implementation period", "value": "1 January – 31 December 2027" },
+    { "label": "Programme value", "value": "EUR 12,000.00" },
+    { "label": "Amount requested", "value": "EUR 7,500.00" }
+  ],
+  "documents_label": "Application documents",
+  "original_pdf_label": "Original PDF submitted to HAVC",
+  "documents": [
+    {
+      "id": "opis",
+      "label": "01 · Submitted document",
+      "title": "Detailed programme description",
+      "description": "A responsive reading version of the complete submitted description. The original PDF remains available for checking its submitted layout.",
+      "format": "html",
+      "source": "application/01-detaljni-opis-programa.html",
+      "pdf": "application/01-detaljni-opis-programa.pdf"
+    },
+    {
+      "id": "portal",
+      "label": "02 · Submitted content",
+      "title": "Online application answers",
+      "description": "Answers entered into the Centre’s online application fields.",
+      "format": "markdown",
+      "source": "application/02-portal-odgovori.txt"
+    },
+    {
+      "id": "troskovnik",
+      "label": "03 · Submitted document",
+      "title": "Budget and financing plan",
+      "description": "A responsive reading version of the detailed budget. The original PDF remains available for checking the submitted document.",
+      "format": "html",
+      "source": "application/03-troskovnik.html",
+      "pdf": "application/03-troskovnik.pdf"
+    },
+    {
+      "id": "plan",
+      "label": "04 · Submitted content",
+      "title": "Work plan and indicators",
+      "description": "Implementation schedule, deliverables, indicators and risk management.",
+      "format": "markdown",
+      "source": "application/04-plan-rada-i-indikatori.txt"
+    },
+    {
+      "id": "tim",
+      "label": "05 · Submitted content",
+      "title": "Team and references",
+      "description": "Applicant, editor, references and planned collaborators.",
+      "format": "markdown",
+      "source": "application/05-tim-i-reference.txt"
+    }
+  ]
+}

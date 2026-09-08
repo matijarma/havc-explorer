@@ -1,0 +1,101 @@
+# Odgovori za online prijavnicu Hrvatskog audiovizualnog centra (dalje: Centar)
+
+Tekstovi se u prijavnicu unose onako kako su ovdje napisani, po jednom polju odjednom, bez preloma retka unutar odgovora. Svako od osam polja napisano je tako da se može čitati samostalno: puni naziv „Hrvatski audiovizualni centar” pojavljuje se u svakom polju jednom, dalje se koristi skraćeni naziv „Centar”. Broj znakova (s razmacima) naveden je ispod svakog odgovora i manji je od dopuštenog ograničenja; build_submission.py to provjerava. Svi brojevi preuzeti su iz project.json (stanje registra na dan 31. kolovoza 2026.) i jednaki su brojevima u detaljnom opisu programa (01), troškovniku (03) i planu rada (04).
+
+## Naziv programa
+
+Sredstva: otvoreni registar javnog financiranja audiovizualnih djelatnosti
+
+## Kategorija
+
+Izdavaštvo u području audiovizualnih djelatnosti – online portali i izdanja
+
+## Podnositelj
+
+Aning Film d.o.o.
+
+## Mjesto i razdoblje provedbe
+
+Zagreb i mrežno izdanje dostupno u cijeloj Hrvatskoj (jedno od dva javna predstavljanja održava se izvan Zagreba: Split, Osijek ili Rijeka); 1. siječnja – 31. prosinca 2027.
+
+## Kratki opis programa
+
+### Dulja inačica (oko 130 riječi)
+
+Sredstva su neovisno, besplatno i dvojezično mrežno izdanje Aning Filma d.o.o.: od svibnja 2026. pretraživ registar javnog financiranja audiovizualnih djelatnosti u Hrvatskoj (2008.–2026.), izgrađen isključivo iz dokumenata koje je Hrvatski audiovizualni centar (dalje: Centar) javno objavio (1.021 dokument, 9.561 zapis, uz svaki iznos izvorni dokument). U 2027. izlazi dvanaest mjesečnih izdanja i najmanje 30 tekstova: pregledi rokova, šest analiza, tri metodološke bilješke i godišnji pregled. Istodobno izdanje gradi i dokumentira postupak objave rezultata javnih poziva kao strukturiranih otvorenih podataka (shema i rječnik polja, predložak tablice s provjerama, alat za provjeru i pretvorbu bez instalacije, priručnik, objedinjeni skup) i do 31. prosinca 2027. stavlja ga Centru na raspolaganje pod otvorenim licencama. Cilj je omogućiti da Centar od 2028., ako to ocijeni korisnim, strukturirane rezultate objavljuje sam, a Sredstva ostaju arhiv. Urednik: Matija Radeljak. Traženo 7.500 EUR od ukupno 12.000 EUR.
+
+### Kraća inačica (oko 60 riječi)
+
+Sredstva su neovisno, besplatno i dvojezično mrežno izdanje Aning Filma d.o.o.: pretraživ registar javnog financiranja audiovizualnih djelatnosti 2008.–2026. iz javno objavljenih dokumenata Hrvatskog audiovizualnog centra (9.561 zapis, svaki iznos s izvorom). U 2027. izlazi dvanaest mjesečnih izdanja i najmanje 30 tekstova; shemu, predložak, alat, priručnik i objedinjeni skup podataka stavljamo Centru na raspolaganje, s ciljem da Centar od 2028. strukturirane rezultate može objavljivati sam. Urednik: Matija Radeljak. Traženo 7.500 od 12.000 EUR.
+
+## Polje 1 – Ciljevi i strateški planovi programa u umjetničkom, organizacijskom i financijskom smislu (najviše 1000 znakova)
+
+Urednički: dvanaest mjesečnih izdanja otvorenog registra javnog financiranja audiovizualnih djelatnosti 2008.–2027. (HR/EN, JSON i CSV) i najmanje 30 tekstova: pregled svakog roka u pravilu unutar deset radnih dana, 6 analiza (4 pišu vanjski autori), 3 metodološke bilješke i godišnji pregled. Organizacijski: izdanje istodobno gradi i dokumentira postupak objave rezultata javnih poziva kao strukturiranih otvorenih podataka: shemu i rječnik polja, predložak tablice s provjerama, besplatan alat za provjeru i pretvorbu bez instalacije, priručnik i objedinjeni skup; sve to do 31. prosinca 2027. objavljujemo pod otvorenim licencama (EUPL 1.2, CC BY 4.0) i stavljamo Hrvatskom audiovizualnom centru na raspolaganje; suradnju stručne službe Centra zamolit ćemo u siječnju 2027. Financijski: 12.000 EUR, 7.500 od Centra, 4.500 vlastitih (37,50 %); potpora se traži jednokratno. Cilj je omogućiti Centru da od 2028. strukturirane rezultate objavljuje sam; Sredstva ostaju arhiv.
+
+Znakova: 976
+
+## Polje 2 – Značaj programa za relevantan kontekst (međunarodni, nacionalni i lokalni značaj) te značaj programa za audiovizualni sektor (najviše 500 znakova)
+
+Nacionalno: devetnaest godina javnog financiranja audiovizualnih djelatnosti (9.561 zapis) na jednom mjestu, uz izvorni dokument za svaki iznos. Sektor: producenti, autori, istraživači i novinari dobivaju provjerljiv uvid, a Hrvatskom audiovizualnom centru na raspolaganju je dokumentiran postupak objave rezultata kao otvorenih podataka. Lokalno: analiza regionalne raspodjele potpora, predstavljanje izvan Zagreba. Međunarodno: englesko sučelje za inozemne koproducente i istraživače.
+
+Znakova: 486
+
+## Polje 3 – Način na koji projekt pridonosi specifičnosti, komplementarnosti te raznovrsnosti audiovizualnih sadržaja (najviše 500 znakova)
+
+Sredstva ne dodaju nove informacije, nego oblik: odluke objavljene kao PDF postaju registar i otvoreni podaci za ponovnu uporabu, a analize opisuju stanje i kretanja po programima i godinama, uključujući programe za djecu i mlade, debitante i regionalnu raspodjelu. Službenu objavu Hrvatskog audiovizualnog centra nadopunjuju, ne zamjenjuju i ne ocjenjuju; drugi portali prate filmove, Sredstva podatke o financiranju. Svaki broj vodi do izvornog dokumenta, a postupak objave javan je i ponovljiv.
+
+Znakova: 497
+
+## Polje 4 – Dostupnost, vidljivost, odjek programa, povezivanje i suradnja (prije, za vrijeme i nakon održavanja programa) (najviše 500 znakova)
+
+Besplatno, bez registracije i oglasa, HR/EN, WCAG AA. Prije (siječanj–veljača): najava, javni pozivi za redaktora i autore, zamolba stručnoj službi Hrvatskog audiovizualnog centra za izvorne tablice i shemu. Za vrijeme: mjesečna izdanja, pregled svakog roka, dva javna predstavljanja (jedno izvan Zagreba); ako Centar sudjeluje, probna objava jednog roka. Nakon: shema, alat, priručnik i podaci pod otvorenim licencama Centru na raspolaganju, arhiv na mreži, godišnji pregled.
+
+Znakova: 476
+
+## Polje 5 – Komunikacija s javnosti i/ili profesionalcima (mehanizmi dosega i dopiranja do ciljane publike) (najviše 500 znakova)
+
+Komunikacija slijedi izdanja: uz svako mjesečno izdanje bilješka na portalu i objava na društvenim mrežama; uz svaki rok pregled rezultata u pravilu unutar deset radnih dana od objave Hrvatskog audiovizualnog centra, kad je zanimanje sektora najveće; uz svaku analizu sažetak za kulturne redakcije, strukovne udruge (HDFD, HFS) i akademije (ADU, UMAS); dva javna predstavljanja. Doseg se mjeri zbirno, bez kolačića: posjete, preuzimanja i javna navođenja, evidentirani u godišnjem pregledu.
+
+Znakova: 490
+
+## Polje 6 – Dugoročni planovi i aktivnosti koje doprinose održivosti programa (najviše 500 znakova)
+
+Nakon 2027. ostaju arhiv i tekstovi na mreži te shema, alat, priručnik i objedinjeni podaci pod otvorenim licencama; najveći trošak (alat, objedinjavanje podataka) jednokratan je. Cilj je omogućiti da od 2028. Hrvatski audiovizualni centar, ako to ocijeni korisnim, strukturirane rezultate objavljuje sam; Sredstva ostaju arhiv uz vlastiti trošak, a nova potpora se ne planira. Ako do toga ne dođe odmah, dokumentirani postupak omogućuje unos novog roka u nekoliko sati, pa arhiv ne zastarijeva.
+
+Znakova: 495
+
+## Polje 7 – Očekivani rezultati (najviše 500 znakova)
+
+12 mjesečnih izdanja (HR/EN); najmanje 30 tekstova: 20 pregleda rokova, 6 analiza (4 pišu vanjski autori), 3 metodološke bilješke, godišnji pregled; shema i rječnik polja, predložak, alat za provjeru i pretvorbu, priručnik i objedinjeni skup 2008.–2027. sa statusom svakog zapisa, pod otvorenim licencama, Hrvatskom audiovizualnom centru na raspolaganju do 31. 12. 2027.; test u kojem rok objavljuje osoba koja nije autor; 2 predstavljanja; najmanje 5.000 posjeta, 300 preuzimanja, 10 navođenja.
+
+Znakova: 495
+
+## Polje 8 – Opis prethodnih izdanja programa (ukoliko nije prvo izdanje) s glavnim podacima i rezultatima (najviše 1000 znakova)
+
+Sredstva izlaze od svibnja 2026. vlastitim ulaganjem Aning Filma; javni repozitorij i skup podataka od 17. svibnja 2026. Do kraja kolovoza izišla su četiri datirana izdanja: svibanj (2008.–2026.), lipanj (rezultati 1. i 2. roka 2026.), srpanj (pregled dokumenata) i kolovoz (rezultati 3. roka); rezultati su uneseni u mjesecu objave, a mjesečna izdanja planirana su do kraja 2026. Registar na dan 31. 8. 2026.: 1.021 dokument koji je javno objavio Hrvatski audiovizualni centar (557 tabličnih rezultata, 328 obrazloženja, 51 odluka), 9.561 zapis, 6.593 skupine projekata, 13 programskih skupina, približno 900 korisnika i više od 1.500 autora; portal HR/EN, stabilni identifikatori zapisa, javni dnevnik izmjena, kôd pod EUPL 1.2. Zapisi su izvučeni računalno i čekaju potvrdu iz izvora, što je javno označeno: 341 dokument nosi oznaku za dodatnu provjeru, 173 nemaju pouzdano utvrđenu godinu, 148 nema aktivnu poveznicu; to je opseg posla za 2027. Rad iz 2026. ne tereti proračun programa.
+
+Znakova: 990
+
+## Suradnici
+
+Vanjski redaktor (student završne godine ili mlađi stručnjak informacijskih znanosti, arhivistike, filmologije ili produkcije), odabran javnim pozivom otvorenim za cijelu Hrvatsku u siječnju 2027. i plaćenim probnim zadatkom na istom uzorku od 50 zapisa, rad na daljinu, plaćen paušalno za definirani opseg: drugi pregled izmijenjenih zapisa i kontrolnog uzorka od 10 %, odstupanja od službenih zbrojeva i test u kojem prema priručniku, kao osoba koja nije autor, unosi, provjerava i objavljuje jedan rok. Četvero vanjskih autora tematskih analiza iz redova filmskih kritičara i istraživača (poziv u veljači 2027.), po 250 EUR za tekst uz prijenos prava objave na portalu i u godišnjem pregledu; dvije analize financira Centar, dvije Aning Film. Lektor/lektorica hrvatskih tekstova (plaća se po satu), prevoditelj/prevoditeljica engleskih tekstova (po kartici) i grafički dizajner/dizajnerica predloška ispisnih prikaza i godišnjeg pregleda (paušalno). Suradnici se biraju javnim pozivom, pa se njihove reference utvrđuju u postupku odabira; popis odabranih suradnika s imenima i životopisima dostavlja se Centru prije potpisa ugovora. Za urednički standard, obuku i nadzor suradnika te konačne odluke o spornim zapisima odgovoran je urednik Matija Radeljak, autor registra, sheme i alata.
+
+## Financije
+
+- Ukupna vrijednost programa: 12.000,00 EUR
+- Zatraženo od Centra: 7.500,00 EUR (62,50 %)
+- Vlastiti udio Aning Filma: 4.500,00 EUR (37,50 %)
+
+Potpora od 7.500 EUR financira 5.000 EUR plaće urednika (ujedno autora registra) – oko 485 sati po satnici od 10,32 EUR, koliko iznosi bruto plaća od 1.600 EUR podijeljena sa 155 sati mjesečno prema obračunu plaće: urednička infrastruktura izdanja 210 sati, usklađivanje podataka 140 sati i 48 % uredništva izdanja – te vanjskog redaktora, dvoje vanjskih autora, lekturu, prijevod, grafičko oblikovanje i dva predstavljanja (2.500 EUR). Aning Film snosi 52 % uredništva izdanja te priručnik i test (2.224 EUR, oko 215 sati), dvoje vanjskih autora, probni zadatak, putni trošak, poslužitelj, računovodstvo i alate (1.436 EUR) te naknadu produkcijske kuće od 7 % (840 EUR), ukupno 4.500 EUR ili 37,50 %. Ukupno 700 sati urednika u 2027. raspoređeno je po stavkama troškovnika: uredništvo izdanja 280 sati (Centar 48 %, Aning Film 52 %); urednička infrastruktura izdanja (shema i rječnik polja, predložak, alat za provjeru i pretvorbu, ispisni prikazi, dnevnik izmjena) 210 sati (Centar); objedinjavanje i usklađivanje skupa 2008.–2027. 140 sati (Centar); priručnik, test i izvještaj 70 sati (Aning Film). Trošak plaće za 700 sati iznosi 7.224 EUR: 5.000 EUR iz potpore i 2.224 EUR vlastitih. Urednik je jedini zaposlenik Aning Filma; vodi se evidencija radnog vremena u kojoj svaki sat nosi oznaku stavke, pa se nijedan sat ne obračunava dvaput ni drugom financijeru; evidencija se prilaže završnom izvještaju, a sati iznad 700 i razvoj iz 2026. ne uračunavaju se. Po glavama troškovnika: I. plaće, autorski honorari i intelektualne usluge 9.324 EUR (Centar 6.400, Aning Film 2.924); II. prijevod i lektura, priprema, grafičko oblikovanje 800 EUR (Centar); III. prezentacija i promocija programa 500 EUR (Centar 300, Aning Film 200); IV. internetska stranica, baza i online sustavi 260 EUR (Aning Film); V. uredski troškovi 276 EUR (Aning Film); VI. naknada produkcijske kuće 7 % 840 EUR (Aning Film). Vlastiti udio od 4.500 EUR čine 2.224 EUR sati urednika prema obračunu plaće, 1.436 EUR računa (dvoje vanjskih autora 500, probni zadatak 200, putni trošak 200, poslužitelj 260, računovodstvo 216, alati za strojno čitanje 60) i naknada produkcijske kuće od 7 % ukupne vrijednosti programa (840 EUR); pokriva ga Aning Film iz redovitih prihoda poslovanja društva. Program ne planira prihode od korisnika (besplatan, bez oglasa). Ako se odobri manji iznos, ostaju dvanaest izdanja, pregledi rokova, shema, predložak, alat, priručnik i objedinjeni skup; smanjuju se redom dubina usklađivanja arhiva (najstarije godine ostaju označene kao „strojno izvučen, nepotvrđen”), drugo predstavljanje, grafičko oblikovanje, jedna vanjska analiza koju financira Centar, opseg redaktora te razmjerno sati urednika na infrastrukturi.
+
+## Napomena o postojećem radu
+
+Registar Sredstva javno je dostupan od svibnja 2026. (javni repozitorij i puni skup podataka od 17. svibnja). Do kraja kolovoza izišla su četiri datirana izdanja: svibanj, lipanj, srpanj i kolovoz; rezultati rokova 2026. uneseni su u mjesecu njihove objave, a mjesečna izdanja planirana su do kraja 2026. Taj rad ne tereti proračun programa: to je prethodno ulaganje podnositelja, provedeno vlastitim sredstvima. Troškovnik obuhvaća isključivo rad i troškove nastale tijekom provedbe programa u 2027. Shema i rječnik polja, predložak, alat za provjeru i pretvorbu, priručnik i izvoz u CSV nastaju u 2027.; danas su javni portal, skup podataka u JSON-u, kôd i dnevnik izmjena. Detaljni opis programa (01) dostavlja se kao oblikovani PDF: tekući tekst ostaje unutar preporučenog opsega od četiri stranice, a ostatak stranica čine prijelom, tablice i sažeci uz odjeljke.
+
+## Prava i otvorenost
+
+Aning Film d.o.o. osigurava sva prava na registar, tekstove, prijevode, oblikovanje i kôd (autor: Matija Radeljak) i objavljuje ih pod otvorenim licencama: EUPL 1.2 za kôd, CC BY 4.0 za strukturirane podatke, shemu, dokumentaciju i tekstove; Centar i svako drugo tijelo mogu ih koristiti, mijenjati i održavati bez naknade i bez ugovorne obveze, uz navođenje izvora prema licenci. Licence ne obuhvaćaju tekstove izvornih dokumenata Centra, koji se u skupu podataka reproduciraju isključivo radi provjerljivosti, s poveznicom i digitalnim otiskom; prava na njih pripadaju Centru. Registar objavljuje samo podatke iz javno objavljenih dokumenata Centra: pomoćni dokumenti objavljuju se bez teksta, a identifikatori trećih osoba u tekstu izvornika zamijenjeni su oznakom; svatko može zatražiti ispravak putem kontaktne adrese podnositelja, a ispravci se bilježe u dnevniku izmjena. Iz izvornih tablica, ako ih stručna služba dostavi, preuzimaju se samo polja koja Centar već objavljuje u odlukama; dostavljene datoteke nikad se ne objavljuju. Preporučeni navod: „Izvor: javno objavljeni dokumenti HAVC-a, obrađeni u registru Sredstva (Aning Film), izdanje 2027.x”.
+
+## Preglednički dodatak (izvan osam polja prijavnice)
+
+Neslužbeni preglednički dodatak HAVC Companion (inačica 0.2.0), koji uz javne pozive na mrežnim stranicama Centra dodaje poveznice na registar, dovršen je i još nije objavljen; prijava za objavu u trgovini dodataka za preglednik planirana je do 28. veljače 2027. Radi isključivo u korisnikovu pregledniku, ne mijenja službeni sadržaj, nikamo ne šalje podatke i u nazivu i opisu označen je kao neovisan projekt Aning Filma. Nije dio troškovnika i ne navodi se u osam polja prijavnice.

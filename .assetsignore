@@ -9,8 +9,7 @@
 # analytics-core.js, analytics-studio.js, favicon.svg, havc/data.app.json,
 # havc/data.json, havc/10_sanity_check_official.json, content/*.json,
 # extension-privacy/. Nothing else is fetched at runtime — verified against
-# every fetch() call in main.js (lines 1265, 1280, 1283, 5009). Do not exclude
-# any of the above.
+# every fetch() call in main.js. Do not exclude any of the above.
 
 # Version control and local tooling state
 .git/
@@ -54,14 +53,15 @@ havc/data-curation-decisions.json
 havc/normalize-decision.json
 havc/source-corrections.json
 
-# Internal working notes for the HAVC application. They are gitignored, so a
-# Workers Builds deploy never sees them; this list also stops a local
-# `wrangler deploy` from publishing the on-disk copies. The application
-# documents in prijava/ (01-05 and their PDF/DOCX/XLSX builds) ARE served,
-# behind Cloudflare Access, and must stay out of this list.
-prijava/00-podaci-za-potvrdu.txt
-prijava/06-dokazi-i-prilozi.txt
-prijava/07-predaja-checklist.txt
-prijava/IZVORI.txt
-prijava/README.txt
-prijava/VALIDACIJA.txt
+# The retired HAVC application workbench is local-only. The public archive is
+# deliberately limited to this explicit allowlist, so no file from prijava/
+# or an accidental extra application file may deploy.
+prijava/
+application/*
+!application/01-detaljni-opis-programa.html
+!application/01-detaljni-opis-programa.pdf
+!application/02-portal-odgovori.txt
+!application/03-troskovnik.html
+!application/03-troskovnik.pdf
+!application/04-plan-rada-i-indikatori.txt
+!application/05-tim-i-reference.txt

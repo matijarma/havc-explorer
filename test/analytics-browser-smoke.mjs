@@ -17,6 +17,8 @@ const output = {
   dark: path.join(workspace, 'verify-analytics-studio-dark.png'),
   mix: path.join(workspace, 'verify-analytics-studio-mix.png'),
   concentration: path.join(workspace, 'verify-analytics-studio-concentration.png'),
+  application: path.join(workspace, 'verify-application-archive.png'),
+  applicationMobile: path.join(workspace, 'verify-application-archive-mobile.png'),
   mobile: path.join(workspace, 'verify-analytics-studio-mobile.png'),
 };
 
@@ -234,6 +236,21 @@ try {
   const emptyState = await evaluate(cdp, `document.querySelector('.analytics-empty-primary h2')?.textContent || ''`);
   await evaluate(cdp, `document.querySelector('.analytics-studio-close').click()`);
 
+  await evaluate(cdp, `([...document.querySelectorAll('.view-tab')]
+    .find((tab) => tab.textContent.includes('Prijava'))).click()`);
+  await waitFor(cdp, `!document.getElementById('view-application').classList.contains('is-hidden')
+    && document.querySelector('.application-document .application-imported .page')`);
+  const applicationState = await evaluate(cdp, `(() => ({
+    activeTab: document.querySelector('.view-tab.is-active')?.textContent,
+    documentTabs: document.querySelectorAll('.application-doc-tab').length,
+    heading: document.querySelector('.application-document h2')?.textContent,
+    originalHref: document.querySelector('.application-original-link')?.getAttribute('href'),
+    overflow: document.documentElement.scrollWidth > innerWidth,
+  }))()`);
+  await screenshot(cdp, output.application);
+  await evaluate(cdp, `document.querySelectorAll('.application-doc-tab')[2].click()`);
+  await waitFor(cdp, `document.querySelector('.application-document .application-imported table')`);
+
   await evaluate(cdp, `localStorage.setItem('sredstva-theme', 'light')`);
   await cdp.send('Page.navigate', { url: baseUrl });
   await waitFor(cdp, `document.querySelector('.head-stats') && document.querySelectorAll('.row, .group').length > 0`);
@@ -254,6 +271,18 @@ try {
     navScrollable: document.querySelector('.analytics-chapter-nav').scrollWidth >= document.querySelector('.analytics-chapter-nav').clientWidth,
     closeTarget: Math.round(document.querySelector('.analytics-studio-close').getBoundingClientRect().height),
   }))()`);
+  await evaluate(cdp, `document.querySelector('.analytics-studio-close').click()`);
+  await evaluate(cdp, `([...document.querySelectorAll('.view-tab')]
+    .find((tab) => tab.textContent.includes('Prijava'))).click()`);
+  await waitFor(cdp, `!document.getElementById('view-application').classList.contains('is-hidden')
+    && document.querySelector('.application-doc-tab')`);
+  await screenshot(cdp, output.applicationMobile);
+  const applicationMobileState = await evaluate(cdp, `(() => ({
+    overflow: document.documentElement.scrollWidth > innerWidth,
+    documentNavScrollable: document.querySelector('.application-doc-nav').scrollWidth >= document.querySelector('.application-doc-nav').clientWidth,
+    tabTargets: [...document.querySelectorAll('.application-doc-tab')]
+      .map((tab) => Math.round(tab.getBoundingClientRect().height)),
+  }))()`);
 
   if (exceptions.length) throw new Error(`Browser exceptions: ${exceptions.join(' | ')}`);
   if (desktopState.chapters !== 7) throw new Error(`Expected 7 chapters, got ${desktopState.chapters}`);
@@ -264,6 +293,18 @@ try {
   if (!drillThrough.trim()) throw new Error('Drill-through did not add a registry scope');
   if (!recipientUrl || !recipientRoundTrip.trim()) throw new Error('Recipient scope did not survive a URL round trip');
   if (!emptyState.trim()) throw new Error('Empty analytics state did not render');
+  if (applicationState.documentTabs !== 5 || !applicationState.heading?.trim()) {
+    throw new Error(`Application archive did not render its document navigation: ${JSON.stringify(applicationState)}`);
+  }
+  if (!applicationState.originalHref?.includes('application/01-detaljni-opis-programa.pdf')) {
+    throw new Error(`Application archive did not expose the original PDF: ${JSON.stringify(applicationState)}`);
+  }
+  if (applicationState.overflow) throw new Error('Application archive overflowed the desktop viewport');
+  if (applicationMobileState.overflow) throw new Error('Application archive overflowed the mobile viewport');
+  if (!applicationMobileState.documentNavScrollable) throw new Error('Application document navigation is not scrollable on mobile');
+  if (applicationMobileState.tabTargets.some((height) => height < 38)) {
+    throw new Error(`Application document tab is too small: ${JSON.stringify(applicationMobileState)}`);
+  }
   if (mobileState.dialogWidth !== mobileState.viewportWidth) {
     throw new Error(`Mobile dialog width mismatch: ${JSON.stringify(mobileState)}`);
   }
@@ -276,6 +317,8 @@ try {
     drillThrough,
     recipientRoundTrip,
     emptyState,
+    applicationState,
+    applicationMobileState,
     mobileState,
     screenshots: output,
   }, null, 2));

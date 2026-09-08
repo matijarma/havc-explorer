@@ -1,0 +1,61 @@
+{
+  "hero": {
+    "kicker": "Prijava HAVC-u · komplementarne djelatnosti",
+    "headline": "Sredstva: prijava za 2027.",
+    "subhead": "Poticanje komplementarnih djelatnosti · izdavaštvo, online portali i izdanja",
+    "status": "Predano 7. rujna 2026. · odluka o financiranju još nije donesena.",
+    "note": "Ovo je javna arhiva predane prijave. Tekst prijave ostaje na hrvatskom, u izvornom obliku predanom Hrvatskom audiovizualnom centru."
+  },
+  "facts": [
+    { "label": "Podnositelj", "value": "Aning Film d.o.o." },
+    { "label": "Razdoblje provedbe", "value": "1. siječnja – 31. prosinca 2027." },
+    { "label": "Vrijednost programa", "value": "12.000,00 EUR" },
+    { "label": "Traženi iznos", "value": "7.500,00 EUR" }
+  ],
+  "documents_label": "Dijelovi prijave",
+  "original_pdf_label": "Izvorni PDF predan HAVC-u",
+  "documents": [
+    {
+      "id": "opis",
+      "label": "01 · Predani dokument",
+      "title": "Detaljni opis programa",
+      "description": "Prilagođen prikaz punog, predanog opisa programa. Izvorni PDF ostaje dostupan za provjeru prijeloma i izgleda.",
+      "format": "html",
+      "source": "application/01-detaljni-opis-programa.html",
+      "pdf": "application/01-detaljni-opis-programa.pdf"
+    },
+    {
+      "id": "portal",
+      "label": "02 · Predani sadržaj",
+      "title": "Odgovori za online prijavnicu",
+      "description": "Odgovori uneseni u polja prijavnice Centra.",
+      "format": "markdown",
+      "source": "application/02-portal-odgovori.txt"
+    },
+    {
+      "id": "troskovnik",
+      "label": "03 · Predani dokument",
+      "title": "Troškovnik i plan financiranja",
+      "description": "Prilagođen prikaz detaljnog troškovnika. Izvorni PDF ostaje dostupan za provjeru predanog dokumenta.",
+      "format": "html",
+      "source": "application/03-troskovnik.html",
+      "pdf": "application/03-troskovnik.pdf"
+    },
+    {
+      "id": "plan",
+      "label": "04 · Predani sadržaj",
+      "title": "Plan rada i indikatori",
+      "description": "Raspored provedbe, isporuke, pokazatelji i upravljanje rizicima.",
+      "format": "markdown",
+      "source": "application/04-plan-rada-i-indikatori.txt"
+    },
+    {
+      "id": "tim",
+      "label": "05 · Predani sadržaj",
+      "title": "Tim i reference",
+      "description": "Podnositelj, urednik, reference i planirani suradnici.",
+      "format": "markdown",
+      "source": "application/05-tim-i-reference.txt"
+    }
+  ]
+}

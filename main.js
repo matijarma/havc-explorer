@@ -34,6 +34,7 @@
     'nav.dashboard': { en: 'Registry', hr: 'Registar' },
     'nav.about':     { en: 'About',    hr: 'O autoru' },
     'nav.process':   { en: 'Process',  hr: 'Proces' },
+    'nav.application': { en: 'Application 2027', hr: 'Prijava 2027' },
     'nav.sections':  { en: 'sections', hr: 'sekcije' },
 
     'about.links_title': { en: 'Elsewhere', hr: 'Drugdje' },
@@ -511,6 +512,7 @@
     'modal.close':    { en: 'close',  hr: 'zatvori' },
     'view.about.load_error': { en: 'failed to load about content — see console', hr: 'učitavanje sadržaja stranice O autoru nije uspjelo — pogledaj konzolu' },
     'view.process.load_error': { en: 'failed to load process content — see console', hr: 'učitavanje sadržaja stranice Proces nije uspjelo — pogledaj konzolu' },
+    'view.application.load_error': { en: 'failed to load application archive — see console', hr: 'učitavanje arhive prijave nije uspjelo — pogledaj konzolu' },
     'process.diagram_aria': { en: 'pipeline iteration loop', hr: 'petlja iteracija obrade' },
     'process.timeline.problem': { en: 'Problem', hr: 'Problem' },
     'process.timeline.decision': { en: 'Decision', hr: 'Odluka' },
@@ -1620,7 +1622,7 @@
     // instead and never reaches this. Remembered across sessions.
     timelineView: localStorage.getItem('sredstva-timeline') || 'default',
     mobileFiltersOpen: false,
-    view: 'dashboard', // 'dashboard' | 'about' | 'process'
+    view: 'dashboard', // 'dashboard' | 'about' | 'process' | 'application'
   };
 
   // ─── Narrowing dimensions ───────────────────────────────────────────
@@ -1962,14 +1964,14 @@
     else if (m.addListener) m.addListener(onViewportChange);
   });
   function setView(view) {
-    const next = (view === 'about' || view === 'process') ? view : 'dashboard';
+    const next = (view === 'about' || view === 'process' || view === 'application') ? view : 'dashboard';
     if (state.view === next) return;
     if (next !== 'dashboard' && state.mobileFiltersOpen) {
       setMobileFiltersOpen(false);
     }
     state.showHelperTip = false;
     state.view = next;
-    document.body.classList.remove('view-dashboard', 'view-about', 'view-process');
+    document.body.classList.remove('view-dashboard', 'view-about', 'view-process', 'view-application');
     document.body.classList.add('view-' + next);
     window.havcUsage?.('view', next);
     fire('view');
@@ -2078,7 +2080,7 @@
       const f = u.searchParams.get('f');
       const legacyView = (u.hash || '').replace(/^#\/?/, '');
       if (!f) {
-        if (legacyView === 'about' || legacyView === 'process') state.view = legacyView;
+        if (legacyView === 'about' || legacyView === 'process' || legacyView === 'application') state.view = legacyView;
         cleanAppUrl();
         return;
       }
@@ -2102,9 +2104,9 @@
       } else {
         state.sort = defaultSortFor(state.groupBy);
       }
-      if (payload.v === 'about' || payload.v === 'process' || payload.v === 'dashboard') {
+      if (payload.v === 'about' || payload.v === 'process' || payload.v === 'application' || payload.v === 'dashboard') {
         state.view = payload.v;
-      } else if (legacyView === 'about' || legacyView === 'process') {
+      } else if (legacyView === 'about' || legacyView === 'process' || legacyView === 'application') {
         state.view = legacyView;
       }
     } catch (err) {
@@ -2341,7 +2343,7 @@
 
   // ═══ 6. Topbar ═════════════════════════════════════════════════════
   function mountTopbar(root) {
-    const VIEW_TABS = ['dashboard', 'about', 'process'];
+    const VIEW_TABS = ['dashboard', 'about', 'process', 'application'];
     let searchDraft = (narrowOne('q') || {}).value || '';
     let shareStatus = 'idle';
     let shareTimer = null;
@@ -5762,14 +5764,266 @@
     render();
   }
 
+  // ═══════════ 18. Public application archive ═══════════
+  function mountApplication(root) {
+    let token = 0;
+    let selectedId = null;
+
+    function inlineMarkdown(text) {
+      const source = String(text == null ? '' : text);
+      const nodes = [];
+      const bold = /\*\*([^*]+)\*\*/g;
+      let cursor = 0;
+      let match;
+      while ((match = bold.exec(source)) !== null) {
+        if (match.index > cursor) nodes.push(document.createTextNode(source.slice(cursor, match.index)));
+        nodes.push(el('strong', { text: match[1] }));
+        cursor = match.index + match[0].length;
+      }
+      if (cursor < source.length) nodes.push(document.createTextNode(source.slice(cursor)));
+      return nodes;
+    }
+
+    function markdownTable(lines) {
+      const rows = lines
+        .map((line) => line.trim().split('|').slice(1, -1).map((cell) => cell.trim()))
+        .filter((cells) => cells.length);
+      if (rows.length < 2) return null;
+      const separator = rows[1].every((cell) => /^:?-{3,}:?$/.test(cell.replace(/\s+/g, '')));
+      const headers = rows[0];
+      const body = rows.slice(separator ? 2 : 1);
+      return el('div', { class: 'application-table-scroll' }, [
+        el('table', { class: 'application-table' }, [
+          el('thead', null, [
+            el('tr', null, headers.map((cell) => el('th', null, inlineMarkdown(cell)))),
+          ]),
+          el('tbody', null, body.map((row) => el('tr', null,
+            headers.map((_, index) => el('td', null, inlineMarkdown(row[index] || '')))))),
+        ]),
+      ]);
+    }
+
+    function markdownDocument(text) {
+      const nodes = [];
+      const lines = String(text || '').replace(/\r\n?/g, '\n').split('\n');
+      let paragraph = [];
+      let list = null;
+
+      const flushParagraph = () => {
+        if (!paragraph.length) return;
+        nodes.push(el('p', null, inlineMarkdown(paragraph.join(' '))));
+        paragraph = [];
+      };
+      const flushList = () => {
+        if (!list) return;
+        nodes.push(list);
+        list = null;
+      };
+
+      for (let index = 0; index < lines.length; index += 1) {
+        const raw = lines[index];
+        const line = raw.trim();
+        if (!line || /^<!--.*-->$/.test(line)) {
+          flushParagraph();
+          flushList();
+          continue;
+        }
+        if (/^\|/.test(line) && /\|$/.test(line)) {
+          flushParagraph();
+          flushList();
+          const tableLines = [];
+          while (index < lines.length && /^\|.*\|$/.test(lines[index].trim())) {
+            tableLines.push(lines[index]);
+            index += 1;
+          }
+          index -= 1;
+          const table = markdownTable(tableLines);
+          if (table) nodes.push(table);
+          continue;
+        }
+        const heading = /^(#{1,3})\s+(.+)$/.exec(line);
+        if (heading) {
+          flushParagraph();
+          flushList();
+          const level = Math.min(heading[1].length + 1, 4);
+          nodes.push(el(`h${level}`, null, inlineMarkdown(heading[2])));
+          continue;
+        }
+        const bullet = /^[-*]\s+(.+)$/.exec(line);
+        const ordinal = /^\d+[.)]\s+(.+)$/.exec(line);
+        if (bullet || ordinal) {
+          flushParagraph();
+          const kind = ordinal ? 'ol' : 'ul';
+          if (!list || list.tagName.toLowerCase() !== kind) {
+            flushList();
+            list = el(kind, null, []);
+          }
+          list.append(el('li', null, inlineMarkdown((bullet || ordinal)[1])));
+          continue;
+        }
+        if (/^---+$/.test(line)) {
+          flushParagraph();
+          flushList();
+          nodes.push(el('hr'));
+          continue;
+        }
+        flushList();
+        paragraph.push(line);
+      }
+      flushParagraph();
+      flushList();
+      return el('div', { class: 'application-markdown' }, nodes);
+    }
+
+    function sanitizedHtmlDocument(markup) {
+      const parsed = new DOMParser().parseFromString(markup, 'text/html');
+      const output = el('div', { class: 'application-imported' });
+      for (const child of [...parsed.body.children]) {
+        const clone = document.importNode(child, true);
+        clone.querySelectorAll('script, style, link, meta, .runhead, .pagefoot').forEach((node) => node.remove());
+        clone.querySelectorAll('*').forEach((node) => {
+          for (const attribute of [...node.attributes]) {
+            const name = attribute.name.toLowerCase();
+            const value = attribute.value.trim().toLowerCase();
+            if (name.startsWith('on') || (name === 'href' && value.startsWith('javascript:'))) {
+              node.removeAttribute(attribute.name);
+            }
+          }
+        });
+        output.append(clone);
+      }
+      return output;
+    }
+
+    function renderLoading() {
+      root.replaceChildren(el('div', { class: 'application-view' }, [
+        el('div', { class: 'kicker', text: t('nav.application', state.lang) }),
+        el('p', { class: 'view-loading', text: '…' }),
+      ]));
+    }
+
+    function renderError(error) {
+      window.havcUsage?.('load_error', 'application');
+      root.replaceChildren(el('div', { class: 'application-view' }, [
+        el('div', { class: 'kicker', text: t('nav.application', state.lang) }),
+        el('p', { class: 'view-error', text: t('view.application.load_error', state.lang) }),
+      ]));
+      console.error(error);
+    }
+
+    async function loadDocument(doc, target, requestToken) {
+      try {
+        const response = await fetch(`./${doc.source}`);
+        if (!response.ok) throw new Error(`fetch failed: ${doc.source} (${response.status})`);
+        const source = await response.text();
+        if (requestToken !== token) return;
+        target.replaceChildren(doc.format === 'html'
+          ? sanitizedHtmlDocument(source)
+          : markdownDocument(source));
+      } catch (error) {
+        if (requestToken !== token) return;
+        target.replaceChildren(el('p', {
+          class: 'view-error',
+          text: t('view.application.load_error', state.lang),
+        }));
+        console.error(error);
+      }
+    }
+
+    function renderContent(content, requestToken) {
+      const docs = Array.isArray(content.documents) ? content.documents : [];
+      const active = docs.find((doc) => doc.id === selectedId) || docs[0] || null;
+      if (!active) {
+        renderError(new Error('application archive has no documents'));
+        return;
+      }
+      selectedId = active.id;
+      const documentTarget = el('div', {
+        class: 'application-reader',
+        'aria-live': 'polite',
+      }, [el('p', { class: 'view-loading', text: '…' })]);
+      const documentHeadingId = `application-${active.id}`;
+      root.replaceChildren(el('article', { class: 'application-view' }, [
+        el('header', { class: 'application-hero' }, [
+          el('div', { class: 'kicker', text: content.hero && content.hero.kicker }),
+          el('h1', { class: 'display application-headline', text: content.hero && content.hero.headline }),
+          content.hero && content.hero.subhead
+            ? el('p', { class: 'application-subhead mono', text: content.hero.subhead })
+            : null,
+          content.hero && content.hero.status
+            ? el('p', { class: 'application-status', text: content.hero.status })
+            : null,
+          content.hero && content.hero.note
+            ? el('p', { class: 'application-note', text: content.hero.note })
+            : null,
+        ]),
+        Array.isArray(content.facts) && content.facts.length
+          ? el('dl', { class: 'application-facts' }, content.facts.map((fact) => el('div', null, [
+            el('dt', { class: 'kicker', text: fact.label || '' }),
+            el('dd', { text: fact.value || '' }),
+          ])))
+          : null,
+        el('nav', {
+          class: 'application-doc-nav',
+          'aria-label': content.documents_label || t('nav.application', state.lang),
+        }, docs.map((doc) => el('button', {
+          class: 'application-doc-tab' + (doc.id === active.id ? ' is-active' : ''),
+          type: 'button',
+          'aria-current': doc.id === active.id ? 'page' : null,
+          text: doc.title || '',
+          onclick: () => {
+            selectedId = doc.id;
+            renderContent(content, ++token);
+          },
+        }))),
+        el('section', { class: 'application-document', 'aria-labelledby': documentHeadingId }, [
+          el('header', { class: 'application-document-head' }, [
+            el('div', null, [
+              active.label ? el('div', { class: 'kicker', text: active.label }) : null,
+              el('h2', { id: documentHeadingId, text: active.title || '' }),
+              active.description ? el('p', { class: 'application-document-description', text: active.description }) : null,
+            ]),
+            active.pdf ? el('a', {
+              class: 'btn mono application-original-link',
+              href: `./${active.pdf}`,
+              target: '_blank',
+              rel: 'noopener',
+              text: content.original_pdf_label || 'Original PDF',
+            }) : null,
+          ]),
+          documentTarget,
+        ]),
+      ]));
+      loadDocument(active, documentTarget, requestToken);
+    }
+
+    async function render() {
+      const requestToken = ++token;
+      renderLoading();
+      try {
+        const content = await loadContent('application', state.lang);
+        if (requestToken !== token) return;
+        renderContent(content, requestToken);
+      } catch (error) {
+        if (requestToken !== token) return;
+        renderError(error);
+      }
+    }
+
+    on('lang', render);
+    render();
+  }
+
   function applyViewVisibility() {
     const dash = document.getElementById('view-dashboard');
     const about = document.getElementById('view-about');
     const proc = document.getElementById('view-process');
-    if (!dash || !about || !proc) return;
+    const application = document.getElementById('view-application');
+    if (!dash || !about || !proc || !application) return;
     dash.classList.toggle('is-hidden', state.view !== 'dashboard');
     about.classList.toggle('is-hidden', state.view !== 'about');
     proc.classList.toggle('is-hidden', state.view !== 'process');
+    application.classList.toggle('is-hidden', state.view !== 'application');
   }
 
   // ═══ 18. Boot ═══════════════════════════════════════════════════════
@@ -5804,7 +6058,7 @@
     window.havcUsage?.('session_start', state.lang + '|' + state.theme);
 
     readSharedState();
-    document.body.classList.remove('view-dashboard', 'view-about', 'view-process');
+    document.body.classList.remove('view-dashboard', 'view-about', 'view-process', 'view-application');
     document.body.classList.add('view-' + state.view);
 
     // No year seeding: the full span IS the unnarrowed state, so it needs no
@@ -5833,6 +6087,7 @@
         ]),
         el('section', { class: 'about-host', id: 'view-about' }),
         el('section', { class: 'process-host', id: 'view-process' }),
+        el('section', { class: 'application-host', id: 'view-application' }),
       ]),
     );
 
@@ -5847,6 +6102,7 @@
     mountViewBar(document.getElementById('viewbar'));
     mountAbout(document.getElementById('view-about'));
     mountProcess(document.getElementById('view-process'));
+    mountApplication(document.getElementById('view-application'));
     mountAnalyticsModal();
     mountUnfundedModal();
     mountPdfPreviewModal();
